@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 
 class ErrorHandler {
   static Future<BaseResponse<T>> executeApiCall<T>(
@@ -17,30 +18,30 @@ class ErrorHandler {
     if (error is DioException) {
       switch (error.type) {
         case DioExceptionType.connectionTimeout:
-          return "Connection timed out. Please check your internet and try again.";
+          return AppStrings.connectionTimeout;
         case DioExceptionType.sendTimeout:
-          return "Request timed out while sending data. Please try again.";
+          return AppStrings.sendTimeout;
         case DioExceptionType.receiveTimeout:
-          return "Server took too long to respond. Please try again.";
+          return AppStrings.receiveTimeout;
         case DioExceptionType.badResponse:
           return _handleBadResponse(error.response);
         case DioExceptionType.cancel:
-          return "The request was cancelled.";
+          return AppStrings.requestCancelled;
         case DioExceptionType.connectionError:
-          return "No internet connection. Please check your network.";
+          return AppStrings.noInternetConnection;
         case DioExceptionType.unknown:
-          return "An unexpected error occurred. Please try again later.";
+          return AppStrings.unexpectedError;
         default:
-          return "Oops! Something went wrong. Please try again.";
+          return AppStrings.defaultErrorTryAgain;
       }
     } else {
-      return "An unknown error occurred. Please try again.";
+      return AppStrings.unknownError;
     }
   }
 
   static String _handleBadResponse(Response? response) {
     if (response == null) {
-      return "An unexpected error occurred. Please try again.";
+      return AppStrings.unexpectedErrorTryAgain;
     }
 
     final statusCode = response.statusCode;
@@ -52,17 +53,17 @@ class ErrorHandler {
 
     switch (statusCode) {
       case 400:
-        return "Invalid request. Please check your input.";
+        return AppStrings.invalidRequest;
       case 401:
-        return "Authentication failed. Please log in again.";
+        return AppStrings.authFailed;
       case 403:
-        return "You don't have permission to perform this action.";
+        return AppStrings.forbidden;
       case 404:
-        return "The requested resource was not found.";
+        return AppStrings.notFound;
       case 500:
-        return "Our servers are currently experiencing issues. Please try again later.";
+        return AppStrings.serverError;
       default:
-        return "Oops! Something went wrong.";
+        return AppStrings.defaultError;
     }
   }
 }

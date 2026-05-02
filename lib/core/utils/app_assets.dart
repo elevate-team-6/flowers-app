@@ -6,9 +6,9 @@
 // 4. Always use the path constants (_iconsPath).
 // ---------------------------------------------------------------------------
 
-const _iconsPath = 'assets/icons/';
-
 abstract class AppIcons {
+  static const String _iconsPath = 'assets/icons/';
+
   // Example: static const String yourIcon = '${_iconsPath}icon_name.svg';
 
   static const String arrowBackIos = '${_iconsPath}arrow_back_ios.svg';

@@ -1,6 +1,4 @@
-abstract class EndPoints {
-  EndPoints._();
-
+abstract class AppEndPoints {
   // Base URL:
   static const String baseUrl = "https://flower.elevateegy.com/api/v1";
 

@@ -50,6 +50,33 @@ abstract class AppStrings {
 
   // Error messages
   static const String someThingWentWrong = 'Something went wrong';
+  static const String connectionTimeout =
+      "Connection timed out. Please check your internet and try again.";
+  static const String sendTimeout =
+      "Request timed out while sending data. Please try again.";
+  static const String receiveTimeout =
+      "Server took too long to respond. Please try again.";
+  static const String requestCancelled = "The request was cancelled.";
+  static const String noInternetConnection =
+      "No internet connection. Please check your network.";
+  static const String unexpectedError =
+      "An unexpected error occurred. Please try again later.";
+  static const String unknownError =
+      "An unknown error occurred. Please try again.";
+  static const String invalidRequest =
+      "Invalid request. Please check your input.";
+  static const String authFailed =
+      "Authentication failed. Please log in again.";
+  static const String forbidden =
+      "You don't have permission to perform this action.";
+  static const String notFound = "The requested resource was not found.";
+  static const String serverError =
+      "Our servers are currently experiencing issues. Please try again later.";
+  static const String defaultError = "Oops! Something went wrong.";
+  static const String defaultErrorTryAgain =
+      "Oops! Something went wrong. Please try again.";
+  static const String unexpectedErrorTryAgain =
+      "An unexpected error occurred. Please try again.";
 
   // Validation messages
   static const String emailRequired = 'Email is required';
