@@ -1,3 +1,5 @@
+import 'package:flowers_app/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 /// A centralized class for managing all application routes and navigation.
@@ -31,11 +33,11 @@ class AppRoutes {
   /// Generates the appropriate [MaterialPageRoute] based on the provided [settings].
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case login:
-      //   return MaterialPageRoute(builder: (_) => const LoginPage());
+      case login:
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
       //
-      // case register:
-      //   return MaterialPageRoute(builder: (_) => const RegisterPage());
+      case register:
+        return MaterialPageRoute(builder: (_) => const SignUpScreen());
 
       default:
         return _unDefinedRoute(settings.name);
