@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,8 @@ class MyApp extends StatelessWidget {
               ? AppRoutes.register
               //todo: if user is not logged in, return [login screen]
               : AppRoutes.login,
+          builder: BotToastInit(),
+          navigatorObservers: [BotToastNavigatorObserver()],
         );
       },
     );
