@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flowers App',
           theme: AppTheme.mainTheme,
+          navigatorKey: AppRoutes.navigatorKey,
+          onGenerateRoute: AppRoutes.onGenerateRoute,
+          initialRoute: AppRoutes.signup,
         );
       },
     );
