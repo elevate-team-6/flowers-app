@@ -10,11 +10,11 @@ class ErrorHandler {
       final result = await call();
       return SuccessBaseResponse(result);
     } catch (e) {
-      return ErrorBaseResponse(handle(e));
+      return ErrorBaseResponse(_handle(e));
     }
   }
 
-  static String handle(dynamic error) {
+  static String _handle(dynamic error) {
     if (error is DioException) {
       switch (error.type) {
         case DioExceptionType.connectionTimeout:
@@ -44,14 +44,18 @@ class ErrorHandler {
       return AppStrings.unexpectedErrorTryAgain;
     }
 
-    final statusCode = response.statusCode;
     final dynamic data = response.data;
+    String? serverMessage;
 
-    if (data is Map<String, dynamic> && data.containsKey('message')) {
-      return data['message'];
+    if (data is Map<String, dynamic>) {
+      serverMessage = data['message'] ?? data['error'];
     }
 
-    switch (statusCode) {
+    if (serverMessage != null) {
+      return _mapErrorMessage(serverMessage);
+    }
+
+    switch (response.statusCode) {
       case 400:
         return AppStrings.invalidRequest;
       case 401:
@@ -65,5 +69,22 @@ class ErrorHandler {
       default:
         return AppStrings.defaultError;
     }
+  }
+
+  static String _mapErrorMessage(String message) {
+    final lowerMessage = message.toLowerCase();
+
+    if (lowerMessage.contains('user already exists')) {
+      return AppStrings.userAlreadyExists;
+    }
+    if (lowerMessage.contains('gender') &&
+        lowerMessage.contains('must be one of')) {
+      return AppStrings.invalidGender;
+    }
+    if (lowerMessage.contains('invalid phone number format')) {
+      return AppStrings.invalidPhoneFormat;
+    }
+
+    return message;
   }
 }
