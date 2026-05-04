@@ -29,7 +29,7 @@ abstract class AppStrings {
   static const String registerSuccess = 'Register success';
 
   // Forget Password Screen
-  static const String forgetPassword = 'Forget password';
+  static const String forgetPasswordTitle = 'Forget password';
   static const String forgetPasswordSubtitle =
       'Please enter your email associated to your account';
 
@@ -42,7 +42,7 @@ abstract class AppStrings {
   static const String resend = 'Resend';
 
   // Reset Password Screen
-  static const String resetPassword = 'Reset password';
+  static const String resetPasswordTitle = 'Reset password';
   static const String resetPasswordSubtitle =
       'Password must not be empty and must contain 6 characters with upper case letter and one number at least';
   static const String newPassword = 'New password';

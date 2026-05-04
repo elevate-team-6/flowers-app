@@ -1,3 +1,6 @@
+import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
+import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
+import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
 import 'package:flutter/material.dart';
 
 /// A centralized class for managing all application routes and navigation.
@@ -24,7 +27,8 @@ class AppRoutes {
   // Route Names:
   static const String login = 'login';
   static const String register = '/register';
-  static const String forgetPassword = '/forgetPassword';
+  static const String forgotPassword = '/forgotPassword';
+  static const String verifyResetCode = '/VerifyResetCode';
   static const String emailVerification = '/emailVerification';
   static const String resetPassword = '/resetPassword';
 
@@ -36,6 +40,18 @@ class AppRoutes {
       //
       // case register:
       //   return MaterialPageRoute(builder: (_) => const RegisterPage());
+      case forgotPassword:
+        return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
+      case verifyResetCode:
+        final String email = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => VerifyResetCodeScreen(email: email),
+        );
+      case resetPassword:
+        final String email = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => ResetPasswordScreen(email: email),
+        );
 
       default:
         return _unDefinedRoute(settings.name);
