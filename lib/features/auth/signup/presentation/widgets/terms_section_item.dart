@@ -3,12 +3,12 @@ import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SectionItem extends StatelessWidget {
+class TermsSectionItem extends StatelessWidget {
   final int number;
   final String title;
   final String body;
 
-  const SectionItem({
+  const TermsSectionItem({
     super.key,
     required this.number,
     required this.title,
