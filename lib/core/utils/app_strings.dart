@@ -27,6 +27,26 @@ abstract class AppStrings {
   static const String enterPhoneNumber = 'Enter phone number';
   static const String alreadyHaveAccount = 'Already have an account? ';
   static const String registerSuccess = 'Register success';
+  static const String termsAndConditions = 'Terms & Conditions';
+  static const String termsFooterNote =
+      'By tapping "I Agree", you confirm that you have read and understood these Terms & Conditions.';
+  static const String iAgree = 'I Agree';
+
+  static const String termsSection1Title = 'Acceptance of Terms';
+  static const String termsSection1Body =
+      'By creating an account and using Flowers App, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services.';
+
+  static const String termsSection2Title = 'Privacy Policy';
+  static const String termsSection2Body =
+      'We collect and use your personal data as described in our Privacy Policy. Your data is stored securely and will not be shared with third parties without your consent.';
+
+  static const String termsSection3Title = 'User Responsibilities';
+  static const String termsSection3Body =
+      'You are responsible for maintaining the confidentiality of your account credentials. You agree not to share your account with others or use it for unauthorized purposes.';
+
+  static const String termsSection4Title = 'Changes to Terms';
+  static const String termsSection4Body =
+      'We reserve the right to modify these terms at any time. Continued use of the app after changes constitutes your acceptance of the new terms.';
 
   // Forget Password Screen
   static const String forgetPassword = 'Forget password';

@@ -1,4 +1,5 @@
 import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
+import 'package:flowers_app/features/auth/signup/presentation/screens/terms_and_conditions_screen.dart';
 import 'package:flutter/material.dart';
 
 /// A centralized class for managing all application routes and navigation.
@@ -25,6 +26,7 @@ abstract class AppRoutes {
   // Route Names:
   static const String login = 'login';
   static const String signup = '/signup';
+  static const String termsAndConditions = '/termsAndConditions';
   static const String forgetPassword = '/forgetPassword';
   static const String emailVerification = '/emailVerification';
   static const String resetPassword = '/resetPassword';
@@ -34,6 +36,10 @@ abstract class AppRoutes {
     switch (settings.name) {
       case signup:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
+      case termsAndConditions:
+        return MaterialPageRoute(
+          builder: (_) => const TermsAndConditionsScreen(),
+        );
       //
       // case register:
       //   return MaterialPageRoute(builder: (_) => const RegisterPage());
