@@ -63,14 +63,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         AppStrings.email,
                         style: AppTextStyles.black13400,
                       ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      floatingLabelStyle: AppTextStyles.black13400,
-                      filled: false,
+                      floatingLabelStyle: AppTextStyles.black13400, //
+                      filled: false, //
                     ),
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     validator: (value) => AppValidations.validateEmail(value),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    autovalidateMode: AutovalidateMode.onUserInteraction, // =>>
                     onTapOutside: (event) =>
                         FocusManager.instance.primaryFocus?.unfocus(),
                     onChanged: (_) {},

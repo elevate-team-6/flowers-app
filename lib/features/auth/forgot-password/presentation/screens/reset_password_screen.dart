@@ -29,7 +29,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Password validated successfully"),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.green,
         ),
       );
     }

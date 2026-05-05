@@ -48,9 +48,13 @@ abstract class AppColors {
   static const Color white100 = Color(0xFF323232);
 
   // Other Colors
-  static const Color gray = Color(0xFF535353);
+  static const Color blue = Color(0xFF02369C);
+  static const Color gray = Color(0xFF878787);
+  static const Color ligtGrey = Color(0xFFDFE7F7);
+  static const Color green = Color(0xFF11CE19);
+  static const Color red = Color(0xFFCC1010);
+  static const Color blue10 = Color(0xFFCCD7EB);
+  static const Color lightBlue = Color(0xFFEDEFF3);
   static const Color error = Color(0xFFCC1010);
-  static const Color blue = Colors.blue;
-  static const Color success = Color(0xFF11CE19);
   static const Color lightPink = Color(0xFFFBD3D3);
 }
