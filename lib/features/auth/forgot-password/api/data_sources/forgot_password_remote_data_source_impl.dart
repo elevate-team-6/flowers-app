@@ -1,3 +1,5 @@
+import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/config/error_handler/error_handler.dart';
 import 'package:flowers_app/features/auth/forgot-password/api/api_client/forgot_password_api_client.dart';
 import 'package:flowers_app/features/auth/forgot-password/data/data_sources/forgot_password_remote_data_source_contract.dart';
 import 'package:flowers_app/features/auth/forgot-password/data/models/request/forgot_password_request.dart';
@@ -16,23 +18,29 @@ class ForgotPasswordRemoteDataSourceImpl
   ForgotPasswordRemoteDataSourceImpl(this._forgotPasswordApiClient);
 
   @override
-  Future<ForgotPasswordResponse> forgotPassword(
+  Future<BaseResponse<ForgotPasswordResponse>> forgotPassword(
     ForgotPasswordRequest request,
-  ) async {
-    return await _forgotPasswordApiClient.forgotPassword(request);
+  ) {
+    return ErrorHandler.executeApiCall(
+      () => _forgotPasswordApiClient.forgotPassword(request),
+    );
   }
 
   @override
-  Future<VerifyResetCodeResponse> verifyResetCode(
+  Future<BaseResponse<VerifyResetCodeResponse>> verifyResetCode(
     VerifyResetCodeRequest request,
-  ) async {
-    return await _forgotPasswordApiClient.verifyResetCode(request);
+  ) {
+    return ErrorHandler.executeApiCall(
+      () => _forgotPasswordApiClient.verifyResetCode(request),
+    );
   }
 
   @override
-  Future<ResetPasswordResponse> resetPassword(
+  Future<BaseResponse<ResetPasswordResponse>> resetPassword(
     ResetPasswordRequest request,
-  ) async {
-    return await _forgotPasswordApiClient.resetPassword(request);
+  ) {
+    return ErrorHandler.executeApiCall(
+      () => _forgotPasswordApiClient.resetPassword(request),
+    );
   }
 }
