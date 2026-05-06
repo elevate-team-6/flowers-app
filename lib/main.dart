@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
               // this is only for testing!! we will add home later
               ? AppRoutes.register
               //todo: if user is not logged in, return [login screen]
-              : AppRoutes.login,
+              : AppRoutes.forgotPassword,
           builder: BotToastInit(),
           navigatorObservers: [BotToastNavigatorObserver()],
         );

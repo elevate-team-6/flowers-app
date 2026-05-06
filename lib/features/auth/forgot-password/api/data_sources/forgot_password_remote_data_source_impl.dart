@@ -10,7 +10,8 @@ import 'package:flowers_app/features/auth/forgot-password/data/models/response/r
 import 'package:flowers_app/features/auth/forgot-password/data/models/response/verify_reset_code_response.dart';
 import 'package:injectable/injectable.dart';
 
-@Injectable(as: ForgotPasswordRemoteDataSourceContract)
+//[To-Do] re comment
+// @Injectable(as: ForgotPasswordRemoteDataSourceContract)
 class ForgotPasswordRemoteDataSourceImpl
     implements ForgotPasswordRemoteDataSourceContract {
   final ForgotPasswordApiClient _forgotPasswordApiClient;

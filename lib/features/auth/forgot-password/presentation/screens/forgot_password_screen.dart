@@ -3,7 +3,11 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';
+import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_events.dart';
+import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -17,79 +21,123 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final emailFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => AppRoutes.navigatorKey.currentState!
-              .pushReplacementNamed(AppRoutes.login),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppColors.black,
-          ),
-        ),
-        title: Text(AppStrings.password, style: AppTextStyles.black20500),
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          children: [
-            SizedBox(height: 24),
-            Text(
-              AppStrings.forgetPasswordTitle,
-              style: AppTextStyles.black18500,
-              textAlign: TextAlign.center,
+    return BlocListener<ForgotPasswordViewModel, ForgotPasswordStates>(
+      listener: (context, state) {
+        if (state.forgotPasswordState.data != null &&
+            !state.forgotPasswordState.isLoading) {
+          AppRoutes.navigatorKey.currentState!.pushNamed(
+            AppRoutes.verifyResetCode,
+            arguments: {
+              "email": emailController.text.trim(),
+              "cubit": context.read<ForgotPasswordViewModel>(),
+            },
+          );
+        }
+        if (state.forgotPasswordState.errorMessage != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.forgotPasswordState.errorMessage ?? 'Error occurred',
+              ),
+              backgroundColor: AppColors.error,
             ),
-            SizedBox(height: 8),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 44),
-              child: Text(
-                AppStrings.forgetPasswordSubtitle,
-                style: AppTextStyles.black13400,
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.white,
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: AppColors.black,
+            ),
+          ),
+          title: Text(AppStrings.password, style: AppTextStyles.black20500),
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            children: [
+              SizedBox(height: 24),
+              Text(
+                AppStrings.forgetPasswordTitle,
+                style: AppTextStyles.black18500,
                 textAlign: TextAlign.center,
               ),
-            ),
-            SizedBox(height: 32),
-            Form(
-              key: emailFormKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      hintText: AppStrings.enterYourEmail,
-                      label: Text(
-                        AppStrings.email,
-                        style: AppTextStyles.black13400,
-                      ),
-                      floatingLabelStyle: AppTextStyles.black13400, //
-                      filled: false, //
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    validator: (value) => AppValidations.validateEmail(value),
-                    autovalidateMode: AutovalidateMode.onUserInteraction, // =>>
-                    onTapOutside: (event) =>
-                        FocusManager.instance.primaryFocus?.unfocus(),
-                    onChanged: (_) {},
-                  ),
-                  SizedBox(height: 50),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (emailFormKey.currentState!.validate()) {
-                        AppRoutes.navigatorKey.currentState!.pushNamed(
-                          AppRoutes.verifyResetCode,
-                          arguments: emailController.text.trim(),
-                        );
-                      }
-                    },
-                    child: Text("confirm"),
-                  ),
-                ],
+              SizedBox(height: 8),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 44),
+                child: Text(
+                  AppStrings.forgetPasswordSubtitle,
+                  style: AppTextStyles.black13400,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 32),
+              Form(
+                key: emailFormKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        hintText: AppStrings.enterYourEmail,
+                        label: Text(
+                          AppStrings.email,
+                          style: AppTextStyles.black13400,
+                        ),
+                        floatingLabelStyle: AppTextStyles.black13400,
+                        filled: false,
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) => AppValidations.validateEmail(value),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      onTapOutside: (event) =>
+                          FocusManager.instance.primaryFocus?.unfocus(),
+                      onChanged: (_) {},
+                    ),
+                    SizedBox(height: 50),
+                    BlocBuilder<ForgotPasswordViewModel, ForgotPasswordStates>(
+                      builder: (context, state) {
+                        return SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: state.forgotPasswordState.isLoading
+                                ? null
+                                : () {
+                                    if (emailFormKey.currentState!.validate()) {
+                                      context
+                                          .read<ForgotPasswordViewModel>()
+                                          .doEvent(
+                                            ForgotPasswordEvent(
+                                              email: emailController.text
+                                                  .trim(),
+                                            ),
+                                          );
+                                    }
+                                  },
+                            child: state.forgotPasswordState.isLoading
+                                ? const SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : const Text("Confirm"),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
