@@ -25,10 +25,10 @@ class RichTextWithLink extends StatelessWidget {
       textAlign: textAlign ?? TextAlign.center,
       text: TextSpan(
         children: [
-          TextSpan(text: normalText, style: AppTextStyles.black12400),
+          TextSpan(text: normalText, style: AppTextStyles.black16400),
           TextSpan(
             text: linkText,
-            style: AppTextStyles.black13400.copyWith(
+            style: AppTextStyles.black16400.copyWith(
               color: linkTextColor,
               decoration: TextDecoration.underline,
             ),

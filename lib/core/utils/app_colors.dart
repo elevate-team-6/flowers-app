@@ -41,7 +41,7 @@ abstract class AppColors {
   static const Color white40 = Color(0xFFFBFBFB);
   static const Color white50 = Color(0xFFFAFAFA);
   static const Color white = Color(0xFFF9F9F9); // BASE
-  static const Color white60 = Color(0xFFD0D0D0);
+  static const Color white60 = Color(0xFFCFCFCF);
   static const Color white70 = Color(0xFFA6A6A6);
   static const Color white80 = Color(0xFF7D7D7D);
   static const Color white90 = Color(0xFF535353);

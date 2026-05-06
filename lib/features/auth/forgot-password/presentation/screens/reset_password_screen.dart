@@ -1,5 +1,6 @@
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_events.dart';
@@ -31,18 +32,27 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ForgotPasswordViewModel, ForgotPasswordStates>(
+      listenWhen: (previous, current) =>
+          previous.resetPasswordState.data != current.resetPasswordState.data ||
+          previous.resetPasswordState.errorMessage !=
+              current.resetPasswordState.errorMessage,
       listener: (context, state) {
         if (state.resetPasswordState.data != null &&
             !state.resetPasswordState.isLoading) {
+          //hide the previous one
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
+              duration: Durations.long4,
               content: Text("Password reset successfully"),
               backgroundColor: AppColors.green,
             ),
           );
-          Navigator.of(context).popUntil((route) => route.isFirst);
+          AppRoutes.navigatorKey.currentState!.pushNamed(AppRoutes.login);
         }
         if (state.resetPasswordState.errorMessage != null) {
+          //hide the previous one
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -65,7 +75,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               color: AppColors.black,
             ),
           ),
-          title: Text(
+          title: const Text(
             AppStrings.password,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
@@ -79,7 +89,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 SizedBox(height: 24),
 
                 /// Title
-                Text(
+                const Text(
                   AppStrings.resetPasswordTitle,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   textAlign: TextAlign.center,
@@ -90,7 +100,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 /// Subtitle
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
+                  child: const Text(
                     AppStrings.resetPasswordSubtitle,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                     textAlign: TextAlign.center,
@@ -118,6 +128,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onTapOutside: (event) =>
+                      FocusManager.instance.primaryFocus?.unfocus(),
                   textInputAction: TextInputAction.next,
                   validator: (value) => AppValidations.validatePassword(value),
                 ),
@@ -143,6 +156,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onTapOutside: (event) =>
+                      FocusManager.instance.primaryFocus?.unfocus(),
                   textInputAction: TextInputAction.done,
                   validator: (value) => AppValidations.validateConfirmPassword(
                     value,

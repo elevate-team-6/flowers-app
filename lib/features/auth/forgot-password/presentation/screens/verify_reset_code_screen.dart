@@ -20,7 +20,6 @@ class VerifyResetCodeScreen extends StatefulWidget {
 
 class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
   bool hasError = false;
-  String _code = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +27,28 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
       listener: (context, state) {
         if (state.verifyResetCodeState.data != null &&
             !state.verifyResetCodeState.isLoading) {
+          //hide the previous one
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.verifyResetCodeState.errorMessage ??
+                    'verification code is correct',
+              ),
+              backgroundColor: AppColors.green,
+            ),
+          );
           AppRoutes.navigatorKey.currentState!.pushNamed(
             AppRoutes.resetPassword,
-            arguments: {
-              "email": widget.email,
-              "cubit": context.read<ForgotPasswordViewModel>(),
-            },
+            arguments: widget.email,
           );
         }
         if (state.verifyResetCodeState.errorMessage != null) {
           setState(() {
             hasError = true;
           });
+          //hide the previous one
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -91,7 +100,6 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
                         appContext: context,
                         length: 6,
                         onChanged: (value) {
-                          _code = value;
                           if (hasError) {
                             setState(() {
                               hasError = false;
@@ -119,19 +127,19 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
                           fieldWidth: 50,
                           activeFillColor: hasError
                               ? AppColors.white
-                              : AppColors.white90,
+                              : AppColors.white60,
                           inactiveFillColor: hasError
                               ? AppColors.white
-                              : AppColors.white90,
+                              : AppColors.white60,
                           selectedFillColor: hasError
                               ? AppColors.white
-                              : AppColors.white90,
+                              : AppColors.white60,
                           activeColor: hasError
                               ? AppColors.error
-                              : AppColors.white90,
+                              : AppColors.white60,
                           inactiveColor: hasError
                               ? AppColors.error
-                              : AppColors.white90,
+                              : AppColors.white60,
                           selectedColor: hasError
                               ? AppColors.error
                               : AppColors.blue,
@@ -169,7 +177,11 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
               RichTextWithLink(
                 normalText: AppStrings.didntReceiveCode,
                 linkText: AppStrings.resend,
-                onLinkTap: () {},
+                onLinkTap: () {
+                  context.read<ForgotPasswordViewModel>().doEvent(
+                    ForgotPasswordEvent(email: widget.email),
+                  );
+                },
                 linkTextColor: AppColors.primary,
               ),
             ],

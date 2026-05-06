@@ -44,29 +44,21 @@ abstract class AppRoutes {
       // case register:
       //   return MaterialPageRoute(builder: (_) => const RegisterPage());
       case forgotPassword:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: getIt<ForgotPasswordViewModel>(),
-            // create: (context) => getIt<ForgotPasswordViewModel>(),
-            child: const ForgotPasswordScreen(),
-          ),
-        );
-      case verifyResetCode:
-        final args = settings.arguments as Map<String, dynamic>;
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: args["cubit"],
-            child: VerifyResetCodeScreen(email: args["email"]),
-          ),
-        );
-      case resetPassword:
-        final args = settings.arguments as Map<String, dynamic>;
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: args["cubit"],
-            child: ResetPasswordScreen(email: args["email"]),
-          ),
-        );
+  return MaterialPageRoute(
+    builder: (_) => const ForgotPasswordScreen(),
+  );
+
+case verifyResetCode:
+  final String email = settings.arguments as String;
+  return MaterialPageRoute(
+    builder: (_) => VerifyResetCodeScreen(email: email),
+  );
+
+case resetPassword:
+  final String email = settings.arguments as String;
+  return MaterialPageRoute(
+    builder: (_) => ResetPasswordScreen(email: email),
+  );
       default:
         return _unDefinedRoute(settings.name);
     }

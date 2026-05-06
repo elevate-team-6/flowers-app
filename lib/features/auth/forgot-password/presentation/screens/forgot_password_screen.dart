@@ -25,15 +25,23 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       listener: (context, state) {
         if (state.forgotPasswordState.data != null &&
             !state.forgotPasswordState.isLoading) {
+          //hide the previous one
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Durations.long4,
+              content: Text("Verification code sent to your email"),
+              backgroundColor: AppColors.green,
+            ),
+          );
           AppRoutes.navigatorKey.currentState!.pushNamed(
             AppRoutes.verifyResetCode,
-            arguments: {
-              "email": emailController.text.trim(),
-              "cubit": context.read<ForgotPasswordViewModel>(),
-            },
+            arguments: emailController.text.trim(),
           );
         }
         if (state.forgotPasswordState.errorMessage != null) {
+          //hide the previous one
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -58,7 +66,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           title: Text(AppStrings.password, style: AppTextStyles.black20500),
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
               SizedBox(height: 24),
@@ -72,7 +80,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 44),
                 child: Text(
                   AppStrings.forgetPasswordSubtitle,
-                  style: AppTextStyles.black13400,
+                  style: AppTextStyles.black14400,
                   textAlign: TextAlign.center,
                 ),
               ),
