@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 ///
 /// [AppRoutes] ensures that route names and navigation logic are organized in one place.
 
-class AppRoutes {
+abstract class AppRoutes {
   /// Global key to access the [NavigatorState] without a BuildContext.
   /// Useful for navigation from business logic (e.g., inside an Interceptor or Service).
   ///

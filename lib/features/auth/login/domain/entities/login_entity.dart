@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 class LoginEntity extends Equatable {
     final String? id;
+    final String? token;
     final String? firstName;
     final String? lastName;
     final String? email;
@@ -13,6 +14,7 @@ class LoginEntity extends Equatable {
     final String? createdAt;
   const LoginEntity({
     required this.id,
+    required this.token,
     required this.firstName,
     required this.lastName,
     required this.email,

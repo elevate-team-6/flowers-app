@@ -1,4 +1,3 @@
-import 'package:flowers_app/features/auth/login/domain/entities/login_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'user.g.dart';
 
@@ -38,15 +37,5 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
-  LoginEntity toEntity() => LoginEntity(
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    gender: gender,
-    phone: phone,
-    photo: photo,
-    role: role,
-    createdAt: createdAt,
-  );
+  
 }

@@ -16,8 +16,22 @@ class LoginRepoImpl implements LoginRepoContract {
     final response = await _loginRemoteDataSource.login(request);
     switch (response) {
       case SuccessBaseResponse<LoginResponse>():
-        return SuccessBaseResponse(response.data.user!.toEntity());
-
+        final data = response.data;
+      final user = data.user!;
+return SuccessBaseResponse(
+        LoginEntity(
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          gender: user.gender,
+          phone: user.phone,
+          photo: user.photo,
+          role: user.role,
+          createdAt: user.createdAt,
+          token: data.token, 
+        ),
+      );
       case ErrorBaseResponse<LoginResponse>():
         return ErrorBaseResponse(response.errorMessage);
     }

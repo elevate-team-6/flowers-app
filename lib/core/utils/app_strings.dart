@@ -78,6 +78,11 @@ abstract class AppStrings {
       "Oops! Something went wrong. Please try again.";
   static const String unexpectedErrorTryAgain =
       "An unexpected error occurred. Please try again.";
+  static const String userAlreadyExists =
+      'This account already exists. Please try logging in or use a different email/phone.';
+  static const String invalidGender = 'Please select a valid gender.';
+  static const String invalidPhoneFormat =
+      'Invalid phone number format. Please check and try again.';
 
   // Validation messages
   static const String emailRequired = 'Email is required';

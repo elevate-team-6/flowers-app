@@ -11,5 +11,13 @@ abstract class AppIcons {
 
   // Example: static const String yourIcon = '${_iconsPath}icon_name.svg';
 
-  static const String arrowBackIos = '${_iconsPath}arrow_back_ios.svg';
+  static const String arrowBackIos = '${_iconsPath}cart.svg';
+}
+
+abstract class AppImages {
+  static const String _imagesPath = 'assets/images/';
+
+  // Example: static const String yourIcon = '${_imagesPath}image_name.svg';
+
+  static const String arrowBackIos = '${_imagesPath}app_image.svg';
 }
