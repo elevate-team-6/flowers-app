@@ -3,7 +3,7 @@ import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 
 class ErrorHandler {
-  static Future<BaseResponse<T>> executeApiCall<T>(
+  static Future<BaseResponse<T>> handleApiCall<T>(
     Future<T> Function() call,
   ) async {
     try {

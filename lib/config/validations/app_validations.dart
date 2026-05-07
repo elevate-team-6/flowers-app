@@ -69,7 +69,7 @@ abstract class AppValidations {
       return AppStrings.passwordRequired;
     }
 
-    if (value.length < 8) {
+    if (value.length < 6) {
       return AppStrings.passwordTooShort;
     }
 
@@ -83,6 +83,10 @@ abstract class AppValidations {
 
     if (!value.contains(RegExp(r'[0-9]'))) {
       return AppStrings.passwordNumber;
+    }
+
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return AppStrings.passwordSpecialCharacter;
     }
 
     return null;
