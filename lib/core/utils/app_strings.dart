@@ -27,6 +27,8 @@ abstract class AppStrings {
   static const String enterPhoneNumber = 'Enter phone number';
   static const String alreadyHaveAccount = 'Already have an account? ';
   static const String registerSuccess = 'Register success';
+  static const String signupFailedUserIsNull = 'Signup failed: user is null';
+
   static const String termsAndConditions = 'Terms & Conditions';
   static const String termsFooterNote =
       'By tapping "I Agree", you confirm that you have read and understood these Terms & Conditions.';

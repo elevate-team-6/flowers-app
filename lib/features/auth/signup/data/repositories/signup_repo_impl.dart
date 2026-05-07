@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/auth/signup/data/models/responses/signup_response.dart';
 import 'package:flowers_app/features/auth/signup/domain/repositories/signup_repo_contract.dart';
 import 'package:injectable/injectable.dart';
@@ -17,6 +18,9 @@ class SignupRepoImpl implements SignupRepoContract {
 
     switch (response) {
       case SuccessBaseResponse<SignupResponse>():
+        if (response.data.user == null) {
+          return ErrorBaseResponse(AppStrings.signupFailedUserIsNull);
+        }
         return SuccessBaseResponse(response.data.user!.toEntity());
       case ErrorBaseResponse<SignupResponse>():
         return ErrorBaseResponse(response.errorMessage);
