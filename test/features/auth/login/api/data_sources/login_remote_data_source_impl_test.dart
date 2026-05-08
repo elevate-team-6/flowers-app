@@ -7,7 +7,7 @@ import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/features/auth/login/api/api_client/login_api_client.dart';
 import 'package:flowers_app/features/auth/login/data/models/login_request/login_request.dart';
 import 'package:flowers_app/features/auth/login/data/models/login_response/login_response.dart';
-import 'package:flowers_app/features/auth/login/data/models/login_response/user.dart';
+import 'package:flowers_app/features/auth/login/data/models/login_response/user_dto.dart';
 
 import 'login_remote_data_source_impl_test.mocks.dart';
 
@@ -19,7 +19,7 @@ void main() {
       SuccessBaseResponse(
         LoginResponse(
           token: 'dummy',
-          user: User(
+          user: UserDto(
             id: '',
             firstName: '',
             lastName: '',
@@ -54,7 +54,7 @@ void main() {
 
       final fakeResponse = LoginResponse(
         token: '123',
-        user: User(
+        user: UserDto(
           id: '1',
           firstName: 'youssef',
           lastName: 'singer',

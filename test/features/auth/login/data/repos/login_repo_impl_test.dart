@@ -7,8 +7,8 @@ import 'package:flowers_app/features/auth/login/data/repos/login_repo_impl.dart'
 import 'package:flowers_app/features/auth/login/data/data_sources/login_remote_data_source_contract.dart';
 import 'package:flowers_app/features/auth/login/data/models/login_request/login_request.dart';
 import 'package:flowers_app/features/auth/login/data/models/login_response/login_response.dart';
-import 'package:flowers_app/features/auth/login/data/models/login_response/user.dart';
-import 'package:flowers_app/features/auth/login/domain/entities/login_entity.dart';
+import 'package:flowers_app/features/auth/login/data/models/login_response/user_dto.dart';
+import 'package:flowers_app/features/auth/login/domain/entities/user_entity.dart';
 
 import 'login_repo_impl_test.mocks.dart';
 
@@ -21,7 +21,7 @@ void main() {
       SuccessBaseResponse(
         LoginResponse(
           token: 'dummy',
-          user: User(
+          user: UserDto(
             id: '',
             firstName: '',
             lastName: '',
@@ -56,7 +56,7 @@ void main() {
 
       final fakeResponse = LoginResponse(
         token: '123',
-        user: User(
+        user: UserDto(
           id: '1',
           firstName: 'youssef',
           lastName: 'singer',
@@ -74,9 +74,9 @@ void main() {
 
       final result = await repo.login(request);
 
-      expect(result, isA<SuccessBaseResponse<LoginEntity>>());
+      expect(result, isA<SuccessBaseResponse<UserEntity>>());
 
-      final success = result as SuccessBaseResponse<LoginEntity>;
+      final success = result as SuccessBaseResponse<UserEntity>;
 
       expect(success.data.token, '123');
       expect(success.data.email, 'test@test.com');
@@ -99,9 +99,9 @@ void main() {
 
       final result = await repo.login(request);
 
-      expect(result, isA<ErrorBaseResponse<LoginEntity>>());
+      expect(result, isA<ErrorBaseResponse<UserEntity>>());
 
-      final error = result as ErrorBaseResponse<LoginEntity>;
+      final error = result as ErrorBaseResponse<UserEntity>;
 
       expect(error.errorMessage, 'Server error');
 

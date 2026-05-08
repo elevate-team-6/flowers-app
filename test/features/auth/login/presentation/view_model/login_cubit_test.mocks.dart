@@ -9,7 +9,7 @@ import 'package:flowers_app/config/base_response/base_response.dart' as _i4;
 import 'package:flowers_app/config/cache/cache_helper.dart' as _i8;
 import 'package:flowers_app/features/auth/login/data/models/login_request/login_request.dart'
     as _i6;
-import 'package:flowers_app/features/auth/login/domain/entities/login_entity.dart'
+import 'package:flowers_app/features/auth/login/domain/entities/user_entity.dart'
     as _i5;
 import 'package:flowers_app/features/auth/login/domain/use_cases/login_use_case.dart'
     as _i2;
@@ -40,19 +40,19 @@ class MockLoginUseCase extends _i1.Mock implements _i2.LoginUseCase {
   }
 
   @override
-  _i3.Future<_i4.BaseResponse<_i5.LoginEntity>> call(
+  _i3.Future<_i4.BaseResponse<_i5.UserEntity>> call(
     _i6.LoginRequest? request,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#call, [request]),
-            returnValue: _i3.Future<_i4.BaseResponse<_i5.LoginEntity>>.value(
-              _i7.dummyValue<_i4.BaseResponse<_i5.LoginEntity>>(
+            returnValue: _i3.Future<_i4.BaseResponse<_i5.UserEntity>>.value(
+              _i7.dummyValue<_i4.BaseResponse<_i5.UserEntity>>(
                 this,
                 Invocation.method(#call, [request]),
               ),
             ),
           )
-          as _i3.Future<_i4.BaseResponse<_i5.LoginEntity>>);
+          as _i3.Future<_i4.BaseResponse<_i5.UserEntity>>);
 }
 
 /// A class which mocks [CacheHelper].

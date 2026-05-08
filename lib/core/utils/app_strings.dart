@@ -97,6 +97,8 @@ abstract class AppStrings {
       'Password must contain at least one uppercase letter';
   static const String passwordNumber =
       'Password must contain at least one number';
+  static const String passwordSpecialCharacter =
+      'Password must contain at least 1 special character';
   static const String passwordNotMatched = 'Password not matched';
   static const String confirmPasswordRequired = 'Please confirm your password';
   static const String usernameRequired = 'Username is required';

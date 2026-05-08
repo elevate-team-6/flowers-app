@@ -85,6 +85,10 @@ abstract class AppValidations {
       return AppStrings.passwordNumber;
     }
 
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return AppStrings.passwordSpecialCharacter;
+    }
+
     return null;
   }
 

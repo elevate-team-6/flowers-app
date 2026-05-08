@@ -13,7 +13,7 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSourceContract {
 
   @override
   Future<BaseResponse<LoginResponse>> login(LoginRequest request) {
-    return ErrorHandler.executeApiCall(() {
+    return ErrorHandler.handleApiCall(() {
       return _loginApiClient.login(request);
     });
   }

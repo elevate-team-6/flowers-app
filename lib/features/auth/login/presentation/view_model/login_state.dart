@@ -1,14 +1,16 @@
 import 'package:equatable/equatable.dart';
-import 'package:flowers_app/features/auth/login/domain/entities/login_entity.dart';
+import 'package:flowers_app/features/auth/login/domain/entities/user_entity.dart';
 
 class LoginState extends Equatable {
   final bool isLoading;
   final String? errorMessage;
-  final LoginEntity? user;
+  final UserEntity? user;
   final bool isPasswordObscure;
+  final bool isRememberMe;
 
   const LoginState({
     this.isLoading = false,
+    this.isRememberMe = false,
     this.errorMessage,
     this.user,
     this.isPasswordObscure = true,
@@ -16,12 +18,14 @@ class LoginState extends Equatable {
 
   LoginState copyWith({
     bool? isLoading,
+    bool? isRememberMe,
     String? errorMessage,
-    LoginEntity? user,
+    UserEntity? user,
     bool? isPasswordObscure,
   }) {
     return LoginState(
       isLoading: isLoading ?? this.isLoading,
+      isRememberMe: isRememberMe ?? this.isRememberMe,
       errorMessage: errorMessage,
       user: user ?? this.user,
       isPasswordObscure:
@@ -35,5 +39,6 @@ class LoginState extends Equatable {
         errorMessage,
         user,
         isPasswordObscure,
+        isRememberMe
       ];
 }

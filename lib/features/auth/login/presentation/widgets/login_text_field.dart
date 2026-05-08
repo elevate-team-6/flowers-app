@@ -6,15 +6,24 @@ import 'package:flutter/material.dart';
 class LoginTextField extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
-    final bool isPasswordObscure;
+  final bool isPasswordObscure;
   final VoidCallback onPasswordVisibilityToggle;
-  const LoginTextField({super.key, required this.emailController, required this.passwordController, required this.isPasswordObscure, required this.onPasswordVisibilityToggle});
+  const LoginTextField({
+    super.key,
+    required this.emailController,
+    required this.passwordController,
+    required this.isPasswordObscure,
+    required this.onPasswordVisibilityToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TextFormField(
+          onTapOutside: (_) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           controller: emailController,
           decoration: InputDecoration(
             hintText: AppStrings.enterYourEmail,
@@ -25,20 +34,23 @@ class LoginTextField extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         TextFormField(
+          onTapOutside: (_) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           controller: passwordController,
           obscureText: isPasswordObscure,
           decoration: InputDecoration(
             hintText: AppStrings.enterYourPassword,
             labelText: AppStrings.password,
             suffixIcon: IconButton(
-            icon: Icon(
-              isPasswordObscure
-                  ? Icons.visibility_off_outlined
-                  : Icons.visibility_outlined,
-              color: AppColors.gray,
+              icon: Icon(
+                isPasswordObscure
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+                color: AppColors.gray,
+              ),
+              onPressed: onPasswordVisibilityToggle,
             ),
-            onPressed: onPasswordVisibilityToggle,
-          ),
           ),
           validator: AppValidations.validatePassword,
         ),

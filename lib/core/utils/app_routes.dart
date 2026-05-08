@@ -1,6 +1,9 @@
+import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:flowers_app/features/auth/login/presentation/view_model/login_cubit.dart';
 import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// A centralized class for managing all application routes and navigation.
 ///
@@ -34,7 +37,13 @@ abstract class AppRoutes {
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case login:
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                getIt<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        );
       //
       case register:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
