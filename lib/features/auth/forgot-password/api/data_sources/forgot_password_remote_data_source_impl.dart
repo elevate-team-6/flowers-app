@@ -21,7 +21,7 @@ class ForgotPasswordRemoteDataSourceImpl
   Future<BaseResponse<ForgotPasswordResponse>> forgotPassword(
     ForgotPasswordRequest request,
   ) {
-    return ErrorHandler.executeApiCall(
+    return ErrorHandler.handleApiCall(
       () => _forgotPasswordApiClient.forgotPassword(request),
     );
   }
@@ -30,7 +30,7 @@ class ForgotPasswordRemoteDataSourceImpl
   Future<BaseResponse<VerifyResetCodeResponse>> verifyResetCode(
     VerifyResetCodeRequest request,
   ) {
-    return ErrorHandler.executeApiCall(
+    return ErrorHandler.handleApiCall(
       () => _forgotPasswordApiClient.verifyResetCode(request),
     );
   }
@@ -39,7 +39,7 @@ class ForgotPasswordRemoteDataSourceImpl
   Future<BaseResponse<ResetPasswordResponse>> resetPassword(
     ResetPasswordRequest request,
   ) {
-    return ErrorHandler.executeApiCall(
+    return ErrorHandler.handleApiCall(
       () => _forgotPasswordApiClient.resetPassword(request),
     );
   }
