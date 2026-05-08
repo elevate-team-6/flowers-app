@@ -34,11 +34,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             !state.forgotPasswordState.isLoading) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text("Verification code sent to your email"),
+              content: Text(AppStrings.verificationCodeSentToYourEmail),
               backgroundColor: AppColors.green,
             ),
           );
-          AppRoutes.navigatorKey.currentState!.pushNamed(
+          Navigator.of(context).pushNamed(
             AppRoutes.verifyResetCode,
             arguments: emailController.text.trim(),
           );
@@ -46,9 +46,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         if (state.forgotPasswordState.errorMessage != null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(
-                state.forgotPasswordState.errorMessage ?? 'Error occurred',
-              ),
+              content: Text(state.forgotPasswordState.errorMessage!),
               backgroundColor: AppColors.error,
             ),
           );
@@ -143,7 +141,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       strokeWidth: 2,
                                     ),
                                   )
-                                : const Text("Confirm"),
+                                : const Text(AppStrings.confirm),
                           ),
                         );
                       },

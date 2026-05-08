@@ -37,15 +37,14 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
             SnackBar(
               content: Text(
                 state.verifyResetCodeState.errorMessage ??
-                    'verification code is correct',
+                    AppStrings.verificationCodeIsCorrect,
               ),
               backgroundColor: AppColors.green,
             ),
           );
-          AppRoutes.navigatorKey.currentState!.pushNamed(
-            AppRoutes.resetPassword,
-            arguments: widget.email,
-          );
+          Navigator.of(
+            context,
+          ).pushNamed(AppRoutes.resetPassword, arguments: widget.email);
         }
         if (state.verifyResetCodeState.errorMessage != null) {
           setState(() {
@@ -54,9 +53,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
 
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(
-                state.verifyResetCodeState.errorMessage ?? 'Invalid code',
-              ),
+              content: Text(state.verifyResetCodeState.errorMessage!),
               backgroundColor: AppColors.error,
             ),
           );
@@ -117,10 +114,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
                         onCompleted: (value) {
                           if (!state.verifyResetCodeState.isLoading) {
                             context.read<ForgotPasswordViewModel>().doEvent(
-                              VerifyResetCodeEvent(
-                                email: widget.email,
-                                resetCode: value,
-                              ),
+                              VerifyResetCodeEvent(resetCode: value),
                             );
                           }
                         },

@@ -16,12 +16,6 @@ class ForgotPasswordResponse extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'message': message,
-    'info': info,
-    'statusMsg': statusMsg,
-  };
-
   ForgotPasswordEntity toEntity() =>
       ForgotPasswordEntity(message: message, info: info, statusMsg: statusMsg);
 

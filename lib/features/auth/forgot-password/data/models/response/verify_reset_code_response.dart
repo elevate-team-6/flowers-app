@@ -14,8 +14,6 @@ class VerifyResetCodeResponse extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() => {'status': status, 'message': message};
-
   ForgotPasswordEntity toEntity() =>
       ForgotPasswordEntity(status: status, message: message);
 

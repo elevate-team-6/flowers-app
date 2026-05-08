@@ -32,6 +32,9 @@ abstract class AppStrings {
   static const String forgetPasswordTitle = 'Forget password';
   static const String forgetPasswordSubtitle =
       'Please enter your email associated to your account';
+  static const String verificationCodeSentToYourEmail =
+      'Verification code sent to your email';
+  static const String confirm = '"Confirm"';
 
   // Email Verification Screen
   static const String emailVerification = 'Email verification';
@@ -40,6 +43,8 @@ abstract class AppStrings {
   static const String invalidCode = 'Invalid code';
   static const String didntReceiveCode = "Didn't receive code? ";
   static const String resend = 'Resend';
+  static const String verificationCodeIsCorrect =
+      'verification code is correct';
 
   // Reset Password Screen
   static const String resetPasswordTitle = 'Reset password';

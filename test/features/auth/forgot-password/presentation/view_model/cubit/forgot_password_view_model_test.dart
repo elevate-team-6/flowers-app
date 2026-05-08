@@ -123,12 +123,7 @@ void main() {
             (_) async =>
                 SuccessBaseResponse<ForgotPasswordEntity>(forgotPasswordEntity),
           );
-          cubit.doEvent(
-            VerifyResetCodeEvent(
-              email: 'test@example.com',
-              resetCode: '123456',
-            ),
-          );
+          cubit.doEvent(VerifyResetCodeEvent(resetCode: '123456'));
         },
         expect: () => [
           ForgotPasswordStates(
@@ -156,12 +151,7 @@ void main() {
           when(mockVerifyResetCodeUseCase.call(resetCode: '123456')).thenAnswer(
             (_) async => ErrorBaseResponse<ForgotPasswordEntity>(errMsg),
           );
-          cubit.doEvent(
-            VerifyResetCodeEvent(
-              email: 'test@example.com',
-              resetCode: '123456',
-            ),
-          );
+          cubit.doEvent(VerifyResetCodeEvent(resetCode: '123456'));
         },
         expect: () => [
           ForgotPasswordStates(
@@ -198,11 +188,7 @@ void main() {
                 SuccessBaseResponse<ForgotPasswordEntity>(forgotPasswordEntity),
           );
           cubit.doEvent(
-            ResetPasswordEvent(
-              email: 'test@example.com',
-              password: 'newpass',
-              confirmPassword: 'newpass',
-            ),
+            ResetPasswordEvent(email: 'test@example.com', password: 'newpass'),
           );
         },
         expect: () => [
@@ -240,11 +226,7 @@ void main() {
             (_) async => ErrorBaseResponse<ForgotPasswordEntity>(errMsg),
           );
           cubit.doEvent(
-            ResetPasswordEvent(
-              email: 'test@example.com',
-              password: 'newpass',
-              confirmPassword: 'newpass',
-            ),
+            ResetPasswordEvent(email: 'test@example.com', password: 'newpass'),
           );
         },
         expect: () => [

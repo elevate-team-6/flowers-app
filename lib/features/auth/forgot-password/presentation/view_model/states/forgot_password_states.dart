@@ -7,26 +7,28 @@ class ForgotPasswordStates extends Equatable {
   final BaseState<ForgotPasswordEntity> verifyResetCodeState;
   final BaseState<ForgotPasswordEntity> resetPasswordState;
 
-  ForgotPasswordStates({
-    BaseState<ForgotPasswordEntity>? forgotPasswordState,
-    BaseState<ForgotPasswordEntity>? verifyResetCodeState,
-    BaseState<ForgotPasswordEntity>? resetPasswordState,
-  })
-    : forgotPasswordState = forgotPasswordState ?? BaseState<ForgotPasswordEntity>(isLoading: false),
-      verifyResetCodeState = verifyResetCodeState ?? BaseState<ForgotPasswordEntity>(isLoading: false),
-      resetPasswordState = resetPasswordState ?? BaseState<ForgotPasswordEntity>(isLoading: false);
+  // 1. Const constructor
+  // 2. Default values are now 'const BaseState()'
+  const ForgotPasswordStates({
+    this.forgotPasswordState = const BaseState(),
+    this.verifyResetCodeState = const BaseState(),
+    this.resetPasswordState = const BaseState(),
+  });
 
   ForgotPasswordStates copyWith({
     BaseState<ForgotPasswordEntity>? forgotPasswordStateParam,
     BaseState<ForgotPasswordEntity>? verifyResetCodeStateParam,
     BaseState<ForgotPasswordEntity>? resetPasswordStateParam,
-  }) =>
-      ForgotPasswordStates(
-        forgotPasswordState: forgotPasswordStateParam ?? forgotPasswordState,
-        verifyResetCodeState: verifyResetCodeStateParam ?? verifyResetCodeState,
-        resetPasswordState: resetPasswordStateParam ?? resetPasswordState,
-      );
+  }) => ForgotPasswordStates(
+    forgotPasswordState: forgotPasswordStateParam ?? forgotPasswordState,
+    verifyResetCodeState: verifyResetCodeStateParam ?? verifyResetCodeState,
+    resetPasswordState: resetPasswordStateParam ?? resetPasswordState,
+  );
 
   @override
-  List<Object?> get props => [forgotPasswordState, verifyResetCodeState, resetPasswordState];
+  List<Object?> get props => [
+    forgotPasswordState,
+    verifyResetCodeState,
+    resetPasswordState,
+  ];
 }

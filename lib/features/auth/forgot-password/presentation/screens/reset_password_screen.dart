@@ -43,18 +43,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             !state.resetPasswordState.isLoading) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text("Password reset successfully"),
+              content: Text(AppStrings.passwordResetSuccessfully),
               backgroundColor: AppColors.green,
             ),
           );
-          AppRoutes.navigatorKey.currentState!.pushNamed(AppRoutes.login);
+          Navigator.of(context).pushNamed(AppRoutes.login);
         }
         if (state.resetPasswordState.errorMessage != null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(
-                state.resetPasswordState.errorMessage ?? 'Error occurred',
-              ),
+              content: Text(state.resetPasswordState.errorMessage!),
               backgroundColor: AppColors.error,
             ),
           );
@@ -186,8 +184,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                         ResetPasswordEvent(
                                           email: widget.email,
                                           password: passwordController.text,
-                                          confirmPassword:
-                                              confirmPasswordController.text,
                                         ),
                                       );
                                 }

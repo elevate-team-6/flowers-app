@@ -28,14 +28,10 @@ class ForgotPasswordViewModel extends Cubit<ForgotPasswordStates> {
       case ForgotPasswordEvent(email: final email):
         await _forgotPassword(email);
         break;
-      case VerifyResetCodeEvent(email: final email, resetCode: final resetCode):
+      case VerifyResetCodeEvent(resetCode: final resetCode):
         await _verifyResetCode(resetCode);
         break;
-      case ResetPasswordEvent(
-        email: final email,
-        password: final password,
-        confirmPassword: final confirmPassword,
-      ):
+      case ResetPasswordEvent(email: final email, password: final password):
         await _resetPassword(email, password);
         break;
     }
