@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
@@ -22,14 +24,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ForgotPasswordViewModel, ForgotPasswordStates>(
+      listenWhen: (previous, current) {
+        return previous.forgotPasswordState != current.forgotPasswordState;
+      },
       listener: (context, state) {
+        log("**********forgot password listner********");
+
         if (state.forgotPasswordState.data != null &&
             !state.forgotPasswordState.isLoading) {
-          //hide the previous one
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              duration: Durations.long4,
               content: Text("Verification code sent to your email"),
               backgroundColor: AppColors.green,
             ),
@@ -40,8 +44,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           );
         }
         if (state.forgotPasswordState.errorMessage != null) {
-          //hide the previous one
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -110,7 +112,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                     SizedBox(height: 50),
                     BlocBuilder<ForgotPasswordViewModel, ForgotPasswordStates>(
+                      buildWhen: (previous, current) {
+                        return previous.forgotPasswordState !=
+                            current.forgotPasswordState;
+                      },
                       builder: (context, state) {
+                        log("**********forgot password builder********");
                         return SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(

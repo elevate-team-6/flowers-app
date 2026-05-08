@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
@@ -24,11 +26,13 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ForgotPasswordViewModel, ForgotPasswordStates>(
+      listenWhen: (previous, current) {
+        return previous.verifyResetCodeState != current.verifyResetCodeState;
+      },
       listener: (context, state) {
+        log("**********verfiey code listner********");
         if (state.verifyResetCodeState.data != null &&
             !state.verifyResetCodeState.isLoading) {
-          //hide the previous one
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -47,8 +51,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
           setState(() {
             hasError = true;
           });
-          //hide the previous one
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -93,7 +96,12 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
               ),
               SizedBox(height: 32),
               BlocBuilder<ForgotPasswordViewModel, ForgotPasswordStates>(
+                buildWhen: (previous, current) {
+                  return previous.verifyResetCodeState !=
+                      current.verifyResetCodeState;
+                },
                 builder: (context, state) {
+                  log("**********verfiey code builder********");
                   return Column(
                     children: [
                       PinCodeTextField(

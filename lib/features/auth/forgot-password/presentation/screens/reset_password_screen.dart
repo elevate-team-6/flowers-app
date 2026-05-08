@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
@@ -32,18 +34,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ForgotPasswordViewModel, ForgotPasswordStates>(
-      listenWhen: (previous, current) =>
-          previous.resetPasswordState.data != current.resetPasswordState.data ||
-          previous.resetPasswordState.errorMessage !=
-              current.resetPasswordState.errorMessage,
+      listenWhen: (previous, current) {
+        return previous.resetPasswordState != current.resetPasswordState;
+      },
       listener: (context, state) {
+        log("**********reset password listner********");
         if (state.resetPasswordState.data != null &&
             !state.resetPasswordState.isLoading) {
-          //hide the previous one
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              duration: Durations.long4,
               content: Text("Password reset successfully"),
               backgroundColor: AppColors.green,
             ),
@@ -51,8 +50,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           AppRoutes.navigatorKey.currentState!.pushNamed(AppRoutes.login);
         }
         if (state.resetPasswordState.errorMessage != null) {
-          //hide the previous one
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -169,7 +166,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 SizedBox(height: 40),
 
                 BlocBuilder<ForgotPasswordViewModel, ForgotPasswordStates>(
+                  buildWhen: (previous, current) {
+                    return previous.resetPasswordState !=
+                        current.resetPasswordState;
+                  },
                   builder: (context, state) {
+                    log("**********verfiey code builder********");
                     return SizedBox(
                       width: double.infinity,
                       height: 56,
