@@ -1,3 +1,5 @@
+import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/home/presentation/widgets/best_seller_card.dart';
 import 'package:flowers_app/features/home/presentation/widgets/category_card.dart';
 import 'package:flowers_app/features/home/presentation/widgets/home_common_section_header.dart';
@@ -59,7 +61,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -73,16 +75,16 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.local_florist,
-                        color: Color(0xFFE8637A),
+                        color: AppColors.primary,
                         size: 22,
                       ),
                       SizedBox(width: 4),
                       Text(
-                        'Flowery',
+                        AppStrings.flowery,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFFE8637A),
+                          color: AppColors.primary,
                         ),
                       ),
                     ],
@@ -93,7 +95,8 @@ class HomeScreen extends StatelessWidget {
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF5F5F5),
+                        border: Border.all(color: AppColors.white70),
+                        color: AppColors.white,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Row(
@@ -101,14 +104,14 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(width: 12),
                           Icon(
                             Icons.search,
-                            color: Color(0xFF999999),
+                            color: AppColors.white70,
                             size: 18,
                           ),
                           SizedBox(width: 6),
                           Text(
-                            'Search',
+                            AppStrings.search,
                             style: TextStyle(
-                              color: Color(0xFF999999),
+                              color: AppColors.white70,
                               fontSize: 14,
                             ),
                           ),
@@ -122,23 +125,23 @@ class HomeScreen extends StatelessWidget {
 
             // ── Delivery address ───────────────────────────────────────────────
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
+              padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
               child: Row(
                 children: const [
                   Icon(
                     Icons.location_on_outlined,
-                    color: Color(0xFF666666),
+                    color: AppColors.black50,
                     size: 16,
                   ),
                   SizedBox(width: 4),
                   Text(
-                    'Deliver to 2XVP+XC · Sheikh Zayed',
-                    style: TextStyle(fontSize: 13, color: Color(0xFF444444)),
+                    AppStrings.deliverToMockAddress,
+                    style: TextStyle(fontSize: 13, color: AppColors.black50),
                   ),
                   SizedBox(width: 4),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: Color(0xFF444444),
+                    color: AppColors.black50,
                     size: 16,
                   ),
                 ],
@@ -159,7 +162,7 @@ class HomeScreen extends StatelessWidget {
 
                     // ── Categories ─────────────────────────────────────────────
                     HomeCommonSectionHeader(
-                      title: 'Categories',
+                      title: AppStrings.categories,
                       onViewAll: () {},
                     ),
                     const SizedBox(height: 12),
@@ -174,8 +177,8 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, i) {
                           final category = _categories[i];
                           return CategoryCard(
-                            icon: category['icon'],
-                            label: category['label'],
+                            icon: category[AppStrings.icon],
+                            label: category[AppStrings.label],
                           );
                         },
                       ),
@@ -185,7 +188,7 @@ class HomeScreen extends StatelessWidget {
 
                     // ── Best Sellers ───────────────────────────────────────────
                     HomeCommonSectionHeader(
-                      title: 'Best seller',
+                      title: AppStrings.bestSeller,
                       onViewAll: () {},
                     ),
                     const SizedBox(height: 12),
@@ -200,9 +203,9 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, i) {
                           final b = _bestSellers[i];
                           return BestSellerCard(
-                            imageUrl: b['image']!,
-                            title: b['title']!,
-                            price: b['price']!,
+                            imageUrl: b[AppStrings.image]!,
+                            title: b[AppStrings.title]!,
+                            price: b[AppStrings.price]!,
                           );
                         },
                       ),
@@ -212,12 +215,12 @@ class HomeScreen extends StatelessWidget {
 
                     // ── Occasions ──────────────────────────────────────────────
                     HomeCommonSectionHeader(
-                      title: 'Occasion',
+                      title: AppStrings.occasion,
                       onViewAll: () {},
                     ),
                     const SizedBox(height: 12),
                     SizedBox(
-                      height: 130,
+                      height: 210,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -227,8 +230,8 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, i) {
                           final o = _occasions[i];
                           return OccasionCard(
-                            imageUrl: o['image']!,
-                            label: o['label']!,
+                            imageUrl: o[AppStrings.image]!,
+                            label: o[AppStrings.label]!,
                           );
                         },
                       ),

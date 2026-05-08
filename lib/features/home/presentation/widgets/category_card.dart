@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -23,10 +24,10 @@ class CategoryCard extends StatelessWidget {
             width: 64,
             height: 64,
             decoration: BoxDecoration(
-              color: const Color(0xFFFCEEF0),
-              borderRadius: BorderRadius.circular(16),
+              color: AppColors.lightPink,
+              borderRadius: BorderRadius.circular(20),
             ),
-            child: Icon(icon, size: 28, color: const Color(0xFFE8637A)),
+            child: Icon(icon, size: 28, color: AppColors.primary),
           ),
           const SizedBox(height: 6),
           Text(
@@ -34,7 +35,7 @@ class CategoryCard extends StatelessWidget {
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              color: Color(0xFF333333),
+              color: AppColors.black,
             ),
           ),
         ],

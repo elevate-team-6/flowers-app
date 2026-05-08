@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class BestSellerCard extends StatelessWidget {
@@ -24,7 +25,6 @@ class BestSellerCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(12),
               child: Image.network(
                 imageUrl,
                 width: 140,
@@ -33,10 +33,10 @@ class BestSellerCard extends StatelessWidget {
                 errorBuilder: (_, _, _) => Container(
                   width: 140,
                   height: 150,
-                  color: const Color(0xFFF5F5F5),
+                  color: AppColors.white60,
                   child: const Icon(
                     Icons.local_florist,
-                    color: Color(0xFFE8637A),
+                    color: AppColors.primary,
                     size: 40,
                   ),
                 ),
@@ -46,9 +46,9 @@ class BestSellerCard extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                fontSize: 13,
+                fontSize: 12,
                 fontWeight: FontWeight.w500,
-                color: Color(0xFF333333),
+                color: AppColors.black,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -57,9 +57,9 @@ class BestSellerCard extends StatelessWidget {
             Text(
               price,
               style: const TextStyle(
-                fontSize: 13,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF333333),
+                color: AppColors.black,
               ),
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class OccasionCard extends StatelessWidget {
@@ -17,24 +18,23 @@ class OccasionCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: 110,
+        width: 140,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(12),
               child: Image.network(
                 imageUrl,
-                width: 110,
-                height: 100,
+                width: 140,
+                height: 150,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
-                  width: 110,
-                  height: 100,
-                  color: const Color(0xFFF5F5F5),
+                errorBuilder: (_, _, _) => Container(
+                  width: 140,
+                  height: 150,
+                  color: AppColors.white60,
                   child: const Icon(
                     Icons.celebration,
-                    color: Color(0xFFE8637A),
+                    color: AppColors.primary,
                     size: 32,
                   ),
                 ),
@@ -46,7 +46,7 @@ class OccasionCard extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                color: Color(0xFF333333),
+                color: AppColors.black,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

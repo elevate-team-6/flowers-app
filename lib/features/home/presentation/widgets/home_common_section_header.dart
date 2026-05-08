@@ -1,3 +1,5 @@
+import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class HomeCommonSectionHeader extends StatelessWidget {
@@ -21,18 +23,20 @@ class HomeCommonSectionHeader extends StatelessWidget {
             title,
             style: const TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF1A1A1A),
+              fontWeight: FontWeight.w500,
+              color: AppColors.black,
             ),
           ),
           GestureDetector(
             onTap: onViewAll,
             child: const Text(
-              'View All',
+              AppStrings.viewAll,
               style: TextStyle(
-                fontSize: 13,
+                decoration: TextDecoration.underline,
+
+                fontSize: 12,
                 fontWeight: FontWeight.w500,
-                color: Color(0xFFE8637A),
+                color: AppColors.primary,
               ),
             ),
           ),
