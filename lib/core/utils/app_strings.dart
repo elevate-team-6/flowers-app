@@ -115,4 +115,10 @@ abstract class AppStrings {
   static const String nameNoNumbers = 'Name must not contain numbers';
   static const String phoneRequired = 'Phone number is required';
   static const String invalidPhone = 'Enter a valid phone number';
+
+  // Main Layout
+  static const String home = 'Home';
+  static const String categories = 'Categories';
+  static const String cart = 'Cart';
+  static const String profile = 'Profile';
 }
