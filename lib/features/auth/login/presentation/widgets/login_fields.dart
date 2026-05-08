@@ -3,12 +3,12 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
-class LoginTextField extends StatelessWidget {
+class LoginFields extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final bool isPasswordObscure;
   final VoidCallback onPasswordVisibilityToggle;
-  const LoginTextField({
+  const LoginFields({
     super.key,
     required this.emailController,
     required this.passwordController,
@@ -24,6 +24,8 @@ class LoginTextField extends StatelessWidget {
           onTapOutside: (_) {
             FocusManager.instance.primaryFocus?.unfocus();
           },
+          textInputAction: TextInputAction.next,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: emailController,
           decoration: InputDecoration(
             hintText: AppStrings.enterYourEmail,
@@ -37,6 +39,8 @@ class LoginTextField extends StatelessWidget {
           onTapOutside: (_) {
             FocusManager.instance.primaryFocus?.unfocus();
           },
+          textInputAction: TextInputAction.next,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: passwordController,
           obscureText: isPasswordObscure,
           decoration: InputDecoration(

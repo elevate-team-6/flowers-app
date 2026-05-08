@@ -7,7 +7,7 @@ import 'package:flowers_app/features/auth/login/presentation/view_model/login_cu
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_event.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_state.dart';
 import 'package:flowers_app/features/auth/login/presentation/widgets/login_button.dart';
-import 'package:flowers_app/features/auth/login/presentation/widgets/login_text_field.dart';
+import 'package:flowers_app/features/auth/login/presentation/widgets/login_fields.dart';
 import 'package:flowers_app/features/auth/login/presentation/widgets/remember_me_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         SizedBox(height: 30.h),
-                        LoginTextField(
+                        LoginFields(
                           emailController: emailController,
                           passwordController: passwordController,
                           isPasswordObscure: state.isPasswordObscure,
