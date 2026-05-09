@@ -19,6 +19,7 @@ abstract class AppIcons {
 
 abstract class AppImages {
   static const String _imagesPath = 'assets/images/';
+  static const String imageBaseUrl = 'https://flower.elevateegy.com/uploads/';
 
   // Example: static const String yourIcon = '${_imagesPath}image_name.svg';
 

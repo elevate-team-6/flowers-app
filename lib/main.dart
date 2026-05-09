@@ -34,19 +34,21 @@ class MyApp extends StatelessWidget {
 
       builder: (context, child) {
         return BlocProvider(
-        create: (context) => getIt<ForgotPasswordViewModel>(),
+          create: (context) => getIt<ForgotPasswordViewModel>(),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flowers App',
             theme: AppTheme.mainTheme,
             navigatorKey: AppRoutes.navigatorKey,
             onGenerateRoute: AppRoutes.onGenerateRoute,
-            initialRoute: isLoggedIn
-                //todo: if user is logged in, return [home screen]
-                // this is only for testing!! we will add home later
-                ? AppRoutes.register
-                //todo: if user is not logged in, return [login screen]
-                : AppRoutes.forgotPassword,
+            initialRoute: AppRoutes.occasions,
+
+            //  isLoggedIn
+            //     //todo: if user is logged in, return [home screen]
+            //     // this is only for testing!! we will add home later
+            //     ? AppRoutes.register
+            //     //todo: if user is not logged in, return [login screen]
+            //     : AppRoutes.forgotPassword,
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
           ),

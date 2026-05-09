@@ -121,4 +121,11 @@ abstract class AppStrings {
   static const String categories = 'Categories';
   static const String cart = 'Cart';
   static const String profile = 'Profile';
+
+  // Occasions
+  static const String noProductsFound = 'No products found';
+  static const String addToCart = 'Add to cart';
+  static const String occasion = 'Occasion';
+  static const String occasionSubtitle =
+      'Bloom with our exquisite best sellers';
 }

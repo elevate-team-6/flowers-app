@@ -1,6 +1,6 @@
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
-import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
+import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
 import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -33,12 +33,15 @@ abstract class AppRoutes {
   static const String emailVerification = '/emailVerification';
   static const String resetPassword = '/resetPassword';
   static const String mainLayout = '/mainLayout';
+  static const String occasions = '/occasions';
 
   /// Generates the appropriate [MaterialPageRoute] based on the provided [settings].
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayoutScreen());
+      case occasions:
+        return MaterialPageRoute(builder: (_) => const OccasionsScreen());
       // case login:
       //   return MaterialPageRoute(builder: (_) => const LoginPage());
       //
@@ -47,11 +50,11 @@ abstract class AppRoutes {
       case forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
 
-      case verifyResetCode:
-        final String email = settings.arguments as String;
-        return MaterialPageRoute(
-          builder: (_) => VerifyResetCodeScreen(email: email),
-        );
+      // case verifyResetCode:
+      // final String email = settings.arguments as String;
+      // return MaterialPageRoute(
+      //   builder: (_) => VerifyResetCodeScreen(email: email),
+      // );
 
       case resetPassword:
         final String email = settings.arguments as String;

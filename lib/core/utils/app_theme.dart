@@ -15,7 +15,7 @@ abstract class AppTheme {
         backgroundColor: AppColors.white,
         elevation: 0,
         centerTitle: false,
-        titleTextStyle: AppTextStyles.black18500,
+        titleTextStyle: AppTextStyles.black20500,
         iconTheme: const IconThemeData(color: AppColors.black),
       ),
 
