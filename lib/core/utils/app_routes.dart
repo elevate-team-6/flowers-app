@@ -1,6 +1,11 @@
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../config/di/di.dart';
+import '../../features/auth/login/presentation/screens/login_screen.dart';
+import '../../features/auth/login/presentation/view_model/login_cubit.dart';
+import '../../features/auth/signup/presentation/screens/signup_screen.dart';
 import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -39,11 +44,17 @@ abstract class AppRoutes {
     switch (settings.name) {
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayoutScreen());
-      // case login:
-      //   return MaterialPageRoute(builder: (_) => const LoginPage());
-      //
-      // case register:
-      //   return MaterialPageRoute(builder: (_) => const RegisterPage());
+      case login:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                getIt<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        );
+    //
+      case register:
+        return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
 

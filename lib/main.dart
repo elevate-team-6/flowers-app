@@ -1,7 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_theme.dart';
-import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'config/cache/cache_helper.dart';
 import 'config/di/di.dart';
 import 'core/utils/app_keys.dart';
+import 'features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 
       builder: (context, child) {
         return BlocProvider(
-        create: (context) => getIt<ForgotPasswordViewModel>(),
+          create: (context) => getIt<ForgotPasswordViewModel>(),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flowers App',
@@ -42,11 +42,8 @@ class MyApp extends StatelessWidget {
             navigatorKey: AppRoutes.navigatorKey,
             onGenerateRoute: AppRoutes.onGenerateRoute,
             initialRoute: isLoggedIn
-                //todo: if user is logged in, return [home screen]
-                // this is only for testing!! we will add home later
                 ? AppRoutes.register
-                //todo: if user is not logged in, return [login screen]
-                : AppRoutes.forgotPassword,
+                : AppRoutes.login,
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
           ),
