@@ -1,6 +1,7 @@
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
+import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 import 'package:flutter/material.dart';
 
 /// A centralized class for managing all application routes and navigation.
@@ -31,10 +32,13 @@ abstract class AppRoutes {
   static const String verifyResetCode = '/VerifyResetCode';
   static const String emailVerification = '/emailVerification';
   static const String resetPassword = '/resetPassword';
+  static const String mainLayout = '/mainLayout';
 
   /// Generates the appropriate [MaterialPageRoute] based on the provided [settings].
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case mainLayout:
+        return MaterialPageRoute(builder: (_) => const MainLayoutScreen());
       // case login:
       //   return MaterialPageRoute(builder: (_) => const LoginPage());
       //

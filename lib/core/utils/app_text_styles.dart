@@ -79,4 +79,10 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.primary,
   );
+
+  static TextStyle get primary12400 => GoogleFonts.inter(
+    fontSize: _sp(12),
+    fontWeight: FontWeight.w400,
+    color: AppColors.primary,
+  );
 }

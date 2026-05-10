@@ -79,6 +79,18 @@ abstract class AppTheme {
         ),
         contentTextStyle: AppTextStyles.white16500,
       ),
+
+      // bottom navigation bar theme
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: AppColors.white,
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: AppColors.black30,
+        selectedLabelStyle: AppTextStyles.primary12400,
+        unselectedLabelStyle: AppTextStyles.gray12400,
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
+        showUnselectedLabels: true,
+      ),
     );
   }
 }
