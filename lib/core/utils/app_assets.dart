@@ -11,7 +11,10 @@ abstract class AppIcons {
 
   // Example: static const String yourIcon = '${_iconsPath}icon_name.svg';
 
-  static const String arrowBackIos = '${_iconsPath}cart.svg';
+  static const String home = '${_iconsPath}home_icon.svg';
+  static const String categories = '${_iconsPath}category_icon.svg';
+  static const String cart = '${_iconsPath}cart_icon.svg';
+  static const String profile = '${_iconsPath}profile_icon.svg';
 }
 
 abstract class AppImages {
@@ -19,5 +22,5 @@ abstract class AppImages {
 
   // Example: static const String yourIcon = '${_imagesPath}image_name.svg';
 
-  static const String arrowBackIos = '${_imagesPath}app_image.svg';
+  static const String appImage = '${_imagesPath}app_image.svg';
 }
