@@ -5,11 +5,13 @@ import 'package:flowers_app/features/auth/signup/data/models/requestes/signup_re
 import 'package:flowers_app/features/auth/signup/data/models/responses/signup_response.dart';
 import 'package:flowers_app/features/auth/signup/data/models/responses/user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:dio/dio.dart';
 
-class MockSignupApiClient extends Mock implements SignupApiClient {}
+import 'signup_remote_data_source_impl_test.mocks.dart';
 
+@GenerateMocks([SignupApiClient])
 void main() {
   late MockSignupApiClient mockApiClient;
   late SignupRemoteDataSourceImpl dataSource;
@@ -45,14 +47,11 @@ void main() {
   setUp(() {
     mockApiClient = MockSignupApiClient();
     dataSource = SignupRemoteDataSourceImpl(mockApiClient);
-    registerFallbackValue(request);
   });
 
   group('SignupRemoteDataSourceImpl', () {
     test('returns SuccessBaseResponse when api call succeeds', () async {
-      when(
-        () => mockApiClient.signup(any()),
-      ).thenAnswer((_) async => fakeResponse);
+      when(mockApiClient.signup(request)).thenAnswer((_) async => fakeResponse);
 
       final result = await dataSource.signup(request);
 
@@ -65,7 +64,7 @@ void main() {
     test(
       'returns ErrorBaseResponse when api call throws DioException',
       () async {
-        when(() => mockApiClient.signup(any())).thenThrow(
+        when(mockApiClient.signup(request)).thenThrow(
           DioException(
             requestOptions: RequestOptions(path: ''),
             type: DioExceptionType.connectionError,
@@ -75,6 +74,8 @@ void main() {
         final result = await dataSource.signup(request);
 
         expect(result, isA<ErrorBaseResponse<SignupResponse>>());
+        final error = result as ErrorBaseResponse<SignupResponse>;
+        expect(error.errorMessage, isNotEmpty);
       },
     );
 
@@ -82,12 +83,14 @@ void main() {
       'returns ErrorBaseResponse when api call throws generic exception',
       () async {
         when(
-          () => mockApiClient.signup(any()),
+          mockApiClient.signup(request),
         ).thenThrow(Exception('unexpected error'));
 
         final result = await dataSource.signup(request);
 
         expect(result, isA<ErrorBaseResponse<SignupResponse>>());
+        final error = result as ErrorBaseResponse<SignupResponse>;
+        expect(error.errorMessage, isNotEmpty);
       },
     );
   });

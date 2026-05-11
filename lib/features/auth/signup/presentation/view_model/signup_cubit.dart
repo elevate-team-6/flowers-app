@@ -8,7 +8,6 @@ import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-
 @injectable
 class SignupCubit extends Cubit<SignupState> {
   final SignupUseCase _signupUseCase;
@@ -19,27 +18,32 @@ class SignupCubit extends Cubit<SignupState> {
     switch (event) {
       case SignupEvent():
         await _signup(event.request);
+        break;
     }
   }
 
   Future<void> _signup(SignupRequest request) async {
-    emit(state.copyWith(
-      signupStateParam: BaseState<UserEntity>(isLoading: true),
-    ));
+    emit(
+      state.copyWith(signupStateParam: BaseState<UserEntity>(isLoading: true)),
+    );
 
     final result = await _signupUseCase(request);
 
     switch (result) {
       case SuccessBaseResponse<UserEntity>():
-        emit(state.copyWith(
-          signupStateParam: BaseState<UserEntity>(data: result.data),
-        ));
-      case ErrorBaseResponse<UserEntity>():
-        emit(state.copyWith(
-          signupStateParam: BaseState<UserEntity>(
-            errorMessage: result.errorMessage,
+        emit(
+          state.copyWith(
+            signupStateParam: BaseState<UserEntity>(data: result.data),
           ),
-        ));
+        );
+      case ErrorBaseResponse<UserEntity>():
+        emit(
+          state.copyWith(
+            signupStateParam: BaseState<UserEntity>(
+              errorMessage: result.errorMessage,
+            ),
+          ),
+        );
     }
   }
 }

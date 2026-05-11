@@ -8,6 +8,20 @@ import 'package:flowers_app/core/utils/app_text_styles.dart';
 class TermsAndConditionsScreen extends StatelessWidget {
   const TermsAndConditionsScreen({super.key});
 
+  static const List<String> _titles = [
+    AppStrings.termsSection1Title,
+    AppStrings.termsSection2Title,
+    AppStrings.termsSection3Title,
+    AppStrings.termsSection4Title,
+  ];
+
+  static const List<String> _bodies = [
+    AppStrings.termsSection1Body,
+    AppStrings.termsSection2Body,
+    AppStrings.termsSection3Body,
+    AppStrings.termsSection4Body,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,32 +42,23 @@ class TermsAndConditionsScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 10.h),
 
-                  TermsSectionItem(
-                    number: 1,
-                    title: AppStrings.termsSection1Title,
-                    body: AppStrings.termsSection1Body,
-                  ),
-                  Divider(height: 32.h, thickness: 0.5, color: Colors.black12),
-
-                  TermsSectionItem(
-                    number: 2,
-                    title: AppStrings.termsSection2Title,
-                    body: AppStrings.termsSection2Body,
-                  ),
-                  Divider(height: 32.h, thickness: 0.5, color: Colors.black12),
-
-                  TermsSectionItem(
-                    number: 3,
-                    title: AppStrings.termsSection3Title,
-                    body: AppStrings.termsSection3Body,
-                  ),
-                  Divider(height: 32.h, thickness: 0.5, color: Colors.black12),
-
-                  TermsSectionItem(
-                    number: 4,
-                    title: AppStrings.termsSection4Title,
-                    body: AppStrings.termsSection4Body,
-                  ),
+                  ...List.generate(_titles.length, (index) {
+                    return Column(
+                      children: [
+                        TermsSectionItem(
+                          number: index + 1,
+                          title: _titles[index],
+                          body: _bodies[index],
+                        ),
+                        if (index < _titles.length - 1)
+                          Divider(
+                            height: 32.h,
+                            thickness: 0.5,
+                            color: Colors.black12,
+                          ),
+                      ],
+                    );
+                  }),
 
                   SizedBox(height: 24.h),
 

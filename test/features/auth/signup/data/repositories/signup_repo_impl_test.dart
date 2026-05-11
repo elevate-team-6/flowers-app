@@ -6,12 +6,14 @@ import 'package:flowers_app/features/auth/signup/data/models/responses/user_mode
 import 'package:flowers_app/features/auth/signup/data/repositories/signup_repo_impl.dart';
 import 'package:flowers_app/features/auth/signup/domain/entities/user_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
-class MockDataSource extends Mock implements SignupRemoteDataSourceContract {}
+import 'signup_repo_impl_test.mocks.dart';
 
+@GenerateMocks([SignupRemoteDataSourceContract])
 void main() {
-  late MockDataSource mockDataSource;
+  late MockSignupRemoteDataSourceContract mockDataSource;
   late SignupRepoImpl repo;
 
   final request = SignupRequest(
@@ -43,15 +45,15 @@ void main() {
   );
 
   setUp(() {
-    mockDataSource = MockDataSource();
+    mockDataSource = MockSignupRemoteDataSourceContract();
     repo = SignupRepoImpl(mockDataSource);
-    registerFallbackValue(request);
+    provideDummy<BaseResponse<SignupResponse>>(ErrorBaseResponse('dummy'));
   });
 
   group('SignupRepoImpl', () {
     test('returns SuccessBaseResponse when data source succeeds', () async {
       when(
-        () => mockDataSource.signup(any()),
+        mockDataSource.signup(request),
       ).thenAnswer((_) async => SuccessBaseResponse(fakeResponse));
 
       final result = await repo.signup(request);
@@ -64,7 +66,7 @@ void main() {
 
     test('returns ErrorBaseResponse when data source returns error', () async {
       when(
-        () => mockDataSource.signup(any()),
+        mockDataSource.signup(request),
       ).thenAnswer((_) async => ErrorBaseResponse('user already exists'));
 
       final result = await repo.signup(request);
@@ -75,7 +77,7 @@ void main() {
     });
 
     test('returns ErrorBaseResponse when user is null', () async {
-      when(() => mockDataSource.signup(any())).thenAnswer(
+      when(mockDataSource.signup(request)).thenAnswer(
         (_) async => SuccessBaseResponse(
           SignupResponse(message: 'success', token: 'fake_token', user: null),
         ),
@@ -84,6 +86,8 @@ void main() {
       final result = await repo.signup(request);
 
       expect(result, isA<ErrorBaseResponse<UserEntity>>());
+      final error = result as ErrorBaseResponse<UserEntity>;
+      expect(error.errorMessage, isNotEmpty);
     });
   });
 }
