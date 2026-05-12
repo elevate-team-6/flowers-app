@@ -41,7 +41,6 @@ class AppProductCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image
               Expanded(
                 flex: 5,
                 child: ClipRRect(
@@ -60,14 +59,13 @@ class AppProductCard extends StatelessWidget {
                       child: Container(color: Colors.white),
                     ),
                     errorWidget: (_, _, _) => Image.asset(
-                      'assets/images/image_default.png',
+                      'assets/images/Image_default.png',
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ),
 
-              // Info
               Expanded(
                 flex: 4,
                 child: Column(
@@ -123,7 +121,7 @@ class AppProductCard extends StatelessWidget {
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  '  $discount%',
+                                  '$discount%',
                                   style: AppTextStyles.gray12400.copyWith(
                                     color: AppColors.success,
                                   ),

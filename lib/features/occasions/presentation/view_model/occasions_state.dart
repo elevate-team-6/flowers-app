@@ -16,7 +16,7 @@ class OccasionsState {
     this.occasionsState =
         occasionsState ?? BaseState<List<OccasionEntity>>(isLoading: false);
     this.productsState =
-        productsState ?? BaseState<List<ProductEntity>>(isLoading: false);
+        productsState ?? BaseState<List<ProductEntity>>(isLoading: true);
   }
 
   OccasionsState copyWith({

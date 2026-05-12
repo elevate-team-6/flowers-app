@@ -1,3 +1,5 @@
+import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/config/error_handler/error_handler.dart';
 import 'package:flowers_app/features/occasions/api/api_client/occasions_api_client.dart';
 import 'package:flowers_app/features/occasions/data/data_sources/occasions_remote_data_source_contract.dart';
 import 'package:flowers_app/features/occasions/data/models/responses/occasions_response.dart';
@@ -11,9 +13,13 @@ class OccasionsRemoteDataSourceImpl
   const OccasionsRemoteDataSourceImpl(this._apiClient);
 
   @override
-  Future<OccasionsResponse> getAllOccasions() => _apiClient.getAllOccasions();
+  Future<BaseResponse<OccasionsResponse>> getAllOccasions() =>
+      ErrorHandler.handleApiCall(() => _apiClient.getAllOccasions());
 
   @override
-  Future<ProductsResponse> getProductsByOccasion(String occasionName) =>
-      _apiClient.getProductsByOccasion(occasionName);
+  Future<BaseResponse<ProductsResponse>> getProductsByOccasion(
+    String occasionName,
+  ) => ErrorHandler.handleApiCall(
+    () => _apiClient.getProductsByOccasion(occasionName),
+  );
 }
