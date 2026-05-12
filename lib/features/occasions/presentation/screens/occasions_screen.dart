@@ -7,7 +7,7 @@ import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.d
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_events.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_state.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
-import 'package:flowers_app/features/occasions/presentation/widgets/occasions_shimmer.dart';
+import 'package:flowers_app/core/utils/products_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -93,10 +93,8 @@ class _OccasionsScreenState extends State<OccasionsScreen>
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Subtitle
                 SizedBox(height: 14.h),
 
-                // TabBar
                 if (_tabController.length == occasions.length &&
                     occasions.isNotEmpty)
                   AppCustomTabBar(
@@ -105,14 +103,13 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                   ),
                 SizedBox(height: 14.h),
 
-                // Products
                 Expanded(
                   child: BlocBuilder<OccasionsCubit, OccasionsState>(
                     buildWhen: (prev, curr) =>
                         prev.productsState != curr.productsState,
                     builder: (context, state) {
                       if (state.productsState.isLoading) {
-                        return const OccasionsShimmer();
+                        return const ProductsShimmer();
                       }
 
                       if (state.productsState.errorMessage != null) {
