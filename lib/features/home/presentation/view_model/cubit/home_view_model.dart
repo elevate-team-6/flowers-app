@@ -1,6 +1,6 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
-import 'package:flowers_app/features/home/presentation/view_model/states/home_events.dart';
+import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
 import 'package:flowers_app/features/occasions/domain/entities/product_entity.dart';
@@ -26,7 +26,7 @@ class HomeViewModel extends Cubit<HomeStates> {
   }
 
   Future<void> _getAllData() async {
-    Future.wait([_getOccasions(), _getBestSeller()]);
+    Future.wait([_getOccasions(), _getBestSeller(), _getCategories()]);
   }
 
   Future<void> _getOccasions() async {
