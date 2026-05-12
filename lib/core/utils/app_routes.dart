@@ -1,6 +1,9 @@
+import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
+import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +44,12 @@ abstract class AppRoutes {
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayoutScreen());
       case occasions:
-        return MaterialPageRoute(builder: (_) => const OccasionsScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<OccasionsCubit>(),
+            child: const OccasionsScreen(),
+          ),
+        );
       // case login:
       //   return MaterialPageRoute(builder: (_) => const LoginPage());
       //

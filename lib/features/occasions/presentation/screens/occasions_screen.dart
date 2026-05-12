@@ -29,7 +29,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 0, vsync: this);
-    _cubit = getIt<OccasionsCubit>()..doEvent(const GetOccasionsEvent());
+    _cubit = context.read<OccasionsCubit>()..doEvent(const GetOccasionsEvent());
   }
 
   void _onOccasionsLoaded(List<OccasionEntity> occasions) {
