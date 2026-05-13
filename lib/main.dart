@@ -3,17 +3,22 @@ import 'package:flowers_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'config/cache/cache_helper.dart';
+import 'config/cache/hive_helper.dart';
+import 'config/cache/secure_cache_helper.dart';
 import 'config/di/di.dart';
 import 'core/utils/app_keys.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
-  final cacheHelper = getIt<CacheHelper>();
-  final token = await cacheHelper.readData(key: AppKeys.tokenKey);
+  
+  // Initialize Hive
+  await getIt<HiveHelper>().init();
+  
+  final secureCacheHelper = getIt<SecureCacheHelper>();
+  final token = await secureCacheHelper.readData(key: AppKeys.tokenKey);
   final bool isRemembered =
-      await cacheHelper.readData(key: AppKeys.rememberMeKey) == 'true';
+      await secureCacheHelper.readData(key: AppKeys.rememberMeKey) == 'true';
   final isLoggedIn = token != null && token.isNotEmpty && isRemembered;
   runApp(MyApp(isLoggedIn: isLoggedIn));
 }

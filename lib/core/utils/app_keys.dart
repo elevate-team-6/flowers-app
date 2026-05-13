@@ -1,4 +1,8 @@
 abstract class AppKeys {
   static const String tokenKey = 'token';
   static const String rememberMeKey = 'remember_me';
+  static const String categoriesBox = 'categories_box';
+  static const String categoriesKey = 'categories_cache';
+  static const String productsBox = 'products_box';
+  static const String productsKey = 'products_cache';
 }
