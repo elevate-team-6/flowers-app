@@ -16,6 +16,8 @@ abstract class AppEndPoints {
 
   // Home:
     static const String bestSeller = "$baseUrl/best-seller";
+    static const String productDetails = "$baseUrl/products/{id}";
+
 
   // ---------------------------------------------------------------------------
   // TO ADD NEW ENDPOINTS:

@@ -1,5 +1,6 @@
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_product_card.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/utils/products_shimmer.dart';
@@ -72,13 +73,19 @@ class BestSellerScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final product = products[index];
 
-                  return AppProductCard(
-                    imgCover: product.imgCover,
-                    title: product.title,
-                    price: product.price,
-                    priceAfterDiscount: product.priceAfterDiscount,
-                    discount: product.discount,
-                    onAddToCart: () {},
+                  return GestureDetector(
+                    onTap: () {
+
+                      Navigator.pushNamed(context, AppRoutes.productDetails,arguments: product.id);
+                    },
+                    child: AppProductCard(
+                      imgCover: product.imgCover,
+                      title: product.title,
+                      price: product.price,
+                      priceAfterDiscount: product.priceAfterDiscount,
+                      discount: product.discount,
+                      onAddToCart: () {},
+                    ),
                   );
                 },
               ),

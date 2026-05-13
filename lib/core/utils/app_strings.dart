@@ -126,5 +126,15 @@ abstract class AppStrings {
   static const String bestSeller = 'Best seller';
   static const String noProductsFound = 'No Products Found';
   static const String subTitleBestSeller = 'Bloom with our exquisite best sellers';
+    // Product Details
+      static const String allPricesIncludeTax = 'All prices include tax';
+      static const String status = 'Status:';
+      static const String description = 'Description';
+      static const String inStock = 'In Stock';
+      static const String outOfStock = 'Out Of Stock';
+      static const String roses = 'roses:15';
+      static const String bouqetInclude = 'Bouquet include';
+      static const String noProductDetailsFound = 'No Product Details Found';
+
 }
 

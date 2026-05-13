@@ -5,6 +5,9 @@ import 'package:flowers_app/features/auth/forgot-password/presentation/screens/v
 import 'package:flowers_app/features/home/best_seller/presentation/cubit/best_seller_cubit.dart';
 import 'package:flowers_app/features/home/best_seller/presentation/cubit/best_seller_event.dart';
 import 'package:flowers_app/features/home/best_seller/presentation/screens/best_seller_screen.dart';
+import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
+import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
+import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +42,7 @@ abstract class AppRoutes {
   static const String resetPassword = '/resetPassword';
   static const String mainLayout = '/mainLayout';
   static const String bestSeller = '/bestSeller';
+  static const String productDetails = '/productDetails';
 
   /// Generates the appropriate [MaterialPageRoute] based on the provided [settings].
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -55,10 +59,23 @@ abstract class AppRoutes {
       case bestSeller:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
+            create: (_) =>
+                getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
             child: const BestSellerScreen(),
           ),
         );
+      case productDetails:
+        final String productId = settings.arguments.toString();
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                getIt<ProductDetailsCubit>()
+                  ..doEvent(GetProductDetailsEvent(productId)),
+            child: const ProductDetailsScreen(),
+          ),
+        );
+
       case verifyResetCode:
         final String email = settings.arguments as String;
         return MaterialPageRoute(
