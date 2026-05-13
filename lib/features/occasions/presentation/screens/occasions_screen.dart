@@ -1,13 +1,12 @@
-import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/core/utils/app_custom_tab_bar.dart';
-import 'package:flowers_app/core/utils/app_product_card.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_events.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_state.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
-import 'package:flowers_app/core/utils/products_shimmer.dart';
+import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -109,7 +108,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                         prev.productsState != curr.productsState,
                     builder: (context, state) {
                       if (state.productsState.isLoading) {
-                        return const ProductsShimmer();
+                        return const CustomProductsShimmer();
                       }
 
                       if (state.productsState.errorMessage != null) {
@@ -132,28 +131,10 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                           ),
                         );
                       }
-
-                      return GridView.builder(
-                        padding: EdgeInsets.all(16.w),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 12.w,
-                          mainAxisSpacing: 12.h,
-                          childAspectRatio: 0.62,
-                        ),
-                        itemCount: products.length,
-                        itemBuilder: (context, index) {
-                          final product = products[index];
-                          return AppProductCard(
-                            imgCover: product.imgCover,
-                            title: product.title,
-                            price: product.price,
-                            priceAfterDiscount: product.priceAfterDiscount,
-                            discount: product.discount,
-                            onAddToCart: () {},
-                            onTap: () {},
-                          );
-                        },
+                      return CustomProductsGrid(
+                        products: products,
+                        onAddToCart: (product) {},
+                        onTap: (product) {},
                       );
                     },
                   ),

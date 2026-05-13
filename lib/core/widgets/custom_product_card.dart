@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
@@ -6,24 +7,16 @@ import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:shimmer/shimmer.dart';
 
-class AppProductCard extends StatelessWidget {
-  final String imgCover;
-  final String title;
-  final int price;
-  final int priceAfterDiscount;
-  final int discount;
+class CustomProductCard extends StatelessWidget {
+  final ProductEntity product;
   final VoidCallback onAddToCart;
   final VoidCallback? onTap;
 
-  const AppProductCard({
+  const CustomProductCard({
     super.key,
-    required this.imgCover,
-    required this.title,
-    required this.price,
-    required this.priceAfterDiscount,
-    required this.discount,
     required this.onAddToCart,
     this.onTap,
+    required this.product,
   });
 
   @override
@@ -48,9 +41,10 @@ class AppProductCard extends StatelessWidget {
                   //   top: Radius.circular(12.r),
                   // ),
                   child: CachedNetworkImage(
-                    imageUrl: imgCover,
-                    errorListener: (error) =>
-                        debugPrint('Image error: $error — URL: $imgCover'),
+                    imageUrl: product.imgCover,
+                    errorListener: (error) => debugPrint(
+                      'Image error: $error — URL: ${product.imgCover}',
+                    ),
                     width: double.infinity,
                     fit: BoxFit.cover,
                     placeholder: (_, _) => Shimmer.fromColors(
@@ -79,7 +73,7 @@ class AppProductCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            title,
+                            product.title,
                             style: AppTextStyles.black12400,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -95,7 +89,7 @@ class AppProductCard extends StatelessWidget {
                                   fit: BoxFit.scaleDown,
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    'EGP $priceAfterDiscount',
+                                    'EGP ${product.priceAfterDiscount}',
                                     style: AppTextStyles.black13400.copyWith(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14.sp,
@@ -110,7 +104,7 @@ class AppProductCard extends StatelessWidget {
                                   fit: BoxFit.scaleDown,
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    '$price',
+                                    'EGP ${product.price}',
                                     style: AppTextStyles.black12400.copyWith(
                                       decoration: TextDecoration.lineThrough,
                                     ),
@@ -121,7 +115,7 @@ class AppProductCard extends StatelessWidget {
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  '$discount%',
+                                  '${product.discount}%',
                                   style: AppTextStyles.gray12400.copyWith(
                                     color: AppColors.success,
                                   ),

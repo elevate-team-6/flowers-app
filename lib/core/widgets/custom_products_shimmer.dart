@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ProductsShimmer extends StatelessWidget {
-  const ProductsShimmer({super.key});
+class CustomProductsShimmer extends StatelessWidget {
+  const CustomProductsShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
