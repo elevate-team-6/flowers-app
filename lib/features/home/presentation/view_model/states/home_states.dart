@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
 import 'package:flowers_app/features/occasions/domain/entities/product_entity.dart';
-import 'package:flutter/foundation.dart';
 
 class HomeStates extends Equatable {
   final BaseState<List<OccasionEntity>> occasionsState;

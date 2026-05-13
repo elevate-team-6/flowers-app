@@ -4,7 +4,6 @@ import 'package:flowers_app/features/home/presentation/view_model/events/home_ev
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
 import 'package:flowers_app/features/occasions/domain/entities/product_entity.dart';
-import 'package:flowers_app/features/occasions/domain/use_cases/occasions_use_case.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,62 +1,26 @@
 import 'package:flowers_app/core/utils/app_colors.dart';
-import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/features/home/presentation/widgets/best_seller_card.dart';
-import 'package:flowers_app/features/home/presentation/widgets/category_card.dart';
-import 'package:flowers_app/features/home/presentation/widgets/home_common_section_header.dart';
-import 'package:flowers_app/features/home/presentation/widgets/occasion_card.dart';
+import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
+import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
+import 'package:flowers_app/features/home/presentation/widgets/best_sellers_home_section.dart';
+import 'package:flowers_app/features/home/presentation/widgets/categories_home_section.dart';
+import 'package:flowers_app/features/home/presentation/widgets/delivery_address_home_section.dart';
+import 'package:flowers_app/features/home/presentation/widgets/home_top_bar.dart';
+import 'package:flowers_app/features/home/presentation/widgets/occasions__home_section.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  // ── Sample data ──────────────────────────────────────────────────────────────
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-  static const List<Map<String, dynamic>> _categories = [
-    {'icon': Icons.local_florist, 'label': 'Flowers'},
-    {'icon': Icons.card_giftcard, 'label': 'Gift'},
-    {'icon': Icons.credit_card, 'label': 'Card'},
-    {'icon': Icons.diamond_outlined, 'label': 'Jewellery'},
-    {'icon': Icons.cake_outlined, 'label': 'Cake'},
-  ];
-
-  static const List<Map<String, String>> _bestSellers = [
-    {
-      'image':
-          'https://images.unsplash.com/photo-1490750967868-88df5691cc52?w=400',
-      'title': 'Sunny',
-      'price': '600 EGP',
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1534710961216-75c88202f43e?w=400',
-      'title': 'Red roses',
-      'price': '600 EGP',
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=400',
-      'title': 'Spring vase',
-      'price': '600 EGP',
-    },
-  ];
-
-  static const List<Map<String, String>> _occasions = [
-    {
-      'image':
-          'https://images.unsplash.com/photo-1519741497674-611481863552?w=400',
-      'label': 'Wedding',
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=400',
-      'label': 'Birthday',
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400',
-      'label': 'Graduation',
-    },
-  ];
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,177 +29,51 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // ── Top bar ────────────────────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-              child: Row(
-                children: [
-                  // Logo
-                  const Row(
-                    children: [
-                      Icon(
-                        Icons.local_florist,
-                        color: AppColors.primary,
-                        size: 22,
-                      ),
-                      SizedBox(width: 4),
-                      Text(
-                        AppStrings.flowery,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 12),
-                  // Search bar
-                  Expanded(
-                    child: Container(
-                      height: 40,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.white70),
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Row(
-                        children: [
-                          SizedBox(width: 12),
-                          Icon(
-                            Icons.search,
-                            color: AppColors.white70,
-                            size: 18,
-                          ),
-                          SizedBox(width: 6),
-                          Text(
-                            AppStrings.search,
-                            style: TextStyle(
-                              color: AppColors.white70,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Top Bar
+            HomeTopBar(),
 
-            // ── Delivery address ───────────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
-              child: Row(
-                children: const [
-                  Icon(
-                    Icons.location_on_outlined,
-                    color: AppColors.black50,
-                    size: 16,
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    AppStrings.deliverToMockAddress,
-                    style: TextStyle(fontSize: 13, color: AppColors.black50),
-                  ),
-                  SizedBox(width: 4),
-                  Icon(
-                    Icons.keyboard_arrow_down,
-                    color: AppColors.black50,
-                    size: 16,
-                  ),
-                ],
-              ),
-            ),
+            // Delivery Address
+            DeliveryAddressHomeSection(),
 
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
 
-            // ── Scrollable body ────────────────────────────────────────────────
+            // Main Content
             Expanded(
               child: SingleChildScrollView(
-                //لما بتعمل سكرول لفوق بيعمل كانه بيخبط فالسقف ويرتد
                 physics: const BouncingScrollPhysics(),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 16),
-
-                    // ── Categories ─────────────────────────────────────────────
-                    HomeCommonSectionHeader(
-                      title: AppStrings.categories,
-                      onViewAll: () {},
-                    ),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      height: 90,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: _categories.length,
-                        separatorBuilder: (_, _) => const SizedBox(width: 16),
-                        itemBuilder: (context, i) {
-                          final category = _categories[i];
-                          return CategoryCard(
-                            icon: category[AppStrings.icon],
-                            label: category[AppStrings.label],
-                          );
-                        },
-                      ),
+                    //categories
+                    BlocBuilder<HomeViewModel, HomeStates>(
+                      buildWhen: (previous, current) =>
+                          previous.categoreyState != current.categoreyState,
+                      builder: (context, state) {
+                        return CategoriesHomeSection(state: state);
+                      },
                     ),
 
                     const SizedBox(height: 24),
-
-                    // ── Best Sellers ───────────────────────────────────────────
-                    HomeCommonSectionHeader(
-                      title: AppStrings.bestSeller,
-                      onViewAll: () {},
-                    ),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      height: 210,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: _bestSellers.length,
-                        separatorBuilder: (_, _) => const SizedBox(width: 12),
-                        itemBuilder: (context, i) {
-                          final b = _bestSellers[i];
-                          return BestSellerCard(
-                            imageUrl: b[AppStrings.image]!,
-                            title: b[AppStrings.title]!,
-                            price: b[AppStrings.price]!,
-                          );
-                        },
-                      ),
+                    //best seller
+                    BlocBuilder<HomeViewModel, HomeStates>(
+                      buildWhen: (previous, current) =>
+                          previous.bsetSelerState != current.bsetSelerState,
+                      builder: (context, state) {
+                        return BestSellersHomeSection(state: state);
+                      },
                     ),
 
                     const SizedBox(height: 24),
+                    //occasions
+                    BlocBuilder<HomeViewModel, HomeStates>(
+                      buildWhen: (previous, current) =>
+                          previous.occasionsState != current.occasionsState,
+                      builder: (context, state) {
+                        return OccasionsHomeSecion(state: state);
+                      },
+                    ),
 
-                    // ── Occasions ──────────────────────────────────────────────
-                    HomeCommonSectionHeader(
-                      title: AppStrings.occasion,
-                      onViewAll: () {},
-                    ),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      height: 210,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: _occasions.length,
-                        separatorBuilder: (_, _) => const SizedBox(width: 12),
-                        itemBuilder: (context, i) {
-                          final o = _occasions[i];
-                          return OccasionCard(
-                            imageUrl: o[AppStrings.image]!,
-                            label: o[AppStrings.label]!,
-                          );
-                        },
-                      ),
-                    ),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
