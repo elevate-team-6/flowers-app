@@ -34,7 +34,7 @@ class AppProductCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(color: AppColors.black10, width: 0.5),
+          border: Border.all(color: AppColors.white70, width: 1.w),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
