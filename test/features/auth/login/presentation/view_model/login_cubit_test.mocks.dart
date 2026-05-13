@@ -6,7 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:flowers_app/config/base_response/base_response.dart' as _i4;
-import 'package:flowers_app/config/cache/cache_helper.dart' as _i8;
+import 'package:flowers_app/config/cache/secure_cache_helper.dart' as _i8;
 import 'package:flowers_app/features/auth/login/data/models/login_request/login_request.dart'
     as _i6;
 import 'package:flowers_app/features/auth/login/domain/entities/user_entity.dart'
@@ -55,10 +55,10 @@ class MockLoginUseCase extends _i1.Mock implements _i2.LoginUseCase {
           as _i3.Future<_i4.BaseResponse<_i5.UserEntity>>);
 }
 
-/// A class which mocks [CacheHelper].
+/// A class which mocks [SecureCacheHelper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCacheHelper extends _i1.Mock implements _i8.CacheHelper {
+class MockCacheHelper extends _i1.Mock implements _i8.SecureCacheHelper {
   MockCacheHelper() {
     _i1.throwOnMissingStub(this);
   }

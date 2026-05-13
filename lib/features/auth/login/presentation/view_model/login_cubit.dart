@@ -1,18 +1,18 @@
-import 'package:flowers_app/config/cache/cache_helper.dart';
-import 'package:flowers_app/core/utils/app_keys.dart';
-import 'package:flowers_app/features/auth/login/domain/use_cases/login_use_case.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/config/cache/secure_cache_helper.dart';
+import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/features/auth/login/data/models/login_request/login_request.dart';
 import 'package:flowers_app/features/auth/login/domain/entities/user_entity.dart';
+import 'package:flowers_app/features/auth/login/domain/use_cases/login_use_case.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_event.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class LoginCubit extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase _loginUseCase;
-  final CacheHelper _cacheHelper;
+  final SecureCacheHelper _cacheHelper;
   LoginCubit(this._loginUseCase, this._cacheHelper)
     : super(const LoginState()) {
     on<LoginRequestedEvent>(_onLogin);
@@ -20,7 +20,10 @@ class LoginCubit extends Bloc<LoginEvent, LoginState> {
     on<ToggleRememberMeEvent>(_onToggleRememberMe);
   }
 
-  Future<void> _onLogin(LoginRequestedEvent event, Emitter<LoginState> emit) async {
+  Future<void> _onLogin(
+    LoginRequestedEvent event,
+    Emitter<LoginState> emit,
+  ) async {
     emit(state.copyWith(isLoading: true, errorMessage: null, user: null));
 
     final result = await _loginUseCase(
@@ -59,7 +62,10 @@ class LoginCubit extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  void _onToggleRememberMe(ToggleRememberMeEvent event, Emitter<LoginState> emit) {
+  void _onToggleRememberMe(
+    ToggleRememberMeEvent event,
+    Emitter<LoginState> emit,
+  ) {
     emit(state.copyWith(isRememberMe: event.value));
   }
 
