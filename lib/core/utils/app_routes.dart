@@ -30,23 +30,47 @@ abstract class AppRoutes {
 
   /// Generates the appropriate [MaterialPageRoute] based on the provided [settings].
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      // case login:
-      //   return MaterialPageRoute(builder: (_) => const LoginPage());
-      //
-      // case register:
-      //   return MaterialPageRoute(builder: (_) => const RegisterPage());
+    try {
+      switch (settings.name) {
+        // case login:
+        //   return MaterialPageRoute(builder: (_) => const LoginPage());
+        //
+        // case register:
+        //   return MaterialPageRoute(builder: (_) => const RegisterPage());
 
-      default:
-        return _unDefinedRoute(settings.name);
+        default:
+          return _unDefinedRoute(settings.name);
+      }
+    } catch (e) {
+      debugPrint("Route Error: ${e.toString()}");
+      return _unDefinedRoute(settings.name, error: e.toString());
     }
   }
 
   /// Helper method to return an error page when an undefined route is requested.
-  static MaterialPageRoute<dynamic> _unDefinedRoute(String? name) {
+  static MaterialPageRoute<dynamic> _unDefinedRoute(
+    String? name, {
+    String? error,
+  }) {
     return MaterialPageRoute(
-      builder: (_) =>
-          Scaffold(body: Center(child: Text('No route defined for $name'))),
+      builder: (_) => Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('No route defined for $name'),
+              if (error != null) ...[
+                const SizedBox(height: 10),
+                Text(
+                  'Error: $error',
+                  style: const TextStyle(color: Colors.red, fontSize: 12),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
