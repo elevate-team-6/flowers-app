@@ -1,6 +1,6 @@
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
 import 'package:flowers_app/features/home/presentation/widgets/best_seller_card.dart';
-import 'package:flowers_app/features/home/presentation/widgets/home_common_section_header.dart';
+import 'package:flowers_app/features/home/presentation/widgets/home_common_header_section.dart';
 import 'package:flutter/material.dart';
 
 class BestSellersHomeSection extends StatelessWidget {
@@ -38,7 +38,7 @@ class BestSellersHomeSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HomeCommonSectionHeader(title: "Best Sellers", onViewAll: () {}),
+        HomeCommonHeaderSection(title: "Best Sellers", onViewAll: () {}),
         const SizedBox(height: 12),
         SizedBox(
           height: 210,

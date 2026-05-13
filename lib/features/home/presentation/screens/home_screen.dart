@@ -3,7 +3,7 @@ import 'package:flowers_app/features/home/presentation/view_model/cubit/home_vie
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
 import 'package:flowers_app/features/home/presentation/widgets/best_sellers_home_section.dart';
 import 'package:flowers_app/features/home/presentation/widgets/categories_home_section.dart';
-import 'package:flowers_app/features/home/presentation/widgets/delivery_address_home_section.dart';
+import 'package:flowers_app/features/home/presentation/widgets/home_delivery_address_section.dart';
 import 'package:flowers_app/features/home/presentation/widgets/home_top_bar.dart';
 import 'package:flowers_app/features/home/presentation/widgets/occasions__home_section.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeTopBar(),
 
             // Delivery Address
-            DeliveryAddressHomeSection(),
+            HomeDeliveryAddressSection(),
 
             const SizedBox(height: 8),
 

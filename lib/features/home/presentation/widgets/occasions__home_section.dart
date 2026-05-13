@@ -1,5 +1,5 @@
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
-import 'package:flowers_app/features/home/presentation/widgets/home_common_section_header.dart';
+import 'package:flowers_app/features/home/presentation/widgets/home_common_header_section.dart';
 import 'package:flowers_app/features/home/presentation/widgets/occasion_card.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,7 @@ class OccasionsHomeSecion extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HomeCommonSectionHeader(
+        HomeCommonHeaderSection(
           title: "occasions", // Or "Occasions"
           onViewAll: () {},
         ),

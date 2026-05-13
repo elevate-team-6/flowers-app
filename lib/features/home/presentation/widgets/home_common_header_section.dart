@@ -2,11 +2,11 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
-class HomeCommonSectionHeader extends StatelessWidget {
+class HomeCommonHeaderSection extends StatelessWidget {
   final String title;
   final VoidCallback onViewAll;
 
-  const HomeCommonSectionHeader({
+  const HomeCommonHeaderSection({
     super.key,
     required this.title,
     required this.onViewAll,
