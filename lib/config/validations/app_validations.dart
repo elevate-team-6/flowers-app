@@ -56,7 +56,7 @@ abstract class AppValidations {
     if (value == null || value.trim().isEmpty) {
       return AppStrings.emailRequired;
     }
-    final regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    final regex = RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!regex.hasMatch(value.trim())) {
       return AppStrings.invalidEmail;
     }
@@ -83,6 +83,10 @@ abstract class AppValidations {
 
     if (!value.contains(RegExp(r'[0-9]'))) {
       return AppStrings.passwordNumber;
+    }
+
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return AppStrings.passwordSpecialCharacter;
     }
 
     return null;

@@ -26,15 +26,15 @@ class UserModel extends Equatable {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    id: json[AppParams.id] as String? ?? '',
-    firstName: json[AppParams.firstName] as String? ?? '',
-    lastName: json[AppParams.lastName] as String? ?? '',
-    email: json[AppParams.email] as String? ?? '',
-    gender: json[AppParams.gender] as String? ?? '',
-    phone: json[AppParams.phone] as String? ?? '',
-    photo: json[AppParams.photo] as String? ?? '',
-    role: json[AppParams.role] as String? ?? '',
-    createdAt: json[AppParams.createdAt] as String? ?? '',
+    id: json[ApiParameters.id] as String? ?? '',
+    firstName: json[ApiParameters.firstName] as String? ?? '',
+    lastName: json[ApiParameters.lastName] as String? ?? '',
+    email: json[ApiParameters.email] as String? ?? '',
+    gender: json[ApiParameters.gender] as String? ?? '',
+    phone: json[ApiParameters.phone] as String? ?? '',
+    photo: json[ApiParameters.photo] as String? ?? '',
+    role: json[ApiParameters.role] as String? ?? '',
+    createdAt: json[ApiParameters.createdAt] as String? ?? '',
   );
 
   @override

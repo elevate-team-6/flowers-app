@@ -10,10 +10,10 @@ class SignupResponse extends Equatable {
   const SignupResponse({this.message, this.user, this.token});
 
   factory SignupResponse.fromJson(Map<String, dynamic> json) => SignupResponse(
-    message: json[AppParams.message] as String?,
-    token: json[AppParams.token] as String?,
-    user: json[AppParams.user] != null
-        ? UserModel.fromJson(json[AppParams.user] as Map<String, dynamic>)
+    message: json[ApiParameters.message] as String?,
+    token: json[ApiParameters.token] as String?,
+    user: json[ApiParameters.user] != null
+        ? UserModel.fromJson(json[ApiParameters.user] as Map<String, dynamic>)
         : null,
   );
 

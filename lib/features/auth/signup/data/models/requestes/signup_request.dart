@@ -22,13 +22,13 @@ class SignupRequest extends Equatable {
   });
 
   Map<String, dynamic> toJson() => {
-    AppParams.firstName: firstName,
-    AppParams.lastName: lastName,
-    AppParams.email: email,
-    AppParams.password: password,
-    AppParams.rePassword: rePassword,
-    AppParams.phone: phone,
-    AppParams.gender: gender,
+    ApiParameters.firstName: firstName,
+    ApiParameters.lastName: lastName,
+    ApiParameters.email: email,
+    ApiParameters.password: password,
+    ApiParameters.rePassword: rePassword,
+    ApiParameters.phone: phone,
+    ApiParameters.gender: gender,
   };
 
   @override
