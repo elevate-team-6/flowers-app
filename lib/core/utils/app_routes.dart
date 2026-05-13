@@ -1,13 +1,14 @@
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../config/di/di.dart';
 import '../../features/auth/login/presentation/screens/login_screen.dart';
 import '../../features/auth/login/presentation/view_model/login_cubit.dart';
 import '../../features/auth/signup/presentation/screens/signup_screen.dart';
 import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
-import 'package:flutter/material.dart';
 
 /// A centralized class for managing all application routes and navigation.
 ///
@@ -35,50 +36,73 @@ abstract class AppRoutes {
   static const String register = '/register';
   static const String forgotPassword = '/forgotPassword';
   static const String verifyResetCode = '/VerifyResetCode';
-  static const String emailVerification = '/emailVerification';
   static const String resetPassword = '/resetPassword';
-  static const String mainLayout = '/mainLayout';
+  static const String mainLayout = 'mainLayout';
 
   /// Generates the appropriate [MaterialPageRoute] based on the provided [settings].
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case mainLayout:
-        return MaterialPageRoute(builder: (_) => const MainLayoutScreen());
-      case login:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) =>
-                getIt<LoginCubit>(),
-            child: const LoginScreen(),
-          ),
-        );
-    //
-      case register:
-        return MaterialPageRoute(builder: (_) => const SignUpScreen());
-      case forgotPassword:
-        return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
+    try {
+      switch (settings.name) {
+        case mainLayout:
+          return MaterialPageRoute(builder: (_) => const MainLayoutScreen());
+        case login:
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => getIt<LoginCubit>(),
+              child: const LoginScreen(),
+            ),
+          );
+        case register:
+          return MaterialPageRoute(builder: (_) => const SignUpScreen());
+        case forgotPassword:
+          return MaterialPageRoute(
+            builder: (_) => const ForgotPasswordScreen(),
+          );
 
-      case verifyResetCode:
-        final String email = settings.arguments as String;
-        return MaterialPageRoute(
-          builder: (_) => VerifyResetCodeScreen(email: email),
-        );
+        case verifyResetCode:
+          final String email = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (_) => VerifyResetCodeScreen(email: email),
+          );
 
-      case resetPassword:
-        final String email = settings.arguments as String;
-        return MaterialPageRoute(
-          builder: (_) => ResetPasswordScreen(email: email),
-        );
-      default:
-        return _unDefinedRoute(settings.name);
+        case resetPassword:
+          final String email = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (_) => ResetPasswordScreen(email: email),
+          );
+        default:
+          return _unDefinedRoute(settings.name);
+      }
+    } catch (e) {
+      debugPrint("Route Error: ${e.toString()}");
+      return _unDefinedRoute(settings.name, error: e.toString());
     }
   }
 
   /// Helper method to return an error page when an undefined route is requested.
-  static MaterialPageRoute<dynamic> _unDefinedRoute(String? name) {
+  static MaterialPageRoute<dynamic> _unDefinedRoute(
+    String? name, {
+    String? error,
+  }) {
     return MaterialPageRoute(
-      builder: (_) =>
-          Scaffold(body: Center(child: Text('No route defined for $name'))),
+      builder: (_) => Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('No route defined for $name'),
+              if (error != null) ...[
+                const SizedBox(height: 10),
+                Text(
+                  'Error: $error',
+                  style: const TextStyle(color: Colors.red, fontSize: 12),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
