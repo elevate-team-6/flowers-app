@@ -1,6 +1,11 @@
+import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
+import 'package:flowers_app/features/home/best_seller/presentation/cubit/best_seller_cubit.dart';
+import 'package:flowers_app/features/home/best_seller/presentation/cubit/best_seller_event.dart';
+import 'package:flowers_app/features/home/best_seller/presentation/screens/best_seller_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +38,7 @@ abstract class AppRoutes {
   static const String emailVerification = '/emailVerification';
   static const String resetPassword = '/resetPassword';
   static const String mainLayout = '/mainLayout';
+  static const String bestSeller = '/bestSeller';
 
   /// Generates the appropriate [MaterialPageRoute] based on the provided [settings].
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -46,7 +52,13 @@ abstract class AppRoutes {
       //   return MaterialPageRoute(builder: (_) => const RegisterPage());
       case forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
-
+      case bestSeller:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
+            child: const BestSellerScreen(),
+          ),
+        );
       case verifyResetCode:
         final String email = settings.arguments as String;
         return MaterialPageRoute(

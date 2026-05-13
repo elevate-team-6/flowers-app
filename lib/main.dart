@@ -44,9 +44,9 @@ class MyApp extends StatelessWidget {
             initialRoute: isLoggedIn
                 //todo: if user is logged in, return [home screen]
                 // this is only for testing!! we will add home later
-                ? AppRoutes.register
+                ? AppRoutes.bestSeller
                 //todo: if user is not logged in, return [login screen]
-                : AppRoutes.forgotPassword,
+                : AppRoutes.bestSeller,
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
           ),
