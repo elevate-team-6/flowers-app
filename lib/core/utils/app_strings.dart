@@ -92,7 +92,7 @@ abstract class AppStrings {
   // Validation messages
   static const String emailRequired = 'Email is required';
   static const String invalidEmail = 'Enter a valid email address';
-    static const String invalidPassword = 'Invalid password';
+  static const String invalidPassword = 'Invalid password';
   static const String passwordRequired = 'Password is required';
   static const String passwordTooShort =
       'Password must be at least 8 characters';
@@ -137,4 +137,9 @@ abstract class AppStrings {
   static const String price = 'price';
   static const String occasion = 'Occasion';
   static const String viewAll = 'View All';
+  static const String noBestSellersAvailable = 'No best sellers available';
+  static const String bestSellers = 'Best Sellers';
+  static const String noCategoriesAvailable = 'No categories available';
+  static const String deliverTo = 'Deliver to: Cairo, Egypt';
+  static const String noOcassionsAvailable = 'No occasions available';
 }

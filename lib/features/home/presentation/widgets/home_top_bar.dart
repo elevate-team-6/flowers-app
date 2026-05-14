@@ -1,4 +1,5 @@
 import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class HomeTopBar extends StatelessWidget {
@@ -15,7 +16,7 @@ class HomeTopBar extends StatelessWidget {
               Icon(Icons.local_florist, color: AppColors.primary, size: 22),
               SizedBox(width: 4),
               Text(
-                "Flowery",
+                AppStrings.flowery,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
@@ -39,7 +40,7 @@ class HomeTopBar extends StatelessWidget {
                   Icon(Icons.search, color: AppColors.white70, size: 18),
                   SizedBox(width: 6),
                   Text(
-                    "Search...",
+                    AppStrings.search,
                     style: TextStyle(color: AppColors.white70, fontSize: 14),
                   ),
                 ],

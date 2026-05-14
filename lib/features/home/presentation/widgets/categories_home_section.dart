@@ -1,3 +1,6 @@
+import 'package:flowers_app/core/utils/app_routes.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/categories_shimmer.dart';
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
 import 'package:flowers_app/features/home/presentation/widgets/category_card.dart';
 import 'package:flowers_app/features/home/presentation/widgets/home_common_header_section.dart';
@@ -13,10 +16,7 @@ class CategoriesHomeSection extends StatelessWidget {
     final categoriesState = state.categoreyState;
 
     if (categoriesState.isLoading) {
-      return const SizedBox(
-        height: 90,
-        child: Center(child: CircularProgressIndicator()),
-      );
+      return CategoriesShimmer();
     }
 
     if (categoriesState.errorMessage != null) {
@@ -31,12 +31,12 @@ class CategoriesHomeSection extends StatelessWidget {
       );
     }
 
-    final categories = categoriesState.data ?? [];
+    final categories = categoriesState.data!.categories;
 
-    if (categories.isEmpty) {
+    if (categories!.isEmpty) {
       return const SizedBox(
         height: 90,
-        child: Center(child: Text("No categories available")),
+        child: Center(child: Text(AppStrings.noCategoriesAvailable)),
       );
     }
 
@@ -44,8 +44,10 @@ class CategoriesHomeSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HomeCommonHeaderSection(
-          title: "Categories", // Or use AppStrings.categories
-          onViewAll: () {},
+          title: AppStrings.categories, // Or use AppStrings.categories
+          onViewAll: () {
+            // Navigator.of(context).pushNamed(AppRoutes.category);
+          },
         ),
         const SizedBox(height: 12),
         SizedBox(
@@ -55,12 +57,17 @@ class CategoriesHomeSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             physics: const BouncingScrollPhysics(),
             itemCount: categories.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 16),
+            separatorBuilder: (_, _) => const SizedBox(width: 16),
             itemBuilder: (context, index) {
               final category = categories[index];
               return CategoryCard(
+                onTap: () {
+                  // Navigator.of(
+                  //   context,
+                  // ).pushNamed(AppRoutes.category, arguments: category.id);
+                },
                 icon: Icons.local_florist, // Customize based on your entity
-                label: category.name ?? 'Category',
+                label: category.name!,
               );
             },
           ),

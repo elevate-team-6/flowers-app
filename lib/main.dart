@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return BlocProvider(
           create: (context) => getIt<ForgotPasswordViewModel>(),
-          create: (context) => getIt<ForgotPasswordViewModel>(),
+
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flowers App',

@@ -1,12 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
+import 'package:flowers_app/core/enities/product_entity.dart';
+import 'package:flowers_app/features/categories/domain/entities/category_entity.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
-import 'package:flowers_app/features/occasions/domain/entities/product_entity.dart';
 
 class HomeStates extends Equatable {
   final BaseState<List<OccasionEntity>> occasionsState;
   final BaseState<List<ProductEntity>> bsetSelerState;
-  final BaseState<List<CategoryEntity>> categoreyState;
+  final BaseState<CategoriesEntity> categoreyState;
 
   const HomeStates({
     this.occasionsState = const BaseState(),
@@ -16,7 +17,7 @@ class HomeStates extends Equatable {
   HomeStates copyWith({
     BaseState<List<OccasionEntity>>? occasionsStateParam,
     BaseState<List<ProductEntity>>? bsetSelerStateParam,
-    BaseState<List<CategoryEntity>>? categoreyStateParam,
+    BaseState<CategoriesEntity>? categoreyStateParam,
   }) => HomeStates(
     occasionsState: occasionsStateParam ?? occasionsState,
     bsetSelerState: bsetSelerStateParam ?? bsetSelerState,

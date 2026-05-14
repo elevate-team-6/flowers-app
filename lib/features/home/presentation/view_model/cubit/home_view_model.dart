@@ -1,19 +1,24 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
+import 'package:flowers_app/core/enities/product_entity.dart';
+import 'package:flowers_app/features/best_seller/domain/use_cases/best_seller_use_case.dart';
+import 'package:flowers_app/features/categories/domain/entities/category_entity.dart';
+import 'package:flowers_app/features/categories/domain/use_cases/get_categories_use_case.dart';
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
-import 'package:flowers_app/features/occasions/domain/entities/product_entity.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flowers_app/features/occasions/domain/use_cases/occasions_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@Singleton()
 class HomeViewModel extends Cubit<HomeStates> {
   final OccasionsUseCase _occasionsUseCase;
-  final CategoriesUseCase _categeoriesUseCase;
+  final GetCategoriesUseCase _getCategeoriesUseCase;
   final BestSellerUseCase _bestSellerUseCase;
   HomeViewModel(
     this._occasionsUseCase,
-    this._categeoriesUseCase,
+    this._getCategeoriesUseCase,
     this._bestSellerUseCase,
   ) : super(HomeStates());
 
@@ -85,22 +90,22 @@ class HomeViewModel extends Cubit<HomeStates> {
   Future<void> _getCategories() async {
     emit(
       state.copyWith(
-        categoreyStateParam: BaseState<List<CategoryEntity>>(isLoading: true),
+        categoreyStateParam: BaseState<CategoriesEntity>(isLoading: true),
       ),
     );
-    final result = await _bestSellerUseCase();
+    final result = await _getCategeoriesUseCase();
     switch (result) {
-      case SuccessBaseResponse<List<CategoryEntity>>():
+      case SuccessBaseResponse<CategoriesEntity>():
         emit(
           state.copyWith(
-            categoreyStateParam: BaseState<List<CategoryEntity>>(
+            categoreyStateParam: BaseState<CategoriesEntity>(
               isLoading: false,
               data: result.data,
             ),
           ),
         );
         break;
-      case ErrorBaseResponse<List<CategoryEntity>>():
+      case ErrorBaseResponse<CategoriesEntity>():
         emit(
           state.copyWith(
             categoreyStateParam: BaseState(errorMessage: result.errorMessage),

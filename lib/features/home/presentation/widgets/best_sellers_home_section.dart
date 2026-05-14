@@ -1,5 +1,8 @@
+import 'package:flowers_app/core/utils/app_routes.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
 import 'package:flowers_app/features/home/presentation/widgets/best_seller_card.dart';
+import 'package:flowers_app/features/home/presentation/widgets/best_seller_home_shimmer.dart';
 import 'package:flowers_app/features/home/presentation/widgets/home_common_header_section.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +16,7 @@ class BestSellersHomeSection extends StatelessWidget {
     final bestSellerState = state.bsetSelerState;
 
     if (bestSellerState.isLoading) {
-      return const SizedBox(
-        height: 230,
-        child: Center(child: CircularProgressIndicator()),
-      );
+      return const BestSellerHomeShimmer();
     }
 
     if (bestSellerState.errorMessage != null) {
@@ -31,14 +31,19 @@ class BestSellersHomeSection extends StatelessWidget {
     if (bestSellers.isEmpty) {
       return const SizedBox(
         height: 230,
-        child: Center(child: Text("No best sellers available")),
+        child: Center(child: Text(AppStrings.noBestSellersAvailable)),
       );
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HomeCommonHeaderSection(title: "Best Sellers", onViewAll: () {}),
+        HomeCommonHeaderSection(
+          title: AppStrings.bestSeller,
+          onViewAll: () {
+            Navigator.pushNamed(context, AppRoutes.bestSeller);
+          },
+        ),
         const SizedBox(height: 12),
         SizedBox(
           height: 210,
@@ -51,6 +56,11 @@ class BestSellersHomeSection extends StatelessWidget {
             itemBuilder: (context, index) {
               final product = bestSellers[index];
               return BestSellerCard(
+                onTap: () {
+                  // Navigator.of(
+                  //   context,
+                  // ).pushNamed(AppRoutes.ProductDetails, arguments: product.id);
+                },
                 imageUrl: product.imgCover,
                 title: product.title,
                 price: "${product.price} EGP",
