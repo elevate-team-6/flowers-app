@@ -7,7 +7,7 @@ import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../cart/presentation/pages/cart_screen.dart';
-import '../../../categories/presentation/pages/categories_screen.dart';
+import '../../../categories/presentation/pages/categories_page.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import '../../../profile/presentation/pages/profile_screen.dart';
 import '../cubit/main_layout_cubit.dart';

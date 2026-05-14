@@ -14,10 +14,10 @@ import 'features/auth/forgot-password/presentation/view_model/cubit/forgot_passw
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
-  
+
   // Initialize Hive
   await getIt<HiveHelper>().init();
-  
+
   final secureCacheHelper = getIt<SecureCacheHelper>();
   final token = await secureCacheHelper.readData(key: AppKeys.tokenKey);
   final bool isRemembered =
@@ -46,9 +46,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.mainTheme,
             navigatorKey: AppRoutes.navigatorKey,
             onGenerateRoute: AppRoutes.onGenerateRoute,
-            initialRoute: isLoggedIn
-                ? AppRoutes.register
-                : AppRoutes.login,
+            initialRoute: isLoggedIn ? AppRoutes.mainLayout : AppRoutes.login,
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
           ),
