@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/categories_shimmer.dart';
@@ -44,9 +45,12 @@ class CategoriesHomeSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HomeCommonHeaderSection(
-          title: AppStrings.categories, // Or use AppStrings.categories
+          title: AppStrings.categories,
           onViewAll: () {
-            Navigator.of(context).pushNamed(AppRoutes.category);
+            Navigator.of(context).pushReplacementNamed(
+              AppRoutes.mainLayout,
+              arguments: {AppKeys.index: 1},
+            );
           },
         ),
         const SizedBox(height: 12),
@@ -62,9 +66,13 @@ class CategoriesHomeSection extends StatelessWidget {
               final category = categories[index];
               return CategoryCard(
                 onTap: () {
-                  Navigator.of(
-                    context,
-                  ).pushNamed(AppRoutes.category, arguments: category.id);
+                  Navigator.of(context).pushReplacementNamed(
+                    AppRoutes.mainLayout,
+                    arguments: {
+                      AppKeys.index: 1,
+                      AppKeys.categroyId: category.id,
+                    },
+                  );
                 },
                 icon: Icons.local_florist, // Customize based on your entity
                 label: category.name!,
