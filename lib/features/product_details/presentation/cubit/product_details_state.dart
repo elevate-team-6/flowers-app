@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
-import 'package:flowers_app/config/entities/product_entity.dart';
+import 'package:flowers_app/features/product_details/domain/entities/product_details_entity.dart';
 
 class ProductDetailsState extends Equatable {
-  final BaseState<ProductEntity> productDetailsState;
+  final BaseState<ProductDetailsEntity> productDetailsState;
 
   const ProductDetailsState({this.productDetailsState = const BaseState()});
   ProductDetailsState copyWith({
-    BaseState<ProductEntity>? productDetailsState,
+    BaseState<ProductDetailsEntity>? productDetailsState,
   }) {
     return ProductDetailsState(
       productDetailsState: productDetailsState ?? this.productDetailsState,

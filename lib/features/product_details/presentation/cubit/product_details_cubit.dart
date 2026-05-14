@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
-import 'package:flowers_app/config/entities/product_entity.dart';
+import 'package:flowers_app/features/product_details/domain/entities/product_details_entity.dart';
 import 'package:flowers_app/features/product_details/domain/use_cases/product_details_use_case.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_state.dart';
@@ -30,7 +30,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     );
     final response = await _productDetailsUseCase.call(productId);
     switch (response) {
-      case SuccessBaseResponse<ProductEntity>():
+      case SuccessBaseResponse<ProductDetailsEntity>():
         emit(
           state.copyWith(
             productDetailsState: state.productDetailsState.copyWith(
@@ -39,7 +39,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
             ),
           ),
         );
-      case ErrorBaseResponse<ProductEntity>():
+      case ErrorBaseResponse<ProductDetailsEntity>():
         emit(
           state.copyWith(
             productDetailsState: state.productDetailsState.copyWith(

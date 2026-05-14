@@ -24,7 +24,7 @@ class _ProductImageSliderState extends State<ProductImageSlider> {
   }
 
   void startAutoSlider() {
-    timer = Timer.periodic(const Duration(seconds: 2), (_) {
+    timer = Timer.periodic(const Duration(seconds: 3), (_) {
       if (!mounted) return;
       currentIndex++;
       if (currentIndex >= widget.productImageSlider.length) {
@@ -32,7 +32,7 @@ class _ProductImageSliderState extends State<ProductImageSlider> {
       }
       _pageController.animateToPage(
         currentIndex,
-        duration: Duration(microseconds: 300),
+        duration: Duration(microseconds: 500),
         curve: Curves.easeInOut,
       );
     });
@@ -48,7 +48,7 @@ class _ProductImageSliderState extends State<ProductImageSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350.h,
+      height: 400.h,
       child: Stack(
         children: [
           PageView.builder(
