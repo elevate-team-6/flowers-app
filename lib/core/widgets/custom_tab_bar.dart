@@ -1,22 +1,25 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTabBar extends StatelessWidget {
   final List<String> tabs;
   final TabController controller;
+  final Function(int index)? onTabSelected;
 
   const CustomTabBar({
     super.key,
     required this.tabs,
     required this.controller,
+    this.onTabSelected,
   });
 
   @override
   Widget build(BuildContext context) {
     return TabBar(
       controller: controller,
+      onTap: onTabSelected,
       isScrollable: true,
       tabAlignment: TabAlignment.start,
       indicator: const BoxDecoration(), // Hide default indicator
