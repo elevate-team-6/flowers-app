@@ -41,7 +41,7 @@ class OccasionsHomeSecion extends StatelessWidget {
         HomeCommonHeaderSection(
           title: AppStrings.occasion,
           onViewAll: () {
-            // Navigator.of(context).pushNamed(AppRoutes.occasions);
+            Navigator.of(context).pushNamed(AppRoutes.occasions);
           },
         ),
         const SizedBox(height: 12),
@@ -57,9 +57,9 @@ class OccasionsHomeSecion extends StatelessWidget {
               final occasion = occasions[index];
               return OccasionCard(
                 onTap: () {
-                  // Navigator.of(
-                  //   context,
-                  // ).pushNamed(AppRoutes.occasions, arguments: occasion.id);
+                  Navigator.of(
+                    context,
+                  ).pushNamed(AppRoutes.occasions, arguments: occasion.id);
                 },
                 imageUrl: occasion.image,
                 label: occasion.name,

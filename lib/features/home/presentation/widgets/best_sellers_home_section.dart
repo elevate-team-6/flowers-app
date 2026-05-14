@@ -57,9 +57,9 @@ class BestSellersHomeSection extends StatelessWidget {
               final product = bestSellers[index];
               return BestSellerCard(
                 onTap: () {
-                  // Navigator.of(
-                  //   context,
-                  // ).pushNamed(AppRoutes.ProductDetails, arguments: product.id);
+                  Navigator.of(
+                    context,
+                  ).pushNamed(AppRoutes.ProductDetails, arguments: product.id);
                 },
                 imageUrl: product.imgCover,
                 title: product.title,

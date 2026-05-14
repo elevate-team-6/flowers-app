@@ -46,7 +46,7 @@ class CategoriesHomeSection extends StatelessWidget {
         HomeCommonHeaderSection(
           title: AppStrings.categories, // Or use AppStrings.categories
           onViewAll: () {
-            // Navigator.of(context).pushNamed(AppRoutes.category);
+            Navigator.of(context).pushNamed(AppRoutes.category);
           },
         ),
         const SizedBox(height: 12),
@@ -62,9 +62,9 @@ class CategoriesHomeSection extends StatelessWidget {
               final category = categories[index];
               return CategoryCard(
                 onTap: () {
-                  // Navigator.of(
-                  //   context,
-                  // ).pushNamed(AppRoutes.category, arguments: category.id);
+                  Navigator.of(
+                    context,
+                  ).pushNamed(AppRoutes.category, arguments: category.id);
                 },
                 icon: Icons.local_florist, // Customize based on your entity
                 label: category.name!,
