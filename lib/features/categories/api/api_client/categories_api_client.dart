@@ -14,9 +14,11 @@ abstract class CategoriesApiClient {
   factory CategoriesApiClient(Dio dio) = _CategoriesApiClient;
 
   @GET(AppEndPoints.categories)
+  @Extra({'cache_duration_hours': 24}) // كاش للأقسام ليوم كامل
   Future<GetAllCategoriesResponse> getCategories();
 
   @GET(AppEndPoints.products)
+  @Extra({'cache_duration_hours': 1}) // كاش للمنتجات لمدة ساعة
   Future<GetAllProductsResponse> getProducts({
     @Queries() Map<String, dynamic>? queries,
   });
