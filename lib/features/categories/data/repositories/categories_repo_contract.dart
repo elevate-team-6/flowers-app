@@ -1,0 +1,10 @@
+import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/core/entities/product_entity.dart';
+import 'package:flowers_app/features/categories/data/models/request/get_products_params.dart';
+import 'package:flowers_app/features/categories/domain/entities/category_entity.dart';
+
+abstract interface class CategoriesRepoContract {
+  Future<BaseResponse<CategoriesEntity>> getCategories();
+  Future<BaseResponse<List<ProductEntity>>> getProducts(
+      GetProductsParams params);
+}

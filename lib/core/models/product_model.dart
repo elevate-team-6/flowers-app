@@ -1,7 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flowers_app/core/entities/product_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'product_model.g.dart';
+
+@JsonSerializable()
 class ProductModel extends Equatable {
+  @JsonKey(name: '_id')
   final String? id;
   final String? title;
   final String? slug;
@@ -46,61 +51,41 @@ class ProductModel extends Equatable {
     this.isInWishlist,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-    id: json['_id'] as String?,
-    title: json['title'] as String?,
-    slug: json['slug'] as String?,
-    description: json['description'] as String?,
-    imgCover: json['imgCover'] as String?,
-    images: (json['images'] as List<dynamic>?)
-        ?.map((e) => e as String)
-        .toList(),
-    price: json['price'] as int?,
-    priceAfterDiscount: json['priceAfterDiscount'] as int?,
-    discount: json['discount'] as int?,
-    rateAvg: (json['rateAvg'] as num?)?.toDouble(),
-    rateCount: json['rateCount'] as int?,
-    sold: json['sold'] as int?,
-    quantity: json['quantity'] as int?,
-    category: json['category'] as String?,
-    occasion: json['occasion'] as String?,
-    isSuperAdmin: json['isSuperAdmin'] as bool?,
-    createdAt: json['createdAt'] as String?,
-    updatedAt: json['updatedAt'] as String?,
-    favoriteId: json['favoriteId'] as String?,
-    isInWishlist: json['isInWishlist'] as bool?,
-  );
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 
   ProductEntity toEntity() => ProductEntity(
-    id: id ?? '',
-    title: title ?? '',
-    imgCover: imgCover ?? '',
-    price: price ?? 0,
-    priceAfterDiscount: priceAfterDiscount ?? 0,
-    discount: discount ?? 0,
-  );
+        id: id ?? '',
+        title: title ?? '',
+        imgCover: imgCover ?? '',
+        price: price ?? 0,
+        priceAfterDiscount: priceAfterDiscount ?? 0,
+        discount: discount ?? 0,
+      );
 
   @override
   List<Object?> get props => [
-    id,
-    title,
-    slug,
-    description,
-    imgCover,
-    images,
-    price,
-    priceAfterDiscount,
-    discount,
-    rateAvg,
-    rateCount,
-    sold,
-    quantity,
-    category,
-    occasion,
-    isSuperAdmin,
-    createdAt,
-    updatedAt,
-    favoriteId,
-    isInWishlist,
-  ];
+        id,
+        title,
+        slug,
+        description,
+        imgCover,
+        images,
+        price,
+        priceAfterDiscount,
+        discount,
+        rateAvg,
+        rateCount,
+        sold,
+        quantity,
+        category,
+        occasion,
+        isSuperAdmin,
+        createdAt,
+        updatedAt,
+        favoriteId,
+        isInWishlist,
+      ];
 }
