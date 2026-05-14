@@ -80,3 +80,8 @@ windows/flutter/generated_plugins.cmake
 macos/Flutter/GeneratedPluginRegistrant.swift
 devtools_options.yaml
 
+# Generated files
+*.g.dart
+*.mocks.dart
+pubspec.lock
+

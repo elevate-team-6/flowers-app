@@ -5,9 +5,9 @@ import 'package:flowers_app/features/auth/forgot-password/data/models/response/r
 import 'package:flowers_app/features/auth/forgot-password/data/models/response/verify_reset_code_response.dart';
 import 'package:flowers_app/features/auth/forgot-password/data/repo/forgot_password_repo_impl.dart';
 import 'package:flowers_app/features/auth/forgot-password/domain/entites/forget_password_entity.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test/test.dart';
 
 import 'forgot_password_repo_impl_test.mocks.dart';
 

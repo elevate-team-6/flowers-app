@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:flowers_app/config/cache/cache_helper.dart';
+import 'package:flowers_app/config/cache/secure_cache_helper.dart';
 import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class AuthInterceptor extends Interceptor {
-  final CacheHelper cache;
+  final SecureCacheHelper cache;
 
   AuthInterceptor(this.cache);
 
