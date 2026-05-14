@@ -1,4 +1,5 @@
 import 'package:flowers_app/config/services/snack_bar_services.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
@@ -61,7 +62,14 @@ class BestSellerScreen extends StatelessWidget {
             }
             return CustomProductsGrid(
               products: products,
-              onAddToCart: (_){},
+              onAddToCart: (_) {},
+              onTap: (product) {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.productDetails,
+                  arguments: product.id,
+                );
+              },
             );
           },
         ),

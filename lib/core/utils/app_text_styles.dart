@@ -22,6 +22,11 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.black,
   );
+    static TextStyle get black16500 => GoogleFonts.inter(
+    fontSize: _sp(20),
+    fontWeight: FontWeight.w500,
+    color: AppColors.black,
+  );
 
   static TextStyle get black13400 => GoogleFonts.inter(
     fontSize: _sp(13),
@@ -37,6 +42,11 @@ abstract class AppTextStyles {
   static TextStyle get black16400 => GoogleFonts.inter(
     fontSize: _sp(16),
     fontWeight: FontWeight.w400,
+    color: AppColors.black,
+  );
+  static TextStyle get black20700 => GoogleFonts.inter(
+    fontSize: _sp(20),
+    fontWeight: FontWeight.w700,
     color: AppColors.black,
   );
 
