@@ -6,10 +6,9 @@
 import 'dart:async' as _i3;
 
 import 'package:flowers_app/config/base_response/base_response.dart' as _i4;
+import 'package:flowers_app/core/entities/product_entity.dart' as _i8;
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart'
     as _i5;
-import 'package:flowers_app/features/occasions/domain/entities/product_entity.dart'
-    as _i8;
 import 'package:flowers_app/features/occasions/domain/use_cases/get_products_use_case.dart'
     as _i7;
 import 'package:flowers_app/features/occasions/domain/use_cases/occasions_use_case.dart'

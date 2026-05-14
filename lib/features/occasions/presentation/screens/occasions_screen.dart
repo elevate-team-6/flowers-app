@@ -1,7 +1,7 @@
-import 'package:flowers_app/core/utils/app_custom_tab_bar.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
+import 'package:flowers_app/core/widgets/custom_tab_bar.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_events.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_state.dart';
@@ -96,7 +96,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
 
                 if (_tabController.length == occasions.length &&
                     occasions.isNotEmpty)
-                  AppCustomTabBar(
+                  CustomTabBar(
                     tabs: occasions.map((o) => o.name).toList(),
                     controller: _tabController,
                   ),

@@ -1,5 +1,5 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
-import 'package:flowers_app/features/occasions/domain/entities/product_entity.dart';
+import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/features/occasions/domain/repositories/occasions_repo_contract.dart';
 import 'package:injectable/injectable.dart';
 

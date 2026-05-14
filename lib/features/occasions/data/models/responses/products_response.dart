@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flowers_app/features/occasions/data/models/responses/product_model.dart';
+import 'package:flowers_app/core/models/product_model.dart';
 
 class ProductsResponse extends Equatable {
   final String? message;

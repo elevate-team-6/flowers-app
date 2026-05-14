@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
-import 'package:flowers_app/features/occasions/domain/entities/product_entity.dart';
 import 'package:flowers_app/features/occasions/domain/use_cases/get_products_use_case.dart';
 import 'package:flowers_app/features/occasions/domain/use_cases/occasions_use_case.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
@@ -33,23 +33,10 @@ void main() {
     const ProductEntity(
       id: '1',
       title: 'Wedding Flower',
-      slug: 'wedding-flower',
-      description: 'description',
       imgCover: 'https://image.png',
-      images: [],
       price: 250,
       priceAfterDiscount: 100,
       discount: 60,
-      rateAvg: 0,
-      rateCount: 0,
-      sold: 0,
-      quantity: 10,
-      category: 'category',
-      occasion: 'occasion',
-      isSuperAdmin: false,
-      createdAt: '2025-01-01',
-      updatedAt: '2025-01-01',
-      isInWishlist: false,
     ),
   ];
 

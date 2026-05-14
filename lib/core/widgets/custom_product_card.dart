@@ -58,10 +58,9 @@ class CustomProductCard extends StatelessWidget {
                         child: Container(color: Colors.white),
                       ),
                       errorWidget: (_, _, _) => Center(
-                        child: Icon(
-                          Icons.local_florist_outlined,
-                          size: 36.sp,
-                          color: AppColors.primary.withValues(alpha: 0.3),
+                        child: Image.asset(
+                          'assets/images/Image_default.png',
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -90,10 +89,7 @@ class CustomProductCard extends StatelessWidget {
                     style: AppTextStyles.gray11400LineThrough,
                   ),
                   SizedBox(width: 4.w),
-                  Text(
-                    '${product.discount}%',
-                    style: AppTextStyles.green11400,
-                  ),
+                  Text('${product.discount}%', style: AppTextStyles.green11400),
                 ],
               ),
               SizedBox(height: 8.h), // 8px gap

@@ -1,12 +1,12 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/core/entities/product_entity.dart';
+import 'package:flowers_app/core/models/product_model.dart';
 import 'package:flowers_app/features/occasions/data/data_sources/occasions_remote_data_source_contract.dart';
 import 'package:flowers_app/features/occasions/data/models/responses/occasions_response.dart';
 import 'package:flowers_app/features/occasions/data/models/responses/products_response.dart';
 import 'package:flowers_app/features/occasions/data/models/responses/occasion_model.dart';
-import 'package:flowers_app/features/occasions/data/models/responses/product_model.dart';
 import 'package:flowers_app/features/occasions/data/repositories/occasions_repo_impl.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
-import 'package:flowers_app/features/occasions/domain/entities/product_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

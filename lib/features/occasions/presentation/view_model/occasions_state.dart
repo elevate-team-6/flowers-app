@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
+import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
-import 'package:flowers_app/features/occasions/domain/entities/product_entity.dart';
 
 class OccasionsState extends Equatable {
   final BaseState<List<OccasionEntity>> occasionsState;

@@ -3,15 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 
-class AppCustomTabBar extends StatelessWidget {
+class CustomTabBar extends StatelessWidget {
   final List<String> tabs;
   final TabController controller;
 
-  const AppCustomTabBar({
-    super.key,
-    required this.tabs,
-    required this.controller,
-  });
+  const CustomTabBar({super.key, required this.tabs, required this.controller});
 
   @override
   Widget build(BuildContext context) {
