@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -23,12 +24,25 @@ class OccasionCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              child: Image.network(
-                imageUrl,
+              borderRadius: BorderRadius.circular(16),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
                 width: 140,
                 height: 150,
                 fit: BoxFit.cover,
-                errorBuilder: (_, _, _) => Container(
+                placeholder: (context, url) => Container(
+                  width: 140,
+                  height: 150,
+                  color: AppColors.white60,
+                  child: const Center(
+                    child: SizedBox(
+                      width: 22,
+                      height: 22,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Container(
                   width: 140,
                   height: 150,
                   color: AppColors.white60,

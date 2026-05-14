@@ -1,14 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
-  final IconData icon;
+  final String imageUrl;
   final String label;
   final VoidCallback? onTap;
 
   const CategoryCard({
     super.key,
-    required this.icon,
+    required this.imageUrl,
     required this.label,
     this.onTap,
   });
@@ -23,11 +24,24 @@ class CategoryCard extends StatelessWidget {
           Container(
             width: 64,
             height: 64,
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: AppColors.lightPink,
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Icon(icon, size: 28, color: AppColors.primary),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.contain,
+              placeholder: (context, url) => const Center(
+                child: SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+              ),
+              errorWidget: (context, url, error) =>
+                  const Icon(Icons.local_florist, color: AppColors.primary),
+            ),
           ),
           const SizedBox(height: 6),
           Text(

@@ -74,7 +74,7 @@ class CategoriesHomeSection extends StatelessWidget {
                     },
                   );
                 },
-                icon: Icons.local_florist, // Customize based on your entity
+                imageUrl: category.image, // Customize based on your entity
                 label: category.name!,
               );
             },
