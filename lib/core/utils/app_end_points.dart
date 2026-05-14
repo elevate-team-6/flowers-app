@@ -14,6 +14,12 @@ abstract class AppEndPoints {
   static const String logout = "$baseUrl/auth/logout";
   static const String profileData = "$baseUrl/auth/profile-Data";
 
+  // Categories:
+  static const String categories = "$baseUrl/categories";
+
+  // Products:
+  static const String products = "$baseUrl/products";
+
   // ---------------------------------------------------------------------------
   // TO ADD NEW ENDPOINTS:
   // 1. Group them by feature (e.g., // Products, // Cart).

@@ -123,4 +123,19 @@ abstract class AppStrings {
   static const String categories = 'Categories';
   static const String cart = 'Cart';
   static const String profile = 'Profile';
+
+  // Products
+  static const String addToCart = 'Add to cart';
+
+  // Filters
+  static const String sortBy = 'Sort by';
+  static const String lowestPrice = 'Lowes Price';
+  static const String highestPrice = 'Highest Price';
+  static const String newText = 'New';
+  static const String oldText = 'Old';
+  static const String discountText = 'Discount';
+  static const String filter = 'Filter';
+  static const String search = 'Search';
+  static const String all = 'All';
+  static const String noProductsFound = 'No products found.';
 }
