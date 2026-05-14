@@ -4,6 +4,7 @@ import 'package:flowers_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'config/cache/hive_helper.dart';
 import 'config/cache/secure_cache_helper.dart';
 import 'config/di/di.dart';
@@ -46,13 +47,6 @@ class MyApp extends StatelessWidget {
             navigatorKey: AppRoutes.navigatorKey,
             onGenerateRoute: AppRoutes.onGenerateRoute,
             initialRoute: AppRoutes.occasions,
-
-            //  isLoggedIn
-            //     //todo: if user is logged in, return [home screen]
-            //     // this is only for testing!! we will add home later
-            //     ? AppRoutes.register
-            //     //todo: if user is not logged in, return [login screen]
-            //     : AppRoutes.forgotPassword,
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
           ),

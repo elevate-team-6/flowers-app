@@ -32,6 +32,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
   }
 
   void _onOccasionsLoaded(List<OccasionEntity> occasions) {
+    if (occasions.isEmpty) return;
     if (_occasions.length == occasions.length) return;
     _occasions = occasions;
     _tabController.dispose();
@@ -40,10 +41,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
       if (!_tabController.indexIsChanging) return;
       _cubit.doEvent(GetProductsEvent(_occasions[_tabController.index].name));
     });
-
-    if (occasions.isNotEmpty) {
-      _cubit.doEvent(GetProductsEvent(occasions.first.name));
-    }
+    _cubit.doEvent(GetProductsEvent(occasions.first.name));
     setState(() {});
   }
 
@@ -81,7 +79,8 @@ class _OccasionsScreenState extends State<OccasionsScreen>
           ),
         ),
         body: BlocBuilder<OccasionsCubit, OccasionsState>(
-          buildWhen: (prev, curr) => prev.occasionsState != curr.occasionsState,
+          buildWhen: (prev, curr) =>
+              prev.occasionsState.data != curr.occasionsState.data,
           builder: (context, state) {
             final occasions = state.occasionsState.data ?? [];
 
@@ -100,6 +99,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                     tabs: occasions.map((o) => o.name).toList(),
                     controller: _tabController,
                   ),
+
                 SizedBox(height: 14.h),
 
                 Expanded(
@@ -131,6 +131,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                           ),
                         );
                       }
+
                       return CustomProductsGrid(
                         products: products,
                         onAddToCart: (product) {},
