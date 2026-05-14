@@ -32,17 +32,17 @@ class CategoryModel extends Equatable {
 
   Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
 
-  CategoryEntity toEntity() => CategoryEntity(id: id, name: name);
+  CategoryEntity toEntity() => CategoryEntity(id: id, name: name, image: image);
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        slug,
-        image,
-        isSuperAdmin,
-        createdAt,
-        updatedAt,
-        productsCount,
-      ];
+    id,
+    name,
+    slug,
+    image,
+    isSuperAdmin,
+    createdAt,
+    updatedAt,
+    productsCount,
+  ];
 }
