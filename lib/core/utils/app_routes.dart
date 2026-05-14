@@ -44,7 +44,13 @@ abstract class AppRoutes {
     try {
       switch (settings.name) {
         case mainLayout:
-          return MaterialPageRoute(builder: (_) => const MainLayoutScreen());
+          final args = settings.arguments as Map<String, dynamic>?;
+          return MaterialPageRoute(
+            builder: (_) => MainLayoutScreen(
+              initialIndex: args?['index'] as int?,
+              categoryId: args?['categoryId'] as String?,
+            ),
+          );
         case login:
           return MaterialPageRoute(
             builder: (_) => BlocProvider(

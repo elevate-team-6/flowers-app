@@ -92,7 +92,7 @@ abstract class AppStrings {
   // Validation messages
   static const String emailRequired = 'Email is required';
   static const String invalidEmail = 'Enter a valid email address';
-    static const String invalidPassword = 'Invalid password';
+  static const String invalidPassword = 'Invalid password';
   static const String passwordRequired = 'Password is required';
   static const String passwordTooShort =
       'Password must be at least 8 characters';
@@ -129,7 +129,7 @@ abstract class AppStrings {
 
   // Filters
   static const String sortBy = 'Sort by';
-  static const String lowestPrice = 'Lowes Price';
+  static const String lowestPrice = 'Lowest Price';
   static const String highestPrice = 'Highest Price';
   static const String newText = 'New';
   static const String oldText = 'Old';
