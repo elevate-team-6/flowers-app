@@ -15,6 +15,7 @@ abstract class AppStrings {
   static const String forgetPasswordQuestion = 'Forget password?';
   static const String dontHaveAccount = "Don't have an account? ";
   static const String loginSuccess = 'Login success';
+  static const String forgetPasswordText = 'Forget password?';
 
   // Sign Up Screen
   static const String userName = 'User name';
@@ -91,6 +92,7 @@ abstract class AppStrings {
   // Validation messages
   static const String emailRequired = 'Email is required';
   static const String invalidEmail = 'Enter a valid email address';
+    static const String invalidPassword = 'Invalid password';
   static const String passwordRequired = 'Password is required';
   static const String passwordTooShort =
       'Password must be at least 8 characters';

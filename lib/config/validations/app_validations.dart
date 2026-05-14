@@ -56,7 +56,7 @@ abstract class AppValidations {
     if (value == null || value.trim().isEmpty) {
       return AppStrings.emailRequired;
     }
-    final regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    final regex = RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!regex.hasMatch(value.trim())) {
       return AppStrings.invalidEmail;
     }
@@ -110,7 +110,7 @@ abstract class AppValidations {
     if (value.length < 11) {
       return AppStrings.invalidPhone;
     }
-    final cleaned = value.replaceAll(RegExp(r'[\s\-\(\)]'), '');
+    final cleaned = value.replaceAll(RegExp(r'[\s\-()]'), '');
     if (!RegExp(r'^\+?[0-9]{10,15}$').hasMatch(cleaned)) {
       return AppStrings.invalidPhone;
     }
