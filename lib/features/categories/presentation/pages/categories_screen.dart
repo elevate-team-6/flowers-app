@@ -1,6 +1,7 @@
 import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_categories_shimmer.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
@@ -125,6 +126,13 @@ class _CategoriesScreenBodyState extends State<_CategoriesScreenBody>
         state.productsState.data!.isNotEmpty) {
       return CustomProductsGrid(
         products: state.productsState.data!,
+        onTap: (product) {
+          Navigator.pushNamed(
+            context,
+            AppRoutes.productDetails,
+            arguments: product.id,
+          );
+        },
         onAddToCart: (product) {
           // TODO: Implement add to cart logic
           // TODO: and this massage is temporary

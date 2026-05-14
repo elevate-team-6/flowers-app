@@ -38,6 +38,7 @@ abstract class AppRoutes {
   static const String verifyResetCode = '/VerifyResetCode';
   static const String resetPassword = '/resetPassword';
   static const String mainLayout = 'mainLayout';
+  static const String productDetails = 'productDetails';
 
   /// Generates the appropriate [MaterialPageRoute] based on the provided [settings].
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {

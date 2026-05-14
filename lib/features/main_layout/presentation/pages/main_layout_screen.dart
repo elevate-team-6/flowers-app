@@ -7,7 +7,7 @@ import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../cart/presentation/pages/cart_screen.dart';
-import '../../../categories/presentation/pages/categories_page.dart';
+import '../../../categories/presentation/pages/categories_screen.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import '../../../profile/presentation/pages/profile_screen.dart';
 import '../cubit/main_layout_cubit.dart';
@@ -15,20 +15,40 @@ import '../cubit/main_layout_intent.dart';
 import '../cubit/main_layout_state.dart';
 import '../widgets/main_nav_bar_item.dart';
 
-class MainLayoutScreen extends StatelessWidget {
-  const MainLayoutScreen({super.key});
+class MainLayoutScreen extends StatefulWidget {
+  final int? initialIndex;
+  final String? categoryId;
 
-  static const List<Widget> _screens = [
-    HomeScreen(),
-    CategoriesScreen(),
-    CartScreen(),
-    ProfileScreen(),
-  ];
+  const MainLayoutScreen({super.key, this.initialIndex, this.categoryId});
+
+  @override
+  State<MainLayoutScreen> createState() => _MainLayoutScreenState();
+}
+
+class _MainLayoutScreenState extends State<MainLayoutScreen> {
+  late List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      const HomeScreen(),
+      CategoriesScreen(initialCategoryId: widget.categoryId),
+      const CartScreen(),
+      const ProfileScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<MainLayoutCubit>(),
+      create: (context) {
+        final cubit = getIt<MainLayoutCubit>();
+        if (widget.initialIndex != null) {
+          cubit.doIntent(ChangeIndexIntent(widget.initialIndex!));
+        }
+        return cubit;
+      },
       child: BlocBuilder<MainLayoutCubit, MainLayoutState>(
         builder: (context, state) {
           return Scaffold(
