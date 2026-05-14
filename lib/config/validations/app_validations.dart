@@ -107,11 +107,11 @@ abstract class AppValidations {
     if (value == null || value.trim().isEmpty) {
       return AppStrings.phoneRequired;
     }
-    if (value.length < 11) {
-      return AppStrings.invalidPhone;
+    final cleaned = value.replaceAll(RegExp(r'[\s\-\(\)]'), '');
+    if (!cleaned.startsWith('+')) {
+      return AppStrings.phoneMustStartWithCountryCode;
     }
-    final cleaned = value.replaceAll(RegExp(r'[\s\-()]'), '');
-    if (!RegExp(r'^\+?[0-9]{10,15}$').hasMatch(cleaned)) {
+    if (!RegExp(r'^\+[0-9]{10,15}$').hasMatch(cleaned)) {
       return AppStrings.invalidPhone;
     }
     return null;
