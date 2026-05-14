@@ -36,6 +36,7 @@ abstract class AppRoutes {
               categoryId: args?['categoryId'] as String?,
             ),
           );
+
         case login:
           return MaterialPageRoute(
             builder: (_) => BlocProvider(
@@ -43,58 +44,54 @@ abstract class AppRoutes {
               child: const LoginScreen(),
             ),
           );
-        case register:
-          return MaterialPageRoute(builder: (_) => const SignUpScreen());
+
+        case signup:
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => getIt<SignupCubit>(),
+              child: const SignupScreen(),
+            ),
+          );
+
+        case termsAndConditions:
+          return MaterialPageRoute(
+            builder: (_) => const TermsAndConditionsScreen(),
+          );
+
         case forgotPassword:
           return MaterialPageRoute(
             builder: (_) => const ForgotPasswordScreen(),
           );
 
-      case login:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<LoginCubit>(),
-            child: const LoginScreen(),
-          ),
-        );
+        case verifyResetCode:
+          final String email = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (_) => VerifyResetCodeScreen(email: email),
+          );
 
-      case signup:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<SignupCubit>(),
-            child: const SignupScreen(),
-          ),
-        );
+        case resetPassword:
+          final String email = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (_) => ResetPasswordScreen(email: email),
+          );
 
-      case termsAndConditions:
-        return MaterialPageRoute(
-          builder: (_) => const TermsAndConditionsScreen(),
-        );
+        case productDetails:
+          // Handled by Product Details Feature developer
+          return _unDefinedRoute(settings.name);
 
-      case forgotPassword:
-        return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
-
-      case verifyResetCode:
-        final String email = settings.arguments as String;
-        return MaterialPageRoute(
-          builder: (_) => VerifyResetCodeScreen(email: email),
-        );
-
-      case resetPassword:
-        final String email = settings.arguments as String;
-        return MaterialPageRoute(
-          builder: (_) => ResetPasswordScreen(email: email),
-        );
-
-      default:
-        return _unDefinedRoute(settings.name);
+        default:
+          return _unDefinedRoute(settings.name);
+      }
+    } catch (e) {
+      return _unDefinedRoute(settings.name);
     }
   }
 
   static MaterialPageRoute<dynamic> _unDefinedRoute(String? name) {
     return MaterialPageRoute(
-      builder: (_) =>
-          Scaffold(body: Center(child: Text('No route defined for $name'))),
+      builder: (_) => Scaffold(
+        body: Center(child: Text('No route defined for $name')),
+      ),
     );
   }
 }
