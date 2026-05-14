@@ -2,9 +2,6 @@ import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
-import 'package:flowers_app/features/best_seller/presentation/cubit/best_seller_cubit.dart';
-import 'package:flowers_app/features/best_seller/presentation/cubit/best_seller_event.dart';
-import 'package:flowers_app/features/best_seller/presentation/screens/best_seller_screen.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
@@ -56,14 +53,7 @@ abstract class AppRoutes {
       //   return MaterialPageRoute(builder: (_) => const RegisterPage());
       case forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
-      case bestSeller:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) =>
-                getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
-            child: const BestSellerScreen(),
-          ),
-        );
+
       case productDetails:
         final String productId = settings.arguments.toString();
 
