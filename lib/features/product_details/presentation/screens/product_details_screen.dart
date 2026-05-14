@@ -3,6 +3,7 @@ import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_state.dart';
 import 'package:flowers_app/features/product_details/presentation/widgets/product_details_section.dart';
+import 'package:flowers_app/features/product_details/presentation/widgets/product_details_shimmer.dart';
 import 'package:flowers_app/features/product_details/presentation/widgets/product_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,7 @@ class ProductDetailsScreen extends StatelessWidget {
         body: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
           builder: (context, state) {
             if (state.productDetailsState.isLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const ProductDetailsShimmer();
             }
             if (state.productDetailsState.errorMessage != null) {
               return const SizedBox();
