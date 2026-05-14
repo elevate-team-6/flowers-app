@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 
-abstract class CacheHelper {
+abstract class SecureCacheHelper {
   Future<void> writeData({required String key, required dynamic value});
   Future<String?> readData({required String key});
   Future<bool> containsKey({required String key});
@@ -9,15 +9,14 @@ abstract class CacheHelper {
   Future<void> clearAllData();
 }
 
-@LazySingleton(as: CacheHelper)
-class CacheHelperImpl implements CacheHelper {
+@LazySingleton(as: SecureCacheHelper)
+class SecureCacheHelperImpl implements SecureCacheHelper {
   final FlutterSecureStorage _secureStorage;
 
-  CacheHelperImpl(this._secureStorage);
+  SecureCacheHelperImpl(this._secureStorage);
 
   @override
   Future<void> writeData({required String key, required dynamic value}) async {
-    // التحقق من النوع وتحويله لـ String لأن الـ SecureStorage لا يقبل غير الـ String
     String valueToStore;
     if (value is String) {
       valueToStore = value;

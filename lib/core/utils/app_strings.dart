@@ -15,6 +15,7 @@ abstract class AppStrings {
   static const String forgetPasswordQuestion = 'Forget password?';
   static const String dontHaveAccount = "Don't have an account? ";
   static const String loginSuccess = 'Login success';
+  static const String forgetPasswordText = 'Forget password?';
 
   // Sign Up Screen
   static const String userName = 'User name';
@@ -51,9 +52,12 @@ abstract class AppStrings {
       'We reserve the right to modify these terms at any time. Continued use of the app after changes constitutes your acceptance of the new terms.';
 
   // Forget Password Screen
-  static const String forgetPassword = 'Forget password';
+  static const String forgetPasswordTitle = 'Forget password';
   static const String forgetPasswordSubtitle =
       'Please enter your email associated to your account';
+  static const String verificationCodeSentToYourEmail =
+      'Verification code sent to your email';
+  static const String confirm = '"Confirm"';
 
   // Email Verification Screen
   static const String emailVerification = 'Email verification';
@@ -62,9 +66,11 @@ abstract class AppStrings {
   static const String invalidCode = 'Invalid code';
   static const String didntReceiveCode = "Didn't receive code? ";
   static const String resend = 'Resend';
+  static const String verificationCodeIsCorrect =
+      'verification code is correct';
 
   // Reset Password Screen
-  static const String resetPassword = 'Reset password';
+  static const String resetPasswordTitle = 'Reset password';
   static const String resetPasswordSubtitle =
       'Password must not be empty and must contain 6 characters with upper case letter and one number at least';
   static const String newPassword = 'New password';
@@ -108,6 +114,7 @@ abstract class AppStrings {
   // Validation messages
   static const String emailRequired = 'Email is required';
   static const String invalidEmail = 'Enter a valid email address';
+  static const String invalidPassword = 'Invalid password';
   static const String passwordRequired = 'Password is required';
   static const String passwordTooShort =
       'Password must be at least 8 characters';
@@ -134,4 +141,10 @@ abstract class AppStrings {
   static const String invalidPhone = 'Enter a valid phone number';
   static const String phoneMustStartWithCountryCode =
       'Phone must start with country code (e.g. +20)';
+
+  // Main Layout
+  static const String home = 'Home';
+  static const String categories = 'Categories';
+  static const String cart = 'Cart';
+  static const String profile = 'Profile';
 }
