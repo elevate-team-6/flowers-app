@@ -44,7 +44,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text(AppStrings.passwordResetSuccessfully),
-              backgroundColor: AppColors.green,
+              backgroundColor: AppColors.success,
             ),
           );
           Navigator.of(context).pushNamed(AppRoutes.login);

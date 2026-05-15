@@ -57,11 +57,14 @@ class _LoginScreenState extends State<LoginScreen> {
         if (errorMessage != null && errorMessage.isNotEmpty) {
           SnackBarServices.showErrorMessage(state.errorMessage!);
         }
-
         if (state.user != null) {
           SnackBarServices.showSuccessMessage(AppStrings.loginSuccess);
 
-          Navigator.pushReplacementNamed(context, AppRoutes.register);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.mainLayout,
+            (route) => false,
+          );
         }
       },
       child: Scaffold(
@@ -97,7 +100,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               ToggleRememberMeEvent(value ?? false),
                             );
                           },
-                          onForgotPasswordTap: () {},
+                          onForgotPasswordTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.forgotPassword,
+                            );
+                          },
                         ),
 
                         SizedBox(height: 60.h),
@@ -115,10 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           normalText: AppStrings.dontHaveAccount,
                           linkText: AppStrings.signup,
                           onLinkTap: () {
-                            Navigator.pushReplacementNamed(
-                              context,
-                              AppRoutes.register,
-                            );
+                            Navigator.pushNamed(context, AppRoutes.signup);
                           },
                         ),
                       ],
