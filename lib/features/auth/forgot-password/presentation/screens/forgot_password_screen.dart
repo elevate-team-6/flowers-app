@@ -35,7 +35,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text(AppStrings.verificationCodeSentToYourEmail),
-              backgroundColor: AppColors.green,
+              backgroundColor: AppColors.success,
             ),
           );
           Navigator.of(context).pushNamed(

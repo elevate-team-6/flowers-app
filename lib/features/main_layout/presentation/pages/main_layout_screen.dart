@@ -11,41 +11,30 @@ import '../../../categories/presentation/pages/categories_screen.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import '../../../profile/presentation/pages/profile_screen.dart';
 import '../cubit/main_layout_cubit.dart';
-import '../cubit/main_layout_intent.dart';
+import '../cubit/main_layout_event.dart';
 import '../cubit/main_layout_state.dart';
 import '../widgets/main_nav_bar_item.dart';
 
-class MainLayoutScreen extends StatefulWidget {
+class MainLayoutScreen extends StatelessWidget {
   final int? initialIndex;
   final String? categoryId;
 
   const MainLayoutScreen({super.key, this.initialIndex, this.categoryId});
 
-  @override
-  State<MainLayoutScreen> createState() => _MainLayoutScreenState();
-}
-
-class _MainLayoutScreenState extends State<MainLayoutScreen> {
-  late List<Widget> _screens;
-
-  @override
-  void initState() {
-    super.initState();
-    _screens = [
-      const HomeScreen(),
-      CategoriesScreen(initialCategoryId: widget.categoryId),
-      const CartScreen(),
-      const ProfileScreen(),
-    ];
-  }
+  static const List<Widget> _screens = [
+    HomeScreen(),
+    CategoriesScreen(),
+    CartScreen(),
+    ProfileScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
         final cubit = getIt<MainLayoutCubit>();
-        if (widget.initialIndex != null) {
-          cubit.doIntent(ChangeIndexIntent(widget.initialIndex!));
+        if (initialIndex != null) {
+          cubit.doEvent(ChangeIndexEvent(initialIndex!, categoryId: categoryId));
         }
         return cubit;
       },
@@ -65,8 +54,8 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
               ),
               child: BottomNavigationBar(
                 currentIndex: state.currentIndex,
-                onTap: (index) => context.read<MainLayoutCubit>().doIntent(
-                  ChangeIndexIntent(index),
+                onTap: (index) => context.read<MainLayoutCubit>().doEvent(
+                  ChangeIndexEvent(index),
                 ),
                 items: [
                   MainNavBarItem(

@@ -58,4 +58,4 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-
+    - assets/lottie_files/

@@ -27,3 +27,9 @@ abstract class AppImages {
 
   static const String appImage = '${_imagesPath}app_image.svg';
 }
+
+abstract class AppLottie {
+  static const String _lottiePath = 'assets/lottie_files/';
+
+  static const String flowerLoading = '${_lottiePath}flower_loading.json';
+}
