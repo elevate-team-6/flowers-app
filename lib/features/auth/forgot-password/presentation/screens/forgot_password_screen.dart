@@ -5,6 +5,7 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_events.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_states.dart';
@@ -28,6 +29,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         return previous.forgotPasswordState != current.forgotPasswordState;
       },
       listener: (context, state) {
+        if (state.forgotPasswordState.isLoading) {
+          LoadingDialog.show(context: context);
+        } else {
+          LoadingDialog.hide(context: context);
+        }
+
         log("**********forgot password listner********");
 
         if (state.forgotPasswordState.data != null &&
@@ -119,29 +126,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         return SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: state.forgotPasswordState.isLoading
-                                ? null
-                                : () {
-                                    if (emailFormKey.currentState!.validate()) {
-                                      context
-                                          .read<ForgotPasswordViewModel>()
-                                          .doEvent(
-                                            ForgotPasswordEvent(
-                                              email: emailController.text
-                                                  .trim(),
-                                            ),
-                                          );
-                                    }
-                                  },
-                            child: state.forgotPasswordState.isLoading
-                                ? const SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                    ),
-                                  )
-                                : const Text(AppStrings.confirm),
+                            onPressed: () {
+                              if (emailFormKey.currentState!.validate()) {
+                                context.read<ForgotPasswordViewModel>().doEvent(
+                                  ForgotPasswordEvent(
+                                    email: emailController.text.trim(),
+                                  ),
+                                );
+                              }
+                            },
+                            child: const Text(AppStrings.confirm),
                           ),
                         );
                       },
