@@ -12,7 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OccasionsScreen extends StatefulWidget {
-  const OccasionsScreen({super.key});
+  final String? initialOccasionId;
+  const OccasionsScreen({super.key, this.initialOccasionId});
 
   @override
   State<OccasionsScreen> createState() => _OccasionsScreenState();
@@ -24,21 +25,24 @@ class _OccasionsScreenState extends State<OccasionsScreen>
   late TabController _tabController;
   List<OccasionEntity> _occasions = [];
   String? _initialOccasionId;
-  bool _cubitInitialized = false;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 0, vsync: this);
+    _initialOccasionId = widget.initialOccasionId;
+    _cubit = context.read<OccasionsCubit>()..doEvent(const GetOccasionsEvent());
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (_cubitInitialized) return;
-    _cubitInitialized = true;
-    _initialOccasionId = ModalRoute.of(context)!.settings.arguments as String?;
-    _cubit = context.read<OccasionsCubit>()..doEvent(const GetOccasionsEvent());
+    if (_initialOccasionId != null) return;
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args != null) {
+      _initialOccasionId = args as String?;
+    }
+    _cubit.doEvent(const GetOccasionsEvent());
   }
 
   void _onOccasionsLoaded(List<OccasionEntity> occasions) {
@@ -142,7 +146,12 @@ class _OccasionsScreenState extends State<OccasionsScreen>
 
                       if (products.isEmpty &&
                           state.occasionsState.data != null) {
-                        return Center(child: Text(AppStrings.noProductsFound));
+                        return Center(
+                          child: Text(
+                            AppStrings.noProductsFound,
+                            style: AppTextStyles.black16400,
+                          ),
+                        );
                       }
 
                       return CustomProductsGrid(

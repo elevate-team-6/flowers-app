@@ -32,10 +32,11 @@ abstract class AppRoutes {
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayoutScreen());
       case occasions:
+        final String? occasionId = settings.arguments as String?;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => getIt<OccasionsCubit>(),
-            child: const OccasionsScreen(),
+            child: OccasionsScreen(initialOccasionId: occasionId),
           ),
         );
       // case login:
