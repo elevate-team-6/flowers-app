@@ -8,9 +8,9 @@ import 'package:flowers_app/features/auth/forgot-password/domain/forgot_password
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_events.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_states.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test/test.dart';
 
 import 'forgot_password_view_model_test.mocks.dart';
 

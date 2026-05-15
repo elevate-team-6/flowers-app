@@ -9,51 +9,56 @@ import 'package:flowers_app/features/product_details/presentation/cubit/product_
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
+import 'package:flowers_app/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:flowers_app/features/auth/login/presentation/view_model/login_cubit.dart';
+import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
+import 'package:flowers_app/features/auth/signup/presentation/screens/terms_and_conditions_screen.dart';
+import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
+import 'package:flowers_app/features/main_layout/presentation/pages/main_layout_screen.dart';
 import 'package:flutter/material.dart';
-
-/// A centralized class for managing all application routes and navigation.
-///
-/// [AppRoutes] ensures that route names and navigation logic are organized in one place.
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class AppRoutes {
-  /// Global key to access the [NavigatorState] without a BuildContext.
-  /// Useful for navigation from business logic (e.g., inside an Interceptor or Service).
-  ///
-  /// Example: `AppRoutes.navigatorKey.currentState?.pushNamed(AppRoutes.login);`
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
 
-  // ---------------------------------------------------------------------------
-  // TEAM INSTRUCTIONS - HOW TO ADD A NEW ROUTE:
-  // ---------------------------------------------------------------------------
-  // 1. Define a 'static const String' for the route name below.
-  // 2. Add a 'case' for it in the [onGenerateRoute] method.
-  // 3. Return a MaterialPageRoute with the target Screen widget.
-  // 4. (Optional) Wrap the screen with a BlocProvider if needed.
-  // ---------------------------------------------------------------------------
-
-  // Route Names:
   static const String login = 'login';
-  static const String register = '/register';
+  static const String signup = '/signup';
+  static const String termsAndConditions = '/termsAndConditions';
+  static const String emailVerification = '/emailVerification';
   static const String forgotPassword = '/forgotPassword';
   static const String verifyResetCode = '/VerifyResetCode';
-  static const String emailVerification = '/emailVerification';
   static const String resetPassword = '/resetPassword';
-  static const String mainLayout = '/mainLayout';
+  static const String mainLayout = 'mainLayout';
   static const String bestSeller = '/bestSeller';
   static const String productDetails = '/productDetails';
 
-  /// Generates the appropriate [MaterialPageRoute] based on the provided [settings].
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case mainLayout:
         return MaterialPageRoute(builder: (_) => const MainLayoutScreen());
-      // case login:
-      //   return MaterialPageRoute(builder: (_) => const LoginPage());
-      //
-      // case register:
-      //   return MaterialPageRoute(builder: (_) => const RegisterPage());
+
+      case login:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        );
+
+      case signup:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<SignupCubit>(),
+            child: const SignupScreen(),
+          ),
+        );
+
+      case termsAndConditions:
+        return MaterialPageRoute(
+          builder: (_) => const TermsAndConditionsScreen(),
+        );
+
       case forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case bestSeller:
@@ -87,12 +92,12 @@ abstract class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => ResetPasswordScreen(email: email),
         );
+
       default:
         return _unDefinedRoute(settings.name);
     }
   }
 
-  /// Helper method to return an error page when an undefined route is requested.
   static MaterialPageRoute<dynamic> _unDefinedRoute(String? name) {
     return MaterialPageRoute(
       builder: (_) =>

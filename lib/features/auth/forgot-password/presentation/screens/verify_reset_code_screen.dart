@@ -10,6 +10,7 @@ import 'package:flowers_app/features/auth/forgot-password/presentation/view_mode
 import 'package:flowers_app/features/auth/forgot-password/presentation/widgets/rich_text_with_link.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyResetCodeScreen extends StatefulWidget {
   final String email;
