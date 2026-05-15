@@ -139,6 +139,6 @@ abstract class AppTextStyles {
   static TextStyle get green11400 => GoogleFonts.inter(
     fontSize: _sp(11),
     fontWeight: FontWeight.w400,
-    color: AppColors.green,
+    color: AppColors.success,
   );
 }
