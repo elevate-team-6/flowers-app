@@ -20,14 +20,24 @@ class OccasionsScreen extends StatefulWidget {
 
 class _OccasionsScreenState extends State<OccasionsScreen>
     with TickerProviderStateMixin {
-  late final OccasionsCubit _cubit;
+  late OccasionsCubit _cubit;
   late TabController _tabController;
   List<OccasionEntity> _occasions = [];
+  String? _initialOccasionId;
+  bool _cubitInitialized = false;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 0, vsync: this);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_cubitInitialized) return;
+    _cubitInitialized = true;
+    _initialOccasionId = ModalRoute.of(context)!.settings.arguments as String?;
     _cubit = context.read<OccasionsCubit>()..doEvent(const GetOccasionsEvent());
   }
 
@@ -41,7 +51,15 @@ class _OccasionsScreenState extends State<OccasionsScreen>
       if (!_tabController.indexIsChanging) return;
       _cubit.doEvent(GetProductsEvent(_occasions[_tabController.index].name));
     });
-    _cubit.doEvent(GetProductsEvent(occasions.first.name));
+
+    int initialIndex = 0;
+    if (_initialOccasionId != null) {
+      final index = occasions.indexWhere((o) => o.id == _initialOccasionId);
+      if (index >= 0) initialIndex = index;
+    }
+
+    _tabController.animateTo(initialIndex);
+    _cubit.doEvent(GetProductsEvent(occasions[initialIndex].name));
     setState(() {});
   }
 
@@ -124,12 +142,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
 
                       if (products.isEmpty &&
                           state.occasionsState.data != null) {
-                        return Center(
-                          child: Text(
-                            AppStrings.noProductsFound,
-                            style: AppTextStyles.black16400,
-                          ),
-                        );
+                        return Center(child: Text(AppStrings.noProductsFound));
                       }
 
                       return CustomProductsGrid(
