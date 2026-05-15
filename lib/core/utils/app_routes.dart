@@ -29,13 +29,7 @@ abstract class AppRoutes {
     try {
       switch (settings.name) {
         case mainLayout:
-          final args = settings.arguments as Map<String, dynamic>?;
-          return MaterialPageRoute(
-            builder: (_) => MainLayoutScreen(
-              initialIndex: args?['index'] as int?,
-              categoryId: args?['categoryId'] as String?,
-            ),
-          );
+          return MaterialPageRoute(builder: (_) => MainLayoutScreen());
 
         case login:
           return MaterialPageRoute(
@@ -89,9 +83,8 @@ abstract class AppRoutes {
 
   static MaterialPageRoute<dynamic> _unDefinedRoute(String? name) {
     return MaterialPageRoute(
-      builder: (_) => Scaffold(
-        body: Center(child: Text('No route defined for $name')),
-      ),
+      builder: (_) =>
+          Scaffold(body: Center(child: Text('No route defined for $name'))),
     );
   }
 }
