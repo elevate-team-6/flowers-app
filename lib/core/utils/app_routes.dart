@@ -14,6 +14,19 @@ import 'package:flowers_app/features/auth/signup/presentation/screens/terms_and_
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
 import 'package:flutter/material.dart';
 
+import '../../config/di/di.dart';
+import '../../features/auth/login/presentation/screens/login_screen.dart';
+import '../../features/auth/login/presentation/view_model/login_cubit.dart';
+import '../../features/auth/signup/presentation/screens/signup_screen.dart';
+import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
+import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
+
+/// A centralized class for managing all application routes and navigation.
+///
+/// [AppRoutes] ensures that route names and navigation logic are organized in one place.
+
 abstract class AppRoutes {
   /// Global key to access the [NavigatorState] without a BuildContext.
   /// Useful for navigation from business logic (e.g., inside an Interceptor or Service).
@@ -46,7 +59,12 @@ abstract class AppRoutes {
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case mainLayout:
-        return MaterialPageRoute(builder: (_) => const MainLayoutScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<HomeViewModel>()..doEvent(GetAllHomeData()),
+            child: const MainLayoutScreen(),
+          ),
+        );
 
       case login:
         return MaterialPageRoute(
