@@ -1,11 +1,12 @@
-import 'package:flowers_app/core/utils/app_keys.dart';
-import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/categories_shimmer.dart';
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
 import 'package:flowers_app/features/home/presentation/widgets/category_card.dart';
 import 'package:flowers_app/features/home/presentation/widgets/home_common_header_section.dart';
+import 'package:flowers_app/features/main_layout/presentation/cubit/main_layout_cubit.dart';
+import 'package:flowers_app/features/main_layout/presentation/cubit/main_layout_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoriesHomeSection extends StatelessWidget {
   final HomeStates state;
@@ -14,7 +15,8 @@ class CategoriesHomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoriesState = state.categoreyState;
+    // final categoriesState = state.categoryState;
+    final categoriesState = (state as dynamic).categoryState;
 
     if (categoriesState.isLoading) {
       return CategoriesShimmer();
@@ -47,10 +49,7 @@ class CategoriesHomeSection extends StatelessWidget {
         HomeCommonHeaderSection(
           title: AppStrings.categories,
           onViewAll: () {
-            Navigator.of(context).pushReplacementNamed(
-              AppRoutes.mainLayout,
-              arguments: {AppKeys.index: 1},
-            );
+            context.read<MainLayoutCubit>().doEvent(ChangeIndexEvent(1));
           },
         ),
         const SizedBox(height: 12),
@@ -66,12 +65,8 @@ class CategoriesHomeSection extends StatelessWidget {
               final category = categories[index];
               return CategoryCard(
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed(
-                    AppRoutes.mainLayout,
-                    arguments: {
-                      AppKeys.index: 1,
-                      AppKeys.categroyId: category.id,
-                    },
+                  context.read<MainLayoutCubit>().doEvent(
+                    ChangeIndexEvent(1, categoryId: category.id),
                   );
                 },
                 imageUrl: category.image, // Customize based on your entity

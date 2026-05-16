@@ -34,7 +34,9 @@ class MainLayoutScreen extends StatelessWidget {
       create: (context) {
         final cubit = getIt<MainLayoutCubit>();
         if (initialIndex != null) {
-          cubit.doEvent(ChangeIndexEvent(initialIndex!, categoryId: categoryId));
+          cubit.doEvent(
+            ChangeIndexEvent(initialIndex!, categoryId: categoryId),
+          );
         }
         return cubit;
       },

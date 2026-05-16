@@ -1,13 +1,12 @@
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
-import 'package:flowers_app/features/home/presentation/widgets/best_sellers_home_section.dart';
-import 'package:flowers_app/features/home/presentation/widgets/categories_home_section.dart';
 import 'package:flowers_app/features/home/presentation/widgets/home_delivery_address_section.dart';
 import 'package:flowers_app/features/home/presentation/widgets/home_top_bar.dart';
-import 'package:flowers_app/features/home/presentation/widgets/occasions__home_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../widgets/best_sellers_home_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,35 +43,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 16),
-                    //categories
-                    BlocBuilder<HomeViewModel, HomeStates>(
-                      buildWhen: (previous, current) =>
-                          previous.categoreyState != current.categoreyState,
-                      builder: (context, state) {
-                        return CategoriesHomeSection(state: state);
-                      },
-                    ),
 
+                    //categories
+                    // BlocBuilder<HomeViewModel, HomeStates>(
+                    //   buildWhen: (previous, current) =>
+                    //       previous.categoryState != current.categoryState,
+                    //   builder: (context, state) {
+                    //     return CategoriesHomeSection(state: state);
+                    //   },
+                    // ),
                     const SizedBox(height: 24),
                     //best seller
                     BlocBuilder<HomeViewModel, HomeStates>(
                       buildWhen: (previous, current) =>
-                          previous.bsetSelerState != current.bsetSelerState,
+                          previous.bestSellerState != current.bestSellerState,
                       builder: (context, state) {
                         return BestSellersHomeSection(state: state);
                       },
                     ),
 
                     const SizedBox(height: 24),
-                    //occasions
-                    BlocBuilder<HomeViewModel, HomeStates>(
-                      buildWhen: (previous, current) =>
-                          previous.occasionsState != current.occasionsState,
-                      builder: (context, state) {
-                        return OccasionsHomeSecion(state: state);
-                      },
-                    ),
 
+                    //occasions
+                    // BlocBuilder<HomeViewModel, HomeStates>(
+                    //   buildWhen: (previous, current) =>
+                    //       previous.occasionsState != current.occasionsState,
+                    //   builder: (context, state) {
+                    //     return OccasionsHomeSecion(state: state);
+                    //   },
+                    // ),
                     const SizedBox(height: 40),
                   ],
                 ),

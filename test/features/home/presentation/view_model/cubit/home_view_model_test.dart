@@ -166,10 +166,10 @@ void main() {
         act: (cubit) => cubit.doEvent(GetAllHomeData()),
         expect: () => [
           HomeStates(
-            bsetSelerState: BaseState<List<ProductEntity>>(isLoading: true),
+            bestSellerState: BaseState<List<ProductEntity>>(isLoading: true),
           ),
           HomeStates(
-            bsetSelerState: BaseState<List<ProductEntity>>(
+            bestSellerState: BaseState<List<ProductEntity>>(
               isLoading: false,
               data: productsList,
             ),
@@ -199,10 +199,10 @@ void main() {
         act: (cubit) => cubit.doEvent(GetAllHomeData()),
         expect: () => [
           HomeStates(
-            bsetSelerState: BaseState<List<ProductEntity>>(isLoading: true),
+            bestSellerState: BaseState<List<ProductEntity>>(isLoading: true),
           ),
           HomeStates(
-            bsetSelerState: BaseState<List<ProductEntity>>(
+            bestSellerState: BaseState<List<ProductEntity>>(
               errorMessage: errMsg,
             ),
           ),
@@ -233,10 +233,10 @@ void main() {
         act: (cubit) => cubit.doEvent(GetAllHomeData()),
         expect: () => [
           HomeStates(
-            categoreyState: BaseState<CategoriesEntity>(isLoading: true),
+            categoryState: BaseState<CategoriesEntity>(isLoading: true),
           ),
           HomeStates(
-            categoreyState: BaseState<CategoriesEntity>(
+            categoryState: BaseState<CategoriesEntity>(
               isLoading: false,
               data: categoriesEntity,
             ),
@@ -265,10 +265,10 @@ void main() {
         act: (cubit) => cubit.doEvent(GetAllHomeData()),
         expect: () => [
           HomeStates(
-            categoreyState: BaseState<CategoriesEntity>(isLoading: true),
+            categoryState: BaseState<CategoriesEntity>(isLoading: true),
           ),
           HomeStates(
-            categoreyState: BaseState<CategoriesEntity>(errorMessage: errMsg),
+            categoryState: BaseState<CategoriesEntity>(errorMessage: errMsg),
           ),
         ],
         verify: (_) {
