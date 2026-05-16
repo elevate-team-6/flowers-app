@@ -13,6 +13,10 @@ import 'package:flowers_app/features/main_layout/presentation/pages/main_layout_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
+import '../../features/best_seller/presentation/cubit/best_seller_event.dart';
+import '../../features/best_seller/presentation/screens/best_seller_screen.dart';
+
 /// A centralized class for managing all application routes and navigation.
 ///
 /// [AppRoutes] ensures that route names and navigation logic are organized in one place.
@@ -78,6 +82,15 @@ abstract class AppRoutes {
         final String email = settings.arguments as String;
         return MaterialPageRoute(
           builder: (_) => ResetPasswordScreen(email: email),
+        );
+
+      case bestSeller:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
+            child: const BestSellerScreen(),
+          ),
         );
 
       default:
