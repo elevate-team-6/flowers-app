@@ -12,9 +12,7 @@ import 'package:flowers_app/features/auth/login/presentation/view_model/login_cu
 import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
 import 'package:flowers_app/features/auth/signup/presentation/screens/terms_and_conditions_screen.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
-import 'package:flowers_app/features/main_layout/presentation/pages/main_layout_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class AppRoutes {
   /// Global key to access the [NavigatorState] without a BuildContext.
@@ -40,11 +38,9 @@ abstract class AppRoutes {
   static const String emailVerification = '/emailVerification';
   static const String forgotPassword = '/forgotPassword';
   static const String verifyResetCode = '/VerifyResetCode';
-  static const String emailVerification = '/emailVerification';
   static const String resetPassword = '/resetPassword';
   static const String mainLayout = '/mainLayout';
   static const String bestSeller = '/bestSeller';
-  static const String mainLayout = 'mainLayout';
 
   /// Generates the appropriate [MaterialPageRoute] based on the provided [settings].
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
