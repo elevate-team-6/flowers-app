@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/features/best_seller/api/api_client/best_seller_api_client.dart';
-import 'package:flowers_app/features/best_seller/api/data_sources/best_seller_remote_data_sources_impl.dart';
+import 'package:flowers_app/features/best_seller/api/data_sources/best_seller_remote_data_source_impl.dart';
 import 'package:flowers_app/features/best_seller/data/models/best_seller_products_response/best_seller_products_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -15,7 +15,7 @@ import 'best_seller_remote_data_sources_impl_test.mocks.dart';
 void main() {
   late MockBestSellerApiClient mockBestSellerApiClient;
 
-  late BestSellerRemoteDataSourcesImpl
+  late BestSellerRemoteDataSourceImpl
   bestSellerRemoteDataSource;
 
   setUp(() {
@@ -23,7 +23,7 @@ void main() {
         MockBestSellerApiClient();
 
     bestSellerRemoteDataSource =
-        BestSellerRemoteDataSourcesImpl(
+        BestSellerRemoteDataSourceImpl(
           mockBestSellerApiClient,
         );
   });

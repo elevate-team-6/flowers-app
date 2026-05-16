@@ -10,7 +10,7 @@ import 'package:mockito/mockito.dart';
 
 import 'best_seller_repo_impl_test.mocks.dart';
 
-@GenerateMocks([BestSellerRemoteDataSourcesContract])
+@GenerateMocks([BestSellerRemoteDataSourceContract])
 void main() {
   setUpAll(() {
   provideDummy<
@@ -23,12 +23,12 @@ void main() {
     ),
   );
 });
-  late MockBestSellerRemoteDataSourcesContract mockRemoteDataSource;
+  late MockBestSellerRemoteDataSourceContract mockRemoteDataSource;
 
   late BestSellerRepoImpl repoImpl;
 
   setUp(() {
-    mockRemoteDataSource = MockBestSellerRemoteDataSourcesContract();
+    mockRemoteDataSource = MockBestSellerRemoteDataSourceContract();
 
     repoImpl = BestSellerRepoImpl(mockRemoteDataSource);
   });

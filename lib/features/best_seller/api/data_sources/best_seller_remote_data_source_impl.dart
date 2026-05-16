@@ -5,11 +5,11 @@ import 'package:flowers_app/features/best_seller/data/data_sources/best_seller_r
 import 'package:flowers_app/features/best_seller/data/models/best_seller_products_response/best_seller_products_response.dart';
 import 'package:injectable/injectable.dart';
 
-@Injectable(as: BestSellerRemoteDataSourcesContract)
-class BestSellerRemoteDataSourcesImpl
-    implements BestSellerRemoteDataSourcesContract {
+@Injectable(as: BestSellerRemoteDataSourceContract)
+class BestSellerRemoteDataSourceImpl
+    implements BestSellerRemoteDataSourceContract {
   final BestSellerApiClient _bestSellerApiClient;
-  const BestSellerRemoteDataSourcesImpl(this._bestSellerApiClient);
+  const BestSellerRemoteDataSourceImpl(this._bestSellerApiClient);
 
   @override
   Future<BaseResponse<BestSellerProductsResponse>> bestSeller() {

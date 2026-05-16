@@ -23,4 +23,5 @@ abstract class AppImages {
   // Example: static const String yourIcon = '${_imagesPath}image_name.svg';
 
   static const String appImage = '${_imagesPath}app_image.svg';
+  static const String defaultImage = '${_imagesPath}Image_default.png';
 }

@@ -22,12 +22,8 @@ void main() {
 
   late MockBestSellerUseCase mockBestSellerUseCase;
 
-  late BestSellerCubit bestSellerCubit;
-
   setUp(() {
     mockBestSellerUseCase = MockBestSellerUseCase();
-
-    bestSellerCubit = BestSellerCubit(mockBestSellerUseCase);
   });
 
   group('Best Seller Cubit Tests', () {
@@ -45,13 +41,12 @@ void main() {
 
     blocTest<BestSellerCubit, BestSellerState>(
       'should emit loading then success state',
-      build: () {
+      setUp: () {
         when(mockBestSellerUseCase.call()).thenAnswer(
           (_) async => SuccessBaseResponse<List<ProductEntity>>(products),
         );
-
-        return bestSellerCubit;
       },
+      build: () => BestSellerCubit(mockBestSellerUseCase),
       act: (cubit) async {
         await cubit.doEvent(GetBestSellerProductsEvent());
       },
@@ -74,13 +69,13 @@ void main() {
 
     blocTest<BestSellerCubit, BestSellerState>(
       'should emit loading then error state',
-      build: () {
+      setUp: () {
         when(mockBestSellerUseCase.call()).thenAnswer(
           (_) async => ErrorBaseResponse<List<ProductEntity>>('Error'),
         );
-
-        return bestSellerCubit;
       },
+      build: () => BestSellerCubit(mockBestSellerUseCase),
+
       act: (cubit) async {
         await cubit.doEvent(GetBestSellerProductsEvent());
       },

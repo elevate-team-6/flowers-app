@@ -124,7 +124,10 @@ abstract class AppStrings {
     //Best Seller
   static const String addToCart = 'Add to cart';
   static const String bestSeller = 'Best seller';
+  static const String egp = 'EGP';
+  static const String retry = 'Retry';
   static const String noProductsFound = 'No Products Found';
   static const String subTitleBestSeller = 'Bloom with our exquisite best sellers';
+
 }
 

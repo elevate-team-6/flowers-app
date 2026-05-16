@@ -1,9 +1,11 @@
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_error_state.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
 import 'package:flowers_app/features/best_seller/presentation/cubit/best_seller_cubit.dart';
+import 'package:flowers_app/features/best_seller/presentation/cubit/best_seller_event.dart';
 import 'package:flowers_app/features/best_seller/presentation/cubit/best_seller_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,16 +55,21 @@ class BestSellerScreen extends StatelessWidget {
               return const CustomProductsShimmer();
             }
             if (state.bestSellerState.errorMessage != null) {
-              return const SizedBox();
+              return CustomErrorState(
+                message: state.bestSellerState.errorMessage!,
+
+                onRetry: () {
+                  context.read<BestSellerCubit>().doEvent(
+                    GetBestSellerProductsEvent(),
+                  );
+                },
+              );
             }
             final products = state.bestSellerState.data ?? [];
             if (products.isEmpty) {
               return const Center(child: Text(AppStrings.noProductsFound));
             }
-            return CustomProductsGrid(
-              products: products,
-              onAddToCart: (_){},
-            );
+            return CustomProductsGrid(products: products, onAddToCart: (_) {});
           },
         ),
       ),
