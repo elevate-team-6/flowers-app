@@ -165,14 +165,12 @@ abstract class AppStrings {
   static const String bestSellers = 'Best Sellers';
   static const String noCategoriesAvailable = 'No categories available';
   static const String deliverTo = 'Deliver to: Cairo, Egypt';
-  static const String noOcassionsAvailable = 'No occasions available';
-    //Best Seller
-  static const String addToCart = 'Add to cart';
-  static const String bestSeller = 'Best seller';
+  static const String noOccasionsAvailable = 'No occasions available';
   static const String egp = 'EGP';
+  //Best Seller
+  static const String addToCart = 'Add to cart';
   static const String retry = 'Retry';
   static const String noProductsFound = 'No Products Found';
-  static const String subTitleBestSeller = 'Bloom with our exquisite best sellers';
-
+  static const String subTitleBestSeller =
+      'Bloom with our exquisite best sellers';
 }
-

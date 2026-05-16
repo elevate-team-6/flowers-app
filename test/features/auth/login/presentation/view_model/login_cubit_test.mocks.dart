@@ -58,8 +58,8 @@ class MockLoginUseCase extends _i1.Mock implements _i2.LoginUseCase {
 /// A class which mocks [SecureCacheHelper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCacheHelper extends _i1.Mock implements _i8.SecureCacheHelper {
-  MockCacheHelper() {
+class MockSecureCacheHelper extends _i1.Mock implements _i8.SecureCacheHelper {
+  MockSecureCacheHelper() {
     _i1.throwOnMissingStub(this);
   }
 

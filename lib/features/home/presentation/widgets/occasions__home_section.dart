@@ -6,14 +6,15 @@ import 'package:flowers_app/features/home/presentation/widgets/occasion_card.dar
 import 'package:flowers_app/features/home/presentation/widgets/occasions_home_shimmer.dart';
 import 'package:flutter/material.dart';
 
-class OccasionsHomeSecion extends StatelessWidget {
+class OccasionsHomeSection extends StatelessWidget {
   final HomeStates state;
 
-  const OccasionsHomeSecion({super.key, required this.state});
+  const OccasionsHomeSection({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
-    final occasionsState = state.occasionsState;
+    // final occasionsState = state.occasionsState;
+    final occasionsState = (state as dynamic).occasionsState;
 
     if (occasionsState.isLoading) {
       return const OccasionsHomeShimmer();
@@ -31,7 +32,7 @@ class OccasionsHomeSecion extends StatelessWidget {
     if (occasions.isEmpty) {
       return const SizedBox(
         height: 230,
-        child: Center(child: Text(AppStrings.noOcassionsAvailable)),
+        child: Center(child: Text(AppStrings.noOccasionsAvailable)),
       );
     }
 

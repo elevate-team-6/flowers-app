@@ -13,7 +13,7 @@ class BestSellersHomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bestSellerState = state.bsetSelerState;
+    final bestSellerState = state.bestSellerState;
 
     if (bestSellerState.isLoading) {
       return const BestSellerHomeShimmer();
@@ -59,11 +59,11 @@ class BestSellersHomeSection extends StatelessWidget {
                 onTap: () {
                   Navigator.of(
                     context,
-                  ).pushNamed(AppRoutes.ProductDetails, arguments: product.id);
+                  ).pushNamed(AppRoutes.productDetails, arguments: product.id);
                 },
                 imageUrl: product.imgCover,
                 title: product.title,
-                price: "${product.price} EGP",
+                price: "${product.price} ${AppStrings.egp}",
               );
             },
           ),

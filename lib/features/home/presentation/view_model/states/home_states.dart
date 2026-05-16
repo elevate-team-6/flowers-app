@@ -1,29 +1,32 @@
 import 'package:equatable/equatable.dart';
-import 'package:flowers_app/config/base_state/base_state.dart';
-import 'package:flowers_app/core/enities/product_entity.dart';
-import 'package:flowers_app/features/categories/domain/entities/category_entity.dart';
-import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
+
+import '../../../../../config/base_state/base_state.dart';
+import '../../../../../core/entities/product_entity.dart';
 
 class HomeStates extends Equatable {
-  final BaseState<List<OccasionEntity>> occasionsState;
-  final BaseState<List<ProductEntity>> bsetSelerState;
-  final BaseState<CategoriesEntity> categoreyState;
+  // final BaseState<List<OccasionEntity>> occasionsState;
+  final BaseState<List<ProductEntity>> bestSellerState;
+  // final BaseState<CategoriesEntity> categoryState;
 
   const HomeStates({
-    this.occasionsState = const BaseState(),
-    this.bsetSelerState = const BaseState(),
-    this.categoreyState = const BaseState(),
+    // this.occasionsState = const BaseState(),
+    this.bestSellerState = const BaseState(),
+    // this.categoryState = const BaseState(),
   });
   HomeStates copyWith({
-    BaseState<List<OccasionEntity>>? occasionsStateParam,
-    BaseState<List<ProductEntity>>? bsetSelerStateParam,
-    BaseState<CategoriesEntity>? categoreyStateParam,
+    // BaseState<List<OccasionEntity>>? occasionsStateParam,
+    BaseState<List<ProductEntity>>? bestSellerStateParam,
+    // BaseState<CategoriesEntity>? categoryStateParam,
   }) => HomeStates(
-    occasionsState: occasionsStateParam ?? occasionsState,
-    bsetSelerState: bsetSelerStateParam ?? bsetSelerState,
-    categoreyState: categoreyStateParam ?? categoreyState,
+    // occasionsState: occasionsStateParam ?? occasionsState,
+    bestSellerState: bestSellerStateParam ?? bestSellerState,
+    // categoryState: categoryStateParam ?? categoryState,
   );
 
   @override
-  List<Object?> get props => [occasionsState, bsetSelerState, categoreyState];
+  List<Object?> get props => [
+    // occasionsState,
+    bestSellerState,
+    // categoryState
+  ];
 }
