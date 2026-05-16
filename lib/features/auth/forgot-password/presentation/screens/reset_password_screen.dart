@@ -4,6 +4,7 @@ import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_events.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_states.dart';
@@ -38,13 +39,18 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         return previous.resetPasswordState != current.resetPasswordState;
       },
       listener: (context, state) {
+        if (state.resetPasswordState.isLoading) {
+          LoadingDialog.show(context: context);
+        } else {
+          LoadingDialog.hide(context: context);
+        }
         log("**********reset password listner********");
         if (state.resetPasswordState.data != null &&
             !state.resetPasswordState.isLoading) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text(AppStrings.passwordResetSuccessfully),
-              backgroundColor: AppColors.green,
+              backgroundColor: AppColors.success,
             ),
           );
           Navigator.of(context).pushNamed(AppRoutes.login);
@@ -174,29 +180,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       width: double.infinity,
                       height: 56,
                       child: ElevatedButton(
-                        onPressed: state.resetPasswordState.isLoading
-                            ? null
-                            : () {
-                                if (resetFormKey.currentState!.validate()) {
-                                  context
-                                      .read<ForgotPasswordViewModel>()
-                                      .doEvent(
-                                        ResetPasswordEvent(
-                                          email: widget.email,
-                                          password: passwordController.text,
-                                        ),
-                                      );
-                                }
-                              },
-                        child: state.resetPasswordState.isLoading
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : Text(AppStrings.continueText),
+                        onPressed: () {
+                          if (resetFormKey.currentState!.validate()) {
+                            context.read<ForgotPasswordViewModel>().doEvent(
+                              ResetPasswordEvent(
+                                email: widget.email,
+                                password: passwordController.text,
+                              ),
+                            );
+                          }
+                        },
+                        child: Text(AppStrings.continueText),
                       ),
                     );
                   },

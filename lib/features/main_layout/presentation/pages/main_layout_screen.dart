@@ -11,12 +11,15 @@ import '../../../categories/presentation/pages/categories_screen.dart';
 import '../../../home/presentation/screens/home_screen.dart';
 import '../../../profile/presentation/pages/profile_screen.dart';
 import '../cubit/main_layout_cubit.dart';
-import '../cubit/main_layout_intent.dart';
+import '../cubit/main_layout_event.dart';
 import '../cubit/main_layout_state.dart';
 import '../widgets/main_nav_bar_item.dart';
 
 class MainLayoutScreen extends StatelessWidget {
-  const MainLayoutScreen({super.key});
+  final int? initialIndex;
+  final String? categoryId;
+
+  const MainLayoutScreen({super.key, this.initialIndex, this.categoryId});
 
   static const List<Widget> _screens = [
     HomeScreen(),
@@ -28,7 +31,13 @@ class MainLayoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<MainLayoutCubit>(),
+      create: (context) {
+        final cubit = getIt<MainLayoutCubit>();
+        if (initialIndex != null) {
+          cubit.doEvent(ChangeIndexEvent(initialIndex!, categoryId: categoryId));
+        }
+        return cubit;
+      },
       child: BlocBuilder<MainLayoutCubit, MainLayoutState>(
         builder: (context, state) {
           return Scaffold(
@@ -45,8 +54,8 @@ class MainLayoutScreen extends StatelessWidget {
               ),
               child: BottomNavigationBar(
                 currentIndex: state.currentIndex,
-                onTap: (index) => context.read<MainLayoutCubit>().doIntent(
-                  ChangeIndexIntent(index),
+                onTap: (index) => context.read<MainLayoutCubit>().doEvent(
+                  ChangeIndexEvent(index),
                 ),
                 items: [
                   MainNavBarItem(

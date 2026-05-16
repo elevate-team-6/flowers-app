@@ -39,7 +39,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
                 state.verifyResetCodeState.errorMessage ??
                     AppStrings.verificationCodeIsCorrect,
               ),
-              backgroundColor: AppColors.green,
+              backgroundColor: AppColors.success,
             ),
           );
           Navigator.of(
