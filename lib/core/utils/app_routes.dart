@@ -7,6 +7,8 @@ import 'package:flowers_app/features/auth/login/presentation/view_model/login_cu
 import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
 import 'package:flowers_app/features/auth/signup/presentation/screens/terms_and_conditions_screen.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
 import 'package:flowers_app/features/main_layout/presentation/pages/main_layout_screen.dart';
@@ -42,8 +44,16 @@ abstract class AppRoutes {
     switch (settings.name) {
       case mainLayout:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<HomeViewModel>()..doEvent(GetAllHomeData()),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    getIt<HomeViewModel>()..doEvent(GetAllHomeData()),
+              ),
+              BlocProvider.value(
+                value: getIt<CartBloc>()..add(const GetCartEvent()),
+              ),
+            ],
             child: const MainLayoutScreen(),
           ),
         );
@@ -86,9 +96,15 @@ abstract class AppRoutes {
 
       case bestSeller:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) =>
-                getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    getIt<BestSellerCubit>()
+                      ..doEvent(GetBestSellerProductsEvent()),
+              ),
+              BlocProvider.value(value: getIt<CartBloc>()),
+            ],
             child: const BestSellerScreen(),
           ),
         );

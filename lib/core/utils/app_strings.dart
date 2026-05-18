@@ -173,4 +173,16 @@ abstract class AppStrings {
   static const String noProductsFound = 'No Products Found';
   static const String subTitleBestSeller =
       'Bloom with our exquisite best sellers';
+
+  // Cart
+  static const String items = 'items';
+  static const String clearAll = 'Clear All';
+  static const String cartEmpty = 'Your cart is empty';
+  static const String subTotal = 'Sub Total';
+  static const String deliveryFee = 'Delivery Fee';
+  static const String total = 'Total';
+  static const String checkout = 'Checkout';
+  static const String somethingWentWrong = 'Something went wrong';
+  static const String adding = 'Adding...';
+  static const String added = 'Added';
 }

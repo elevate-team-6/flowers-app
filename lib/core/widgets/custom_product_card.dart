@@ -11,12 +11,16 @@ class CustomProductCard extends StatelessWidget {
   final ProductEntity product;
   final VoidCallback onAddToCart;
   final VoidCallback? onTap;
+  final bool isInCart;
+  final bool isLoading;
 
   const CustomProductCard({
     super.key,
+    required this.product,
     required this.onAddToCart,
     this.onTap,
-    required this.product,
+    this.isInCart = false,
+    this.isLoading = false,
   });
 
   @override
@@ -94,7 +98,7 @@ class CustomProductCard extends StatelessWidget {
                                   fit: BoxFit.scaleDown,
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    '${AppStrings.egp} ${product.price}',
+                                    '${product.price}',
                                     style: AppTextStyles.black12400.copyWith(
                                       decoration: TextDecoration.lineThrough,
                                     ),
@@ -118,18 +122,36 @@ class CustomProductCard extends StatelessWidget {
                     ),
 
                     ElevatedButton.icon(
-                      onPressed: onAddToCart,
+                      onPressed: isLoading || isInCart ? null : onAddToCart,
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 36.h),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        backgroundColor: isInCart
+                            ? AppColors.success
+                            : AppColors.primary,
                       ),
-                      icon: Icon(
-                        Icons.shopping_cart_outlined,
-                        size: 16.sp,
-                        color: AppColors.white,
-                      ),
+                      icon: isLoading
+                          ? SizedBox(
+                              width: 16.w,
+                              height: 16.w,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: AppColors.white,
+                              ),
+                            )
+                          : Icon(
+                              isInCart
+                                  ? Icons.check
+                                  : Icons.shopping_cart_outlined,
+                              size: 16.sp,
+                              color: AppColors.white,
+                            ),
                       label: Text(
-                        AppStrings.addToCart,
+                        isLoading
+                            ? AppStrings.adding
+                            : isInCart
+                            ? AppStrings.added
+                            : AppStrings.addToCart,
                         style: AppTextStyles.white16500.copyWith(
                           fontSize: 12.sp,
                         ),

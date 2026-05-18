@@ -1,3 +1,5 @@
+import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +8,7 @@ import '../../../../config/di/di.dart';
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_strings.dart';
-import '../../../cart/presentation/pages/cart_screen.dart';
+import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../categories/presentation/pages/categories_screen.dart';
 import '../../../home/presentation/screens/home_screen.dart';
 import '../../../profile/presentation/pages/profile_screen.dart';
@@ -56,9 +58,14 @@ class MainLayoutScreen extends StatelessWidget {
               ),
               child: BottomNavigationBar(
                 currentIndex: state.currentIndex,
-                onTap: (index) => context.read<MainLayoutCubit>().doEvent(
-                  ChangeIndexEvent(index),
-                ),
+                onTap: (index) {
+                  context.read<MainLayoutCubit>().doEvent(
+                    ChangeIndexEvent(index),
+                  );
+                  if (index == 2) {
+                    context.read<CartBloc>().add(const GetCartEvent());
+                  }
+                },
                 items: [
                   MainNavBarItem(
                     iconPath: AppIcons.home,
