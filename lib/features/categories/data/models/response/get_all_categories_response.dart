@@ -1,20 +1,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:flowers_app/features/categories/domain/entities/category_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 import 'category_model.dart';
-import 'metadata_model.dart';
+import 'pagination_model.dart';
 
 part 'get_all_categories_response.g.dart';
 
 @JsonSerializable()
 class GetAllCategoriesResponse extends Equatable {
   final String? message;
-  final MetadataModel? metadata;
+  final PaginationModel? pagination;
   final List<CategoryModel>? categories;
 
   const GetAllCategoriesResponse({
     this.message,
-    this.metadata,
+    this.pagination,
     this.categories,
   });
 
@@ -24,9 +25,9 @@ class GetAllCategoriesResponse extends Equatable {
   Map<String, dynamic> toJson() => _$GetAllCategoriesResponseToJson(this);
 
   CategoriesEntity toEntity() => CategoriesEntity(
-        categories: categories?.map((c) => c.toEntity()).toList(),
-      );
+    categories: categories?.map((c) => c.toEntity()).toList(),
+  );
 
   @override
-  List<Object?> get props => [message, metadata, categories];
+  List<Object?> get props => [message, pagination, categories];
 }
