@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flowers_app/core/utils/app_end_points.dart';
+import 'package:flowers_app/core/utils/app_params.dart';
 import 'package:flowers_app/features/occasions/data/models/responses/occasions_response.dart';
 import 'package:flowers_app/features/occasions/data/models/responses/products_response.dart';
 import 'package:injectable/injectable.dart';
@@ -18,6 +19,6 @@ abstract class OccasionsApiClient {
 
   @GET(AppEndPoints.products)
   Future<ProductsResponse> getProductsByOccasion(
-    @Query('keyword') String occasionName,
+    @Query(ApiParameters.keyword) String occasionName,
   );
 }

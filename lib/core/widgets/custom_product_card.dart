@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flowers_app/core/entities/product_entity.dart';
+import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
@@ -46,10 +47,8 @@ class CustomProductCard extends StatelessWidget {
                       highlightColor: Colors.grey[100]!,
                       child: Container(color: Colors.white),
                     ),
-                    errorWidget: (_, _, _) => Image.asset(
-                      'assets/images/Image_default.png',
-                      fit: BoxFit.cover,
-                    ),
+                    errorWidget: (_, _, _) =>
+                        Image.asset(AppImages.imageDefault, fit: BoxFit.cover),
                   ),
                 ),
               ),
@@ -83,7 +82,7 @@ class CustomProductCard extends StatelessWidget {
                                   fit: BoxFit.scaleDown,
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    'EGP ${product.priceAfterDiscount}',
+                                    '${AppStrings.egp} ${product.priceAfterDiscount}',
                                     style: AppTextStyles.black13400.copyWith(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14.sp,

@@ -24,25 +24,12 @@ class _OccasionsScreenState extends State<OccasionsScreen>
   late OccasionsCubit _cubit;
   late TabController _tabController;
   List<OccasionEntity> _occasions = [];
-  String? _initialOccasionId;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 0, vsync: this);
-    _initialOccasionId = widget.initialOccasionId;
     _cubit = context.read<OccasionsCubit>()..doEvent(const GetOccasionsEvent());
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_initialOccasionId != null) return;
-    final args = ModalRoute.of(context)?.settings.arguments;
-    if (args != null) {
-      _initialOccasionId = args as String?;
-    }
-    _cubit.doEvent(const GetOccasionsEvent());
   }
 
   void _onOccasionsLoaded(List<OccasionEntity> occasions) {
@@ -57,8 +44,10 @@ class _OccasionsScreenState extends State<OccasionsScreen>
     });
 
     int initialIndex = 0;
-    if (_initialOccasionId != null) {
-      final index = occasions.indexWhere((o) => o.id == _initialOccasionId);
+    if (widget.initialOccasionId != null) {
+      final index = occasions.indexWhere(
+        (o) => o.id == widget.initialOccasionId,
+      );
       if (index >= 0) initialIndex = index;
     }
 
@@ -154,11 +143,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                         );
                       }
 
-                      return CustomProductsGrid(
-                        products: products,
-                        onAddToCart: (product) {},
-                        onTap: (product) {},
-                      );
+                      return CustomProductsGrid(products: products);
                     },
                   ),
                 ),

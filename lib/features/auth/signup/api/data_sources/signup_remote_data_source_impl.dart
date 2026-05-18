@@ -13,7 +13,7 @@ class SignupRemoteDataSourceImpl implements SignupRemoteDataSourceContract {
 
   @override
   Future<BaseResponse<SignupResponse>> signup(SignupRequest request) async {
-    return ErrorHandler.executeApiCall(() {
+    return ErrorHandler.handleApiCall(() {
       return _signupApiClient.signup(request);
     });
   }

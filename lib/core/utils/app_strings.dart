@@ -154,4 +154,5 @@ abstract class AppStrings {
   static const String occasion = 'Occasion';
   static const String occasionSubtitle =
       'Bloom with our exquisite best sellers';
+  static const String egp = 'EGP';
 }

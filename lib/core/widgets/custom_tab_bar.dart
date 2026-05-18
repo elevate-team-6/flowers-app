@@ -16,45 +16,46 @@ class CustomTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tabBarTheme = Theme.of(context).tabBarTheme;
+
     return SizedBox(
       height: 45.h,
       child: TabBar(
         controller: controller,
         isScrollable: true,
-        tabAlignment: TabAlignment.start,
         onTap: onTap,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
-        overlayColor: WidgetStateProperty.all(Colors.transparent),
-        dividerColor: Colors.transparent,
         indicatorColor: Colors.transparent,
         labelPadding: EdgeInsets.only(right: 24.w),
         tabs: List.generate(tabs.length, (index) {
-          final isSelected = controller.index == index;
           return AnimatedBuilder(
             animation: controller.animation!,
             builder: (context, child) {
               final selected = controller.index == index;
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    tabs[index],
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400,
-                      color: selected ? AppColors.primary : AppColors.white70,
+              return IntrinsicWidth(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      tabs[index],
+                      textAlign: TextAlign.center,
+                      style: tabBarTheme.labelStyle?.copyWith(
+                        color: selected
+                            ? tabBarTheme.labelColor
+                            : tabBarTheme.unselectedLabelColor,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Container(
-                    width: 80.w,
-                    height: 3.h,
-                    decoration: BoxDecoration(
-                      color: selected ? AppColors.primary : AppColors.white70,
-                      borderRadius: BorderRadius.circular(100.r),
+                    SizedBox(height: 8.h),
+                    Container(
+                      height: 3.h,
+                      decoration: BoxDecoration(
+                        color: selected ? AppColors.primary : AppColors.white70,
+                        borderRadius: BorderRadius.circular(100.r),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             },
           );

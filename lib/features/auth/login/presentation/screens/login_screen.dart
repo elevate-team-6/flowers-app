@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state.user != null) {
           SnackBarServices.showSuccessMessage(AppStrings.loginSuccess);
 
-          Navigator.pushReplacementNamed(context, AppRoutes.register);
+          Navigator.pushReplacementNamed(context, AppRoutes.signup);
         }
       },
       child: Scaffold(
@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onLinkTap: () {
                             Navigator.pushReplacementNamed(
                               context,
-                              AppRoutes.register,
+                              AppRoutes.signup,
                             );
                           },
                         ),

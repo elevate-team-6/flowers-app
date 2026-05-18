@@ -16,4 +16,5 @@ abstract class ApiParameters {
   static const String photo = 'photo';
   static const String role = 'role';
   static const String createdAt = 'createdAt';
+  static const String keyword = 'keyword';
 }
