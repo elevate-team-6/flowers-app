@@ -25,13 +25,23 @@ class CartSummary extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          _SummaryRow(label: AppStrings.subTotal, value: '$subtotal\$'),
+          _SummaryRow(
+            label: AppStrings.subTotal,
+            value: '$subtotal${AppStrings.dollar}',
+          ),
           SizedBox(height: 8.h),
-          _SummaryRow(label: AppStrings.deliveryFee, value: '$deliveryFee\$'),
+          _SummaryRow(
+            label: AppStrings.deliveryFee,
+            value: '$deliveryFee${AppStrings.dollar}',
+          ),
           SizedBox(height: 12.h),
           Divider(color: AppColors.white70, thickness: 0.5),
           SizedBox(height: 12.h),
-          _SummaryRow(label: AppStrings.total, value: '$total\$', isBold: true),
+          _SummaryRow(
+            label: AppStrings.total,
+            value: '$total${AppStrings.dollar}',
+            isBold: true,
+          ),
           SizedBox(height: 20.h),
           SizedBox(
             width: double.infinity,

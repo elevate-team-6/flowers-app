@@ -185,4 +185,5 @@ abstract class AppStrings {
   static const String somethingWentWrong = 'Something went wrong';
   static const String adding = 'Adding...';
   static const String added = 'Added';
+  static const String dollar = '\$';
 }

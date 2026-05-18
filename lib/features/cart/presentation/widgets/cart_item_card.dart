@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
@@ -114,7 +115,7 @@ class CartItemCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'EGP ${item.product.priceAfterDiscount}',
+                      '${AppStrings.egp} ${item.product.priceAfterDiscount}',
                       style: AppTextStyles.black14400.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
