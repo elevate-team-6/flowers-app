@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
@@ -10,23 +11,23 @@ class CustomCategoriesShimmer extends StatelessWidget {
     return SizedBox(
       height: 45.h,
       child: Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!,
+        baseColor: AppColors.white70,
+        highlightColor: AppColors.white20,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           itemCount: 6,
           separatorBuilder: (_, _) =>
               SizedBox(width: 24.w), // نفس الـ labelPadding
-          itemBuilder: (_, _) => const _CategoryShimmerItem(),
+          itemBuilder: (_, _) => const CategoryShimmerItem(),
         ),
       ),
     );
   }
 }
 
-class _CategoryShimmerItem extends StatelessWidget {
-  const _CategoryShimmerItem();
+class CategoryShimmerItem extends StatelessWidget {
+  const CategoryShimmerItem({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class _CategoryShimmerItem extends StatelessWidget {
           width: 50.w,
           height: 14.h,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(4.r),
           ),
         ),
@@ -50,7 +51,7 @@ class _CategoryShimmerItem extends StatelessWidget {
           width: 50.w,
           height: 3.h,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(10.r),
           ),
         ),

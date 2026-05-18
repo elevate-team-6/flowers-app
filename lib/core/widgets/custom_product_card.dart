@@ -1,13 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shimmer/shimmer.dart';
 
 class CustomProductCard extends StatelessWidget {
   final ProductEntity product;
@@ -43,28 +42,11 @@ class CustomProductCard extends StatelessWidget {
                     color: AppColors.pink10.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(4.r),
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(4.r),
-                    child: CachedNetworkImage(
-                      imageUrl: product.imgCover,
-                      errorListener: (error) => debugPrint(
-                        'Image error: $error — URL: ${product.imgCover}',
-                      ),
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      placeholder: (_, _) => Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Container(color: Colors.white),
-                      ),
-                      errorWidget: (_, _, _) => Center(
-                        child: Icon(
-                          Icons.local_florist_outlined,
-                          size: 36.sp,
-                          color: AppColors.primary.withValues(alpha: 0.3),
-                        ),
-                      ),
-                    ),
+                  child: CustomNetworkImage(
+                    imageUrl: product.imgCover,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    borderRadius: 4.r,
                   ),
                 ),
               ),
@@ -90,10 +72,7 @@ class CustomProductCard extends StatelessWidget {
                     style: AppTextStyles.gray11400LineThrough,
                   ),
                   SizedBox(width: 4.w),
-                  Text(
-                    '${product.discount}%',
-                    style: AppTextStyles.green11400,
-                  ),
+                  Text('${product.discount}%', style: AppTextStyles.green11400),
                 ],
               ),
               SizedBox(height: 8.h), // 8px gap

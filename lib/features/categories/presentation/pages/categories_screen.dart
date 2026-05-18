@@ -44,11 +44,12 @@ class _CategoriesScreenBodyState extends State<_CategoriesScreenBody>
   @override
   Widget build(BuildContext context) {
     return BlocListener<MainLayoutCubit, MainLayoutState>(
+      listenWhen: (previous, current) =>
+          current.currentIndex == 1 &&
+          (previous.currentIndex != 1 ||
+              previous.categoryId != current.categoryId),
       listener: (context, state) {
-        if (state.currentIndex == 1) {
-          final cubit = context.read<MainLayoutCubit>();
-          syncTabWithId(cubit.categoryId, lastCategories);
-        }
+        syncTabWithId(state.categoryId, lastCategories);
       },
       child: Scaffold(
         backgroundColor: AppColors.white,
