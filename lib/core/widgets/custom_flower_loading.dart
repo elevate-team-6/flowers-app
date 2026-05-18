@@ -1,4 +1,5 @@
 import 'package:flowers_app/core/utils/app_assets.dart';
+import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,9 +11,7 @@ class CustomFlowerLoading extends StatelessWidget {
     return PopScope(
       canPop: false, // يمنع إغلاق الشاشة بالرجوع (Back Button) أثناء التحميل
       child: Material(
-        color: Colors.black.withValues(
-          alpha: 0.5,
-        ), // لون رمادي شفاف يغطي الشاشة
+        color: AppColors.black.withValues(alpha: 0.5),
         child: Center(
           child: Lottie.asset(
             AppLottie.flowerLoading,
