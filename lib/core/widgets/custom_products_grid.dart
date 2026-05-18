@@ -7,7 +7,6 @@ class CustomProductsGrid extends StatelessWidget {
   final List<ProductEntity> products;
   final Function(ProductEntity) onAddToCart;
   final Function(ProductEntity)? onTap;
-
   const CustomProductsGrid({
     super.key,
     required this.products,
@@ -21,9 +20,9 @@ class CustomProductsGrid extends StatelessWidget {
       padding: EdgeInsets.all(16.w),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 12.w,
-        mainAxisSpacing: 12.h,
-        childAspectRatio: 0.62,
+        crossAxisSpacing: 16.w,
+        mainAxisSpacing: 16.h,
+        childAspectRatio: 163 / 229,
       ),
       itemCount: products.length,
       itemBuilder: (context, index) {
