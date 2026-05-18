@@ -78,6 +78,7 @@ class ProductModel extends Equatable {
     price: price ?? 0,
     priceAfterDiscount: priceAfterDiscount ?? 0,
     discount: discount ?? 0,
+    description: description ?? '',
   );
 
   @override
