@@ -16,6 +16,9 @@ abstract class AppEndPoints {
   static const String occasions = "$baseUrl/occasions";
   static const String products = "$baseUrl/products";
 
+  // Home:
+    static const String bestSeller = "$baseUrl/best-seller";
+
   // ---------------------------------------------------------------------------
   // TO ADD NEW ENDPOINTS:
   // 1. Group them by feature (e.g., // Products, // Cart).

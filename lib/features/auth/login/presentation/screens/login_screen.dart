@@ -2,6 +2,7 @@ import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/core/widgets/rich_text_with_link.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_cubit.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_event.dart';
@@ -50,18 +51,27 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<LoginCubit, LoginState>(
       listenWhen: (previous, current) {
         return previous.errorMessage != current.errorMessage ||
-            previous.user != current.user;
+            previous.user != current.user ||
+            previous.isLoading != current.isLoading;
       },
       listener: (context, state) {
+        if (state.isLoading) {
+          LoadingDialog.show(context: context);
+        } else {
+          LoadingDialog.hide(context: context);
+        }
         final errorMessage = state.errorMessage;
         if (errorMessage != null && errorMessage.isNotEmpty) {
           SnackBarServices.showErrorMessage(state.errorMessage!);
         }
-
         if (state.user != null) {
           SnackBarServices.showSuccessMessage(AppStrings.loginSuccess);
 
-          Navigator.pushReplacementNamed(context, AppRoutes.signup);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.mainLayout,
+            (route) => false,
+          );
         }
       },
       child: Scaffold(
@@ -97,12 +107,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               ToggleRememberMeEvent(value ?? false),
                             );
                           },
-                          onForgotPasswordTap: () {},
+                          onForgotPasswordTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.forgotPassword,
+                            );
+                          },
                         ),
 
                         SizedBox(height: 60.h),
                         LoginButton(
-                          isLoading: state.isLoading,
                           onPressed: () {
                             _onLogin(context, state);
                           },
@@ -115,10 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           normalText: AppStrings.dontHaveAccount,
                           linkText: AppStrings.signup,
                           onLinkTap: () {
-                            Navigator.pushReplacementNamed(
-                              context,
-                              AppRoutes.signup,
-                            );
+                            Navigator.pushNamed(context, AppRoutes.signup);
                           },
                         ),
                       ],

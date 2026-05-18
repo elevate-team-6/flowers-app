@@ -13,6 +13,14 @@ import 'package:flowers_app/features/auth/signup/presentation/screens/terms_and_
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
+import '../../features/best_seller/presentation/cubit/best_seller_event.dart';
+import '../../features/best_seller/presentation/screens/best_seller_screen.dart';
+
+/// A centralized class for managing all application routes and navigation.
+///
+/// [AppRoutes] ensures that route names and navigation logic are organized in one place.
+
 abstract class AppRoutes {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
@@ -26,6 +34,9 @@ abstract class AppRoutes {
   static const String resetPassword = '/resetPassword';
   static const String mainLayout = '/mainLayout';
   static const String occasions = '/occasions';
+  static const String bestSeller = '/bestSeller';
+  static const String productDetails = '/productDetails';
+  static const String categories = '/categories';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -44,6 +55,12 @@ abstract class AppRoutes {
       //
       // case register:
       //   return MaterialPageRoute(builder: (_) => const RegisterPage());
+      // return MaterialPageRoute(
+      //   builder: (_) => BlocProvider(
+      //     create: (_) => getIt<HomeViewModel>()..doEvent(GetAllHomeData()),
+      //     child: const MainLayoutScreen(),
+      //   ),
+      // );
 
       case login:
         return MaterialPageRoute(
@@ -79,6 +96,15 @@ abstract class AppRoutes {
         final String email = settings.arguments as String;
         return MaterialPageRoute(
           builder: (_) => ResetPasswordScreen(email: email),
+        );
+
+      case bestSeller:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
+            child: const BestSellerScreen(),
+          ),
         );
 
       default:

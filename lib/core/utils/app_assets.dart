@@ -25,4 +25,11 @@ abstract class AppImages {
   // Example: static const String yourIcon = '${_imagesPath}image_name.svg';
 
   static const String appImage = '${_imagesPath}app_image.svg';
+  static const String defaultImage = '${_imagesPath}Image_default.png';
+}
+
+abstract class AppLottie {
+  static const String _lottiePath = 'assets/lottie_files/';
+
+  static const String flowerLoading = '${_lottiePath}flower_loading.json';
 }
