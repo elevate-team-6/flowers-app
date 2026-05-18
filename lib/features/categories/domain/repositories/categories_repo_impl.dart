@@ -36,7 +36,7 @@ class CategoriesRepoImpl implements CategoriesRepoContract {
     switch (response) {
       case SuccessBaseResponse<GetAllProductsResponse>():
         return SuccessBaseResponse<List<ProductEntity>>(
-          response.data.toEntity(),
+          response.data.products!.map((e) => e.toEntity()).toList(),
         );
       case ErrorBaseResponse<GetAllProductsResponse>():
         return ErrorBaseResponse<List<ProductEntity>>(response.errorMessage);
