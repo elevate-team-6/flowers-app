@@ -91,4 +91,54 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.primary,
   );
+
+  static TextStyle get primary20700 => GoogleFonts.inter(
+    fontSize: _sp(20),
+    fontWeight: FontWeight.w700,
+    color: AppColors.primary,
+  );
+
+  // New Semi-bold / Bold styles for buttons and titles
+  static TextStyle get white16600 => GoogleFonts.inter(
+    fontSize: _sp(16),
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
+  );
+
+  static TextStyle get white12600 => GoogleFonts.inter(
+    fontSize: _sp(12),
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
+  );
+
+  static TextStyle get white14600 => GoogleFonts.inter(
+    fontSize: _sp(14),
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
+  );
+
+  static TextStyle get black16600 => GoogleFonts.inter(
+    fontSize: _sp(16),
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+  );
+
+  static TextStyle get black14600 => GoogleFonts.inter(
+    fontSize: _sp(14),
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+  );
+
+  static TextStyle get gray11400LineThrough => GoogleFonts.inter(
+    fontSize: _sp(11),
+    fontWeight: FontWeight.w400,
+    color: AppColors.gray,
+    decoration: TextDecoration.lineThrough,
+  );
+
+  static TextStyle get green11400 => GoogleFonts.inter(
+    fontSize: _sp(11),
+    fontWeight: FontWeight.w400,
+    color: AppColors.green,
+  );
 }

@@ -148,6 +148,13 @@ abstract class AppStrings {
   static const String cart = 'Cart';
   static const String profile = 'Profile';
 
+  // Occasions
+  static const String noProductsFound = 'No products found';
+  static const String addToCart = 'Add to cart';
+  static const String occasion = 'Occasion';
+  static const String occasionSubtitle =
+      'Bloom with our exquisite best sellers';
+  static const String egp = 'EGP';
   //home
   static const String flowery = 'Flowery';
   static const String search = 'Search';
@@ -159,18 +166,14 @@ abstract class AppStrings {
   static const String image = 'image';
   static const String title = 'title';
   static const String price = 'price';
-  static const String occasion = 'Occasion';
   static const String viewAll = 'View All';
   static const String noBestSellersAvailable = 'No best sellers available';
   static const String bestSellers = 'Best Sellers';
   static const String noCategoriesAvailable = 'No categories available';
   static const String deliverTo = 'Deliver to: Cairo, Egypt';
   static const String noOccasionsAvailable = 'No occasions available';
-  static const String egp = 'EGP';
   //Best Seller
-  static const String addToCart = 'Add to cart';
   static const String retry = 'Retry';
-  static const String noProductsFound = 'No Products Found';
   static const String subTitleBestSeller =
       'Bloom with our exquisite best sellers';
 
