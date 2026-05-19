@@ -45,7 +45,6 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
     );
     final result = await _getCategoriesUseCase();
     switch (result) {
-      // (result is SuccessBaseResponse<List<CategoryEntity>>) {
       case SuccessBaseResponse<List<CategoryEntity>>():
         emit(
           state.copyWith(
