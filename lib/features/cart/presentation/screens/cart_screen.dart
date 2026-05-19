@@ -127,80 +127,76 @@ class _CartScreenState extends State<CartScreen> {
             );
           }
 
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.separated(
-                  padding: EdgeInsets.all(16.w),
-                  itemCount: items.length,
-                  separatorBuilder: (_, _) => SizedBox(height: 12.h),
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    return BlocBuilder<CartBloc, CartState>(
-                      buildWhen: (prev, curr) {
-                        final prevItem = prev.cart?.items.firstWhere(
-                          (e) => e.id == item.id,
-                          orElse: () => item,
-                        );
-                        final currItem = curr.cart?.items.firstWhere(
-                          (e) => e.id == item.id,
-                          orElse: () => item,
-                        );
-                        return prevItem != currItem ||
-                            prev.isItemLoading(item.id) !=
-                                curr.isItemLoading(item.id);
-                      },
-                      builder: (context, state) {
-                        final currentItem = state.cart?.items.firstWhere(
-                          (e) => e.id == item.id,
-                          orElse: () => item,
-                        );
-                        if (currentItem == null) return const SizedBox();
-                        return CartItemCard(
-                          item: currentItem,
-                          isLoading: state.isItemLoading(currentItem.id),
-                          onIncrement: () {
-                            context.read<CartBloc>().add(
-                              UpdateQuantityEvent(
-                                itemId: currentItem.id,
-                                productId: currentItem.product.id,
-                                quantity: currentItem.quantity + 1,
-                              ),
-                            );
-                          },
-                          onDecrement: () {
-                            context.read<CartBloc>().add(
-                              UpdateQuantityEvent(
-                                itemId: currentItem.id,
-                                productId: currentItem.product.id,
-                                quantity: currentItem.quantity - 1,
-                              ),
-                            );
-                          },
-                          onRemove: () {
-                            context.read<CartBloc>().add(
-                              RemoveItemEvent(
-                                itemId: currentItem.id,
-                                productId: currentItem.product.id,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    );
+          return ListView.separated(
+            padding: EdgeInsets.all(16.w),
+            itemCount: items.length + 1,
+            separatorBuilder: (_, _) => SizedBox(height: 12.h),
+            itemBuilder: (context, index) {
+              if (index == items.length) {
+                return BlocBuilder<CartBloc, CartState>(
+                  buildWhen: (prev, curr) =>
+                      prev.cart?.items != curr.cart?.items,
+                  builder: (context, state) {
+                    if (state.cart == null) return const SizedBox();
+                    return CartSummary(cart: state.cart!);
                   },
-                ),
-              ),
-              BlocBuilder<CartBloc, CartState>(
-                buildWhen: (prev, curr) => prev.cart?.items != curr.cart?.items,
-                builder: (context, state) {
-                  if (state.cart == null || state.cart!.items.isEmpty) {
-                    return const SizedBox();
-                  }
-                  return CartSummary(cart: state.cart!);
+                );
+              }
+
+              final item = items[index];
+              return BlocBuilder<CartBloc, CartState>(
+                buildWhen: (prev, curr) {
+                  final prevItem = prev.cart?.items.firstWhere(
+                    (e) => e.id == item.id,
+                    orElse: () => item,
+                  );
+                  final currItem = curr.cart?.items.firstWhere(
+                    (e) => e.id == item.id,
+                    orElse: () => item,
+                  );
+                  return prevItem != currItem ||
+                      prev.isItemLoading(item.id) !=
+                          curr.isItemLoading(item.id);
                 },
-              ),
-            ],
+                builder: (context, state) {
+                  final currentItem = state.cart?.items.firstWhere(
+                    (e) => e.id == item.id,
+                    orElse: () => item,
+                  );
+                  if (currentItem == null) return const SizedBox();
+                  return CartItemCard(
+                    item: currentItem,
+                    isLoading: state.isItemLoading(currentItem.id),
+                    onIncrement: () {
+                      context.read<CartBloc>().add(
+                        UpdateQuantityEvent(
+                          itemId: currentItem.id,
+                          productId: currentItem.product.id,
+                          quantity: currentItem.quantity + 1,
+                        ),
+                      );
+                    },
+                    onDecrement: () {
+                      context.read<CartBloc>().add(
+                        UpdateQuantityEvent(
+                          itemId: currentItem.id,
+                          productId: currentItem.product.id,
+                          quantity: currentItem.quantity - 1,
+                        ),
+                      );
+                    },
+                    onRemove: () {
+                      context.read<CartBloc>().add(
+                        RemoveItemEvent(
+                          itemId: currentItem.id,
+                          productId: currentItem.product.id,
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+            },
           );
         },
       ),

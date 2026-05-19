@@ -20,7 +20,7 @@ class CartSummary extends StatelessWidget {
     final total = subtotal + deliveryFee;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 12.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -42,16 +42,19 @@ class CartSummary extends StatelessWidget {
             value: '$total${AppStrings.dollar}',
             isBold: true,
           ),
-          SizedBox(height: 20.h),
-          SizedBox(
-            width: double.infinity,
-            height: 50.h,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text(
-                AppStrings.checkout,
-                style: AppTextStyles.white16500.copyWith(fontSize: 18.sp),
+          SizedBox(height: 40.h),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              padding: EdgeInsets.symmetric(vertical: 14.h),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.r),
               ),
+            ),
+            onPressed: () {},
+            child: Text(
+              AppStrings.checkout,
+              style: AppTextStyles.white16500.copyWith(fontSize: 18.sp),
             ),
           ),
           SizedBox(height: 8.h),
