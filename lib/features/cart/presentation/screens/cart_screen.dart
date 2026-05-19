@@ -32,6 +32,7 @@ class _CartScreenState extends State<CartScreen> {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        toolbarHeight: 70.h,
         titleSpacing: 10.w,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +45,6 @@ class _CartScreenState extends State<CartScreen> {
                 final count = state.cart?.numOfCartItems ?? 0;
                 return Row(
                   children: [
-                    SizedBox(width: 8.w),
                     Text(
                       AppStrings.cart,
                       style: AppTextStyles.black16400.copyWith(
@@ -64,7 +64,7 @@ class _CartScreenState extends State<CartScreen> {
                 );
               },
             ),
-            SizedBox(height: 4.h),
+            SizedBox(height: 10.h),
             Row(
               children: [
                 Image.asset(AppIcons.location, width: 24.w, height: 24.w),
@@ -77,10 +77,12 @@ class _CartScreenState extends State<CartScreen> {
                     color: AppColors.white90,
                   ),
                 ),
-                Text(
-                  AppStrings.delivertoAddress,
-                  style: AppTextStyles.black16400.copyWith(
-                    fontWeight: FontWeight.w500,
+                Expanded(
+                  child: Text(
+                    AppStrings.delivertoAddress,
+                    style: AppTextStyles.black16400.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 Image.asset(AppIcons.arrowRight, width: 24.w, height: 24.w),
