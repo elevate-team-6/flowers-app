@@ -4,7 +4,7 @@ import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/features/categories/domain/entities/category_entity.dart';
 
 class CategoriesStates extends Equatable {
-  final BaseState<CategoriesEntity> categoriesState;
+  final BaseState<List<CategoryEntity>> categoriesState;
   final BaseState<List<ProductEntity>> productsState;
   final String categoryId; // خلیناها String عشان "all" تبقى قیمة واضحة
   final String searchQuery;
@@ -19,7 +19,7 @@ class CategoriesStates extends Equatable {
   });
 
   CategoriesStates copyWith({
-    BaseState<CategoriesEntity>? categoriesState,
+    BaseState<List<CategoryEntity>>? categoriesState,
     BaseState<List<ProductEntity>>? productsState,
     String? categoryId,
     String? searchQuery,

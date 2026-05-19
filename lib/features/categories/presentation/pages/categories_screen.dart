@@ -56,7 +56,7 @@ class _CategoriesScreenBodyState extends State<_CategoriesScreenBody>
         body: SafeArea(
           child: BlocBuilder<CategoriesCubit, CategoriesStates>(
             builder: (context, state) {
-              final categories = state.categoriesState.data?.categories ?? [];
+              final categories = state.categoriesState.data ?? [];
               lastCategories = categories;
 
               return Column(

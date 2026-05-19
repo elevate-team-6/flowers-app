@@ -38,23 +38,32 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   }
 
   Future<void> _onGetCategories() async {
-    emit(state.copyWith(categoriesState: const BaseState(isLoading: true)));
+    emit(
+      state.copyWith(
+        categoriesState: const BaseState<List<CategoryEntity>>(isLoading: true),
+      ),
+    );
     final result = await _getCategoriesUseCase();
-    if (result is SuccessBaseResponse<CategoriesEntity>) {
-      emit(
-        state.copyWith(
-          categoriesState: BaseState(isLoading: false, data: result.data),
-        ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          categoriesState: BaseState(
-            isLoading: false,
-            errorMessage: (result as ErrorBaseResponse).errorMessage,
+    switch (result) {
+      // (result is SuccessBaseResponse<List<CategoryEntity>>) {
+      case SuccessBaseResponse<List<CategoryEntity>>():
+        emit(
+          state.copyWith(
+            categoriesState: BaseState<List<CategoryEntity>>(
+              isLoading: false,
+              data: result.data,
+            ),
           ),
-        ),
-      );
+        );
+      case ErrorBaseResponse<List<CategoryEntity>>():
+        emit(
+          state.copyWith(
+            categoriesState: BaseState<List<CategoryEntity>>(
+              isLoading: false,
+              errorMessage: (result as ErrorBaseResponse).errorMessage,
+            ),
+          ),
+        );
     }
   }
 

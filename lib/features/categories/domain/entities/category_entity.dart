@@ -10,12 +10,3 @@ class CategoryEntity extends Equatable {
   @override
   List<Object?> get props => [id, name, image];
 }
-
-class CategoriesEntity extends Equatable {
-  final List<CategoryEntity>? categories;
-
-  const CategoriesEntity({this.categories});
-
-  @override
-  List<Object?> get props => [categories];
-}

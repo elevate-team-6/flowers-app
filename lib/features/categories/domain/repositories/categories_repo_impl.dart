@@ -13,18 +13,20 @@ import '../../../../core/entities/product_entity.dart';
 class CategoriesRepoImpl implements CategoriesRepoContract {
   final CategoriesRemoteDataSourceContract _remoteDataSource;
 
-  // لاحظ هنا شيلنا الـ LocalDataSource خالص
   CategoriesRepoImpl(this._remoteDataSource);
 
   @override
-  Future<BaseResponse<CategoriesEntity>> getCategories() async {
+  Future<BaseResponse<List<CategoryEntity>>> getCategories() async {
     final response = await _remoteDataSource.getCategories();
     switch (response) {
       case SuccessBaseResponse<GetAllCategoriesResponse>():
-        // الكاش بيحصل دلوقتي أوتوماتيك جوه الـ Dio
-        return SuccessBaseResponse<CategoriesEntity>(response.data.toEntity());
+        final categories = response.data.categories ?? [];
+
+        return SuccessBaseResponse<List<CategoryEntity>>(
+          categories.map((e) => e.toEntity()).toList(),
+        );
       case ErrorBaseResponse<GetAllCategoriesResponse>():
-        return ErrorBaseResponse<CategoriesEntity>(response.errorMessage);
+        return ErrorBaseResponse<List<CategoryEntity>>(response.errorMessage);
     }
   }
 
@@ -35,8 +37,10 @@ class CategoriesRepoImpl implements CategoriesRepoContract {
     final response = await _remoteDataSource.getProducts(params);
     switch (response) {
       case SuccessBaseResponse<GetAllProductsResponse>():
+        final products = response.data.products ?? [];
+
         return SuccessBaseResponse<List<ProductEntity>>(
-          response.data.products!.map((e) => e.toEntity()).toList(),
+          products.map((e) => e.toEntity()).toList(),
         );
       case ErrorBaseResponse<GetAllProductsResponse>():
         return ErrorBaseResponse<List<ProductEntity>>(response.errorMessage);

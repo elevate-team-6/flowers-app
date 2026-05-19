@@ -9,7 +9,7 @@ class GetCategoriesUseCase {
 
   const GetCategoriesUseCase(this._categoriesRepo);
 
-  Future<BaseResponse<CategoriesEntity>> call() {
+  Future<BaseResponse<List<CategoryEntity>>> call() {
     return _categoriesRepo.getCategories();
   }
 }
