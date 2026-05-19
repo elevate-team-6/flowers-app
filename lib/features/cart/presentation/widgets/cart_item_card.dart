@@ -63,7 +63,6 @@ class CartItemCard extends StatelessWidget {
 
           SizedBox(width: 12.w),
 
-          // Info
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

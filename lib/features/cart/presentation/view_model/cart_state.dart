@@ -7,7 +7,7 @@ class CartState extends Equatable {
   final CartStatus status;
   final CartEntity? cart;
   final String? errorMessage;
-  final Set<String> loadingItems; // item ids اللي بتتحدث دلوقتي
+  final Set<String> loadingItems;
 
   const CartState({
     this.status = CartStatus.initial,

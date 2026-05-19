@@ -9,5 +9,4 @@ abstract interface class CartRemoteDataSourceContract {
     int quantity,
   );
   Future<BaseResponse<CartResponse>> removeItem(String productId);
-  Future<BaseResponse<CartResponse>> clearCart();
 }

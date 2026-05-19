@@ -7,7 +7,6 @@ import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/cart/domain/use_cases/update_quantity_use_case.dart';
 import 'package:flowers_app/features/cart/domain/use_cases/remove_item_use_case.dart';
-import 'package:flowers_app/features/cart/domain/use_cases/clear_cart_use_case.dart';
 import 'cart_event.dart';
 import 'cart_state.dart';
 
@@ -17,7 +16,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   final AddToCartUseCase _addToCartUseCase;
   final UpdateQuantityUseCase _updateQuantityUseCase;
   final RemoveItemUseCase _removeItemUseCase;
-  final ClearCartUseCase _clearCartUseCase;
 
   // Debounce timers per item
   final Map<String, Timer> _debounceTimers = {};
@@ -31,13 +29,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     this._addToCartUseCase,
     this._updateQuantityUseCase,
     this._removeItemUseCase,
-    this._clearCartUseCase,
   ) : super(const CartState()) {
     on<GetCartEvent>(_onGetCart);
     on<AddToCartEvent>(_onAddToCart);
     on<UpdateQuantityEvent>(_onUpdateQuantity);
     on<RemoveItemEvent>(_onRemoveItem);
-    on<ClearCartEvent>(_onClearCart);
   }
 
   Future<void> _onGetCart(GetCartEvent event, Emitter<CartState> emit) async {
@@ -120,11 +116,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       );
     }
 
-    // Debounce
     _pendingQuantities[event.itemId] = event.quantity;
     _debounceTimers[event.itemId]?.cancel();
 
-    // ← استخدم Completer عشان الـ emit يبقى داخل الـ handler
     final completer = Completer<void>();
     _debounceTimers[event.itemId] = Timer(
       const Duration(milliseconds: 600),
@@ -188,36 +182,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           state.copyWith(
             cart: oldCart,
             loadingItems: newLoadingItems,
-            errorMessage: result.errorMessage,
-          ),
-        );
-    }
-  }
-
-  Future<void> _onClearCart(
-    ClearCartEvent event,
-    Emitter<CartState> emit,
-  ) async {
-    final oldCart = state.cart;
-    // Optimistic Update
-    emit(
-      state.copyWith(
-        cart: oldCart?.copyWith(items: []),
-        status: CartStatus.loading,
-      ),
-    );
-
-    final result = await _clearCartUseCase();
-
-    switch (result) {
-      case SuccessBaseResponse<CartEntity>():
-        emit(state.copyWith(status: CartStatus.success, cart: result.data));
-      case ErrorBaseResponse<CartEntity>():
-        // Rollback
-        emit(
-          state.copyWith(
-            status: CartStatus.failure,
-            cart: oldCart,
             errorMessage: result.errorMessage,
           ),
         );

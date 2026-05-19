@@ -70,7 +70,7 @@ class _CartScreenState extends State<CartScreen> {
                 Image.asset(AppIcons.location, width: 24.w, height: 24.w),
                 SizedBox(width: 4.w),
                 Text(
-                  'Deliver to ',
+                  AppStrings.deliverto,
                   style: AppTextStyles.gray12400.copyWith(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -78,7 +78,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
                 Text(
-                  ' 2XVP+XC - Sheikh Zayed.....',
+                  AppStrings.delivertoAddress,
                   style: AppTextStyles.black16400.copyWith(
                     fontWeight: FontWeight.w500,
                   ),

@@ -1,3 +1,5 @@
+import 'package:flowers_app/config/services/snack_bar_services.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_product_card.dart';
 import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
@@ -15,40 +17,47 @@ class CustomProductsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: EdgeInsets.all(16.w),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12.w,
-        mainAxisSpacing: 12.h,
-        childAspectRatio: 0.62,
-      ),
-      itemCount: products.length,
-      itemBuilder: (context, index) {
-        final product = products[index];
-        return BlocBuilder<CartBloc, CartState>(
-          buildWhen: (prev, curr) =>
-              prev.cart?.items != curr.cart?.items ||
-              prev.loadingItems != curr.loadingItems,
-          builder: (context, state) {
-            final isInCart =
-                state.cart?.items.any(
-                  (item) => item.product.id == product.id,
-                ) ??
-                false;
-            final isLoading = state.loadingItems.contains(product.id);
-            return CustomProductCard(
-              product: product,
-              isInCart: isInCart,
-              isLoading: isLoading,
-              onAddToCart: () => context.read<CartBloc>().add(
-                AddToCartEvent(productId: product.id),
-              ),
-              onTap: onTap != null ? () => onTap!(product) : null,
-            );
-          },
-        );
+    return BlocListener<CartBloc, CartState>(
+      listenWhen: (prev, curr) =>
+          (curr.cart?.numOfCartItems ?? 0) > (prev.cart?.numOfCartItems ?? 0),
+      listener: (context, state) {
+        SnackBarServices.showSuccessMessage(AppStrings.addedToCart);
       },
+      child: GridView.builder(
+        padding: EdgeInsets.all(16.w),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 12.w,
+          mainAxisSpacing: 12.h,
+          childAspectRatio: 0.62,
+        ),
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          final product = products[index];
+          return BlocBuilder<CartBloc, CartState>(
+            buildWhen: (prev, curr) =>
+                prev.cart?.items != curr.cart?.items ||
+                prev.loadingItems != curr.loadingItems,
+            builder: (context, state) {
+              final isInCart =
+                  state.cart?.items.any(
+                    (item) => item.product.id == product.id,
+                  ) ??
+                  false;
+              final isLoading = state.loadingItems.contains(product.id);
+              return CustomProductCard(
+                product: product,
+                isInCart: isInCart,
+                isLoading: isLoading,
+                onAddToCart: () => context.read<CartBloc>().add(
+                  AddToCartEvent(productId: product.id),
+                ),
+                onTap: onTap != null ? () => onTap!(product) : null,
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

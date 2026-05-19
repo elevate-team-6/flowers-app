@@ -28,7 +28,4 @@ abstract class CartApiClient {
 
   @DELETE('${AppEndPoints.cart}/{productId}')
   Future<CartResponse> removeItem(@Path('productId') String productId);
-
-  @DELETE(AppEndPoints.cart)
-  Future<CartResponse> clearCart();
 }

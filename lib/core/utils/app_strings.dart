@@ -186,4 +186,7 @@ abstract class AppStrings {
   static const String adding = 'Adding...';
   static const String added = 'Added';
   static const String dollar = '\$';
+  static const String addedToCart = 'Added to cart successfully';
+  static const String deliverto = 'Deliver to ';
+  static const String delivertoAddress = ' 2XVP+XC - Sheikh Zayed.....';
 }

@@ -9,5 +9,4 @@ abstract interface class CartRepoContract {
     int quantity,
   );
   Future<BaseResponse<CartEntity>> removeItem(String productId);
-  Future<BaseResponse<CartEntity>> clearCart();
 }

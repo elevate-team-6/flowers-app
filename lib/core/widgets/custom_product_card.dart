@@ -122,7 +122,9 @@ class CustomProductCard extends StatelessWidget {
                     ),
 
                     ElevatedButton.icon(
-                      onPressed: isLoading || isInCart ? null : onAddToCart,
+                      onPressed: isLoading
+                          ? null
+                          : (isInCart ? () {} : onAddToCart),
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 36.h),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
