@@ -17,8 +17,9 @@ class AuthInterceptor extends Interceptor {
     final token = await cache.readData(key: AppKeys.tokenKey);
 
     if (token != null) {
-      options.headers['Authorization'] = 'Bearer $token';
-      options.headers['token'] = token;
+      options.headers[AppKeys.authorizationKey] =
+          '${AppKeys.bearerPrefix} $token';
+      options.headers[AppKeys.tokenKey] = token;
     }
 
     handler.next(options);
