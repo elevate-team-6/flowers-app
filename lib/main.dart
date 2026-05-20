@@ -28,7 +28,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final bool isLoggedIn;
-  const MyApp({super.key, required this.isLoggedIn});
+  const MyApp({super.key, this.isLoggedIn = true});
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +40,14 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return BlocProvider(
           create: (context) => getIt<ForgotPasswordViewModel>(),
+
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flowers App',
             theme: AppTheme.mainTheme,
             navigatorKey: AppRoutes.navigatorKey,
             onGenerateRoute: AppRoutes.onGenerateRoute,
-            initialRoute: isLoggedIn ? AppRoutes.register : AppRoutes.login,
+            initialRoute: isLoggedIn ? AppRoutes.mainLayout : AppRoutes.login,
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
           ),

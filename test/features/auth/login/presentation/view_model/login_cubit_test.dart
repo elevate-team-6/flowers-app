@@ -34,11 +34,11 @@ void main() {
 
   late LoginCubit bloc;
   late MockLoginUseCase mockUseCase;
-  late MockCacheHelper mockCache;
+  late MockSecureCacheHelper mockCache;
 
   setUp(() {
     mockUseCase = MockLoginUseCase();
-    mockCache = MockCacheHelper();
+    mockCache = MockSecureCacheHelper();
     bloc = LoginCubit(mockUseCase, mockCache);
   });
 

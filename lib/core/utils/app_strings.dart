@@ -151,4 +151,33 @@ abstract class AppStrings {
   static const String categories = 'Categories';
   static const String cart = 'Cart';
   static const String profile = 'Profile';
+
+  // Occasions
+  static const String noProductsFound = 'No products found';
+  static const String addToCart = 'Add to cart';
+  static const String occasion = 'Occasion';
+  static const String occasionSubtitle =
+      'Bloom with our exquisite best sellers';
+  static const String egp = 'EGP';
+  //home
+  static const String flowery = 'Flowery';
+  static const String search = 'Search';
+  static const String deliverToMockAddress =
+      'Deliver to 2XVP+XC · Sheikh Zayed';
+  static const String icon = 'icon';
+  static const String label = 'label';
+  static const String bestSeller = 'Best seller';
+  static const String image = 'image';
+  static const String title = 'title';
+  static const String price = 'price';
+  static const String viewAll = 'View All';
+  static const String noBestSellersAvailable = 'No best sellers available';
+  static const String bestSellers = 'Best Sellers';
+  static const String noCategoriesAvailable = 'No categories available';
+  static const String deliverTo = 'Deliver to: Cairo, Egypt';
+  static const String noOccasionsAvailable = 'No occasions available';
+  //Best Seller
+  static const String retry = 'Retry';
+  static const String subTitleBestSeller =
+      'Bloom with our exquisite best sellers';
 }
