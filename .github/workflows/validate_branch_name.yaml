@@ -1,0 +1,29 @@
+name: "Validate Branch Name"
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  validate-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Validate Branch Name Format
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          echo "Checking branch name: $BRANCH_NAME"
+          
+          REGEX="^(feature|bugfix|hotfix|refactor)/FA6-[0-9]+-[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$"
+          
+          if [[ ! $BRANCH_NAME =~ $REGEX ]]; then
+            echo "❌ Error: Wrong branch name format!"
+            echo "Your branch: $BRANCH_NAME"
+            echo "Expected format: branch-type/FA6-TicketNum-Title/task-name"
+            echo "Example: feature/FA6-16-Validate-branch-name-Action/validate-branch-name"
+            exit 1
+          else
+            echo "✅ Success: Branch name matches the team pattern!"
+          fi
