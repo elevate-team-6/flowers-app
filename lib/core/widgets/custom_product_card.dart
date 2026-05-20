@@ -11,6 +11,7 @@ import 'package:shimmer/shimmer.dart';
 class CustomProductCard extends StatelessWidget {
   final ProductEntity product;
   final VoidCallback onAddToCart;
+  final VoidCallback onRemove;
   final VoidCallback? onTap;
   final bool isInCart;
   final bool isLoading;
@@ -19,6 +20,7 @@ class CustomProductCard extends StatelessWidget {
     super.key,
     required this.product,
     required this.onAddToCart,
+    required this.onRemove,
     this.onTap,
     this.isInCart = false,
     this.isLoading = false,
@@ -131,12 +133,12 @@ class CustomProductCard extends StatelessWidget {
                     ElevatedButton.icon(
                       onPressed: isLoading
                           ? null
-                          : (isInCart ? () {} : onAddToCart),
+                          : (isInCart ? onRemove : onAddToCart),
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 36.h),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         backgroundColor: isInCart
-                            ? AppColors.success
+                            ? AppColors.error
                             : AppColors.primary,
                       ),
                       icon: isLoading
@@ -148,18 +150,23 @@ class CustomProductCard extends StatelessWidget {
                                 color: AppColors.white,
                               ),
                             )
+                          : isInCart
+                          ? Image.asset(
+                              AppIcons.delete,
+                              width: 16.w,
+                              height: 16.w,
+                              color: AppColors.white,
+                            )
                           : Icon(
-                              isInCart
-                                  ? Icons.check
-                                  : Icons.shopping_cart_outlined,
+                              Icons.shopping_cart_outlined,
                               size: 16.sp,
                               color: AppColors.white,
                             ),
                       label: Text(
                         isLoading
-                            ? AppStrings.adding
+                            ? AppStrings.loading
                             : isInCart
-                            ? AppStrings.added
+                            ? AppStrings.remove
                             : AppStrings.addToCart,
                         style: AppTextStyles.white16500.copyWith(
                           fontSize: 12.sp,

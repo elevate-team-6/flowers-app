@@ -186,10 +186,10 @@ abstract class AppStrings {
   static const String total = 'Total';
   static const String checkout = 'Checkout';
   static const String somethingWentWrong = 'Something went wrong';
-  static const String adding = 'Adding...';
-  static const String added = 'Added';
   static const String dollar = '\$';
   static const String addedToCart = 'Added to cart successfully';
   static const String deliverto = 'Deliver to ';
   static const String delivertoAddress = ' 2XVP+XC - Sheikh Zayed.....';
+  static const String remove = 'Remove';
+  static const String loading = 'Loading...';
 }
