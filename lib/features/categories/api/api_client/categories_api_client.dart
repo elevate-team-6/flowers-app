@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flowers_app/core/utils/app_end_points.dart';
+import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/features/categories/data/models/response/get_all_categories_response.dart';
 import 'package:flowers_app/features/categories/data/models/response/get_all_products_response.dart';
 import 'package:injectable/injectable.dart';
@@ -14,11 +15,11 @@ abstract class CategoriesApiClient {
   factory CategoriesApiClient(Dio dio) = _CategoriesApiClient;
 
   @GET(AppEndPoints.categories)
-  @Extra({'cache_duration_hours': 24}) // كاش للأقسام ليوم كامل
+  @Extra({AppKeys.cacheDurationHours: 24})
   Future<GetAllCategoriesResponse> getCategories();
 
   @GET(AppEndPoints.products)
-  @Extra({'cache_duration_hours': 1}) // كاش للمنتجات لمدة ساعة
+  @Extra({AppKeys.cacheDurationHours: 1})
   Future<GetAllProductsResponse> getProducts({
     @Queries() Map<String, dynamic>? queries,
   });

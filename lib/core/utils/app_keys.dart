@@ -5,4 +5,5 @@ abstract class AppKeys {
   static const String categoriesKey = 'categories_cache';
   static const String productsBox = 'products_box';
   static const String productsKey = 'products_cache';
+  static const String cacheDurationHours = 'cache_duration_hours';
 }
