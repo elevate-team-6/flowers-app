@@ -38,7 +38,7 @@ class BestSellerScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Text(AppStrings.bestSeller),
+              Text(AppStrings.bestSeller),
               Text(
                 AppStrings.subTitleBestSeller,
                 style: AppTextStyles.black12400.copyWith(
@@ -67,7 +67,7 @@ class BestSellerScreen extends StatelessWidget {
             }
             final products = state.bestSellerState.data ?? [];
             if (products.isEmpty) {
-              return const Center(child: Text(AppStrings.noProductsFound));
+              return Center(child: Text(AppStrings.noProductsFound));
             }
             return CustomProductsGrid(products: products, onAddToCart: (_) {});
           },

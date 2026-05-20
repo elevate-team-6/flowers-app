@@ -37,7 +37,7 @@ class CategoriesHomeSection extends StatelessWidget {
     final categories = categoriesState.data!.categories;
 
     if (categories!.isEmpty) {
-      return const SizedBox(
+      return SizedBox(
         height: 90,
         child: Center(child: Text(AppStrings.noCategoriesAvailable)),
       );

@@ -48,7 +48,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         if (state.resetPasswordState.data != null &&
             !state.resetPasswordState.isLoading) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text(AppStrings.passwordResetSuccessfully),
               backgroundColor: AppColors.success,
             ),
@@ -76,7 +76,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               color: AppColors.black,
             ),
           ),
-          title: const Text(
+          title: Text(
             AppStrings.password,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
@@ -90,7 +90,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 SizedBox(height: 24),
 
                 /// Title
-                const Text(
+                Text(
                   AppStrings.resetPasswordTitle,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   textAlign: TextAlign.center,
@@ -101,7 +101,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 /// Subtitle
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: const Text(
+                  child: Text(
                     AppStrings.resetPasswordSubtitle,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                     textAlign: TextAlign.center,
