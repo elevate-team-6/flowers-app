@@ -57,35 +57,35 @@ class ProductModel extends Equatable {
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 
   ProductEntity toEntity() => ProductEntity(
-        id: id ?? '',
-        title: title ?? '',
-        imgCover: imgCover ?? '',
-        price: price ?? 0,
-        priceAfterDiscount: priceAfterDiscount ?? 0,
-        discount: discount ?? 0,
-      );
+    id: id ?? '',
+    title: title ?? '',
+    imgCover: imgCover ?? '',
+    price: price ?? 0,
+    priceAfterDiscount: priceAfterDiscount ?? 0,
+    discount: discount ?? 0,
+  );
 
   @override
   List<Object?> get props => [
-        id,
-        title,
-        slug,
-        description,
-        imgCover,
-        images,
-        price,
-        priceAfterDiscount,
-        discount,
-        rateAvg,
-        rateCount,
-        sold,
-        quantity,
-        category,
-        occasion,
-        isSuperAdmin,
-        createdAt,
-        updatedAt,
-        favoriteId,
-        isInWishlist,
-      ];
+    id,
+    title,
+    slug,
+    description,
+    imgCover,
+    images,
+    price,
+    priceAfterDiscount,
+    discount,
+    rateAvg,
+    rateCount,
+    sold,
+    quantity,
+    category,
+    occasion,
+    isSuperAdmin,
+    createdAt,
+    updatedAt,
+    favoriteId,
+    isInWishlist,
+  ];
 }
