@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'features/auth/forgot-password/presentation/view_model/cubit/forgot_passw
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   configureDependencies();
 
   // Initialize Hive
@@ -23,7 +25,15 @@ Future<void> main() async {
   final bool isRemembered =
       await secureCacheHelper.readData(key: AppKeys.rememberMeKey) == 'true';
   final isLoggedIn = token != null && token.isNotEmpty && isRemembered;
-  runApp(MyApp(isLoggedIn: isLoggedIn));
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      startLocale: const Locale('ar'),
+      child: MyApp(isLoggedIn: isLoggedIn),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -36,12 +46,13 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-
       builder: (context, child) {
         return BlocProvider(
           create: (context) => getIt<ForgotPasswordViewModel>(),
-
           child: MaterialApp(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
             debugShowCheckedModeBanner: false,
             title: 'Flowers App',
             theme: AppTheme.mainTheme,
