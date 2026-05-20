@@ -29,7 +29,7 @@ class BestSellersHomeSection extends StatelessWidget {
     final bestSellers = bestSellerState.data ?? [];
 
     if (bestSellers.isEmpty) {
-      return const SizedBox(
+      return SizedBox(
         height: 230,
         child: Center(child: Text(AppStrings.noBestSellersAvailable)),
       );

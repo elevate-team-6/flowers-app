@@ -7,7 +7,7 @@ class HomeDeliveryAddressSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.fromLTRB(16, 16, 0, 0),
       child: Row(
         children: [

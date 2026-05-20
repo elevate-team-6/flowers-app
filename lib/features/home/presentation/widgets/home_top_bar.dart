@@ -11,7 +11,7 @@ class HomeTopBar extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
       child: Row(
         children: [
-          const Row(
+          Row(
             children: [
               Icon(Icons.local_florist, color: AppColors.primary, size: 22),
               SizedBox(width: 4),
@@ -34,7 +34,7 @@ class HomeTopBar extends StatelessWidget {
                 color: AppColors.white,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Row(
+              child: Row(
                 children: [
                   SizedBox(width: 12),
                   Icon(Icons.search, color: AppColors.white70, size: 18),

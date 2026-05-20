@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text(AppStrings.login)),
+        appBar: AppBar(title: Text(AppStrings.login)),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),

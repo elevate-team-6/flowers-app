@@ -40,7 +40,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         if (state.forgotPasswordState.data != null &&
             !state.forgotPasswordState.isLoading) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text(AppStrings.verificationCodeSentToYourEmail),
               backgroundColor: AppColors.success,
             ),
@@ -135,7 +135,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 );
                               }
                             },
-                            child: const Text(AppStrings.confirm),
+                            child: Text(AppStrings.confirm),
                           ),
                         );
                       },

@@ -30,7 +30,7 @@ class OccasionsHomeSection extends StatelessWidget {
     final occasions = occasionsState.data ?? [];
 
     if (occasions.isEmpty) {
-      return const SizedBox(
+      return SizedBox(
         height: 230,
         child: Center(child: Text(AppStrings.noOccasionsAvailable)),
       );

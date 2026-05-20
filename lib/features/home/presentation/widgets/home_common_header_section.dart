@@ -29,7 +29,7 @@ class HomeCommonHeaderSection extends StatelessWidget {
           ),
           GestureDetector(
             onTap: onViewAll,
-            child: const Text(
+            child: Text(
               AppStrings.viewAll,
               style: TextStyle(
                 decoration: TextDecoration.underline,

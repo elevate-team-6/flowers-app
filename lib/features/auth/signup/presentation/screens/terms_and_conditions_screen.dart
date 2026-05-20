@@ -1,21 +1,21 @@
-import 'package:flowers_app/features/auth/signup/presentation/widgets/terms_section_item.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/features/auth/signup/presentation/widgets/terms_section_item.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TermsAndConditionsScreen extends StatelessWidget {
   const TermsAndConditionsScreen({super.key});
 
-  static const List<String> _titles = [
+  static final List<String> _titles = [
     AppStrings.termsSection1Title,
     AppStrings.termsSection2Title,
     AppStrings.termsSection3Title,
     AppStrings.termsSection4Title,
   ];
 
-  static const List<String> _bodies = [
+  static final List<String> _bodies = [
     AppStrings.termsSection1Body,
     AppStrings.termsSection2Body,
     AppStrings.termsSection3Body,
