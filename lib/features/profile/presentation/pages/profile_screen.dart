@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -5,6 +6,14 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('Profile Screen')));
+    return Scaffold(
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () =>
+              Navigator.pushNamed(context, AppRoutes.changePassword),
+          child: const Text('Test Change Password'),
+        ),
+      ),
+    );
   }
 }
