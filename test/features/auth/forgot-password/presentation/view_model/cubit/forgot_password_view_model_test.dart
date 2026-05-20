@@ -20,7 +20,7 @@ import 'forgot_password_view_model_test.mocks.dart';
   ResetPasswordUseCase,
 ])
 void main() {
-  //Arrange
+  // Arrange
   late ForgotPasswordViewModel forgotPasswordViewModel;
   late MockForgotPasswordUseCase mockForgotPasswordUseCase;
   late MockVerifyResetCodeUseCase mockVerifyResetCodeUseCase;
@@ -39,7 +39,9 @@ void main() {
     provideDummy<BaseResponse<ForgotPasswordEntity>>(
       SuccessBaseResponse<ForgotPasswordEntity>(ForgotPasswordEntity()),
     );
+  });
 
+  setUp(() {
     mockForgotPasswordUseCase = MockForgotPasswordUseCase();
     mockVerifyResetCodeUseCase = MockVerifyResetCodeUseCase();
     mockResetPasswordUseCase = MockResetPasswordUseCase();
