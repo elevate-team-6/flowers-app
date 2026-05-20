@@ -30,78 +30,88 @@ abstract class AppRoutes {
   static const String forgotPassword = '/forgotPassword';
   static const String verifyResetCode = '/VerifyResetCode';
   static const String resetPassword = '/resetPassword';
-  static const String mainLayout = '/mainLayout';
   static const String occasions = '/occasions';
   static const String bestSeller = '/bestSeller';
   static const String productDetails = '/productDetails';
-  static const String categories = '/categories';
+  static const String mainLayout = 'mainLayout';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case mainLayout:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<HomeViewModel>()..doEvent(GetAllHomeData()),
-            child: const MainLayoutScreen(),
-          ),
-        );
+    try {
+      switch (settings.name) {
+        case mainLayout:
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => getIt<HomeViewModel>()..doEvent(GetAllHomeData()),
+              child: const MainLayoutScreen(),
+            ),
+          );
 
-      case occasions:
-        final String? occasionId = settings.arguments as String?;
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<OccasionsCubit>(),
-            child: OccasionsScreen(initialOccasionId: occasionId),
-          ),
-        );
+        case occasions:
+          final String? occasionId = settings.arguments as String?;
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => getIt<OccasionsCubit>(),
+              child: OccasionsScreen(initialOccasionId: occasionId),
+            ),
+          );
 
-      case login:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<LoginCubit>(),
-            child: const LoginScreen(),
-          ),
-        );
+        case login:
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => getIt<LoginCubit>(),
+              child: const LoginScreen(),
+            ),
+          );
 
-      case signup:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<SignupCubit>(),
-            child: const SignupScreen(),
-          ),
-        );
+        case signup:
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => getIt<SignupCubit>(),
+              child: const SignupScreen(),
+            ),
+          );
 
-      case termsAndConditions:
-        return MaterialPageRoute(
-          builder: (_) => const TermsAndConditionsScreen(),
-        );
+        case termsAndConditions:
+          return MaterialPageRoute(
+            builder: (_) => const TermsAndConditionsScreen(),
+          );
 
-      case forgotPassword:
-        return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
+        case forgotPassword:
+          return MaterialPageRoute(
+            builder: (_) => const ForgotPasswordScreen(),
+          );
 
-      case verifyResetCode:
-        final String email = settings.arguments as String;
-        return MaterialPageRoute(
-          builder: (_) => VerifyResetCodeScreen(email: email),
-        );
+        case verifyResetCode:
+          final String email = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (_) => VerifyResetCodeScreen(email: email),
+          );
 
-      case resetPassword:
-        final String email = settings.arguments as String;
-        return MaterialPageRoute(
-          builder: (_) => ResetPasswordScreen(email: email),
-        );
+        case resetPassword:
+          final String email = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (_) => ResetPasswordScreen(email: email),
+          );
 
-      case bestSeller:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) =>
-                getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
-            child: const BestSellerScreen(),
-          ),
-        );
+        case bestSeller:
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) =>
+                  getIt<BestSellerCubit>()
+                    ..doEvent(GetBestSellerProductsEvent()),
+              child: const BestSellerScreen(),
+            ),
+          );
 
-      default:
-        return _unDefinedRoute(settings.name);
+        case productDetails:
+          // Handled by Product Details Feature developer
+          return _unDefinedRoute(settings.name);
+
+        default:
+          return _unDefinedRoute(settings.name);
+      }
+    } catch (e) {
+      return _unDefinedRoute(settings.name);
     }
   }
 

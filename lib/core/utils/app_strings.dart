@@ -156,16 +156,28 @@ abstract class AppStrings {
   static const String cart = 'Cart';
   static const String profile = 'Profile';
 
-  // Occasions
-  static const String noProductsFound = 'No products found';
+  // Products
   static const String addToCart = 'Add to cart';
+
+  // Filters
+  static const String sortBy = 'Sort by';
+  static const String lowestPrice = 'Lowest Price';
+  static const String highestPrice = 'Highest Price';
+  static const String newText = 'New';
+  static const String oldText = 'Old';
+  static const String discountText = 'Discount';
+  static const String filter = 'Filter';
+  static const String search = 'Search';
+  static const String all = 'All';
+  static const String noProductsFound = 'No products found.';
+
+  // Occasions
   static const String occasion = 'Occasion';
   static const String occasionSubtitle =
       'Bloom with our exquisite best sellers';
   static const String egp = 'EGP';
   //home
   static const String flowery = 'Flowery';
-  static const String search = 'Search';
   static const String deliverToMockAddress =
       'Deliver to 2XVP+XC · Sheikh Zayed';
   static const String icon = 'icon';

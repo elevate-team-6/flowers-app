@@ -19,6 +19,12 @@ abstract class AppEndPoints {
   // Home:
     static const String bestSeller = "$baseUrl/best-seller";
 
+  // Categories:
+  static const String categories = "$baseUrl/categories";
+
+  // Products:
+  static const String products = "$baseUrl/products";
+
   // ---------------------------------------------------------------------------
   // TO ADD NEW ENDPOINTS:
   // 1. Group them by feature (e.g., // Products, // Cart).
