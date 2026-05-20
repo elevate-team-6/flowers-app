@@ -4,6 +4,7 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/core/widgets/rich_text_with_link.dart';
 import 'package:flowers_app/features/auth/signup/data/models/requestes/signup_request.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
@@ -58,7 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
           if (state.signupState.isLoading) {
             LoadingDialog.show(context: context);
           } else {
-            LoadingDialog.hide(context);
+            LoadingDialog.hide();
           }
           if (state.signupState.data != null) {
             SnackBarServices.showSuccessMessage(AppStrings.registerSuccess);
@@ -241,7 +242,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         builder: (context, setRadioState) => Row(
                           children: [
                             Radio<String>(
-                              value: AppStrings.female,
+                              value: AppStrings.femaleValue,
                               activeColor: AppColors.primary,
                               groupValue: _selectedGender,
                               onChanged: (v) =>
@@ -253,7 +254,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                             SizedBox(width: 16.w),
                             Radio<String>(
-                              value: AppStrings.male,
+                              value: AppStrings.maleValue,
                               activeColor: AppColors.primary,
                               groupValue: _selectedGender,
                               onChanged: (v) =>
