@@ -10,6 +10,8 @@ import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
 import 'package:flowers_app/features/main_layout/presentation/pages/main_layout_screen.dart';
+import 'package:flowers_app/features/profile/edit_profile/presentation/screens/edit_profile_screen.dart';
+import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,6 +39,7 @@ abstract class AppRoutes {
   static const String productDetails = 'ProductDetails';
   static const String occasions = 'occasions';
   static const String categories = 'categories';
+  static const String editProfile = 'editProfile';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -90,6 +93,14 @@ abstract class AppRoutes {
             create: (_) =>
                 getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
             child: const BestSellerScreen(),
+          ),
+        );
+        case editProfile:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                getIt<EditProfileCubit>(),
+            child: const EditProfileScreen(),
           ),
         );
 
