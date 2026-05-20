@@ -9,6 +9,8 @@ import 'package:flowers_app/features/auth/signup/presentation/screens/terms_and_
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
 import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
+import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
+import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,6 +32,7 @@ abstract class AppRoutes {
   static const String forgotPassword = '/forgotPassword';
   static const String verifyResetCode = '/VerifyResetCode';
   static const String resetPassword = '/resetPassword';
+  static const String changePassword = '/changePassword';
   static const String mainLayout = '/mainLayout';
   static const String occasions = '/occasions';
   static const String bestSeller = '/bestSeller';
@@ -97,6 +100,13 @@ abstract class AppRoutes {
             create: (_) =>
                 getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
             child: const BestSellerScreen(),
+          ),
+        );
+      case changePassword:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<ChangePasswordCubit>(),
+            child: const ChangePasswordScreen(),
           ),
         );
 

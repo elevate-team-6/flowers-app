@@ -10,14 +10,14 @@ abstract class AppEndPoints {
   static const String forgetPassword = "$baseUrl/auth/forgotPassword";
   static const String verifyResetCode = "$baseUrl/auth/verifyResetCode";
   static const String resetPassword = "$baseUrl/auth/resetPassword";
-
+  static const String changePassword = '$baseUrl/auth/change-password';
   static const String logout = "$baseUrl/auth/logout";
   static const String profileData = "$baseUrl/auth/profile-Data";
   static const String occasions = "$baseUrl/occasions";
   static const String products = "$baseUrl/products";
 
   // Home:
-    static const String bestSeller = "$baseUrl/best-seller";
+  static const String bestSeller = "$baseUrl/best-seller";
 
   // ---------------------------------------------------------------------------
   // TO ADD NEW ENDPOINTS:

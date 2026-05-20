@@ -57,10 +57,7 @@ abstract class AppStrings {
   static const String termsSection4Body =
       'We reserve the right to modify these terms at any time. Continued use of the app after changes constitutes your acceptance of the new terms.';
 
-  static const String gender = 'Gender';
-  static const String female = 'Female';
   static const String femaleValue = 'female';
-  static const String male = 'Male';
   static const String maleValue = 'male';
 
   // Forget Password Screen
@@ -188,4 +185,9 @@ abstract class AppStrings {
   static const String retry = 'Retry';
   static const String subTitleBestSeller =
       'Bloom with our exquisite best sellers';
+  // reset password
+  static const String resetPassword = 'Reset password';
+  static const String currentPassword = 'Current password';
+  static const String update = 'Update';
+  static const String passwordChangedSuccess = 'Password changed successfully';
 }
