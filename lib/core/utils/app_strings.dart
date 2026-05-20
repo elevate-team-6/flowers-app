@@ -31,7 +31,9 @@ abstract class AppStrings {
   static const String signupFailedUserIsNull = 'Signup failed: user is null';
   static const String gender = 'Gender';
   static const String female = 'Female';
+  static const String femaleValue = 'female';
   static const String male = 'Male';
+  static const String maleValue = 'male';
   static const String pleaseSelectGender = 'Please select a gender';
   static const String creatingAccountAgreement =
       'Creating an account, you agree to our ';
@@ -56,12 +58,6 @@ abstract class AppStrings {
   static const String termsSection4Title = 'Changes to Terms';
   static const String termsSection4Body =
       'We reserve the right to modify these terms at any time. Continued use of the app after changes constitutes your acceptance of the new terms.';
-
-  static const String gender = 'Gender';
-  static const String female = 'Female';
-  static const String femaleValue = 'female';
-  static const String male = 'Male';
-  static const String maleValue = 'male';
 
   // Forget Password Screen
   static const String forgetPasswordTitle = 'Forget password';
