@@ -56,8 +56,11 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       body: BlocConsumer<SignupCubit, SignupState>(
         listener: (context, state) {
-          if (state.signupState.isLoading) return;
-
+          if (state.signupState.isLoading) {
+            LoadingDialog.show(context: context);
+          } else {
+            LoadingDialog.hide(context);
+          }
           if (state.signupState.data != null) {
             SnackBarServices.showSuccessMessage(AppStrings.registerSuccess);
 
@@ -233,28 +236,34 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(height: 16.h),
                   Row(
                     children: [
-                      Text('Gender', style: AppTextStyles.black18500),
+                      Text(AppStrings.gender, style: AppTextStyles.black18500),
                       SizedBox(width: 32.w),
                       StatefulBuilder(
                         builder: (context, setRadioState) => Row(
                           children: [
                             Radio<String>(
-                              value: 'female',
+                              value: AppStrings.female,
                               activeColor: AppColors.primary,
                               groupValue: _selectedGender,
                               onChanged: (v) =>
                                   setRadioState(() => _selectedGender = v),
                             ),
-                            Text('Female', style: AppTextStyles.black14400),
+                            Text(
+                              AppStrings.female,
+                              style: AppTextStyles.black14400,
+                            ),
                             SizedBox(width: 16.w),
                             Radio<String>(
-                              value: 'male',
+                              value: AppStrings.male,
                               activeColor: AppColors.primary,
                               groupValue: _selectedGender,
                               onChanged: (v) =>
                                   setRadioState(() => _selectedGender = v),
                             ),
-                            Text('Male', style: AppTextStyles.black14400),
+                            Text(
+                              AppStrings.male,
+                              style: AppTextStyles.black14400,
+                            ),
                           ],
                         ),
                       ),
