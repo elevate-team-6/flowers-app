@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/best_sellers_home_section.dart';
+import '../widgets/occasions__home_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -65,13 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 24),
 
                     //occasions
-                    // BlocBuilder<HomeViewModel, HomeStates>(
-                    //   buildWhen: (previous, current) =>
-                    //       previous.occasionsState != current.occasionsState,
-                    //   builder: (context, state) {
-                    //     return OccasionsHomeSecion(state: state);
-                    //   },
-                    // ),
+                    BlocBuilder<HomeViewModel, HomeStates>(
+                      buildWhen: (previous, current) =>
+                          previous.occasionsState != current.occasionsState,
+                      builder: (context, state) {
+                        return OccasionsHomeSection(state: state);
+                      },
+                    ),
                     const SizedBox(height: 40),
                   ],
                 ),

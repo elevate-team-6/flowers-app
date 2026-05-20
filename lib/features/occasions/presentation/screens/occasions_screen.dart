@@ -1,12 +1,12 @@
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
+import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
 import 'package:flowers_app/core/widgets/custom_tab_bar.dart';
 import 'package:flowers_app/features/occasions/domain/entities/occasion_entity.dart';
+import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_events.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_state.dart';
-import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
-import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -143,7 +143,10 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                         );
                       }
 
-                      return CustomProductsGrid(products: products);
+                      return CustomProductsGrid(
+                        products: products,
+                        onAddToCart: (product) {},
+                      );
                     },
                   ),
                 ),

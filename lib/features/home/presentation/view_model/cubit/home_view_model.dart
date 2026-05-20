@@ -7,14 +7,16 @@ import '../../../../../config/base_response/base_response.dart';
 import '../../../../../config/base_state/base_state.dart';
 import '../../../../../core/entities/product_entity.dart';
 import '../../../../best_seller/domain/use_cases/best_seller_use_case.dart';
+import '../../../../occasions/domain/entities/occasion_entity.dart';
+import '../../../../occasions/domain/use_cases/occasions_use_case.dart';
 
 @injectable
 class HomeViewModel extends Cubit<HomeStates> {
-  // final OccasionsUseCase _occasionsUseCase;
+  final OccasionsUseCase _occasionsUseCase;
   // final GetCategoriesUseCase _getCategoriesUseCase;
   final BestSellerUseCase _bestSellerUseCase;
   HomeViewModel(
-    // this._occasionsUseCase,
+    this._occasionsUseCase,
     // this._getCategoriesUseCase,
     this._bestSellerUseCase,
   ) : super(HomeStates());
@@ -31,30 +33,30 @@ class HomeViewModel extends Cubit<HomeStates> {
   }
 
   Future<void> _getOccasions() async {
-    //   emit(
-    //     state.copyWith(
-    //       occasionsStateParam: BaseState<List<OccasionEntity>>(isLoading: true),
-    //     ),
-    //   );
-    //   final result = await _occasionsUseCase();
-    //   switch (result) {
-    //     case SuccessBaseResponse<List<OccasionEntity>>():
-    //       emit(
-    //         state.copyWith(
-    //           occasionsStateParam: BaseState<List<OccasionEntity>>(
-    //             isLoading: false,
-    //             data: result.data,
-    //           ),
-    //         ),
-    //       );
-    //       break;
-    //     case ErrorBaseResponse<List<OccasionEntity>>():
-    //       emit(
-    //         state.copyWith(
-    //           occasionsStateParam: BaseState(errorMessage: result.errorMessage),
-    //         ),
-    //       );
-    //   }
+    emit(
+      state.copyWith(
+        occasionsStateParam: BaseState<List<OccasionEntity>>(isLoading: true),
+      ),
+    );
+    final result = await _occasionsUseCase();
+    switch (result) {
+      case SuccessBaseResponse<List<OccasionEntity>>():
+        emit(
+          state.copyWith(
+            occasionsStateParam: BaseState<List<OccasionEntity>>(
+              isLoading: false,
+              data: result.data,
+            ),
+          ),
+        );
+        break;
+      case ErrorBaseResponse<List<OccasionEntity>>():
+        emit(
+          state.copyWith(
+            occasionsStateParam: BaseState(errorMessage: result.errorMessage),
+          ),
+        );
+    }
   }
 
   Future<void> _getBestSeller() async {

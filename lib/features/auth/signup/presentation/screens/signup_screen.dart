@@ -4,6 +4,7 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/core/widgets/rich_text_with_link.dart';
 import 'package:flowers_app/features/auth/signup/data/models/requestes/signup_request.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
@@ -29,6 +30,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _phoneController = TextEditingController();
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
   String? _selectedGender;
 
   @override
@@ -55,8 +58,11 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       body: BlocConsumer<SignupCubit, SignupState>(
         listener: (context, state) {
-          if (state.signupState.isLoading) return;
-
+          if (state.signupState.isLoading) {
+            LoadingDialog.show(context: context);
+          } else {
+            LoadingDialog.hide();
+          }
           if (state.signupState.data != null) {
             SnackBarServices.showSuccessMessage(AppStrings.registerSuccess);
 
@@ -153,12 +159,26 @@ class _SignupScreenState extends State<SignupScreen> {
                       Expanded(
                         child: TextFormField(
                           controller: _passwordController,
-                          obscureText: true,
+                          obscureText: _obscurePassword,
                           decoration: InputDecoration(
                             labelText: AppStrings.password,
                             hintText: AppStrings.enterYourPassword,
                             hintStyle: AppTextStyles.gray12400,
                             labelStyle: AppTextStyles.black14400,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscurePassword
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                size: 20.sp,
+                                color: AppColors.black30,
+                              ),
+                              onPressed: () {
+                                setState(
+                                  () => _obscurePassword = !_obscurePassword,
+                                );
+                              },
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.r),
                               borderSide: BorderSide(
@@ -178,12 +198,27 @@ class _SignupScreenState extends State<SignupScreen> {
                       Expanded(
                         child: TextFormField(
                           controller: _confirmPasswordController,
-                          obscureText: true,
+                          obscureText: _obscureConfirmPassword,
                           decoration: InputDecoration(
                             labelText: AppStrings.confirmPassword,
                             hintText: AppStrings.confirmPassword,
                             hintStyle: AppTextStyles.gray12400,
                             labelStyle: AppTextStyles.black14400,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscureConfirmPassword
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                size: 20.sp,
+                                color: AppColors.black30,
+                              ),
+                              onPressed: () {
+                                setState(
+                                  () => _obscureConfirmPassword =
+                                      !_obscureConfirmPassword,
+                                );
+                              },
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.r),
                               borderSide: BorderSide(
@@ -232,28 +267,34 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(height: 16.h),
                   Row(
                     children: [
-                      Text('Gender', style: AppTextStyles.black18500),
+                      Text(AppStrings.gender, style: AppTextStyles.black18500),
                       SizedBox(width: 32.w),
                       StatefulBuilder(
                         builder: (context, setRadioState) => Row(
                           children: [
                             Radio<String>(
-                              value: 'female',
+                              value: AppStrings.femaleValue,
                               activeColor: AppColors.primary,
                               groupValue: _selectedGender,
                               onChanged: (v) =>
                                   setRadioState(() => _selectedGender = v),
                             ),
-                            Text('Female', style: AppTextStyles.black14400),
+                            Text(
+                              AppStrings.female,
+                              style: AppTextStyles.black14400,
+                            ),
                             SizedBox(width: 16.w),
                             Radio<String>(
-                              value: 'male',
+                              value: AppStrings.maleValue,
                               activeColor: AppColors.primary,
                               groupValue: _selectedGender,
                               onChanged: (v) =>
                                   setRadioState(() => _selectedGender = v),
                             ),
-                            Text('Male', style: AppTextStyles.black14400),
+                            Text(
+                              AppStrings.male,
+                              style: AppTextStyles.black14400,
+                            ),
                           ],
                         ),
                       ),
@@ -264,11 +305,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     text: TextSpan(
                       style: AppTextStyles.gray12400,
                       children: [
-                        const TextSpan(
-                          text: 'Creating an account, you agree to our ',
-                        ),
+                        TextSpan(text: AppStrings.creatingAccountAgreement),
                         TextSpan(
-                          text: 'Terms&Conditions',
+                          text: AppStrings.termsAndConditions,
                           style: AppTextStyles.black12600.copyWith(
                             decoration: TextDecoration.underline,
                           ),
@@ -290,7 +329,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         : () {
                             if (_selectedGender == null) {
                               SnackBarServices.showErrorMessage(
-                                'Please select a gender',
+                                AppStrings.pleaseSelectGender,
                               );
                               return;
                             }

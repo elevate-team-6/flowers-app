@@ -2,10 +2,6 @@ import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
-import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
-import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 import 'package:flowers_app/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_cubit.dart';
 import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
@@ -15,11 +11,14 @@ import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
+import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
+import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_event.dart';
 import '../../features/best_seller/presentation/screens/best_seller_screen.dart';
+import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 
 abstract class AppRoutes {
   static final GlobalKey<NavigatorState> navigatorKey =
