@@ -16,13 +16,12 @@ jobs:
           BRANCH_NAME="${{ github.head_ref }}"
           echo "Checking branch name: $BRANCH_NAME"
           
-          REGEX="^(feature|bugfix|hotfix|refactor)/FA6-[0-9]+-[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$"
-          
+          REGEX="^(feature|bugfix|hotfix|refactor)/FA6-[0-9]+-[a-zA-Z0-9_.-]+$"          
           if [[ ! $BRANCH_NAME =~ $REGEX ]]; then
             echo "❌ Error: Wrong branch name format!"
             echo "Your branch: $BRANCH_NAME"
-            echo "Expected format: branch-type/FA6-TicketNum-Title/task-name"
-            echo "Example: feature/FA6-16-Validate-branch-name-Action/validate-branch-name"
+            echo "Expected format: branch-type/FA6-TicketNum-description"
+            echo "Example: feature/FA6-16-validate-branch-name"
             exit 1
           else
             echo "✅ Success: Branch name matches the team pattern!"
