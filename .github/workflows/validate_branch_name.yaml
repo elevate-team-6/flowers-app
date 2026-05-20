@@ -1,0 +1,22 @@
+name: "Validate Branch Name"
+
+# الـ Action ده هيشتغل تلقائي أول ما أي حد يفتح Pull Request أو يعمل تحديث عليه
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  validate-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Validate Branch Name Regular Expression
+        uses: DeepakK13/branch-name-validator@v1.0.0
+        with:
+          # هنا بنحط الـ Regex اللي اتفقنا عليه للـ Pull Request Source Branch
+          branch_pattern: '^(feature|bugfix|hotfix|refactor)\/[A-Z0-9]+-[0-9]+\/[a-zA-Z0-9_-]+$'
+
+          # رسالة الخطأ اللي هتظهر للديفيلوبر لو كتب الاسم غلط
+          error_message: "❌ Wrong branch name! Please use format: branch-type/FA6-TicketNum/task-name (e.g., feature/FA6-16/validate-branch)"
