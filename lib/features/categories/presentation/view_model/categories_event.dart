@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flowers_app/features/categories/data/models/request/get_products_params.dart';
 
-abstract class CategoriesEvent extends Equatable {
+sealed class CategoriesEvent extends Equatable {
   const CategoriesEvent();
 
   @override

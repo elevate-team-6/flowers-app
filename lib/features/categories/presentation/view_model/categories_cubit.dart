@@ -1,6 +1,7 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
 import 'package:flowers_app/core/entities/product_entity.dart';
+import 'package:flowers_app/core/utils/app_params.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/categories/data/models/request/get_products_params.dart';
 import 'package:flowers_app/features/categories/domain/use_cases/get_categories_use_case.dart';
@@ -21,19 +22,19 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
     : super(const CategoriesStates());
 
   void doEvent(CategoriesEvent event) {
-    if (event is GetCategoriesRequestedEvent) {
-      _onGetCategories();
-    } else if (event is CategoryChangedEvent) {
-      emit(state.copyWith(categoryId: event.categoryId ?? 'all'));
-      _onGetProducts();
-    } else if (event is SearchChangedEvent) {
-      emit(state.copyWith(searchQuery: event.query));
-      _onGetProducts();
-    } else if (event is FilterChangedEvent) {
-      emit(state.copyWith(sort: event.sort));
-      _onGetProducts();
-    } else if (event is GetProductsRequestedEvent) {
-      _onGetProducts();
+    switch (event) {
+      case GetCategoriesRequestedEvent():
+        _onGetCategories();
+      case GetProductsRequestedEvent():
+        _onGetProducts();
+      case CategoryChangedEvent():
+        emit(state.copyWith(categoryId: event.categoryId ?? 'all'));
+      case SearchChangedEvent():
+        emit(state.copyWith(searchQuery: event.query));
+        _onGetProducts();
+      case FilterChangedEvent():
+        emit(state.copyWith(sort: event.sort));
+        _onGetProducts();
     }
   }
 
@@ -69,19 +70,14 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
   Future<void> _onGetProducts() async {
     emit(state.copyWith(productsState: const BaseState(isLoading: true)));
 
-    // تحويل نصوص الواجهة إلى قيم يفهمها الـ API
-    String? apiSort;
-    if (state.sort == AppStrings.highestPrice) {
-      apiSort = '-price';
-    } else if (state.sort == AppStrings.lowestPrice) {
-      apiSort = 'price';
-    } else if (state.sort == AppStrings.newText) {
-      apiSort = '-createdAt';
-    } else if (state.sort == AppStrings.oldText) {
-      apiSort = 'createdAt';
-    } else if (state.sort == AppStrings.discountText) {
-      apiSort = '-discount';
-    }
+    final String? apiSort = switch (state.sort) {
+      AppStrings.highestPrice => ApiParameters.priceDesc,
+      AppStrings.lowestPrice => ApiParameters.priceAsc,
+      AppStrings.newText => ApiParameters.createdAtDesc,
+      AppStrings.oldText => ApiParameters.createdAt,
+      AppStrings.discountText => ApiParameters.discountDesc,
+      _ => null,
+    };
 
     final params = GetProductsParams(
       category: state.categoryId == 'all' ? null : state.categoryId,
