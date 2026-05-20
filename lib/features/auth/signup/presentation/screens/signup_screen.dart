@@ -274,11 +274,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     text: TextSpan(
                       style: AppTextStyles.gray12400,
                       children: [
-                        const TextSpan(
-                          text: 'Creating an account, you agree to our ',
-                        ),
+                        TextSpan(text: AppStrings.creatingAccountAgreement),
                         TextSpan(
-                          text: 'Terms&Conditions',
+                          text: AppStrings.termsAndConditions,
                           style: AppTextStyles.black12600.copyWith(
                             decoration: TextDecoration.underline,
                           ),
@@ -300,7 +298,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         : () {
                             if (_selectedGender == null) {
                               SnackBarServices.showErrorMessage(
-                                'Please select a gender',
+                                AppStrings.pleaseSelectGender,
                               );
                               return;
                             }

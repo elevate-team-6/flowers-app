@@ -17,8 +17,8 @@ class CategoriesShimmer extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           scrollDirection: Axis.horizontal,
           itemCount: 6,
-          separatorBuilder: (_, __) => SizedBox(width: 16.w),
-          itemBuilder: (_, __) => const _CategoryShimmerItem(),
+          separatorBuilder: (_, _) => SizedBox(width: 16.w),
+          itemBuilder: (_, _) => const _CategoryShimmerItem(),
         ),
       ),
     );
