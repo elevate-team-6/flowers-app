@@ -232,7 +232,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(height: 16.h),
                   Row(
                     children: [
-                      Text('Gender', style: AppTextStyles.black18500),
+                      Text(AppStrings.gender, style: AppTextStyles.black18500),
                       SizedBox(width: 32.w),
                       StatefulBuilder(
                         builder: (context, setRadioState) => Row(
@@ -244,7 +244,10 @@ class _SignupScreenState extends State<SignupScreen> {
                               onChanged: (v) =>
                                   setRadioState(() => _selectedGender = v),
                             ),
-                            Text('Female', style: AppTextStyles.black14400),
+                            Text(
+                              AppStrings.female,
+                              style: AppTextStyles.black14400,
+                            ),
                             SizedBox(width: 16.w),
                             Radio<String>(
                               value: 'male',
@@ -253,7 +256,10 @@ class _SignupScreenState extends State<SignupScreen> {
                               onChanged: (v) =>
                                   setRadioState(() => _selectedGender = v),
                             ),
-                            Text('Male', style: AppTextStyles.black14400),
+                            Text(
+                              AppStrings.male,
+                              style: AppTextStyles.black14400,
+                            ),
                           ],
                         ),
                       ),
@@ -264,11 +270,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     text: TextSpan(
                       style: AppTextStyles.gray12400,
                       children: [
-                        const TextSpan(
-                          text: 'Creating an account, you agree to our ',
-                        ),
+                        TextSpan(text: AppStrings.creatingAccountAgreement),
                         TextSpan(
-                          text: 'Terms&Conditions',
+                          text: AppStrings.termsAndConditions,
                           style: AppTextStyles.black12600.copyWith(
                             decoration: TextDecoration.underline,
                           ),
@@ -290,7 +294,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         : () {
                             if (_selectedGender == null) {
                               SnackBarServices.showErrorMessage(
-                                'Please select a gender',
+                                AppStrings.pleaseSelectGender,
                               );
                               return;
                             }
