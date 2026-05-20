@@ -31,14 +31,13 @@ abstract class AppStrings {
   static String get alreadyHaveAccount => 'alreadyHaveAccount'.tr();
   static String get registerSuccess => 'registerSuccess'.tr();
   static String get signupFailedUserIsNull => 'signupFailedUserIsNull'.tr();
-  static const String gender = 'Gender';
-  static const String female = 'Female';
-  static const String femaleValue = 'female';
-  static const String male = 'Male';
-  static const String maleValue = 'male';
-  static const String pleaseSelectGender = 'Please select a gender';
-  static const String creatingAccountAgreement =
-      'Creating an account, you agree to our ';
+  static String get gender => 'gender'.tr();
+  static String get female => 'female'.tr();
+  static String get male => 'male'.tr();
+  static String get pleaseSelectGender => 'pleaseSelectGender'.tr();
+  static String get creatingAccountAgreement => 'creatingAccountAgreement'.tr();
+  static String femaleValue = 'female'.tr();
+  static String maleValue = 'male'.tr();
 
   static String get termsAndConditions => 'termsAndConditions'.tr();
   static String get termsFooterNote => 'termsFooterNote'.tr();
