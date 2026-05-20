@@ -67,12 +67,13 @@ void main() {
     group('success', () {
       blocTest<CategoriesCubit, CategoriesStates>(
         "Test Success Case with empty categories",
-        build: () {
+        setUp: () {
           when(mockGetCategoriesUseCase()).thenAnswer(
             (_) async => SuccessBaseResponse<List<CategoryEntity>>([]),
           );
-          return categoriesCubit;
         },
+
+        build: () => categoriesCubit,
 
         act: (cubit) => cubit.doEvent(GetCategoriesRequestedEvent()),
 
@@ -97,13 +98,14 @@ void main() {
 
       blocTest<CategoriesCubit, CategoriesStates>(
         "Test Success Case with non-empty categories",
-        build: () {
+        setUp: () {
           when(mockGetCategoriesUseCase()).thenAnswer(
             (_) async =>
                 SuccessBaseResponse<List<CategoryEntity>>(responseCategories),
           );
-          return categoriesCubit;
         },
+
+        build: () => categoriesCubit,
 
         act: (cubit) => cubit.doEvent(GetCategoriesRequestedEvent()),
 
@@ -124,15 +126,18 @@ void main() {
         verify: (_) => verify(mockGetCategoriesUseCase()).called(1),
       );
     });
+
     group('error', () {
       blocTest<CategoriesCubit, CategoriesStates>(
         "Test Error Case",
-        build: () {
+
+        setUp: () {
           when(mockGetCategoriesUseCase()).thenAnswer(
             (_) async => ErrorBaseResponse<List<CategoryEntity>>(errorMassage),
           );
-          return categoriesCubit;
         },
+
+        build: () => categoriesCubit,
 
         act: (cubit) => cubit.doEvent(GetCategoriesRequestedEvent()),
 
@@ -159,7 +164,7 @@ void main() {
     group('success', () {
       blocTest<CategoriesCubit, CategoriesStates>(
         "Test Success Case with empty products",
-        build: () {
+        setUp: () {
           when(
             mockGetProductsUseCase.call(
               params: GetProductsParams(
@@ -171,8 +176,9 @@ void main() {
           ).thenAnswer(
             (_) async => SuccessBaseResponse<List<ProductEntity>>([]),
           );
-          return categoriesCubit;
         },
+
+        build: () => categoriesCubit,
 
         act: (cubit) => cubit.doEvent(GetProductsRequestedEvent()),
 
@@ -192,7 +198,7 @@ void main() {
 
       blocTest<CategoriesCubit, CategoriesStates>(
         "Test Success Case with non-empty products",
-        build: () {
+        setUp: () {
           when(
             mockGetProductsUseCase.call(
               params: GetProductsParams(
@@ -205,8 +211,9 @@ void main() {
             (_) async =>
                 SuccessBaseResponse<List<ProductEntity>>(responseProducts),
           );
-          return categoriesCubit;
         },
+
+        build: () => categoriesCubit,
 
         act: (cubit) => cubit.doEvent(GetProductsRequestedEvent()),
 
@@ -224,10 +231,11 @@ void main() {
         ).called(1),
       );
     });
+
     group('error', () {
       blocTest<CategoriesCubit, CategoriesStates>(
         "Test Error Case",
-        build: () {
+        setUp: () {
           when(
             mockGetProductsUseCase.call(
               params: GetProductsParams(
@@ -239,8 +247,9 @@ void main() {
           ).thenAnswer(
             (_) async => ErrorBaseResponse<List<ProductEntity>>(errorMassage),
           );
-          return categoriesCubit;
         },
+
+        build: () => categoriesCubit,
 
         act: (cubit) => cubit.doEvent(GetProductsRequestedEvent()),
 
