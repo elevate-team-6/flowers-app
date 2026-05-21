@@ -21,7 +21,7 @@ class MainLayoutScreen extends StatelessWidget {
 
   const MainLayoutScreen({super.key, this.initialIndex, this.categoryId});
 
-  static const List<Widget> _screens = [
+  static final List<Widget> _screens = [
     HomeScreen(),
     CategoriesScreen(),
     CartScreen(),
