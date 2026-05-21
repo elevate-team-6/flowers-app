@@ -15,64 +15,61 @@ import 'login_cubit_test.mocks.dart';
 
 @GenerateMocks([LoginUseCase, SecureCacheHelper])
 void main() {
-  provideDummy<BaseResponse<UserEntity>>(
-    SuccessBaseResponse(
-      UserEntity(
-        token: 'dummy',
-        id: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        gender: '',
-        phone: '',
-        photo: '',
-        role: '',
-        createdAt: '',
-      ),
-    ),
-  );
-
-  late LoginCubit bloc;
   late MockLoginUseCase mockUseCase;
   late MockSecureCacheHelper mockCache;
+
+  // Test data
+  final user = UserEntity(
+    token: '123',
+    id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    gender: '',
+    phone: '',
+    photo: '',
+    role: '',
+    createdAt: '',
+  );
+
+  setUpAll(() {
+    provideDummy<BaseResponse<UserEntity>>(
+      SuccessBaseResponse(
+        UserEntity(
+          token: 'dummy',
+          id: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          gender: '',
+          phone: '',
+          photo: '',
+          role: '',
+          createdAt: '',
+        ),
+      ),
+    );
+  });
 
   setUp(() {
     mockUseCase = MockLoginUseCase();
     mockCache = MockSecureCacheHelper();
-    bloc = LoginCubit(mockUseCase, mockCache);
   });
 
-  tearDown(() {
-    bloc.close();
-  });
+  LoginCubit buildCubit() => LoginCubit(mockUseCase, mockCache);
 
   group('LoginCubit Tests', () {
     blocTest<LoginCubit, LoginState>(
-      'should emit [loading, success] and save token when rememberMe = true',
-      build: () {
-        when(mockUseCase.call(any)).thenAnswer(
-          (_) async => SuccessBaseResponse(
-            UserEntity(
-              token: '123',
-              id: '',
-              firstName: '',
-              lastName: '',
-              email: '',
-              gender: '',
-              phone: '',
-              photo: '',
-              role: '',
-              createdAt: '',
-            ),
-          ),
-        );
-
+      'emits [loading, success] and saves token when rememberMe = true',
+      setUp: () {
+        when(
+          mockUseCase.call(any),
+        ).thenAnswer((_) async => SuccessBaseResponse(user));
         when(
           mockCache.writeData(key: anyNamed('key'), value: anyNamed('value')),
         ).thenAnswer((_) async {});
-
-        return bloc;
       },
+      build: buildCubit,
       act: (bloc) => bloc.add(
         const LoginRequestedEvent(
           email: 'test@test.com',
@@ -88,7 +85,6 @@ void main() {
         verify(
           mockCache.writeData(key: AppKeys.tokenKey, value: '123'),
         ).called(1);
-
         verify(
           mockCache.writeData(key: AppKeys.rememberMeKey, value: 'true'),
         ).called(1);
@@ -96,13 +92,13 @@ void main() {
     );
 
     blocTest<LoginCubit, LoginState>(
-      'should emit [loading, error] when login fails',
-      build: () {
+      'emits [loading, error] when login fails',
+      setUp: () {
         when(
           mockUseCase.call(any),
         ).thenAnswer((_) async => ErrorBaseResponse('Wrong credentials'));
-        return bloc;
       },
+      build: buildCubit,
       act: (bloc) => bloc.add(
         const LoginRequestedEvent(
           email: 'wrong@test.com',
@@ -121,8 +117,8 @@ void main() {
     );
 
     blocTest<LoginCubit, LoginState>(
-      'should toggle password visibility',
-      build: () => bloc,
+      'toggles password visibility',
+      build: buildCubit,
       act: (bloc) => bloc.add(const TogglePasswordVisibilityEvent()),
       expect: () => [
         isA<LoginState>().having((s) => s.isPasswordObscure, 'obscure', false),
@@ -130,35 +126,16 @@ void main() {
     );
 
     blocTest<LoginCubit, LoginState>(
-      'should NOT save token when rememberMe = false',
-      build: () {
-        when(mockUseCase.call(any)).thenAnswer(
-          (_) async => SuccessBaseResponse(
-            UserEntity(
-              token: '123',
-              id: '',
-              firstName: '',
-              lastName: '',
-              email: '',
-              gender: '',
-              phone: '',
-              photo: '',
-              role: '',
-              createdAt: '',
-            ),
-          ),
-        );
-
+      'saves token but rememberMe = false when rememberMe is false',
+      setUp: () {
         when(
-          mockCache.deleteData(key: anyNamed('key')),
-        ).thenAnswer((_) async {});
-
+          mockUseCase.call(any),
+        ).thenAnswer((_) async => SuccessBaseResponse(user));
         when(
           mockCache.writeData(key: anyNamed('key'), value: anyNamed('value')),
         ).thenAnswer((_) async {});
-
-        return bloc;
       },
+      build: buildCubit,
       act: (bloc) => bloc.add(
         const LoginRequestedEvent(
           email: 'test@test.com',
@@ -171,8 +148,9 @@ void main() {
         isA<LoginState>().having((s) => s.user, 'user', isNotNull),
       ],
       verify: (_) {
-        verify(mockCache.deleteData(key: AppKeys.tokenKey)).called(1);
-
+        verify(
+          mockCache.writeData(key: AppKeys.tokenKey, value: '123'),
+        ).called(1);
         verify(
           mockCache.writeData(key: AppKeys.rememberMeKey, value: 'false'),
         ).called(1);

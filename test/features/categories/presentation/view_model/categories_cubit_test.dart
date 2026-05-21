@@ -43,6 +43,7 @@ void main() {
         price: 100 * index,
         priceAfterDiscount: 90 * index,
         discount: 10 * index,
+        description: '',
       ),
     );
     errorMassage = "Error massage";

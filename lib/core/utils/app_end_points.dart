@@ -13,6 +13,8 @@ abstract class AppEndPoints {
 
   static const String logout = "$baseUrl/auth/logout";
   static const String profileData = "$baseUrl/auth/profile-Data";
+
+  //ocasions:
   static const String occasions = "$baseUrl/occasions";
 
   // Home:
@@ -23,8 +25,14 @@ abstract class AppEndPoints {
 
   // Products:
   static const String products = "$baseUrl/products";
+  static const String productDetails = "$baseUrl/products/{id}";
 
-  // ---------------------------------------------------------------------------
+
+  // cart:
+  static const String cart = '$baseUrl/cart';
+  static const String cartProductPath = '$cart/{productId}';
+  static const String productIdParam = 'productId';
+// ---------------------------------------------------------------------------
   // TO ADD NEW ENDPOINTS:
   // 1. Group them by feature (e.g., // Products, // Cart).
   // 2. Use 'static const String' with camelCase naming.

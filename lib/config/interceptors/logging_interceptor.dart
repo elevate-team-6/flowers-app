@@ -20,6 +20,7 @@ class LoggingInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (kDebugMode) {
       _logger.i("REQUEST[${options.method}] => PATH: ${options.path}");
+      _logger.d("EXTRA => ${options.extra}");
 
       // Redact sensitive headers
       final headers = Map<String, dynamic>.from(options.headers);
@@ -47,6 +48,7 @@ class LoggingInterceptor extends Interceptor {
         "RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}",
       );
       _logger.d("Data: ${response.data}");
+      _logger.d("RESPONSE EXTRA => ${response.extra}");
     }
     super.onResponse(response, handler);
   }
