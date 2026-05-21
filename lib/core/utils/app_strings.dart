@@ -212,4 +212,10 @@ abstract class AppStrings {
   static const String delivertoAddress = ' 2XVP+XC - Sheikh Zayed.....';
   static const String remove = 'Remove';
   static const String loading = 'Loading...';
+
+  // dialog
+  static const String exitAppTitle = 'Exit App';
+  static const String exitAppMessage = 'Are you sure you want to exit?';
+  static const String cancel = 'Cancel';
+  static const String exit = 'Exit';
 }

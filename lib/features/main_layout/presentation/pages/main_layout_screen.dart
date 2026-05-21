@@ -1,6 +1,8 @@
+import 'package:flowers_app/config/services/exit_app_dialog.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -44,46 +46,62 @@ class MainLayoutScreen extends StatelessWidget {
       },
       child: BlocBuilder<MainLayoutCubit, MainLayoutState>(
         builder: (context, state) {
-          return Scaffold(
-            body: IndexedStack(index: state.currentIndex, children: _screens),
-            bottomNavigationBar: Container(
-              padding: EdgeInsets.symmetric(vertical: 5.h),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: AppColors.black10.withValues(alpha: 0.5),
-                    width: 1,
+          return PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (didPop, result) async {
+              if (didPop) return;
+
+              if (state.currentIndex != 0) {
+                context.read<MainLayoutCubit>().doEvent(ChangeIndexEvent(0));
+                return;
+              }
+
+              final shouldExit = await ExitAppDialog.show(context);
+              if (shouldExit == true) {
+                SystemNavigator.pop();
+              }
+            },
+            child: Scaffold(
+              body: IndexedStack(index: state.currentIndex, children: _screens),
+              bottomNavigationBar: Container(
+                padding: EdgeInsets.symmetric(vertical: 5.h),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: AppColors.black10.withValues(alpha: 0.5),
+                      width: 1,
+                    ),
                   ),
                 ),
-              ),
-              child: BottomNavigationBar(
-                currentIndex: state.currentIndex,
-                onTap: (index) {
-                  context.read<MainLayoutCubit>().doEvent(
-                    ChangeIndexEvent(index),
-                  );
-                  if (index == 2) {
-                    context.read<CartBloc>().add(const GetCartEvent());
-                  }
-                },
-                items: [
-                  MainNavBarItem(
-                    iconPath: AppIcons.home,
-                    label: AppStrings.home,
-                  ),
-                  MainNavBarItem(
-                    iconPath: AppIcons.categories,
-                    label: AppStrings.categories,
-                  ),
-                  MainNavBarItem(
-                    iconPath: AppIcons.cart,
-                    label: AppStrings.cart,
-                  ),
-                  MainNavBarItem(
-                    iconPath: AppIcons.profile,
-                    label: AppStrings.profile,
-                  ),
-                ],
+                child: BottomNavigationBar(
+                  currentIndex: state.currentIndex,
+                  onTap: (index) {
+                    context.read<MainLayoutCubit>().doEvent(
+                      ChangeIndexEvent(index),
+                    );
+                    if (index == 2) {
+                      context.read<CartBloc>().add(const GetCartEvent());
+                    }
+                  },
+                  items: [
+                    MainNavBarItem(
+                      iconPath: AppIcons.home,
+                      label: AppStrings.home,
+                    ),
+                    MainNavBarItem(
+                      iconPath: AppIcons.categories,
+                      label: AppStrings.categories,
+                    ),
+                    MainNavBarItem(
+                      iconPath: AppIcons.cart,
+                      label: AppStrings.cart,
+                    ),
+                    MainNavBarItem(
+                      iconPath: AppIcons.profile,
+                      label: AppStrings.profile,
+                    ),
+                  ],
+                ),
               ),
             ),
           );
