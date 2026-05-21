@@ -50,6 +50,7 @@ void main() {
     );
 
     final productEntity = ProductDetailsEntity(
+      id: '1',
       title: 'Flower',
       description: 'desc',
       images: ['image'],
