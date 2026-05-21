@@ -196,4 +196,16 @@ abstract class AppStrings {
   static const String retry = 'Retry';
   static const String subTitleBestSeller =
       'Bloom with our exquisite best sellers';
+
+  // Profile Screen
+  static const String myOrders = 'My orders';
+  static const String savedAddress = 'Saved address';
+  static const String notification = 'Notification';
+  static const String language = 'Language';
+  static const String changeLanguage = 'Change Language';
+  static const String arabic = 'Arabic';
+  static const String english = 'English';
+  static const String aboutUs = 'About us';
+  static const String logout = 'Logout';
+  static const String version = 'v 6.3.0 - (446)';
 }
