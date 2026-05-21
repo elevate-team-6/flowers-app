@@ -14,10 +14,15 @@ abstract class AppEndPoints {
   static const String logout = "$baseUrl/auth/logout";
   static const String profileData = "$baseUrl/auth/profile-Data";
   static const String occasions = "$baseUrl/occasions";
-  static const String products = "$baseUrl/products";
 
   // Home:
   static const String bestSeller = "$baseUrl/best-seller";
+
+  // Categories:
+  static const String categories = "$baseUrl/categories";
+
+  // Products:
+  static const String products = "$baseUrl/products";
 
   // ---------------------------------------------------------------------------
   // TO ADD NEW ENDPOINTS:
