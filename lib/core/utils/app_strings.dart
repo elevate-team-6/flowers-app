@@ -218,4 +218,13 @@ abstract class AppStrings {
   static const String exitAppMessage = 'Are you sure you want to exit?';
   static const String cancel = 'Cancel';
   static const String exit = 'Exit';
+  // Product Details
+  static const String allPricesIncludeTax = 'All prices include tax';
+  static const String status = 'Status:';
+  static const String description = 'Description';
+  static const String inStock = 'In Stock';
+  static const String outOfStock = 'Out Of Stock';
+  static const String roses = 'roses:15';
+  static const String bouqetInclude = 'Bouquet include';
+  static const String noProductDetailsFound = 'No Product Details Found';
 }
