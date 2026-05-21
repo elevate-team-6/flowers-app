@@ -13,6 +13,9 @@ import 'package:flowers_app/features/home/presentation/view_model/cubit/home_vie
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
 import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
+import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
+import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
+import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
@@ -118,8 +121,20 @@ abstract class AppRoutes {
         );
 
       case productDetails:
-        // Handled by Product Details Feature developer
-        return _unDefinedRoute(settings.name);
+        final String productId = settings.arguments.toString();
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    getIt<ProductDetailsCubit>()
+                      ..doEvent(GetProductDetailsEvent(productId)),
+              ),
+              BlocProvider.value(value: getIt<CartBloc>()),
+            ],
+            child: const ProductDetailsScreen(),
+          ),
+        );
 
       default:
         return _unDefinedRoute(settings.name);
