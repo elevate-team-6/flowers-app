@@ -31,11 +31,10 @@ abstract class AppRoutes {
   static const String forgotPassword = '/forgotPassword';
   static const String verifyResetCode = '/VerifyResetCode';
   static const String resetPassword = '/resetPassword';
-  static const String mainLayout = '/mainLayout';
   static const String occasions = '/occasions';
   static const String bestSeller = '/bestSeller';
   static const String productDetails = '/productDetails';
-  static const String categories = '/categories';
+  static const String mainLayout = 'mainLayout';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -117,6 +116,10 @@ abstract class AppRoutes {
             child: const BestSellerScreen(),
           ),
         );
+
+      case productDetails:
+        // Handled by Product Details Feature developer
+        return _unDefinedRoute(settings.name);
 
       default:
         return _unDefinedRoute(settings.name);

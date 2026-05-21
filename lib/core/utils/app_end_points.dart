@@ -13,11 +13,18 @@ abstract class AppEndPoints {
 
   static const String logout = "$baseUrl/auth/logout";
   static const String profileData = "$baseUrl/auth/profile-Data";
+
+  //ocasions:
   static const String occasions = "$baseUrl/occasions";
-  static const String products = "$baseUrl/products";
 
   // Home:
   static const String bestSeller = "$baseUrl/best-seller";
+
+  // Categories:
+  static const String categories = "$baseUrl/categories";
+
+  // Products:
+  static const String products = "$baseUrl/products";
 
   // cart:
   static const String cart = '$baseUrl/cart';

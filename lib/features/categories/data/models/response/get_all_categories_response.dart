@@ -1,0 +1,28 @@
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import 'category_model.dart';
+import 'pagination_model.dart';
+
+part 'get_all_categories_response.g.dart';
+
+@JsonSerializable()
+class GetAllCategoriesResponse extends Equatable {
+  final String? message;
+  final PaginationModel? pagination;
+  final List<CategoryModel>? categories;
+
+  const GetAllCategoriesResponse({
+    this.message,
+    this.pagination,
+    this.categories,
+  });
+
+  factory GetAllCategoriesResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetAllCategoriesResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GetAllCategoriesResponseToJson(this);
+
+  @override
+  List<Object?> get props => [message, pagination, categories];
+}
