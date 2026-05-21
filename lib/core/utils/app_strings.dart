@@ -59,9 +59,6 @@ abstract class AppStrings {
   static const String termsSection4Body =
       'We reserve the right to modify these terms at any time. Continued use of the app after changes constitutes your acceptance of the new terms.';
 
-  static const String femaleValue = 'female';
-  static const String maleValue = 'male';
-
   // Forget Password Screen
   static const String forgetPasswordTitle = 'Forget password';
   static const String forgetPasswordSubtitle =

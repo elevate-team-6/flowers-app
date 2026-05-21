@@ -37,7 +37,6 @@ abstract class AppRoutes {
   static const String occasions = '/occasions';
   static const String bestSeller = '/bestSeller';
   static const String productDetails = '/productDetails';
-  static const String mainLayout = 'mainLayout';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     try {
