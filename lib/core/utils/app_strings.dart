@@ -29,6 +29,14 @@ abstract class AppStrings {
   static const String alreadyHaveAccount = 'Already have an account? ';
   static const String registerSuccess = 'Register success';
   static const String signupFailedUserIsNull = 'Signup failed: user is null';
+  static const String gender = 'Gender';
+  static const String female = 'Female';
+  static const String femaleValue = 'female';
+  static const String male = 'Male';
+  static const String maleValue = 'male';
+  static const String pleaseSelectGender = 'Please select a gender';
+  static const String creatingAccountAgreement =
+      'Creating an account, you agree to our ';
 
   static const String termsAndConditions = 'Terms & Conditions';
   static const String termsFooterNote =
@@ -148,16 +156,28 @@ abstract class AppStrings {
   static const String cart = 'Cart';
   static const String profile = 'Profile';
 
-  // Occasions
-  static const String noProductsFound = 'No products found';
+  // Products
   static const String addToCart = 'Add to cart';
+
+  // Filters
+  static const String sortBy = 'Sort by';
+  static const String lowestPrice = 'Lowest Price';
+  static const String highestPrice = 'Highest Price';
+  static const String newText = 'New';
+  static const String oldText = 'Old';
+  static const String discountText = 'Discount';
+  static const String filter = 'Filter';
+  static const String search = 'Search';
+  static const String all = 'All';
+  static const String noProductsFound = 'No products found.';
+
+  // Occasions
   static const String occasion = 'Occasion';
   static const String occasionSubtitle =
       'Bloom with our exquisite best sellers';
   static const String egp = 'EGP';
   //home
   static const String flowery = 'Flowery';
-  static const String search = 'Search';
   static const String deliverToMockAddress =
       'Deliver to 2XVP+XC · Sheikh Zayed';
   static const String icon = 'icon';
@@ -176,4 +196,26 @@ abstract class AppStrings {
   static const String retry = 'Retry';
   static const String subTitleBestSeller =
       'Bloom with our exquisite best sellers';
+
+  // Cart
+  static const String items = 'items';
+  static const String clearAll = 'Clear All';
+  static const String cartEmpty = 'Your cart is empty';
+  static const String subTotal = 'Sub Total';
+  static const String deliveryFee = 'Delivery Fee';
+  static const String total = 'Total';
+  static const String checkout = 'Checkout';
+  static const String somethingWentWrong = 'Something went wrong';
+  static const String dollar = '\$';
+  static const String addedToCart = 'Added to cart successfully';
+  static const String deliverto = 'Deliver to ';
+  static const String delivertoAddress = ' 2XVP+XC - Sheikh Zayed.....';
+  static const String remove = 'Remove';
+  static const String loading = 'Loading...';
+
+  // dialog
+  static const String exitAppTitle = 'Exit App';
+  static const String exitAppMessage = 'Are you sure you want to exit?';
+  static const String cancel = 'Cancel';
+  static const String exit = 'Exit';
 }

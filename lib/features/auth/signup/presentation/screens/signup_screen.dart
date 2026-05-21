@@ -4,11 +4,14 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/core/widgets/rich_text_with_link.dart';
 import 'package:flowers_app/features/auth/signup/data/models/requestes/signup_request.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_events.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_states.dart';
+import 'package:flowers_app/features/auth/signup/presentation/widgets/custom_text_field.dart';
+import 'package:flowers_app/core/widgets/custom_gender_selector.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +32,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _phoneController = TextEditingController();
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
   String? _selectedGender;
 
   @override
@@ -40,6 +45,31 @@ class _SignupScreenState extends State<SignupScreen> {
     _confirmPasswordController.dispose();
     _phoneController.dispose();
     super.dispose();
+  }
+
+  void _onSignup() {
+    final isFormValid = _formKey.currentState!.validate();
+    final isGenderSelected = _selectedGender != null;
+
+    if (!isGenderSelected) {
+      SnackBarServices.showErrorMessage(AppStrings.pleaseSelectGender);
+    }
+    if (!isFormValid || !isGenderSelected) {
+      return;
+    }
+    context.read<SignupCubit>().doEvent(
+      SignupEvent(
+        SignupRequest(
+          firstName: _firstNameController.text.trim(),
+          lastName: _lastNameController.text.trim(),
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+          rePassword: _confirmPasswordController.text,
+          phone: _phoneController.text.trim(),
+          gender: _selectedGender!,
+        ),
+      ),
+    );
   }
 
   @override
@@ -55,11 +85,13 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       body: BlocConsumer<SignupCubit, SignupState>(
         listener: (context, state) {
-          if (state.signupState.isLoading) return;
-
+          if (state.signupState.isLoading) {
+            LoadingDialog.show(context: context);
+          } else {
+            LoadingDialog.hide();
+          }
           if (state.signupState.data != null) {
             SnackBarServices.showSuccessMessage(AppStrings.registerSuccess);
-
             Navigator.pop(context);
           } else if (state.signupState.errorMessage != null) {
             SnackBarServices.showErrorMessage(state.signupState.errorMessage!);
@@ -76,199 +108,106 @@ class _SignupScreenState extends State<SignupScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: TextFormField(
+                        child: CustomTextField(
                           controller: _firstNameController,
-                          decoration: InputDecoration(
-                            labelText: AppStrings.firstName,
-                            hintText: AppStrings.enterFirstName,
-                            hintStyle: AppTextStyles.gray12400,
-                            labelStyle: AppTextStyles.black14400,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.r),
-                              borderSide: BorderSide(
-                                color: AppColors.black,
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          onTapOutside: (event) =>
-                              FocusManager().primaryFocus?.unfocus(),
-                          textInputAction: TextInputAction.next,
+                          labelText: AppStrings.firstName,
+                          hintText: AppStrings.enterFirstName,
                           validator: AppValidations.validateFirstName,
                         ),
                       ),
                       SizedBox(width: 12.w),
                       Expanded(
-                        child: TextFormField(
+                        child: CustomTextField(
                           controller: _lastNameController,
-                          decoration: InputDecoration(
-                            labelText: AppStrings.lastName,
-                            hintText: AppStrings.enterLastName,
-                            hintStyle: AppTextStyles.gray12400,
-                            labelStyle: AppTextStyles.black14400,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.r),
-                              borderSide: BorderSide(
-                                color: AppColors.black,
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          onTapOutside: (event) =>
-                              FocusManager().primaryFocus?.unfocus(),
-                          textInputAction: TextInputAction.next,
+                          labelText: AppStrings.lastName,
+                          hintText: AppStrings.enterLastName,
                           validator: AppValidations.validateLastName,
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 16.h),
-                  TextFormField(
+                  CustomTextField(
                     controller: _emailController,
+                    labelText: AppStrings.email,
+                    hintText: AppStrings.enterYourEmail,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: AppStrings.email,
-                      hintText: AppStrings.enterYourEmail,
-                      hintStyle: AppTextStyles.gray12400,
-                      labelStyle: AppTextStyles.black14400,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.r),
-                        borderSide: BorderSide(
-                          color: AppColors.black,
-                          width: 1,
-                        ),
-                      ),
-                    ),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onTapOutside: (event) =>
-                        FocusManager().primaryFocus?.unfocus(),
-                    textInputAction: TextInputAction.next,
                     validator: AppValidations.validateEmail,
                   ),
                   SizedBox(height: 16.h),
                   Row(
                     children: [
                       Expanded(
-                        child: TextFormField(
+                        child: CustomTextField(
                           controller: _passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: AppStrings.password,
-                            hintText: AppStrings.enterYourPassword,
-                            hintStyle: AppTextStyles.gray12400,
-                            labelStyle: AppTextStyles.black14400,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.r),
-                              borderSide: BorderSide(
-                                color: AppColors.black,
-                                width: 1,
-                              ),
+                          labelText: AppStrings.password,
+                          hintText: AppStrings.enterYourPassword,
+                          obscureText: _obscurePassword,
+                          validator: AppValidations.validatePassword,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              size: 20.sp,
+                              color: AppColors.black30,
+                            ),
+                            onPressed: () => setState(
+                              () => _obscurePassword = !_obscurePassword,
                             ),
                           ),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          onTapOutside: (event) =>
-                              FocusManager().primaryFocus?.unfocus(),
-                          textInputAction: TextInputAction.next,
-                          validator: AppValidations.validatePassword,
                         ),
                       ),
                       SizedBox(width: 12.w),
                       Expanded(
-                        child: TextFormField(
+                        child: CustomTextField(
                           controller: _confirmPasswordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: AppStrings.confirmPassword,
-                            hintText: AppStrings.confirmPassword,
-                            hintStyle: AppTextStyles.gray12400,
-                            labelStyle: AppTextStyles.black14400,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.r),
-                              borderSide: BorderSide(
-                                color: AppColors.black,
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          onTapOutside: (event) =>
-                              FocusManager().primaryFocus?.unfocus(),
-                          textInputAction: TextInputAction.next,
+                          labelText: AppStrings.confirmPassword,
+                          hintText: AppStrings.confirmPassword,
+                          obscureText: _obscureConfirmPassword,
                           validator: (v) =>
                               AppValidations.validateConfirmPassword(
                                 v,
                                 _passwordController.text,
                               ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureConfirmPassword
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              size: 20.sp,
+                              color: AppColors.black30,
+                            ),
+                            onPressed: () => setState(
+                              () => _obscureConfirmPassword =
+                                  !_obscureConfirmPassword,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 16.h),
-                  TextFormField(
+                  CustomTextField(
                     controller: _phoneController,
+                    labelText: AppStrings.phoneNumber,
+                    hintText: AppStrings.enterPhoneNumber,
                     keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      labelText: AppStrings.phoneNumber,
-                      hintText: AppStrings.enterPhoneNumber,
-                      hintStyle: AppTextStyles.gray12400,
-                      labelStyle: AppTextStyles.black14400,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.r),
-                        borderSide: BorderSide(
-                          color: AppColors.black,
-                          width: 1,
-                        ),
-                      ),
-                    ),
-
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onTapOutside: (event) =>
-                        FocusManager().primaryFocus?.unfocus(),
-                    textInputAction: TextInputAction.next,
                     validator: AppValidations.validatePhoneNumber,
                   ),
                   SizedBox(height: 16.h),
-                  Row(
-                    children: [
-                      Text('Gender', style: AppTextStyles.black18500),
-                      SizedBox(width: 32.w),
-                      StatefulBuilder(
-                        builder: (context, setRadioState) => Row(
-                          children: [
-                            Radio<String>(
-                              value: 'female',
-                              activeColor: AppColors.primary,
-                              groupValue: _selectedGender,
-                              onChanged: (v) =>
-                                  setRadioState(() => _selectedGender = v),
-                            ),
-                            Text('Female', style: AppTextStyles.black14400),
-                            SizedBox(width: 16.w),
-                            Radio<String>(
-                              value: 'male',
-                              activeColor: AppColors.primary,
-                              groupValue: _selectedGender,
-                              onChanged: (v) =>
-                                  setRadioState(() => _selectedGender = v),
-                            ),
-                            Text('Male', style: AppTextStyles.black14400),
-                          ],
-                        ),
-                      ),
-                    ],
+                  CustomGenderSelector(
+                    selectedGender: _selectedGender,
+                    onChanged: (v) => setState(() => _selectedGender = v),
                   ),
                   SizedBox(height: 16.h),
                   RichText(
                     text: TextSpan(
                       style: AppTextStyles.gray12400,
                       children: [
-                        const TextSpan(
-                          text: 'Creating an account, you agree to our ',
-                        ),
+                        TextSpan(text: AppStrings.creatingAccountAgreement),
                         TextSpan(
-                          text: 'Terms&Conditions',
+                          text: AppStrings.termsAndConditions,
                           style: AppTextStyles.black12600.copyWith(
                             decoration: TextDecoration.underline,
                           ),
@@ -285,37 +224,8 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   SizedBox(height: 40.h),
                   ElevatedButton(
-                    onPressed: state.signupState.isLoading
-                        ? null
-                        : () {
-                            if (_selectedGender == null) {
-                              SnackBarServices.showErrorMessage(
-                                'Please select a gender',
-                              );
-                              return;
-                            }
-                            if (_formKey.currentState!.validate()) {
-                              context.read<SignupCubit>().doEvent(
-                                SignupEvent(
-                                  SignupRequest(
-                                    firstName: _firstNameController.text.trim(),
-                                    lastName: _lastNameController.text.trim(),
-                                    email: _emailController.text.trim(),
-                                    password: _passwordController.text,
-                                    rePassword: _confirmPasswordController.text,
-                                    phone: _phoneController.text.trim(),
-                                    gender: _selectedGender!,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                    child: state.signupState.isLoading
-                        ? const CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          )
-                        : Text(AppStrings.signupWithSpace),
+                    onPressed: state.signupState.isLoading ? null : _onSignup,
+                    child: Text(AppStrings.signupWithSpace),
                   ),
                   SizedBox(height: 16.h),
                   Center(

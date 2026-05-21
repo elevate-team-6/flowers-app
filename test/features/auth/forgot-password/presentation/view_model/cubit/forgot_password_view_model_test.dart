@@ -20,8 +20,6 @@ import 'forgot_password_view_model_test.mocks.dart';
   ResetPasswordUseCase,
 ])
 void main() {
-  // Arrange
-  late ForgotPasswordViewModel forgotPasswordViewModel;
   late MockForgotPasswordUseCase mockForgotPasswordUseCase;
   late MockVerifyResetCodeUseCase mockVerifyResetCodeUseCase;
   late MockResetPasswordUseCase mockResetPasswordUseCase;
@@ -45,27 +43,29 @@ void main() {
     mockForgotPasswordUseCase = MockForgotPasswordUseCase();
     mockVerifyResetCodeUseCase = MockVerifyResetCodeUseCase();
     mockResetPasswordUseCase = MockResetPasswordUseCase();
-    forgotPasswordViewModel = ForgotPasswordViewModel(
-      mockForgotPasswordUseCase,
-      mockVerifyResetCodeUseCase,
-      mockResetPasswordUseCase,
-    );
   });
+
+  ForgotPasswordViewModel buildViewModel() => ForgotPasswordViewModel(
+    mockForgotPasswordUseCase,
+    mockVerifyResetCodeUseCase,
+    mockResetPasswordUseCase,
+  );
 
   group("Forgot Password View Model Test Group", () {
     group("Forgot Password Event", () {
       blocTest<ForgotPasswordViewModel, ForgotPasswordStates>(
         'emits [loading, success] when forgotPassword succeeds',
-        build: () => forgotPasswordViewModel,
-        act: (cubit) {
+        setUp: () {
           when(
             mockForgotPasswordUseCase.call(email: 'test@example.com'),
           ).thenAnswer(
             (_) async =>
                 SuccessBaseResponse<ForgotPasswordEntity>(forgotPasswordEntity),
           );
-          cubit.doEvent(ForgotPasswordEvent(email: 'test@example.com'));
         },
+        build: buildViewModel,
+        act: (cubit) =>
+            cubit.doEvent(ForgotPasswordEvent(email: 'test@example.com')),
         expect: () => [
           ForgotPasswordStates(
             forgotPasswordState: BaseState<ForgotPasswordEntity>(
@@ -87,15 +87,16 @@ void main() {
 
       blocTest<ForgotPasswordViewModel, ForgotPasswordStates>(
         'emits [loading, error] when forgotPassword fails',
-        build: () => forgotPasswordViewModel,
-        act: (cubit) {
+        setUp: () {
           when(
             mockForgotPasswordUseCase.call(email: 'test@example.com'),
           ).thenAnswer(
             (_) async => ErrorBaseResponse<ForgotPasswordEntity>(errMsg),
           );
-          cubit.doEvent(ForgotPasswordEvent(email: 'test@example.com'));
         },
+        build: buildViewModel,
+        act: (cubit) =>
+            cubit.doEvent(ForgotPasswordEvent(email: 'test@example.com')),
         expect: () => [
           ForgotPasswordStates(
             forgotPasswordState: BaseState<ForgotPasswordEntity>(
@@ -119,14 +120,15 @@ void main() {
     group("Verify Reset Code Event", () {
       blocTest<ForgotPasswordViewModel, ForgotPasswordStates>(
         'emits [loading, success] when verifyResetCode succeeds',
-        build: () => forgotPasswordViewModel,
-        act: (cubit) {
+        setUp: () {
           when(mockVerifyResetCodeUseCase.call(resetCode: '123456')).thenAnswer(
             (_) async =>
                 SuccessBaseResponse<ForgotPasswordEntity>(forgotPasswordEntity),
           );
-          cubit.doEvent(VerifyResetCodeEvent(resetCode: '123456'));
         },
+        build: buildViewModel,
+        act: (cubit) =>
+            cubit.doEvent(VerifyResetCodeEvent(resetCode: '123456')),
         expect: () => [
           ForgotPasswordStates(
             verifyResetCodeState: BaseState<ForgotPasswordEntity>(
@@ -148,13 +150,14 @@ void main() {
 
       blocTest<ForgotPasswordViewModel, ForgotPasswordStates>(
         'emits [loading, error] when verifyResetCode fails',
-        build: () => forgotPasswordViewModel,
-        act: (cubit) {
+        setUp: () {
           when(mockVerifyResetCodeUseCase.call(resetCode: '123456')).thenAnswer(
             (_) async => ErrorBaseResponse<ForgotPasswordEntity>(errMsg),
           );
-          cubit.doEvent(VerifyResetCodeEvent(resetCode: '123456'));
         },
+        build: buildViewModel,
+        act: (cubit) =>
+            cubit.doEvent(VerifyResetCodeEvent(resetCode: '123456')),
         expect: () => [
           ForgotPasswordStates(
             verifyResetCodeState: BaseState<ForgotPasswordEntity>(
@@ -178,8 +181,7 @@ void main() {
     group("Reset Password Event", () {
       blocTest<ForgotPasswordViewModel, ForgotPasswordStates>(
         'emits [loading, success] when resetPassword succeeds',
-        build: () => forgotPasswordViewModel,
-        act: (cubit) {
+        setUp: () {
           when(
             mockResetPasswordUseCase.call(
               email: 'test@example.com',
@@ -189,10 +191,11 @@ void main() {
             (_) async =>
                 SuccessBaseResponse<ForgotPasswordEntity>(forgotPasswordEntity),
           );
-          cubit.doEvent(
-            ResetPasswordEvent(email: 'test@example.com', password: 'newpass'),
-          );
         },
+        build: buildViewModel,
+        act: (cubit) => cubit.doEvent(
+          ResetPasswordEvent(email: 'test@example.com', password: 'newpass'),
+        ),
         expect: () => [
           ForgotPasswordStates(
             resetPasswordState: BaseState<ForgotPasswordEntity>(
@@ -217,8 +220,7 @@ void main() {
 
       blocTest<ForgotPasswordViewModel, ForgotPasswordStates>(
         'emits [loading, error] when resetPassword fails',
-        build: () => forgotPasswordViewModel,
-        act: (cubit) {
+        setUp: () {
           when(
             mockResetPasswordUseCase.call(
               email: 'test@example.com',
@@ -227,10 +229,11 @@ void main() {
           ).thenAnswer(
             (_) async => ErrorBaseResponse<ForgotPasswordEntity>(errMsg),
           );
-          cubit.doEvent(
-            ResetPasswordEvent(email: 'test@example.com', password: 'newpass'),
-          );
         },
+        build: buildViewModel,
+        act: (cubit) => cubit.doEvent(
+          ResetPasswordEvent(email: 'test@example.com', password: 'newpass'),
+        ),
         expect: () => [
           ForgotPasswordStates(
             resetPasswordState: BaseState<ForgotPasswordEntity>(

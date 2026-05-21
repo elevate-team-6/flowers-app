@@ -22,6 +22,6 @@ class MainLayoutCubit extends Cubit<MainLayoutState> {
   }
 
   void _changeIndex(int index) {
-    emit(state.copyWith(currentIndex: index));
+    emit(state.copyWith(currentIndex: index, categoryId: categoryId));
   }
 }

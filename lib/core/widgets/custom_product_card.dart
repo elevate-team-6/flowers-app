@@ -1,23 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomProductCard extends StatelessWidget {
   final ProductEntity product;
   final VoidCallback onAddToCart;
+  final VoidCallback onRemove;
   final VoidCallback? onTap;
+  final bool isInCart;
+  final bool isLoading;
 
   const CustomProductCard({
     super.key,
-    required this.onAddToCart,
-    this.onTap,
     required this.product,
+    required this.onAddToCart,
+    required this.onRemove,
+    this.onTap,
+    this.isInCart = false,
+    this.isLoading = false,
   });
 
   @override
@@ -125,18 +131,43 @@ class CustomProductCard extends StatelessWidget {
 
                     // Add to cart button
                     ElevatedButton.icon(
-                      onPressed: onAddToCart,
+                      onPressed: isLoading
+                          ? null
+                          : (isInCart ? onRemove : onAddToCart),
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 36.h),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        backgroundColor: isInCart
+                            ? AppColors.error
+                            : AppColors.primary,
                       ),
-                      icon: Icon(
-                        Icons.shopping_cart_outlined,
-                        size: 16.sp,
-                        color: AppColors.white,
-                      ),
+                      icon: isLoading
+                          ? SizedBox(
+                              width: 16.w,
+                              height: 16.w,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: AppColors.white,
+                              ),
+                            )
+                          : isInCart
+                          ? Image.asset(
+                              AppIcons.delete,
+                              width: 16.w,
+                              height: 16.w,
+                              color: AppColors.white,
+                            )
+                          : Icon(
+                              Icons.shopping_cart_outlined,
+                              size: 16.sp,
+                              color: AppColors.white,
+                            ),
                       label: Text(
-                        AppStrings.addToCart,
+                        isLoading
+                            ? AppStrings.loading
+                            : isInCart
+                            ? AppStrings.remove
+                            : AppStrings.addToCart,
                         style: AppTextStyles.white16500.copyWith(
                           fontSize: 12.sp,
                         ),
