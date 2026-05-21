@@ -13,16 +13,12 @@ import 'best_seller_repo_impl_test.mocks.dart';
 @GenerateMocks([BestSellerRemoteDataSourceContract])
 void main() {
   setUpAll(() {
-  provideDummy<
-      BaseResponse<BestSellerProductsResponse>>(
-    SuccessBaseResponse<
-        BestSellerProductsResponse>(
-      BestSellerProductsResponse(
-        bestSellerProducts: [],
+    provideDummy<BaseResponse<BestSellerProductsResponse>>(
+      SuccessBaseResponse<BestSellerProductsResponse>(
+        BestSellerProductsResponse(bestSellerProducts: []),
       ),
-    ),
-  );
-});
+    );
+  });
   late MockBestSellerRemoteDataSourceContract mockRemoteDataSource;
 
   late BestSellerRepoImpl repoImpl;
@@ -59,6 +55,7 @@ void main() {
       price: 100,
       priceAfterDiscount: 80,
       discount: 20,
+      description: 'desc',
     );
 
     test('should return success response with products list', () async {

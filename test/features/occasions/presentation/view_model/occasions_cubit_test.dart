@@ -37,6 +37,7 @@ void main() {
       price: 250,
       priceAfterDiscount: 100,
       discount: 60,
+      description: '',
     ),
   ];
 

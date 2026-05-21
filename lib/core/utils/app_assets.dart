@@ -15,6 +15,9 @@ abstract class AppIcons {
   static const String categories = '${_iconsPath}category_icon.svg';
   static const String cart = '${_iconsPath}cart_icon.svg';
   static const String profile = '${_iconsPath}profile_icon.svg';
+  static const String location = '${_iconsPath}location.png';
+  static const String arrowRight = '${_iconsPath}arrow-right.png';
+  static const String delete = '${_iconsPath}delete.png';
   static const String search = '${_iconsPath}search_icon.svg';
   static const String filtration = '${_iconsPath}filtration_icon.svg';
   static const String sort = '${_iconsPath}sort_icon.svg';

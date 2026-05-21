@@ -69,7 +69,7 @@ class BestSellerScreen extends StatelessWidget {
             if (products.isEmpty) {
               return const Center(child: Text(AppStrings.noProductsFound));
             }
-            return CustomProductsGrid(products: products, onAddToCart: (_) {});
+            return CustomProductsGrid(products: products);
           },
         ),
       ),

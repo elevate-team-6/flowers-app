@@ -143,10 +143,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                         );
                       }
 
-                      return CustomProductsGrid(
-                        products: products,
-                        onAddToCart: (product) {},
-                      );
+                      return CustomProductsGrid(products: products);
                     },
                   ),
                 ),
