@@ -173,4 +173,13 @@ abstract class AppStrings {
   static const String noProductsFound = 'No Products Found';
   static const String subTitleBestSeller =
       'Bloom with our exquisite best sellers';
+
+    // edit profile
+  static const String editProfile = 'Edit profile';
+  static const String editProfileSuccessfly = 'Edit profile Successfly';
+  static const String change = 'Change';
+  static const String gender = 'Gender';
+  static const String female = 'Female';
+  static const String male = 'Male';
+  static const String update = 'Update';
 }

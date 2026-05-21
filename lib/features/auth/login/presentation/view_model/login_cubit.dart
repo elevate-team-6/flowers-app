@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/cache/secure_cache_helper.dart';
 import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/features/auth/login/data/models/login_request/login_request.dart';
+import 'package:flowers_app/features/auth/login/data/models/login_response/user_dto.dart';
 import 'package:flowers_app/features/auth/login/domain/entities/user_entity.dart';
 import 'package:flowers_app/features/auth/login/domain/use_cases/login_use_case.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_event.dart';
@@ -33,23 +36,33 @@ class LoginCubit extends Bloc<LoginEvent, LoginState> {
     switch (result) {
       case SuccessBaseResponse<UserEntity>():
         final user = result.data;
+        final userDto = UserDto(
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          gender: user.gender,
+          phone: user.phone,
+          photo: user.photo,
+          role: user.role,
+          createdAt: user.createdAt,
+        );
 
-        if (event.isRememberMe) {
+        await _cacheHelper.writeData(
+          key: AppKeys.userKey,
+          value: jsonEncode(userDto.toJson()),
+        );
+      
           await _cacheHelper.writeData(
             key: AppKeys.tokenKey,
             value: user.token,
           );
+
           await _cacheHelper.writeData(
             key: AppKeys.rememberMeKey,
-            value: 'true',
+            value: event.isRememberMe.toString(),
           );
-        } else {
-          await _cacheHelper.deleteData(key: AppKeys.tokenKey);
-          await _cacheHelper.writeData(
-            key: AppKeys.rememberMeKey,
-            value: 'false',
-          );
-        }
+        
 
         emit(state.copyWith(isLoading: false, user: user));
         break;
