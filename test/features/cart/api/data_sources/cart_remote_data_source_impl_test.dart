@@ -33,13 +33,17 @@ void main() {
       verify(apiClient.getCart()).called(1);
     });
 
-    test('returns ErrorBaseResponse when API call throws', () async {
-      when(apiClient.getCart()).thenThrow(Exception('error'));
+    test(
+      'returns ErrorBaseResponse with message when API call throws',
+      () async {
+        when(apiClient.getCart()).thenThrow(Exception('error'));
 
-      final result = await dataSource.getCart();
+        final result = await dataSource.getCart();
 
-      expect(result, isA<ErrorBaseResponse<CartResponse>>());
-    });
+        expect(result, isA<ErrorBaseResponse<CartResponse>>());
+        expect((result as ErrorBaseResponse).errorMessage, isNotEmpty);
+      },
+    );
   });
 
   group('addToCart', () {
@@ -52,13 +56,17 @@ void main() {
       verify(apiClient.addToCart(argThat(isA<AddToCartRequest>()))).called(1);
     });
 
-    test('returns ErrorBaseResponse when API call throws', () async {
-      when(apiClient.addToCart(any)).thenThrow(Exception('error'));
+    test(
+      'returns ErrorBaseResponse with message when API call throws',
+      () async {
+        when(apiClient.addToCart(any)).thenThrow(Exception('error'));
 
-      final result = await dataSource.addToCart('p1', 1);
+        final result = await dataSource.addToCart('p1', 1);
 
-      expect(result, isA<ErrorBaseResponse<CartResponse>>());
-    });
+        expect(result, isA<ErrorBaseResponse<CartResponse>>());
+        expect((result as ErrorBaseResponse).errorMessage, isNotEmpty);
+      },
+    );
   });
 
   group('updateQuantity', () {
@@ -75,13 +83,17 @@ void main() {
       ).called(1);
     });
 
-    test('returns ErrorBaseResponse when API call throws', () async {
-      when(apiClient.updateQuantity(any, any)).thenThrow(Exception('error'));
+    test(
+      'returns ErrorBaseResponse with message when API call throws',
+      () async {
+        when(apiClient.updateQuantity(any, any)).thenThrow(Exception('error'));
 
-      final result = await dataSource.updateQuantity('p1', 2);
+        final result = await dataSource.updateQuantity('p1', 2);
 
-      expect(result, isA<ErrorBaseResponse<CartResponse>>());
-    });
+        expect(result, isA<ErrorBaseResponse<CartResponse>>());
+        expect((result as ErrorBaseResponse).errorMessage, isNotEmpty);
+      },
+    );
   });
 
   group('removeItem', () {
@@ -94,31 +106,16 @@ void main() {
       verify(apiClient.removeItem('p1')).called(1);
     });
 
-    test('returns ErrorBaseResponse when API call throws', () async {
-      when(apiClient.removeItem('p1')).thenThrow(Exception('error'));
+    test(
+      'returns ErrorBaseResponse with message when API call throws',
+      () async {
+        when(apiClient.removeItem('p1')).thenThrow(Exception('error'));
 
-      final result = await dataSource.removeItem('p1');
+        final result = await dataSource.removeItem('p1');
 
-      expect(result, isA<ErrorBaseResponse<CartResponse>>());
-    });
-  });
-
-  group('clearCart', () {
-    test('returns SuccessBaseResponse when API call succeeds', () async {
-      when(apiClient.clearCart()).thenAnswer((_) async => cartResponse);
-
-      final result = await dataSource.clearCart();
-
-      expect(result, isA<SuccessBaseResponse<CartResponse>>());
-      verify(apiClient.clearCart()).called(1);
-    });
-
-    test('returns ErrorBaseResponse when API call throws', () async {
-      when(apiClient.clearCart()).thenThrow(Exception('error'));
-
-      final result = await dataSource.clearCart();
-
-      expect(result, isA<ErrorBaseResponse<CartResponse>>());
-    });
+        expect(result, isA<ErrorBaseResponse<CartResponse>>());
+        expect((result as ErrorBaseResponse).errorMessage, isNotEmpty);
+      },
+    );
   });
 }

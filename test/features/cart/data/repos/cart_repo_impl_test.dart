@@ -38,7 +38,7 @@ void main() {
       verify(dataSource.getCart()).called(1);
     });
 
-    test('returns ErrorBaseResponse when failure', () async {
+    test('returns ErrorBaseResponse with message when failure', () async {
       when(
         dataSource.getCart(),
       ).thenAnswer((_) async => ErrorBaseResponse('Error'));
@@ -62,7 +62,7 @@ void main() {
       verify(dataSource.addToCart('p1', 1)).called(1);
     });
 
-    test('returns ErrorBaseResponse when failure', () async {
+    test('returns ErrorBaseResponse with message when failure', () async {
       when(
         dataSource.addToCart('p1', 1),
       ).thenAnswer((_) async => ErrorBaseResponse('Error'));
@@ -70,6 +70,7 @@ void main() {
       final result = await repo.addToCart('p1', 1);
 
       expect(result, isA<ErrorBaseResponse>());
+      expect((result as ErrorBaseResponse).errorMessage, 'Error');
     });
   });
 
@@ -85,7 +86,7 @@ void main() {
       verify(dataSource.updateQuantity('p1', 2)).called(1);
     });
 
-    test('returns ErrorBaseResponse when failure', () async {
+    test('returns ErrorBaseResponse with message when failure', () async {
       when(
         dataSource.updateQuantity('p1', 2),
       ).thenAnswer((_) async => ErrorBaseResponse('Error'));
@@ -93,6 +94,7 @@ void main() {
       final result = await repo.updateQuantity('p1', 2);
 
       expect(result, isA<ErrorBaseResponse>());
+      expect((result as ErrorBaseResponse).errorMessage, 'Error');
     });
   });
 
@@ -108,7 +110,7 @@ void main() {
       verify(dataSource.removeItem('p1')).called(1);
     });
 
-    test('returns ErrorBaseResponse when failure', () async {
+    test('returns ErrorBaseResponse with message when failure', () async {
       when(
         dataSource.removeItem('p1'),
       ).thenAnswer((_) async => ErrorBaseResponse('Error'));
@@ -116,29 +118,7 @@ void main() {
       final result = await repo.removeItem('p1');
 
       expect(result, isA<ErrorBaseResponse>());
-    });
-  });
-
-  group('clearCart', () {
-    test('returns SuccessBaseResponse with entity when success', () async {
-      when(
-        dataSource.clearCart(),
-      ).thenAnswer((_) async => SuccessBaseResponse(cartResponse));
-
-      final result = await repo.clearCart();
-
-      expect(result, isA<SuccessBaseResponse>());
-      verify(dataSource.clearCart()).called(1);
-    });
-
-    test('returns ErrorBaseResponse when failure', () async {
-      when(
-        dataSource.clearCart(),
-      ).thenAnswer((_) async => ErrorBaseResponse('Error'));
-
-      final result = await repo.clearCart();
-
-      expect(result, isA<ErrorBaseResponse>());
+      expect((result as ErrorBaseResponse).errorMessage, 'Error');
     });
   });
 }

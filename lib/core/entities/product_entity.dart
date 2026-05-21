@@ -19,6 +19,16 @@ class ProductEntity extends Equatable {
     required this.description,
   });
 
+  static const empty = ProductEntity(
+    id: '',
+    title: '',
+    imgCover: '',
+    price: 0,
+    priceAfterDiscount: 0,
+    discount: 0,
+    description: '',
+  );
+
   factory ProductEntity.fromJson(Map<String, dynamic> json) => ProductEntity(
     id: json['_id'] as String? ?? json['id'] as String? ?? '',
     title: json['title'] as String? ?? '',

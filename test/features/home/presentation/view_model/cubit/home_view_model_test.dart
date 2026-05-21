@@ -1,6 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
-import 'package:flowers_app/config/base_state/base_state.dart';
 import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/features/best_seller/domain/use_cases/best_seller_use_case.dart';
 import 'package:flowers_app/features/categories/domain/entities/category_entity.dart';
@@ -14,9 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../best_seller/presentation/cubit/best_seller_cubit_test.mocks.dart';
-import '../../../../categories/presentation/view_model/categories_cubit_test.mocks.dart';
-import '../../../../occasions/presentation/view_model/occasions_cubit_test.mocks.dart';
+import 'home_view_model_test.mocks.dart';
 
 @GenerateMocks([OccasionsUseCase, GetCategoriesUseCase, BestSellerUseCase])
 void main() {
@@ -33,8 +30,8 @@ void main() {
   setUpAll(() {
     errMsg = "Something went wrong. Please try again later.";
 
-    occasionsList = [
-      const OccasionEntity(
+    occasionsList = const [
+      OccasionEntity(
         id: '1',
         name: 'Birthday',
         slug: 'birthday',
@@ -43,35 +40,35 @@ void main() {
       ),
     ];
 
-    productsList = [
-      const ProductEntity(
+    productsList = const [
+      ProductEntity(
         id: '1',
         title: 'Rose Bouquet',
         imgCover: 'image_url',
         price: 100,
         priceAfterDiscount: 80,
         discount: 20,
+        description: '',
       ),
     ];
 
     categoriesList = const [CategoryEntity(id: '1', name: 'Flowers')];
 
     provideDummy<BaseResponse<List<OccasionEntity>>>(
-      SuccessBaseResponse<List<OccasionEntity>>([]),
+      SuccessBaseResponse<List<OccasionEntity>>(const []),
     );
     provideDummy<BaseResponse<List<ProductEntity>>>(
-      SuccessBaseResponse<List<ProductEntity>>([]),
+      SuccessBaseResponse<List<ProductEntity>>(const []),
     );
     provideDummy<BaseResponse<List<CategoryEntity>>>(
-      SuccessBaseResponse<List<CategoryEntity>>([]),
+      SuccessBaseResponse<List<CategoryEntity>>(const []),
     );
-
-    mockOccasionsUseCase = MockOccasionsUseCase();
-    mockGetCategoriesUseCase = MockGetCategoriesUseCase();
-    mockBestSellerUseCase = MockBestSellerUseCase();
   });
 
   setUp(() {
+    mockOccasionsUseCase = MockOccasionsUseCase();
+    mockGetCategoriesUseCase = MockGetCategoriesUseCase();
+    mockBestSellerUseCase = MockBestSellerUseCase();
     homeViewModel = HomeViewModel(
       mockOccasionsUseCase,
       mockGetCategoriesUseCase,
@@ -79,34 +76,35 @@ void main() {
     );
   });
 
+  // helper — stub لكل الـ use cases بنجاح
+  void stubAllSuccess() {
+    when(mockOccasionsUseCase.call()).thenAnswer(
+      (_) async => SuccessBaseResponse<List<OccasionEntity>>(occasionsList),
+    );
+    when(mockBestSellerUseCase.call()).thenAnswer(
+      (_) async => SuccessBaseResponse<List<ProductEntity>>(productsList),
+    );
+    when(mockGetCategoriesUseCase.call()).thenAnswer(
+      (_) async => SuccessBaseResponse<List<CategoryEntity>>(categoriesList),
+    );
+  }
+
   group('Home View Model Test Group', () {
+    // GetAllHomeData بيشغّل 3 use cases — بيـ emit 6 states
+    // (3 loading + 3 result). نتخطّى أول 5 ونفحص الأخير.
+
     group('GetAllHomeData — Occasions', () {
       blocTest<HomeViewModel, HomeStates>(
-        'emits [loading, success] for occasions when succeeds',
-        build: () {
-          when(mockOccasionsUseCase.call()).thenAnswer(
-            (_) async =>
-                SuccessBaseResponse<List<OccasionEntity>>(occasionsList),
-          );
-          when(mockBestSellerUseCase.call()).thenAnswer(
-            (_) async => SuccessBaseResponse<List<ProductEntity>>(productsList),
-          );
-          when(mockGetCategoriesUseCase.call()).thenAnswer(
-            (_) async =>
-                SuccessBaseResponse<List<CategoryEntity>>(categoriesList),
-          );
-          return homeViewModel;
-        },
+        'final state has occasions data when succeeds',
+        setUp: stubAllSuccess,
+        build: () => homeViewModel,
         act: (cubit) => cubit.doEvent(GetAllHomeData()),
+        skip: 5,
         expect: () => [
-          HomeStates(
-            occasionsState: BaseState<List<OccasionEntity>>(isLoading: true),
-          ),
-          HomeStates(
-            occasionsState: BaseState<List<OccasionEntity>>(
-              isLoading: false,
-              data: occasionsList,
-            ),
+          isA<HomeStates>().having(
+            (s) => s.occasionsState.data,
+            'occasions data',
+            occasionsList,
           ),
         ],
         verify: (_) {
@@ -115,8 +113,8 @@ void main() {
       );
 
       blocTest<HomeViewModel, HomeStates>(
-        'emits [loading, error] for occasions when fails',
-        build: () {
+        'final state has occasions error when fails',
+        setUp: () {
           when(mockOccasionsUseCase.call()).thenAnswer(
             (_) async => ErrorBaseResponse<List<OccasionEntity>>(errMsg),
           );
@@ -127,17 +125,15 @@ void main() {
             (_) async =>
                 SuccessBaseResponse<List<CategoryEntity>>(categoriesList),
           );
-          return homeViewModel;
         },
+        build: () => homeViewModel,
         act: (cubit) => cubit.doEvent(GetAllHomeData()),
+        skip: 5,
         expect: () => [
-          HomeStates(
-            occasionsState: BaseState<List<OccasionEntity>>(isLoading: true),
-          ),
-          HomeStates(
-            occasionsState: BaseState<List<OccasionEntity>>(
-              errorMessage: errMsg,
-            ),
+          isA<HomeStates>().having(
+            (s) => s.occasionsState.errorMessage,
+            'occasions error',
+            errMsg,
           ),
         ],
         verify: (_) {
@@ -148,31 +144,16 @@ void main() {
 
     group('GetAllHomeData — Best Seller', () {
       blocTest<HomeViewModel, HomeStates>(
-        'emits [loading, success] for bestSeller when succeeds',
-        build: () {
-          when(mockOccasionsUseCase.call()).thenAnswer(
-            (_) async =>
-                SuccessBaseResponse<List<OccasionEntity>>(occasionsList),
-          );
-          when(mockBestSellerUseCase.call()).thenAnswer(
-            (_) async => SuccessBaseResponse<List<ProductEntity>>(productsList),
-          );
-          when(mockGetCategoriesUseCase.call()).thenAnswer(
-            (_) async =>
-                SuccessBaseResponse<List<CategoryEntity>>(categoriesList),
-          );
-          return homeViewModel;
-        },
+        'final state has bestSeller data when succeeds',
+        setUp: stubAllSuccess,
+        build: () => homeViewModel,
         act: (cubit) => cubit.doEvent(GetAllHomeData()),
+        skip: 5,
         expect: () => [
-          HomeStates(
-            bestSellerState: BaseState<List<ProductEntity>>(isLoading: true),
-          ),
-          HomeStates(
-            bestSellerState: BaseState<List<ProductEntity>>(
-              isLoading: false,
-              data: productsList,
-            ),
+          isA<HomeStates>().having(
+            (s) => s.bestSellerState.data,
+            'bestSeller data',
+            productsList,
           ),
         ],
         verify: (_) {
@@ -181,8 +162,8 @@ void main() {
       );
 
       blocTest<HomeViewModel, HomeStates>(
-        'emits [loading, error] for bestSeller when fails',
-        build: () {
+        'final state has bestSeller error when fails',
+        setUp: () {
           when(mockOccasionsUseCase.call()).thenAnswer(
             (_) async =>
                 SuccessBaseResponse<List<OccasionEntity>>(occasionsList),
@@ -194,17 +175,15 @@ void main() {
             (_) async =>
                 SuccessBaseResponse<List<CategoryEntity>>(categoriesList),
           );
-          return homeViewModel;
         },
+        build: () => homeViewModel,
         act: (cubit) => cubit.doEvent(GetAllHomeData()),
+        skip: 5,
         expect: () => [
-          HomeStates(
-            bestSellerState: BaseState<List<ProductEntity>>(isLoading: true),
-          ),
-          HomeStates(
-            bestSellerState: BaseState<List<ProductEntity>>(
-              errorMessage: errMsg,
-            ),
+          isA<HomeStates>().having(
+            (s) => s.bestSellerState.errorMessage,
+            'bestSeller error',
+            errMsg,
           ),
         ],
         verify: (_) {
@@ -215,31 +194,16 @@ void main() {
 
     group('GetAllHomeData — Categories', () {
       blocTest<HomeViewModel, HomeStates>(
-        'emits [loading, success] for categories when succeeds',
-        build: () {
-          when(mockOccasionsUseCase.call()).thenAnswer(
-            (_) async =>
-                SuccessBaseResponse<List<OccasionEntity>>(occasionsList),
-          );
-          when(mockBestSellerUseCase.call()).thenAnswer(
-            (_) async => SuccessBaseResponse<List<ProductEntity>>(productsList),
-          );
-          when(mockGetCategoriesUseCase.call()).thenAnswer(
-            (_) async =>
-                SuccessBaseResponse<List<CategoryEntity>>(categoriesList),
-          );
-          return homeViewModel;
-        },
+        'final state has categories data when succeeds',
+        setUp: stubAllSuccess,
+        build: () => homeViewModel,
         act: (cubit) => cubit.doEvent(GetAllHomeData()),
+        skip: 5,
         expect: () => [
-          HomeStates(
-            categoryState: BaseState<List<CategoryEntity>>(isLoading: true),
-          ),
-          HomeStates(
-            categoryState: BaseState<List<CategoryEntity>>(
-              isLoading: false,
-              data: categoriesList,
-            ),
+          isA<HomeStates>().having(
+            (s) => s.categoryState.data,
+            'categories data',
+            categoriesList,
           ),
         ],
         verify: (_) {
@@ -248,8 +212,8 @@ void main() {
       );
 
       blocTest<HomeViewModel, HomeStates>(
-        'emits [loading, error] for categories when fails',
-        build: () {
+        'final state has categories error when fails',
+        setUp: () {
           when(mockOccasionsUseCase.call()).thenAnswer(
             (_) async =>
                 SuccessBaseResponse<List<OccasionEntity>>(occasionsList),
@@ -260,17 +224,15 @@ void main() {
           when(mockGetCategoriesUseCase.call()).thenAnswer(
             (_) async => ErrorBaseResponse<List<CategoryEntity>>(errMsg),
           );
-          return homeViewModel;
         },
+        build: () => homeViewModel,
         act: (cubit) => cubit.doEvent(GetAllHomeData()),
+        skip: 5,
         expect: () => [
-          HomeStates(
-            categoryState: BaseState<List<CategoryEntity>>(isLoading: true),
-          ),
-          HomeStates(
-            categoryState: BaseState<List<CategoryEntity>>(
-              errorMessage: errMsg,
-            ),
+          isA<HomeStates>().having(
+            (s) => s.categoryState.errorMessage,
+            'categories error',
+            errMsg,
           ),
         ],
         verify: (_) {

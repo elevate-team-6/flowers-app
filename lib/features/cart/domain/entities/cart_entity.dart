@@ -18,6 +18,10 @@ class CartEntity extends Equatable {
     required this.numOfCartItems,
   });
 
+  Map<String, CartItemEntity> get itemsMap => {
+    for (final item in items) item.id: item,
+  };
+
   CartEntity copyWith({
     List<CartItemEntity>? items,
     int? totalPrice,

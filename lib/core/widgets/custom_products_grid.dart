@@ -34,13 +34,13 @@ class CustomProductsGrid extends StatelessWidget {
         itemCount: products.length,
         itemBuilder: (context, index) {
           final product = products[index];
-          return BlocBuilder<CartBloc, CartState>(
-            buildWhen: (prev, curr) =>
-                prev.cart?.items != curr.cart?.items ||
-                prev.loadingItems != curr.loadingItems,
-            builder: (context, state) {
+          return BlocSelector<
+            CartBloc,
+            CartState,
+            ({bool isInCart, bool isLoading, String? itemId})
+          >(
+            selector: (state) {
               final items = state.cart?.items ?? [];
-
               final cartItemIndex = items.indexWhere(
                 (item) => item.product.id == product.id,
               );
@@ -52,18 +52,25 @@ class CustomProductsGrid extends StatelessWidget {
                   (cartItem != null &&
                       state.loadingItems.contains(cartItem.id));
 
-              return CustomProductCard(
-                product: product,
+              return (
                 isInCart: isInCart,
                 isLoading: isLoading,
+                itemId: cartItem?.id,
+              );
+            },
+            builder: (context, data) {
+              return CustomProductCard(
+                product: product,
+                isInCart: data.isInCart,
+                isLoading: data.isLoading,
                 onAddToCart: () => context.read<CartBloc>().add(
                   AddToCartEvent(productId: product.id),
                 ),
                 onRemove: () {
-                  if (cartItem != null) {
+                  if (data.itemId != null) {
                     context.read<CartBloc>().add(
                       RemoveItemEvent(
-                        itemId: cartItem.id,
+                        itemId: data.itemId!,
                         productId: product.id,
                       ),
                     );

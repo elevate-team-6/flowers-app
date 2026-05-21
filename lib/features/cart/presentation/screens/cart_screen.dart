@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:flowers_app/features/cart/presentation/widgets/cart_item_card.dart';
 import 'package:flowers_app/features/cart/presentation/widgets/cart_summary.dart';
 import 'package:flowers_app/features/cart/presentation/widgets/cart_shimmer.dart';
@@ -29,7 +30,6 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         toolbarHeight: 70.h,
@@ -93,7 +93,8 @@ class _CartScreenState extends State<CartScreen> {
       ),
       body: BlocBuilder<CartBloc, CartState>(
         buildWhen: (prev, curr) =>
-            prev.status != curr.status || prev.cart?.items != curr.cart?.items,
+            prev.status != curr.status ||
+            prev.cart?.items.length != curr.cart?.items.length,
         builder: (context, state) {
           if (state.status == CartStatus.loading) {
             return const CartShimmer();
@@ -127,46 +128,50 @@ class _CartScreenState extends State<CartScreen> {
             );
           }
 
+          // الـ ids بس - عشان الـ ListView يعرف عدد الـ items والترتيب
+          final itemIds = items.map((e) => e.id).toList();
+
           return ListView.separated(
             padding: EdgeInsets.all(16.w),
-            itemCount: items.length + 1,
+            itemCount: itemIds.length + 1,
             separatorBuilder: (_, _) => SizedBox(height: 12.h),
             itemBuilder: (context, index) {
-              if (index == items.length) {
-                return BlocBuilder<CartBloc, CartState>(
-                  buildWhen: (prev, curr) =>
-                      prev.cart?.items != curr.cart?.items,
-                  builder: (context, state) {
-                    if (state.cart == null) return const SizedBox();
-                    return CartSummary(cart: state.cart!);
+              if (index == itemIds.length) {
+                return BlocSelector<CartBloc, CartState, int>(
+                  selector: (state) {
+                    final items = state.cart?.items ?? [];
+                    return items.fold<int>(
+                      0,
+                      (sum, item) =>
+                          sum +
+                          (item.product.priceAfterDiscount * item.quantity),
+                    );
+                  },
+                  builder: (context, _) {
+                    final cart = context.read<CartBloc>().state.cart;
+                    if (cart == null) return const SizedBox();
+                    return CartSummary(cart: cart);
                   },
                 );
               }
 
-              final item = items[index];
-              return BlocBuilder<CartBloc, CartState>(
-                buildWhen: (prev, curr) {
-                  final prevItem = prev.cart?.items.firstWhere(
-                    (e) => e.id == item.id,
-                    orElse: () => item,
-                  );
-                  final currItem = curr.cart?.items.firstWhere(
-                    (e) => e.id == item.id,
-                    orElse: () => item,
-                  );
-                  return prevItem != currItem ||
-                      prev.isItemLoading(item.id) !=
-                          curr.isItemLoading(item.id);
-                },
-                builder: (context, state) {
-                  final currentItem = state.cart?.items.firstWhere(
-                    (e) => e.id == item.id,
-                    orElse: () => item,
-                  );
+              final itemId = itemIds[index];
+
+              return BlocSelector<
+                CartBloc,
+                CartState,
+                ({CartItemEntity? item, bool isLoading})
+              >(
+                selector: (state) => (
+                  item: state.cart?.itemsMap[itemId],
+                  isLoading: state.isItemLoading(itemId),
+                ),
+                builder: (context, data) {
+                  final currentItem = data.item;
                   if (currentItem == null) return const SizedBox();
                   return CartItemCard(
                     item: currentItem,
-                    isLoading: state.isItemLoading(currentItem.id),
+                    isLoading: data.isLoading,
                     onIncrement: () {
                       context.read<CartBloc>().add(
                         UpdateQuantityEvent(

@@ -20,12 +20,14 @@ abstract class CartApiClient {
   @POST(AppEndPoints.cart)
   Future<CartResponse> addToCart(@Body() AddToCartRequest request);
 
-  @PUT('${AppEndPoints.cart}/{productId}')
+  @PUT(AppEndPoints.cartProductPath)
   Future<CartResponse> updateQuantity(
-    @Path('productId') String productId,
+    @Path(AppEndPoints.productIdParam) String productId,
     @Body() UpdateQuantityRequest request,
   );
 
-  @DELETE('${AppEndPoints.cart}/{productId}')
-  Future<CartResponse> removeItem(@Path('productId') String productId);
+  @DELETE(AppEndPoints.cartProductPath)
+  Future<CartResponse> removeItem(
+    @Path(AppEndPoints.productIdParam) String productId,
+  );
 }

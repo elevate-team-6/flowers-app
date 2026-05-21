@@ -21,7 +21,7 @@ class CartItemModel extends Equatable {
 
   CartItemEntity toEntity() => CartItemEntity(
     id: id ?? '',
-    product: product!,
+    product: product ?? ProductEntity.empty,
     price: price ?? 0,
     quantity: quantity ?? 1,
   );

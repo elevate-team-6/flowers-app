@@ -34,6 +34,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<AddToCartEvent>(_onAddToCart);
     on<UpdateQuantityEvent>(_onUpdateQuantity);
     on<RemoveItemEvent>(_onRemoveItem);
+    on<CommitQuantityUpdate>(_onCommitQuantityUpdate);
   }
 
   Future<void> _onGetCart(GetCartEvent event, Emitter<CartState> emit) async {
@@ -89,10 +90,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  Future<void> _onUpdateQuantity(
-    UpdateQuantityEvent event,
-    Emitter<CartState> emit,
-  ) async {
+  void _onUpdateQuantity(UpdateQuantityEvent event, Emitter<CartState> emit) {
     if (event.quantity <= 0) {
       add(RemoveItemEvent(itemId: event.itemId, productId: event.productId));
       return;
@@ -108,40 +106,40 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }).toList();
 
     if (updatedItems != null && oldCart != null) {
-      emit(
-        state.copyWith(
-          cart: oldCart.copyWith(items: updatedItems),
-          loadingItems: {...state.loadingItems, event.itemId},
-        ),
-      );
+      emit(state.copyWith(cart: oldCart.copyWith(items: updatedItems)));
     }
 
+    // Debounce
     _pendingQuantities[event.itemId] = event.quantity;
     _debounceTimers[event.itemId]?.cancel();
-
-    final completer = Completer<void>();
     _debounceTimers[event.itemId] = Timer(
       const Duration(milliseconds: 600),
-      () => completer.complete(),
+      () => add(
+        CommitQuantityUpdate(
+          itemId: event.itemId,
+          productId: event.productId,
+          oldCart: oldCart,
+        ),
+      ),
     );
-    await completer.future;
+  }
 
+  Future<void> _onCommitQuantityUpdate(
+    CommitQuantityUpdate event,
+    Emitter<CartState> emit,
+  ) async {
     final quantity = _pendingQuantities[event.itemId];
     if (quantity == null) return;
 
     final result = await _updateQuantityUseCase(event.productId, quantity);
 
-    final newLoadingItems = Set<String>.from(state.loadingItems)
-      ..remove(event.itemId);
-
     switch (result) {
       case SuccessBaseResponse<CartEntity>():
-        emit(state.copyWith(cart: result.data, loadingItems: newLoadingItems));
+        emit(state.copyWith(cart: result.data));
       case ErrorBaseResponse<CartEntity>():
         emit(
           state.copyWith(
-            cart: oldCart,
-            loadingItems: newLoadingItems,
+            cart: event.oldCart,
             errorMessage: result.errorMessage,
           ),
         );

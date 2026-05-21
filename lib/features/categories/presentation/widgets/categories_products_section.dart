@@ -3,7 +3,6 @@ import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
-import 'package:flowers_app/config/services/snack_bar_services.dart';
 import '../view_model/categories_state.dart';
 
 class CategoriesProductsSection extends StatelessWidget {
@@ -27,11 +26,6 @@ class CategoriesProductsSection extends StatelessWidget {
             context,
             AppRoutes.productDetails,
             arguments: product.id,
-          );
-        },
-        onAddToCart: (product) {
-          SnackBarServices.showSuccessMessage(
-            '${product.title} added to cart! (Functionality coming soon)',
           );
         },
       );
