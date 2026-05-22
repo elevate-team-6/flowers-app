@@ -13,7 +13,7 @@ import '../../../../core/utils/app_strings.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../categories/presentation/pages/categories_screen.dart';
 import '../../../home/presentation/screens/home_screen.dart';
-import '../../../profile/presentation/pages/profile_screen.dart';
+import '../../../profile/main_profile/presentation/pages/profile_screen.dart';
 import '../cubit/main_layout_cubit.dart';
 import '../cubit/main_layout_event.dart';
 import '../cubit/main_layout_state.dart';

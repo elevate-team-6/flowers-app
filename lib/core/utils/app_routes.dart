@@ -38,6 +38,11 @@ abstract class AppRoutes {
   static const String bestSeller = '/bestSeller';
   static const String productDetails = '/productDetails';
   static const String mainLayout = 'mainLayout';
+  static const String ordersScreen = '/ordersScreen';
+  static const String savedAddressScreen = '/savedAddressScreen';
+  static const String notificationScreen = '/notificationScreen';
+  static const String aboutUsScreen = '/aboutUsScreen';
+  static const String editProfile = '/editProfile';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {

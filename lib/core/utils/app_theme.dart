@@ -80,6 +80,12 @@ abstract class AppTheme {
         contentTextStyle: AppTextStyles.white16500,
       ),
 
+      // progress indicator theme
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
+        color: AppColors.primary,
+        refreshBackgroundColor: AppColors.white,
+      ),
+
       // bottom navigation bar theme
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: AppColors.white,
