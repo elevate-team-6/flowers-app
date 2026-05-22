@@ -20,7 +20,7 @@ class EditProfileRepoImpl implements EditProfileRepoContract {
     switch (response) {
       case SuccessBaseResponse<EditProfileResponse>():
         return SuccessBaseResponse<UserEditProfileEntity>(
-          response.data.user.toEntity(),
+          response.data.user!.toEntity(),
         );
 
       case ErrorBaseResponse<EditProfileResponse>():

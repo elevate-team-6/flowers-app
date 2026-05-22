@@ -6,7 +6,7 @@ import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
-import 'package:flowers_app/core/widgets/custom_select_gender_row.dart';
+import 'package:flowers_app/core/widgets/custom_gender_selector.dart';
 import 'package:flowers_app/features/auth/login/data/models/login_response/user_dto.dart';
 import 'package:flowers_app/features/profile/edit_profile/data/models/edit_profile_request/edit_profile_request.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
@@ -212,7 +212,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                     SizedBox(height: 20.w),
 
-                    CustomSelectGenderRow(
+                    CustomGenderSelector(
                       selectedGender: selectedGender,
                       onChanged: (value) {
                         setState(() {

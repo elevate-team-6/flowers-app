@@ -8,4 +8,6 @@ abstract class AppKeys {
   static const String productsKey = 'products_cache';
   static const String categroyId = 'categroyId';
   static const String index = 'index';
+   static const String authorizationKey = 'Authorization';
+  static const String bearerPrefix = 'Bearer';
 }

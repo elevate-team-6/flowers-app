@@ -182,4 +182,7 @@ abstract class AppStrings {
   static const String female = 'Female';
   static const String male = 'Male';
   static const String update = 'Update';
+  static const String femaleValue = 'female';
+  static const String maleValue = 'male';
+  static const String photo = 'photo';
 }

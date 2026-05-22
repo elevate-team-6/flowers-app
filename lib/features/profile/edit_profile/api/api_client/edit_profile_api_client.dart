@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flowers_app/core/utils/app_end_points.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/profile/edit_profile/data/models/edit_profile_request/edit_profile_request.dart';
 import 'package:flowers_app/features/profile/edit_profile/data/models/edit_profile_response/edit_profile_response.dart';
 import 'package:flowers_app/features/profile/edit_profile/data/models/edit_profile_response/upload_photo_response.dart';
@@ -17,6 +18,6 @@ abstract class EditProfileApiClient {
   @MultiPart()
   @PUT(AppEndPoints.uploadPhoto)
   Future<UploadPhotoResponse> uploadPhoto(
-    @Part(name: 'photo') MultipartFile image,
+    @Part(name: AppStrings.photo) MultipartFile image,
   );
 }

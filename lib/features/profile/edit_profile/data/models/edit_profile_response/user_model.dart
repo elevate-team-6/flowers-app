@@ -1,13 +1,13 @@
 import 'package:flowers_app/features/profile/edit_profile/domain/entities/user_edit_profile_entity.dart';
 
 class UserModel {
-  final String id;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String gender;
-  final String phone;
-  final String photo;
+  final String? id;
+  final String? firstName;
+  final String? lastName;
+  final String? email;
+  final String? gender;
+  final String? phone;
+  final String? photo;
 
   UserModel({
     required this.id,
@@ -31,10 +31,10 @@ class UserModel {
     );
   }
   UserEditProfileEntity toEntity() => UserEditProfileEntity(
-    lastName: lastName,
-    firstName: firstName,
-    gender: gender,
-    phone: phone,
-    photo: photo,
+    lastName: lastName??'',
+    firstName: firstName??'',
+    gender: gender??'',
+    phone: phone??'',
+    photo: photo??'',
   );
 }
