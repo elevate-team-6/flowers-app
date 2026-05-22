@@ -19,14 +19,14 @@ import 'package:flowers_app/features/product_details/presentation/cubit/product_
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/screens/edit_profile_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
-import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
-import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_event.dart';
 import '../../features/best_seller/presentation/screens/best_seller_screen.dart';
+import '../../features/profile/reset_password/presentation/screens/change_password_screen.dart';
+import '../../features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 
 abstract class AppRoutes {
   static final GlobalKey<NavigatorState> navigatorKey =

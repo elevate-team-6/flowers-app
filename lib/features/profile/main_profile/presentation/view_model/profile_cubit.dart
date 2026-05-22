@@ -12,6 +12,7 @@ import '../../../../../core/utils/app_strings.dart';
 import '../../domain/use_cases/logout_use_case.dart';
 import 'profile_events.dart';
 import 'profile_states.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 @injectable
 class ProfileCubit extends Cubit<ProfileStates> {
@@ -75,7 +76,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
           state.copyWith(
             logoutState: BaseState(
               isLoading: false,
-              errorMessage: AppStrings.someThingWentWrong,
+              errorMessage: AppStrings.someThingWentWrong.tr(),
             ),
           ),
         );

@@ -8,6 +8,7 @@ import 'package:flowers_app/features/profile/reset_password/presentation/view_mo
 import 'package:flowers_app/features/profile/reset_password/presentation/widgets/change_password_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -41,7 +42,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
         ),
-        title: Text(AppStrings.resetPassword),
+        title: Text(AppStrings.resetPassword.tr()),
       ),
       body: BlocListener<ChangePasswordCubit, ChangePasswordState>(
         listener: (context, state) {
@@ -53,7 +54,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
           if (state.status == ChangePasswordStatus.success) {
             SnackBarServices.showSuccessMessage(
-              AppStrings.passwordChangedSuccess,
+              AppStrings.passwordChangedSuccess.tr(),
             );
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -61,7 +62,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             );
           } else if (state.status == ChangePasswordStatus.failure) {
             SnackBarServices.showErrorMessage(
-              state.errorMessage ?? AppStrings.someThingWentWrong,
+              state.errorMessage ?? AppStrings.someThingWentWrong.tr(),
             );
           }
         },

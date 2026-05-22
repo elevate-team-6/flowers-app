@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/cache/secure_cache_helper.dart';
 import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
@@ -17,6 +19,9 @@ import 'package:flowers_app/features/profile/edit_profile/presentation/widgets/e
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../main_profile/presentation/view_model/profile_cubit.dart';
+import '../../../main_profile/presentation/view_model/profile_events.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -159,12 +164,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             selectedGender = updatedUser.gender;
             selectedImage = null;
           });
-          SnackBarServices.showSuccessMessage(AppStrings.editProfileSuccessfly);
+          SnackBarServices.showSuccessMessage(
+            AppStrings.editProfileSuccessfly.tr(),
+          );
         }
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppStrings.editProfile),
+          title: Text(AppStrings.editProfile.tr()),
           titleSpacing: 0,
           leading: IconButton(
             onPressed: () {
@@ -240,7 +247,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               }
                             }
                           : null,
-                      child: Text(AppStrings.update),
+                      child: Text(AppStrings.update.tr()),
                     ),
                   ],
                 ),

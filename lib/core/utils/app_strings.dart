@@ -85,6 +85,11 @@ abstract class AppStrings {
   static const String retry = 'retry';
   static const String subTitleBestSeller = 'subTitleBestSeller';
 
+  // reset password
+  static const String resetPassword = 'resetPassword';
+  static const String currentPassword = 'currentPassword';
+  static const String passwordChangedSuccess = 'passwordChangedSuccess';
+
   // Cart
   static const String items = 'items';
   static const String clearAll = 'clearAll';

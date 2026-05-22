@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'password_field.dart';
 import 'update_password_button.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ChangePasswordForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -67,21 +68,21 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
           children: [
             PasswordField(
               controller: widget.currentPasswordController,
-              labelText: AppStrings.currentPassword,
+              labelText: AppStrings.currentPassword.tr(),
               validator: AppValidations.validatePassword,
               textInputAction: TextInputAction.next,
             ),
             SizedBox(height: 16.h),
             PasswordField(
               controller: widget.newPasswordController,
-              labelText: AppStrings.newPassword,
+              labelText: AppStrings.newPassword.tr(),
               validator: AppValidations.validatePassword,
               textInputAction: TextInputAction.next,
             ),
             SizedBox(height: 16.h),
             PasswordField(
               controller: widget.confirmPasswordController,
-              labelText: AppStrings.confirmPassword,
+              labelText: AppStrings.confirmPassword.tr(),
               validator: (v) => AppValidations.validateConfirmPassword(
                 v,
                 widget.newPasswordController.text,

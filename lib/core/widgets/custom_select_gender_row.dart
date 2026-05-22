@@ -3,6 +3,7 @@ import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomSelectGenderRow extends StatelessWidget {
   final String? selectedGender;
@@ -18,7 +19,7 @@ class CustomSelectGenderRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(AppStrings.gender, style: AppTextStyles.gray18500),
+        Text(AppStrings.gender.tr(), style: AppTextStyles.gray18500),
 
         SizedBox(width: 32.w),
 
@@ -37,7 +38,7 @@ class CustomSelectGenderRow extends StatelessWidget {
                 ),
               ),
 
-              Text(AppStrings.female, style: AppTextStyles.black14400),
+              Text(AppStrings.female.tr(), style: AppTextStyles.black14400),
 
               SizedBox(width: 16.w),
 
@@ -50,7 +51,7 @@ class CustomSelectGenderRow extends StatelessWidget {
                 ),
               ),
 
-              Text(AppStrings.male, style: AppTextStyles.black14400),
+              Text(AppStrings.male.tr(), style: AppTextStyles.black14400),
             ],
           ),
         ),

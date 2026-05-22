@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/features/profile/main_profile/presentation/widgets/logout_dialog.dart';
 import 'package:flowers_app/features/profile/main_profile/presentation/widgets/profile_header.dart';
 import 'package:flowers_app/features/profile/main_profile/presentation/widgets/profile_menu_item.dart';
@@ -61,9 +62,9 @@ class ProfileBody extends StatelessWidget {
                             const GetProfileDataEvent(),
                           );
                         },
-                        child: const Text(
-                          AppStrings.retry,
-                          style: TextStyle(color: Colors.white),
+                        child: Text(
+                          AppStrings.retry.tr(),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -81,7 +82,7 @@ class ProfileBody extends StatelessWidget {
                           );
                         },
                         child: Text(
-                          AppStrings.logout,
+                          AppStrings.logout.tr(),
                           style: AppTextStyles.white16500,
                         ),
                       ),
@@ -110,7 +111,7 @@ class ProfileBody extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           ProfileMenuItem(
-            title: AppStrings.myOrders,
+            title: AppStrings.myOrders.tr(),
             leading: SvgPicture.asset(AppIcons.orders, width: 24, height: 24),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.ordersScreen);
@@ -118,7 +119,7 @@ class ProfileBody extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           ProfileMenuItem(
-            title: AppStrings.savedAddress,
+            title: AppStrings.savedAddress.tr(),
             leading: SvgPicture.asset(AppIcons.location, width: 24, height: 24),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.savedAddressScreen);
@@ -128,7 +129,7 @@ class ProfileBody extends StatelessWidget {
           const Divider(),
           const SizedBox(height: 10),
           ProfileMenuItem(
-            title: AppStrings.notification,
+            title: AppStrings.notification.tr(),
             leading: SvgPicture.asset(AppIcons.orders, width: 24, height: 24),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.notificationScreen);
@@ -138,7 +139,7 @@ class ProfileBody extends StatelessWidget {
           const Divider(),
           const SizedBox(height: 10),
           ProfileMenuItem(
-            title: AppStrings.language,
+            title: AppStrings.language.tr(),
             leading: SvgPicture.asset(AppIcons.language, width: 24, height: 24),
             onTap: () {
               showModalBottomSheet(
@@ -152,14 +153,14 @@ class ProfileBody extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           ProfileMenuItem(
-            title: AppStrings.aboutUs,
+            title: AppStrings.aboutUs.tr(),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.aboutUsScreen);
             },
           ),
           const SizedBox(height: 5),
           ProfileMenuItem(
-            title: AppStrings.termsAndConditions,
+            title: AppStrings.termsAndConditions.tr(),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.termsAndConditions);
             },
@@ -168,7 +169,7 @@ class ProfileBody extends StatelessWidget {
           const Divider(),
           const SizedBox(height: 10),
           ProfileMenuItem(
-            title: AppStrings.logout,
+            title: AppStrings.logout.tr(),
             trailing: SvgPicture.asset(
               AppIcons.logout,
               width: 28,
@@ -190,7 +191,7 @@ class ProfileBody extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            AppStrings.version,
+            AppStrings.version.tr(),
             style: AppTextStyles.gray14400.copyWith(fontSize: 11),
           ),
           const SizedBox(height: 24),

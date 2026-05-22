@@ -4,6 +4,7 @@ import 'package:flowers_app/features/profile/reset_password/presentation/view_mo
 import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class UpdatePasswordButton extends StatelessWidget {
   final bool isFormValid;
@@ -40,7 +41,7 @@ class UpdatePasswordButton extends StatelessWidget {
           backgroundColor: isFormValid ? AppColors.primary : AppColors.black30,
           disabledBackgroundColor: AppColors.black30,
         ),
-        child: Text(AppStrings.update),
+        child: Text(AppStrings.update.tr()),
       ),
     );
   }

@@ -11,6 +11,7 @@ import 'package:flowers_app/features/profile/main_profile/presentation/widgets/p
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -27,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               SvgPicture.asset(AppIcons.flowerAppIcon, width: 24, height: 24),
               Text(
-                AppStrings.flowery,
+                AppStrings.flowery.tr(),
                 style: AppTextStyles.primary20400imFellEnglish,
               ),
             ],
