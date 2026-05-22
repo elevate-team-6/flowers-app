@@ -72,6 +72,11 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.black,
   );
+  static TextStyle get gray18500 => GoogleFonts.inter(
+    fontSize: _sp(18),
+    fontWeight: FontWeight.w500,
+    color: AppColors.white90,
+  );
 
   // Gray Styles
   static TextStyle get gray14400 => GoogleFonts.inter(
@@ -107,6 +112,11 @@ abstract class AppTextStyles {
   static TextStyle get primary12400 => GoogleFonts.inter(
     fontSize: _sp(12),
     fontWeight: FontWeight.w400,
+    color: AppColors.primary,
+  );
+  static TextStyle get primary12600 => GoogleFonts.inter(
+    fontSize: _sp(12),
+    fontWeight: FontWeight.w600,
     color: AppColors.primary,
   );
 

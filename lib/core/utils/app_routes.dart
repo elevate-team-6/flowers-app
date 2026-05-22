@@ -16,6 +16,9 @@ import 'package:flowers_app/features/occasions/presentation/view_model/occasions
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
+import 'package:flowers_app/features/main_layout/presentation/pages/main_layout_screen.dart';
+import 'package:flowers_app/features/profile/edit_profile/presentation/screens/edit_profile_screen.dart';
+import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
@@ -42,6 +45,8 @@ abstract class AppRoutes {
   static const String savedAddressScreen = '/savedAddressScreen';
   static const String notificationScreen = '/notificationScreen';
   static const String aboutUsScreen = '/aboutUsScreen';
+  static const String editProfile = '/editProfile';
+  static const String categories = 'categories';
   static const String editProfile = '/editProfile';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -122,6 +127,14 @@ abstract class AppRoutes {
               BlocProvider.value(value: getIt<CartBloc>()),
             ],
             child: const BestSellerScreen(),
+          ),
+        );
+        case editProfile:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                getIt<EditProfileCubit>(),
+            child: const EditProfileScreen(),
           ),
         );
 
