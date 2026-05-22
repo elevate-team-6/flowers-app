@@ -16,11 +16,10 @@ class CategoriesHomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final categoriesState = state.categoryState;
-    final categoriesState = (state as dynamic).categoryState;
+    final categoriesState = state.categoryState;
 
     if (categoriesState.isLoading) {
-      return CategoriesShimmer();
+      return const CategoriesShimmer();
     }
 
     if (categoriesState.errorMessage != null) {
@@ -35,9 +34,9 @@ class CategoriesHomeSection extends StatelessWidget {
       );
     }
 
-    final categories = categoriesState.data!.categories;
+    final categories = categoriesState.data;
 
-    if (categories!.isEmpty) {
+    if (categories == null || categories.isEmpty) {
       return SizedBox(
         height: 90,
         child: Center(child: Text(AppStrings.noCategoriesAvailable.tr())),
@@ -70,8 +69,8 @@ class CategoriesHomeSection extends StatelessWidget {
                     ChangeIndexEvent(1, categoryId: category.id),
                   );
                 },
-                imageUrl: category.image, // Customize based on your entity
-                label: category.name!,
+                imageUrl: category.image ?? "",
+                label: category.name ?? "",
               );
             },
           ),

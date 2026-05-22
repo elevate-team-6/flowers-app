@@ -73,35 +73,87 @@ abstract class AppStrings {
   static const String newPassword = 'newPassword';
   static const String passwordResetSuccessfully = 'passwordResetSuccessfully';
 
-  // Main Layout & Home
+  // Home & Main Layout
+  static const String viewAll = 'viewAll';
+  static const String noBestSellersAvailable = 'noBestSellersAvailable';
+  static const String bestSellers = 'bestSellers';
+  static const String noCategoriesAvailable = 'noCategoriesAvailable';
+  static const String deliverTo = 'deliverTo';
+  static const String noOccasionsAvailable = 'noOccasionsAvailable';
+
+  // Best Seller
+  static const String retry = 'retry';
+  static const String subTitleBestSeller = 'subTitleBestSeller';
+
+  // Cart
+  static const String items = 'items';
+  static const String clearAll = 'clearAll';
+  static const String cartEmpty = 'cartEmpty';
+  static const String subTotal = 'subTotal';
+  static const String deliveryFee = 'deliveryFee';
+  static const String total = 'total';
+  static const String checkout = 'checkout';
+  static const String somethingWentWrong = 'somethingWentWrong';
+  static const String dollar = 'dollar';
+  static const String addedToCart = 'addedToCart';
+  static const String deliverto = 'deliverto';
+  static const String delivertoAddress = 'delivertoAddress';
+  static const String remove = 'remove';
+  static const String loading = 'loading';
+
+  // dialog
+  static const String exitAppTitle = 'exitAppTitle';
+  static const String exitAppMessage = 'exitAppMessage';
+  static const String cancel = 'cancel';
+  static const String exit = 'exit';
+
+  // Product Details
+  static const String allPricesIncludeTax = 'allPricesIncludeTax';
+  static const String status = 'status';
+  static const String description = 'description';
+  static const String inStock = 'inStock';
+  static const String outOfStock = 'outOfStock';
+  static const String roses = 'roses';
+  static const String bouqetInclude = 'bouqetInclude';
+  static const String noProductDetailsFound = 'noProductDetailsFound';
+
+  // Main Layout
   static const String home = 'home';
   static const String categories = 'categories';
   static const String cart = 'cart';
   static const String profile = 'profile';
-  static const String flowery = 'flowery';
-  static const String search = 'search';
-  static const String deliverTo = 'deliverTo';
-  static const String deliverToMockAddress = 'deliverToMockAddress';
-  static const String bestSellers = 'bestSellers';
-  static const String bestSeller = 'bestSeller';
-  static const String viewAll = 'viewAll';
-  static const String retry = 'retry';
-  static const String subTitleBestSeller = 'subTitleBestSeller';
 
-  // Placeholder/Generic
-  static const String noProductsFound = 'noProductsFound';
-  static const String noBestSellersAvailable = 'noBestSellersAvailable';
-  static const String noCategoriesAvailable = 'noCategoriesAvailable';
-  static const String noOccasionsAvailable = 'noOccasionsAvailable';
+  // Products
   static const String addToCart = 'addToCart';
+
+  // Filters
+  static const String sortBy = 'sortBy';
+  static const String lowestPrice = 'lowestPrice';
+  static const String highestPrice = 'highestPrice';
+  static const String newText = 'newText';
+  static const String oldText = 'oldText';
+  static const String discountText = 'discountText';
+  static const String filter = 'filter';
+  static const String search = 'search';
+  static const String all = 'all';
+  static const String noProductsFound = 'noProductsFound';
+
+  // Occasions
   static const String occasion = 'occasion';
   static const String occasionSubtitle = 'occasionSubtitle';
   static const String egp = 'egp';
+
+  // home
+  static const String flowery = 'flowery';
+  static const String deliverToMockAddress = 'deliverToMockAddress';
+
+  // Placeholder/Generic
   static const String icon = 'icon';
   static const String label = 'label';
   static const String image = 'image';
   static const String title = 'title';
   static const String price = 'price';
+  static const String bestSeller = 'bestSeller';
 
   // Error Messages
   static const String someThingWentWrong = 'someThingWentWrong';

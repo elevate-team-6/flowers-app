@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
@@ -119,11 +120,14 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                     buildWhen: (prev, curr) =>
                         prev.productsState != curr.productsState,
                     builder: (context, state) {
-                      if (state.productsState.isLoading) {
+                      final products = state.productsState.data;
+
+                      if (state.productsState.isLoading && products == null) {
                         return const CustomProductsShimmer();
                       }
 
-                      if (state.productsState.errorMessage != null) {
+                      if (state.productsState.errorMessage != null &&
+                          products == null) {
                         return Center(
                           child: Text(
                             state.productsState.errorMessage!,
@@ -132,10 +136,9 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                         );
                       }
 
-                      final products = state.productsState.data ?? [];
+                      final productsList = products ?? [];
 
-                      if (products.isEmpty &&
-                          state.occasionsState.data != null) {
+                      if (productsList.isEmpty) {
                         return Center(
                           child: Text(
                             AppStrings.noProductsFound.tr(),
@@ -145,8 +148,14 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                       }
 
                       return CustomProductsGrid(
-                        products: products,
-                        onAddToCart: (product) {},
+                        products: productsList,
+                        onTap: (product) {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.productDetails,
+                            arguments: product.id,
+                          );
+                        },
                       );
                     },
                   ),
