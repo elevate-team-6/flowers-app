@@ -43,7 +43,7 @@
   "forgetPasswordTitle": "Forget password",
   "forgetPasswordSubtitle": "Please enter your email associated to your account",
   "verificationCodeSentToYourEmail": "Verification code sent to your email",
-  "confirm": "\"Confirm\"",
+  "confirm": "Confirm",
   "emailVerification": "Email verification",
   "emailVerificationSubtitle": "Please enter your code that sent to your email address",
   "invalidCode": "Invalid code",
