@@ -67,13 +67,13 @@ abstract class AppTextStyles {
     color: AppColors.black,
   );
 
-  // Gray Styles
-  static TextStyle get gray18500 => GoogleFonts.inter(
+  static TextStyle get black18600 => GoogleFonts.inter(
     fontSize: _sp(18),
-    fontWeight: FontWeight.w500,
-    color: AppColors.black30,
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
   );
 
+  // Gray Styles
   static TextStyle get gray14400 => GoogleFonts.inter(
     fontSize: _sp(14),
     fontWeight: FontWeight.w400,
