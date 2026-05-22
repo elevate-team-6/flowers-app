@@ -128,11 +128,6 @@ abstract class AppStrings {
 
   // Filters
   static const String sortBy = 'sortBy';
-  static const String lowestPrice = 'lowestPrice';
-  static const String highestPrice = 'highestPrice';
-  static const String newText = 'newText';
-  static const String oldText = 'oldText';
-  static const String discountText = 'discountText';
   static const String filter = 'filter';
   static const String search = 'search';
   static const String all = 'all';

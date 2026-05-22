@@ -5,6 +5,7 @@ import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SearchAndFilterBar extends StatelessWidget {
   final VoidCallback onFilterTap;
@@ -31,7 +32,7 @@ class SearchAndFilterBar extends StatelessWidget {
             child: TextField(
               onChanged: onSearchChanged,
               decoration: InputDecoration(
-                hintText: AppStrings.search,
+                hintText: AppStrings.search.tr(),
                 hintStyle: AppTextStyles.gray14400,
                 prefixIcon: Padding(
                   padding: EdgeInsets.all(12.w),

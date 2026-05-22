@@ -1,8 +1,8 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
 import 'package:flowers_app/core/entities/product_entity.dart';
+import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/core/utils/app_params.dart';
-import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/categories/data/models/request/get_products_params.dart';
 import 'package:flowers_app/features/categories/domain/use_cases/get_categories_use_case.dart';
 import 'package:flowers_app/features/categories/domain/use_cases/get_products_use_case.dart';
@@ -72,11 +72,11 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
     emit(state.copyWith(productsState: const BaseState(isLoading: true)));
 
     final String? apiSort = switch (state.sort) {
-      AppStrings.highestPrice => ApiParameters.priceDesc,
-      AppStrings.lowestPrice => ApiParameters.priceAsc,
-      AppStrings.newText => ApiParameters.createdAtDesc,
-      AppStrings.oldText => ApiParameters.createdAt,
-      AppStrings.discountText => ApiParameters.discountDesc,
+      AppConstants.highestPrice => ApiParameters.priceDesc,
+      AppConstants.lowestPrice => ApiParameters.priceAsc,
+      AppConstants.newText => ApiParameters.createdAtDesc,
+      AppConstants.oldText => ApiParameters.createdAt,
+      AppConstants.discountText => ApiParameters.discountDesc,
       _ => null,
     };
 

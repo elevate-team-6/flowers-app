@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
@@ -41,9 +42,7 @@ class ProductDetailsScreen extends StatelessWidget {
             }
             final productDetails = state.productDetailsState.data;
             if (productDetails == null) {
-              return const Center(
-                child: Text(AppStrings.noProductDetailsFound),
-              );
+              return Center(child: Text(AppStrings.noProductDetailsFound.tr()));
             }
             return SafeArea(
               child: SingleChildScrollView(
@@ -133,8 +132,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                         )
                                       : Text(
                                           data.isInCart
-                                              ? AppStrings.remove
-                                              : AppStrings.addToCart,
+                                              ? AppStrings.remove.tr()
+                                              : AppStrings.addToCart.tr(),
                                         ),
                                 );
                               },

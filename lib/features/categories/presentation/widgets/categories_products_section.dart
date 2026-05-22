@@ -4,6 +4,7 @@ import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
 import '../view_model/categories_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CategoriesProductsSection extends StatelessWidget {
   final CategoriesStates state;
@@ -31,6 +32,6 @@ class CategoriesProductsSection extends StatelessWidget {
       );
     }
 
-    return Center(child: Text(AppStrings.noProductsFound));
+    return Center(child: Text(AppStrings.noProductsFound.tr()));
   }
 }

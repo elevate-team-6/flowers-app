@@ -4,6 +4,7 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CartSummary extends StatelessWidget {
   final CartEntity cart;
@@ -26,20 +27,20 @@ class CartSummary extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _SummaryRow(
-            label: AppStrings.subTotal,
-            value: '$subtotal${AppStrings.dollar}',
+            label: AppStrings.subTotal.tr(),
+            value: '$subtotal${AppStrings.dollar.tr()}',
           ),
           SizedBox(height: 8.h),
           _SummaryRow(
-            label: AppStrings.deliveryFee,
-            value: '$deliveryFee${AppStrings.dollar}',
+            label: AppStrings.deliveryFee.tr(),
+            value: '$deliveryFee${AppStrings.dollar.tr()}',
           ),
           SizedBox(height: 12.h),
           Divider(color: AppColors.white70, thickness: 0.5),
           SizedBox(height: 12.h),
           _SummaryRow(
-            label: AppStrings.total,
-            value: '$total${AppStrings.dollar}',
+            label: AppStrings.total.tr(),
+            value: '$total${AppStrings.dollar.tr()}',
             isBold: true,
           ),
           SizedBox(height: 40.h),
@@ -53,7 +54,7 @@ class CartSummary extends StatelessWidget {
             ),
             onPressed: () {},
             child: Text(
-              AppStrings.checkout,
+              AppStrings.checkout.tr(),
               style: AppTextStyles.white16500.copyWith(fontSize: 18.sp),
             ),
           ),

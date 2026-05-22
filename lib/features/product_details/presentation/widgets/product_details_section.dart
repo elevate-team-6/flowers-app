@@ -2,6 +2,7 @@ import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProductDetailsSection extends StatelessWidget {
   const ProductDetailsSection({
@@ -30,13 +31,13 @@ class ProductDetailsSection extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: AppStrings.status,
+                      text: AppStrings.status.tr(),
                       style: AppTextStyles.black16500,
                     ),
                     TextSpan(
                       text: inStock
-                          ? AppStrings.inStock
-                          : AppStrings.outOfStock,
+                          ? AppStrings.inStock.tr()
+                          : AppStrings.outOfStock.tr(),
                       style: AppTextStyles.black14400,
                     ),
                   ],
@@ -45,12 +46,12 @@ class ProductDetailsSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 4),
-          Text(AppStrings.allPricesIncludeTax, style: AppTextStyles.gray12400),
+          Text(AppStrings.allPricesIncludeTax.tr(), style: AppTextStyles.gray12400),
           const SizedBox(height: 6),
 
           Text(title, style: AppTextStyles.black16500),
           const SizedBox(height: 12),
-          Text(AppStrings.description, style: AppTextStyles.black16500),
+          Text(AppStrings.description.tr(), style: AppTextStyles.black16500),
           const SizedBox(height: 10),
           Text(
             descreption,
@@ -59,9 +60,9 @@ class ProductDetailsSection extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 12),
-          Text(AppStrings.bouqetInclude, style: AppTextStyles.black16500),
+          Text(AppStrings.bouqetInclude.tr(), style: AppTextStyles.black16500),
           const SizedBox(height: 10),
-          Text(AppStrings.roses, style: AppTextStyles.black14400),
+          Text(AppStrings.roses.tr(), style: AppTextStyles.black14400),
         ],
       ),
     );

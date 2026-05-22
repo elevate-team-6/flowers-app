@@ -7,6 +7,7 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CartItemCard extends StatelessWidget {
   final CartItemEntity item;
@@ -114,7 +115,7 @@ class CartItemCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${AppStrings.egp} ${item.product.priceAfterDiscount}',
+                      '${AppStrings.egp.tr()} ${item.product.priceAfterDiscount}',
                       style: AppTextStyles.black14400.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
