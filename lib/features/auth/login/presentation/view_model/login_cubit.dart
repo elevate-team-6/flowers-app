@@ -13,6 +13,7 @@ import 'package:injectable/injectable.dart';
 class LoginCubit extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase _loginUseCase;
   final SecureCacheHelper _cacheHelper;
+
   LoginCubit(this._loginUseCase, this._cacheHelper)
     : super(const LoginState()) {
     on<LoginRequestedEvent>(_onLogin);
@@ -34,22 +35,12 @@ class LoginCubit extends Bloc<LoginEvent, LoginState> {
       case SuccessBaseResponse<UserEntity>():
         final user = result.data;
 
-        if (event.isRememberMe) {
-          await _cacheHelper.writeData(
-            key: AppKeys.tokenKey,
-            value: user.token,
-          );
-          await _cacheHelper.writeData(
-            key: AppKeys.rememberMeKey,
-            value: 'true',
-          );
-        } else {
-          await _cacheHelper.deleteData(key: AppKeys.tokenKey);
-          await _cacheHelper.writeData(
-            key: AppKeys.rememberMeKey,
-            value: 'false',
-          );
-        }
+        await _cacheHelper.writeData(key: AppKeys.tokenKey, value: user.token);
+
+        await _cacheHelper.writeData(
+          key: AppKeys.rememberMeKey,
+          value: event.isRememberMe ? 'true' : 'false',
+        );
 
         emit(state.copyWith(isLoading: false, user: user));
         break;
