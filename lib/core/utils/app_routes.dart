@@ -19,6 +19,8 @@ import 'package:flowers_app/features/product_details/presentation/cubit/product_
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/screens/edit_profile_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
+import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
+import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,6 +39,7 @@ abstract class AppRoutes {
   static const String forgotPassword = '/forgotPassword';
   static const String verifyResetCode = '/VerifyResetCode';
   static const String resetPassword = '/resetPassword';
+  static const String changePassword = '/changePassword';
   static const String occasions = '/occasions';
   static const String bestSeller = '/bestSeller';
   static const String productDetails = '/productDetails';
@@ -133,6 +136,13 @@ abstract class AppRoutes {
           builder: (_) => BlocProvider(
             create: (_) => getIt<EditProfileCubit>(),
             child: const EditProfileScreen(),
+          ),
+        );
+      case changePassword:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<ChangePasswordCubit>(),
+            child: const ChangePasswordScreen(),
           ),
         );
 
