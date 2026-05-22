@@ -2,6 +2,7 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomErrorState extends StatelessWidget {
   final String message;
@@ -29,7 +30,7 @@ class CustomErrorState extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            ElevatedButton(onPressed: onRetry, child: Text(AppStrings.retry)),
+            ElevatedButton(onPressed: onRetry, child: Text(AppStrings.retry.tr())),
           ],
         ),
       ),

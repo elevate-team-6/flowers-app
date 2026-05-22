@@ -3,6 +3,7 @@ import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RememberMeSection extends StatelessWidget {
   final bool isChecked;
@@ -37,7 +38,7 @@ class RememberMeSection extends StatelessWidget {
             ),
             SizedBox(width: 12.w),
             Text(
-              AppStrings.rememberMe,
+              AppStrings.rememberMe.tr(),
               style: AppTextStyles.black13400
             ),
           ],
@@ -46,7 +47,7 @@ class RememberMeSection extends StatelessWidget {
         GestureDetector(
           onTap: onForgotPasswordTap,
           child: Text(
-            AppStrings.forgetPasswordText,
+            AppStrings.forgetPasswordText.tr(),
             style: AppTextStyles.black13400.copyWith(decoration: TextDecoration.underline)
           ),
         ),

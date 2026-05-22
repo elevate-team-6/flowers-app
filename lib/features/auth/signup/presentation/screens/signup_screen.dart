@@ -14,6 +14,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -49,7 +50,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.signupWithSpace),
+        title: Text(AppStrings.signupWithSpace.tr()),
         titleSpacing: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -64,7 +65,7 @@ class _SignupScreenState extends State<SignupScreen> {
             LoadingDialog.hide();
           }
           if (state.signupState.data != null) {
-            SnackBarServices.showSuccessMessage(AppStrings.registerSuccess);
+            SnackBarServices.showSuccessMessage(AppStrings.registerSuccess.tr());
 
             Navigator.pop(context);
           } else if (state.signupState.errorMessage != null) {
@@ -85,8 +86,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: TextFormField(
                           controller: _firstNameController,
                           decoration: InputDecoration(
-                            labelText: AppStrings.firstName,
-                            hintText: AppStrings.enterFirstName,
+                            labelText: AppStrings.firstName.tr(),
+                            hintText: AppStrings.enterFirstName.tr(),
                             hintStyle: AppTextStyles.gray12400,
                             labelStyle: AppTextStyles.black14400,
                             enabledBorder: OutlineInputBorder(
@@ -109,8 +110,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: TextFormField(
                           controller: _lastNameController,
                           decoration: InputDecoration(
-                            labelText: AppStrings.lastName,
-                            hintText: AppStrings.enterLastName,
+                            labelText: AppStrings.lastName.tr(),
+                            hintText: AppStrings.enterLastName.tr(),
                             hintStyle: AppTextStyles.gray12400,
                             labelStyle: AppTextStyles.black14400,
                             enabledBorder: OutlineInputBorder(
@@ -135,8 +136,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      labelText: AppStrings.email,
-                      hintText: AppStrings.enterYourEmail,
+                      labelText: AppStrings.email.tr(),
+                      hintText: AppStrings.enterYourEmail.tr(),
                       hintStyle: AppTextStyles.gray12400,
                       labelStyle: AppTextStyles.black14400,
                       enabledBorder: OutlineInputBorder(
@@ -161,8 +162,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           controller: _passwordController,
                           obscureText: _obscurePassword,
                           decoration: InputDecoration(
-                            labelText: AppStrings.password,
-                            hintText: AppStrings.enterYourPassword,
+                            labelText: AppStrings.password.tr(),
+                            hintText: AppStrings.enterYourPassword.tr(),
                             hintStyle: AppTextStyles.gray12400,
                             labelStyle: AppTextStyles.black14400,
                             suffixIcon: IconButton(
@@ -200,8 +201,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           controller: _confirmPasswordController,
                           obscureText: _obscureConfirmPassword,
                           decoration: InputDecoration(
-                            labelText: AppStrings.confirmPassword,
-                            hintText: AppStrings.confirmPassword,
+                            labelText: AppStrings.confirmPassword.tr(),
+                            hintText: AppStrings.confirmPassword.tr(),
                             hintStyle: AppTextStyles.gray12400,
                             labelStyle: AppTextStyles.black14400,
                             suffixIcon: IconButton(
@@ -245,8 +246,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     controller: _phoneController,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
-                      labelText: AppStrings.phoneNumber,
-                      hintText: AppStrings.enterPhoneNumber,
+                      labelText: AppStrings.phoneNumber.tr(),
+                      hintText: AppStrings.enterPhoneNumber.tr(),
                       hintStyle: AppTextStyles.gray12400,
                       labelStyle: AppTextStyles.black14400,
                       enabledBorder: OutlineInputBorder(
@@ -267,7 +268,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(height: 16.h),
                   Row(
                     children: [
-                      Text(AppStrings.gender, style: AppTextStyles.black18500),
+                      Text(AppStrings.gender.tr(), style: AppTextStyles.black18500),
                       SizedBox(width: 32.w),
                       StatefulBuilder(
                         builder: (context, setRadioState) => Row(
@@ -280,7 +281,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   setRadioState(() => _selectedGender = v),
                             ),
                             Text(
-                              AppStrings.female,
+                              AppStrings.female.tr(),
                               style: AppTextStyles.black14400,
                             ),
                             SizedBox(width: 16.w),
@@ -292,7 +293,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   setRadioState(() => _selectedGender = v),
                             ),
                             Text(
-                              AppStrings.male,
+                              AppStrings.male.tr(),
                               style: AppTextStyles.black14400,
                             ),
                           ],
@@ -305,9 +306,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     text: TextSpan(
                       style: AppTextStyles.gray12400,
                       children: [
-                        TextSpan(text: AppStrings.creatingAccountAgreement),
+                        TextSpan(text: AppStrings.creatingAccountAgreement.tr()),
                         TextSpan(
-                          text: AppStrings.termsAndConditions,
+                          text: AppStrings.termsAndConditions.tr(),
                           style: AppTextStyles.black12600.copyWith(
                             decoration: TextDecoration.underline,
                           ),
@@ -329,7 +330,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         : () {
                             if (_selectedGender == null) {
                               SnackBarServices.showErrorMessage(
-                                AppStrings.pleaseSelectGender,
+                                AppStrings.pleaseSelectGender.tr(),
                               );
                               return;
                             }
@@ -354,13 +355,13 @@ class _SignupScreenState extends State<SignupScreen> {
                             color: Colors.white,
                             strokeWidth: 2,
                           )
-                        : Text(AppStrings.signupWithSpace),
+                        : Text(AppStrings.signupWithSpace.tr()),
                   ),
                   SizedBox(height: 16.h),
                   Center(
                     child: RichTextWithLink(
-                      normalText: AppStrings.alreadyHaveAccount,
-                      linkText: AppStrings.login,
+                      normalText: AppStrings.alreadyHaveAccount.tr(),
+                      linkText: AppStrings.login.tr(),
                       linkTextColor: AppColors.primary,
                       onLinkTap: () => Navigator.pop(context),
                     ),

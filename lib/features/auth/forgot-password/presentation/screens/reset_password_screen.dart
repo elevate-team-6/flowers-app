@@ -10,6 +10,7 @@ import 'package:flowers_app/features/auth/forgot-password/presentation/view_mode
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   final String email;
@@ -49,7 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             !state.resetPasswordState.isLoading) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(AppStrings.passwordResetSuccessfully),
+              content: Text(AppStrings.passwordResetSuccessfully.tr()),
               backgroundColor: AppColors.success,
             ),
           );
@@ -77,7 +78,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ),
           ),
           title: Text(
-            AppStrings.password,
+            AppStrings.password.tr(),
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
@@ -91,7 +92,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
                 /// Title
                 Text(
-                  AppStrings.resetPasswordTitle,
+                  AppStrings.resetPasswordTitle.tr(),
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   textAlign: TextAlign.center,
                 ),
@@ -102,7 +103,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
-                    AppStrings.resetPasswordSubtitle,
+                    AppStrings.resetPasswordSubtitle.tr(),
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                     textAlign: TextAlign.center,
                   ),
@@ -115,9 +116,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
-                    hintText: AppStrings.enterYourPassword,
+                    hintText: AppStrings.enterYourPassword.tr(),
                     label: Text(
-                      AppStrings.newPassword,
+                      AppStrings.newPassword.tr(),
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -143,9 +144,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   controller: confirmPasswordController,
                   obscureText: true,
                   decoration: InputDecoration(
-                    hintText: AppStrings.confirmPassword,
+                    hintText: AppStrings.confirmPassword.tr(),
                     label: Text(
-                      AppStrings.confirmPassword,
+                      AppStrings.confirmPassword.tr(),
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -190,7 +191,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             );
                           }
                         },
-                        child: Text(AppStrings.continueText),
+                        child: Text(AppStrings.continueText.tr()),
                       ),
                     );
                   },

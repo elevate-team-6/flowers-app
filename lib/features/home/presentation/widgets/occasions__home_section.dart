@@ -5,6 +5,7 @@ import 'package:flowers_app/features/home/presentation/widgets/home_common_heade
 import 'package:flowers_app/features/home/presentation/widgets/occasion_card.dart';
 import 'package:flowers_app/features/home/presentation/widgets/occasions_home_shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OccasionsHomeSection extends StatelessWidget {
   final HomeStates state;
@@ -32,7 +33,7 @@ class OccasionsHomeSection extends StatelessWidget {
     if (occasions.isEmpty) {
       return SizedBox(
         height: 230,
-        child: Center(child: Text(AppStrings.noOccasionsAvailable)),
+        child: Center(child: Text(AppStrings.noOccasionsAvailable.tr())),
       );
     }
 
@@ -40,7 +41,7 @@ class OccasionsHomeSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HomeCommonHeaderSection(
-          title: AppStrings.occasion,
+          title: AppStrings.occasion.tr(),
           onViewAll: () {
             Navigator.of(context).pushNamed(AppRoutes.occasions);
           },

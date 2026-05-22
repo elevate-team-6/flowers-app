@@ -11,6 +11,7 @@ import 'package:flowers_app/features/auth/forgot-password/presentation/widgets/r
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class VerifyResetCodeScreen extends StatefulWidget {
   final String email;
@@ -37,7 +38,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
             SnackBar(
               content: Text(
                 state.verifyResetCodeState.errorMessage ??
-                    AppStrings.verificationCodeIsCorrect,
+                    AppStrings.verificationCodeIsCorrect.tr(),
               ),
               backgroundColor: AppColors.success,
             ),
@@ -70,7 +71,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
               color: AppColors.black,
             ),
           ),
-          title: Text(AppStrings.password, style: AppTextStyles.black20500),
+          title: Text(AppStrings.password.tr(), style: AppTextStyles.black20500),
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
@@ -78,7 +79,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
             children: [
               SizedBox(height: 24),
               Text(
-                AppStrings.emailVerification,
+                AppStrings.emailVerification.tr(),
                 style: AppTextStyles.black18500,
                 textAlign: TextAlign.center,
               ),
@@ -86,7 +87,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 44),
                 child: Text(
-                  AppStrings.emailVerificationSubtitle,
+                  AppStrings.emailVerificationSubtitle.tr(),
                   style: AppTextStyles.black13400,
                   textAlign: TextAlign.center,
                 ),
@@ -163,7 +164,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
                               ),
                               SizedBox(width: 4),
                               Text(
-                                AppStrings.invalidCode,
+                                AppStrings.invalidCode.tr(),
                                 style: AppTextStyles.black13400.copyWith(
                                   color: AppColors.error,
                                 ),
@@ -177,8 +178,8 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
               ),
               SizedBox(height: 24),
               RichTextWithLink(
-                normalText: AppStrings.didntReceiveCode,
-                linkText: AppStrings.resend,
+                normalText: AppStrings.didntReceiveCode.tr(),
+                linkText: AppStrings.resend.tr(),
                 onLinkTap: () {
                   context.read<ForgotPasswordViewModel>().doEvent(
                     ForgotPasswordEvent(email: widget.email),

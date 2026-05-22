@@ -5,6 +5,7 @@ import 'package:flowers_app/features/home/presentation/widgets/best_seller_card.
 import 'package:flowers_app/features/home/presentation/widgets/best_seller_home_shimmer.dart';
 import 'package:flowers_app/features/home/presentation/widgets/home_common_header_section.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BestSellersHomeSection extends StatelessWidget {
   final HomeStates state;
@@ -31,7 +32,7 @@ class BestSellersHomeSection extends StatelessWidget {
     if (bestSellers.isEmpty) {
       return SizedBox(
         height: 230,
-        child: Center(child: Text(AppStrings.noBestSellersAvailable)),
+        child: Center(child: Text(AppStrings.noBestSellersAvailable.tr())),
       );
     }
 
@@ -39,7 +40,7 @@ class BestSellersHomeSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HomeCommonHeaderSection(
-          title: AppStrings.bestSeller,
+          title: AppStrings.bestSeller.tr(),
           onViewAll: () {
             Navigator.pushNamed(context, AppRoutes.bestSeller);
           },
@@ -63,7 +64,7 @@ class BestSellersHomeSection extends StatelessWidget {
                 },
                 imageUrl: product.imgCover,
                 title: product.title,
-                price: "${product.price} ${AppStrings.egp}",
+                price: "${product.price} ${AppStrings.egp.tr()}",
               );
             },
           ),

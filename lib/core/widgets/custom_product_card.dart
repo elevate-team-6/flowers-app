@@ -7,6 +7,7 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomProductCard extends StatelessWidget {
   final ProductEntity product;
@@ -82,7 +83,7 @@ class CustomProductCard extends StatelessWidget {
                                   fit: BoxFit.scaleDown,
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    '${AppStrings.egp} ${product.priceAfterDiscount}',
+                                    '${AppStrings.egp.tr()} ${product.priceAfterDiscount}',
                                     style: AppTextStyles.black13400.copyWith(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14.sp,
@@ -136,7 +137,7 @@ class CustomProductCard extends StatelessWidget {
                         color: AppColors.white,
                       ),
                       label: Text(
-                        AppStrings.addToCart,
+                        AppStrings.addToCart.tr(),
                         style: AppTextStyles.white16500.copyWith(
                           fontSize: 12.sp,
                         ),

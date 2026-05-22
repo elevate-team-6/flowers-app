@@ -11,6 +11,7 @@ import 'package:flowers_app/features/auth/forgot-password/presentation/view_mode
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -41,7 +42,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             !state.forgotPasswordState.isLoading) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(AppStrings.verificationCodeSentToYourEmail),
+              content: Text(AppStrings.verificationCodeSentToYourEmail.tr()),
               backgroundColor: AppColors.success,
             ),
           );
@@ -70,7 +71,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               color: AppColors.black,
             ),
           ),
-          title: Text(AppStrings.password, style: AppTextStyles.black20500),
+          title: Text(AppStrings.password.tr(), style: AppTextStyles.black20500),
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
@@ -78,7 +79,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             children: [
               SizedBox(height: 24),
               Text(
-                AppStrings.forgetPasswordTitle,
+                AppStrings.forgetPasswordTitle.tr(),
                 style: AppTextStyles.black18500,
                 textAlign: TextAlign.center,
               ),
@@ -86,7 +87,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 44),
                 child: Text(
-                  AppStrings.forgetPasswordSubtitle,
+                  AppStrings.forgetPasswordSubtitle.tr(),
                   style: AppTextStyles.black14400,
                   textAlign: TextAlign.center,
                 ),
@@ -99,9 +100,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     TextFormField(
                       controller: emailController,
                       decoration: InputDecoration(
-                        hintText: AppStrings.enterYourEmail,
+                        hintText: AppStrings.enterYourEmail.tr(),
                         label: Text(
-                          AppStrings.email,
+                          AppStrings.email.tr(),
                           style: AppTextStyles.black13400,
                         ),
                         floatingLabelStyle: AppTextStyles.black13400,
@@ -135,7 +136,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 );
                               }
                             },
-                            child: Text(AppStrings.confirm),
+                            child: Text(AppStrings.confirm.tr()),
                           ),
                         );
                       },

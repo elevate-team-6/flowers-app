@@ -4,29 +4,30 @@ import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/auth/signup/presentation/widgets/terms_section_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TermsAndConditionsScreen extends StatelessWidget {
   const TermsAndConditionsScreen({super.key});
 
   static final List<String> _titles = [
-    AppStrings.termsSection1Title,
-    AppStrings.termsSection2Title,
-    AppStrings.termsSection3Title,
-    AppStrings.termsSection4Title,
+    AppStrings.termsSection1Title.tr(),
+    AppStrings.termsSection2Title.tr(),
+    AppStrings.termsSection3Title.tr(),
+    AppStrings.termsSection4Title.tr(),
   ];
 
   static final List<String> _bodies = [
-    AppStrings.termsSection1Body,
-    AppStrings.termsSection2Body,
-    AppStrings.termsSection3Body,
-    AppStrings.termsSection4Body,
+    AppStrings.termsSection1Body.tr(),
+    AppStrings.termsSection2Body.tr(),
+    AppStrings.termsSection3Body.tr(),
+    AppStrings.termsSection4Body.tr(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.termsAndConditions),
+        title: Text(AppStrings.termsAndConditions.tr()),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
@@ -69,7 +70,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
-                      AppStrings.termsFooterNote,
+                      AppStrings.termsFooterNote.tr(),
                       style: AppTextStyles.gray12400.copyWith(
                         color: AppColors.pink70,
                       ),
@@ -86,7 +87,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 24.h),
             child: ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(AppStrings.iAgree),
+              child: Text(AppStrings.iAgree.tr()),
             ),
           ),
         ],

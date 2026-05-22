@@ -1,158 +1,156 @@
-import 'package:easy_localization/easy_localization.dart';
-
 abstract class AppStrings {
+  // ===========================================================================
+  // Configuration Keys (Keys used in JSON files)
+  // ===========================================================================
+
   // Common & Auth
-  static String get login => 'login'.tr();
-  static String get signup => 'signup'.tr();
-  static String get signupWithSpace => 'signupWithSpace'.tr();
-  static String get password => 'password'.tr();
-  static String get email => 'email'.tr();
-  static String get continueText => 'continueText'.tr();
-  static String get confirmPassword => 'confirmPassword'.tr();
+  static const String login = 'login';
+  static const String signup = 'signup';
+  static const String signupWithSpace = 'signupWithSpace';
+  static const String password = 'password';
+  static const String email = 'email';
+  static const String continueText = 'continueText';
+  static const String confirmPassword = 'confirmPassword';
 
   // Login Screen
-  static String get enterYourEmail => 'enterYourEmail'.tr();
-  static String get enterYourPassword => 'enterYourPassword'.tr();
-  static String get rememberMe => 'rememberMe'.tr();
-  static String get forgetPasswordQuestion => 'forgetPasswordQuestion'.tr();
-  static String get dontHaveAccount => 'dontHaveAccount'.tr();
-  static String get loginSuccess => 'loginSuccess'.tr();
-  static String get forgetPasswordText => 'forgetPasswordText'.tr();
+  static const String enterYourEmail = 'enterYourEmail';
+  static const String enterYourPassword = 'enterYourPassword';
+  static const String rememberMe = 'rememberMe';
+  static const String forgetPasswordQuestion = 'forgetPasswordQuestion';
+  static const String dontHaveAccount = 'dontHaveAccount';
+  static const String loginSuccess = 'loginSuccess';
+  static const String forgetPasswordText = 'forgetPasswordText';
 
   // Sign Up Screen
-  static String get userName => 'userName'.tr();
-  static String get enterYourUserName => 'enterYourUserName'.tr();
-  static String get firstName => 'firstName'.tr();
-  static String get enterFirstName => 'enterFirstName'.tr();
-  static String get lastName => 'lastName'.tr();
-  static String get enterLastName => 'enterLastName'.tr();
-  static String get phoneNumber => 'phoneNumber'.tr();
-  static String get enterPhoneNumber => 'enterPhoneNumber'.tr();
-  static String get alreadyHaveAccount => 'alreadyHaveAccount'.tr();
-  static String get registerSuccess => 'registerSuccess'.tr();
-  static String get signupFailedUserIsNull => 'signupFailedUserIsNull'.tr();
-  static String get gender => 'gender'.tr();
-  static String get female => 'female'.tr();
-  static String get male => 'male'.tr();
-  static String get pleaseSelectGender => 'pleaseSelectGender'.tr();
-  static String get creatingAccountAgreement => 'creatingAccountAgreement'.tr();
-  static String femaleValue = 'female'.tr();
-  static String maleValue = 'male'.tr();
+  static const String userName = 'userName';
+  static const String enterYourUserName = 'enterYourUserName';
+  static const String firstName = 'firstName';
+  static const String enterFirstName = 'enterFirstName';
+  static const String lastName = 'lastName';
+  static const String enterLastName = 'enterLastName';
+  static const String phoneNumber = 'phoneNumber';
+  static const String enterPhoneNumber = 'enterPhoneNumber';
+  static const String alreadyHaveAccount = 'alreadyHaveAccount';
+  static const String registerSuccess = 'registerSuccess';
+  static const String signupFailedUserIsNull = 'signupFailedUserIsNull';
+  static const String gender = 'gender';
+  static const String female = 'female';
+  static const String male = 'male';
+  static const String pleaseSelectGender = 'pleaseSelectGender';
+  static const String creatingAccountAgreement = 'creatingAccountAgreement';
+  static const String iAgree = 'iAgree';
 
-  static String get termsAndConditions => 'termsAndConditions'.tr();
-  static String get termsFooterNote => 'termsFooterNote'.tr();
-  static String get iAgree => 'iAgree'.tr();
-
-  static String get termsSection1Title => 'termsSection1Title'.tr();
-  static String get termsSection1Body => 'termsSection1Body'.tr();
-
-  static String get termsSection2Title => 'termsSection2Title'.tr();
-  static String get termsSection2Body => 'termsSection2Body'.tr();
-
-  static String get termsSection3Title => 'termsSection3Title'.tr();
-  static String get termsSection3Body => 'termsSection3Body'.tr();
-
-  static String get termsSection4Title => 'termsSection4Title'.tr();
-  static String get termsSection4Body => 'termsSection4Body'.tr();
+  // Terms & Conditions
+  static const String termsAndConditions = 'termsAndConditions';
+  static const String termsFooterNote = 'termsFooterNote';
+  static const String termsSection1Title = 'termsSection1Title';
+  static const String termsSection1Body = 'termsSection1Body';
+  static const String termsSection2Title = 'termsSection2Title';
+  static const String termsSection2Body = 'termsSection2Body';
+  static const String termsSection3Title = 'termsSection3Title';
+  static const String termsSection3Body = 'termsSection3Body';
+  static const String termsSection4Title = 'termsSection4Title';
+  static const String termsSection4Body = 'termsSection4Body';
 
   // Forget Password Screen
-  static String get forgetPasswordTitle => 'forgetPasswordTitle'.tr();
-  static String get forgetPasswordSubtitle => 'forgetPasswordSubtitle'.tr();
-  static String get verificationCodeSentToYourEmail =>
-      'verificationCodeSentToYourEmail'.tr();
-  static String get confirm => 'confirm'.tr();
+  static const String forgetPasswordTitle = 'forgetPasswordTitle';
+  static const String forgetPasswordSubtitle = 'forgetPasswordSubtitle';
+  static const String verificationCodeSentToYourEmail =
+      'verificationCodeSentToYourEmail';
+  static const String confirm = 'confirm';
 
   // Email Verification Screen
-  static String get emailVerification => 'emailVerification'.tr();
-  static String get emailVerificationSubtitle =>
-      'emailVerificationSubtitle'.tr();
-  static String get invalidCode => 'invalidCode'.tr();
-  static String get didntReceiveCode => 'didntReceiveCode'.tr();
-  static String get resend => 'resend'.tr();
-  static String get verificationCodeIsCorrect =>
-      'verificationCodeIsCorrect'.tr();
+  static const String emailVerification = 'emailVerification';
+  static const String emailVerificationSubtitle = 'emailVerificationSubtitle';
+  static const String invalidCode = 'invalidCode';
+  static const String didntReceiveCode = 'didntReceiveCode';
+  static const String resend = 'resend';
+  static const String verificationCodeIsCorrect = 'verificationCodeIsCorrect';
 
   // Reset Password Screen
-  static String get resetPasswordTitle => 'resetPasswordTitle'.tr();
-  static String get resetPasswordSubtitle => 'resetPasswordSubtitle'.tr();
-  static String get newPassword => 'newPassword'.tr();
-  static String get passwordResetSuccessfully =>
-      'passwordResetSuccessfully'.tr();
+  static const String resetPasswordTitle = 'resetPasswordTitle';
+  static const String resetPasswordSubtitle = 'resetPasswordSubtitle';
+  static const String newPassword = 'newPassword';
+  static const String passwordResetSuccessfully = 'passwordResetSuccessfully';
 
-  // Error messages
-  static String get someThingWentWrong => 'someThingWentWrong'.tr();
-  static String get connectionTimeout => 'connectionTimeout'.tr();
-  static String get sendTimeout => 'sendTimeout'.tr();
-  static String get receiveTimeout => 'receiveTimeout'.tr();
-  static String get requestCancelled => 'requestCancelled'.tr();
-  static String get noInternetConnection => 'noInternetConnection'.tr();
-  static String get unexpectedError => 'unexpectedError'.tr();
-  static String get unknownError => 'unknownError'.tr();
-  static String get invalidRequest => 'invalidRequest'.tr();
-  static String get authFailed => 'authFailed'.tr();
-  static String get forbidden => 'forbidden'.tr();
-  static String get notFound => 'notFound'.tr();
-  static String get serverError => 'serverError'.tr();
-  static String get defaultError => 'defaultError'.tr();
-  static String get defaultErrorTryAgain => 'defaultErrorTryAgain'.tr();
-  static String get unexpectedErrorTryAgain => 'unexpectedErrorTryAgain'.tr();
-  static String get userAlreadyExists => 'userAlreadyExists'.tr();
-  static String get invalidGender => 'invalidGender'.tr();
-  static String get invalidPhoneFormat => 'invalidPhoneFormat'.tr();
+  // Main Layout & Home
+  static const String home = 'home';
+  static const String categories = 'categories';
+  static const String cart = 'cart';
+  static const String profile = 'profile';
+  static const String flowery = 'flowery';
+  static const String search = 'search';
+  static const String deliverTo = 'deliverTo';
+  static const String deliverToMockAddress = 'deliverToMockAddress';
+  static const String bestSellers = 'bestSellers';
+  static const String bestSeller = 'bestSeller';
+  static const String viewAll = 'viewAll';
+  static const String retry = 'retry';
+  static const String subTitleBestSeller = 'subTitleBestSeller';
 
-  // Validation messages
-  static String get emailRequired => 'emailRequired'.tr();
-  static String get invalidEmail => 'invalidEmail'.tr();
-  static String get invalidPassword => 'invalidPassword'.tr();
-  static String get passwordRequired => 'passwordRequired'.tr();
-  static String get passwordTooShort => 'passwordTooShort'.tr();
-  static String get passwordLowercase => 'passwordLowercase'.tr();
-  static String get passwordUppercase => 'passwordUppercase'.tr();
-  static String get passwordNumber => 'passwordNumber'.tr();
-  static String get passwordSpecialCharacter => 'passwordSpecialCharacter'.tr();
-  static String get passwordNotMatched => 'passwordNotMatched'.tr();
-  static String get confirmPasswordRequired => 'confirmPasswordRequired'.tr();
-  static String get usernameRequired => 'usernameRequired'.tr();
-  static String get usernameTooShort => 'usernameTooShort'.tr();
-  static String get usernameInvalid => 'usernameInvalid'.tr();
-  static String get firstNameRequired => 'firstNameRequired'.tr();
-  static String get lastNameRequired => 'lastNameRequired'.tr();
-  static String get nameTooShort => 'nameTooShort'.tr();
-  static String get nameNoNumbers => 'nameNoNumbers'.tr();
-  static String get phoneRequired => 'phoneRequired'.tr();
-  static String get invalidPhone => 'invalidPhone'.tr();
-  static String get phoneMustStartWithCountryCode =>
-      'phoneMustStartWithCountryCode'.tr();
+  // Placeholder/Generic
+  static const String noProductsFound = 'noProductsFound';
+  static const String noBestSellersAvailable = 'noBestSellersAvailable';
+  static const String noCategoriesAvailable = 'noCategoriesAvailable';
+  static const String noOccasionsAvailable = 'noOccasionsAvailable';
+  static const String addToCart = 'addToCart';
+  static const String occasion = 'occasion';
+  static const String occasionSubtitle = 'occasionSubtitle';
+  static const String egp = 'egp';
+  static const String icon = 'icon';
+  static const String label = 'label';
+  static const String image = 'image';
+  static const String title = 'title';
+  static const String price = 'price';
 
-  // Main Layout
-  static String get home => 'home'.tr();
-  static String get categories => 'categories'.tr();
-  static String get cart => 'cart'.tr();
-  static String get profile => 'profile'.tr();
+  // Error Messages
+  static const String someThingWentWrong = 'someThingWentWrong';
+  static const String connectionTimeout = 'connectionTimeout';
+  static const String sendTimeout = 'sendTimeout';
+  static const String receiveTimeout = 'receiveTimeout';
+  static const String requestCancelled = 'requestCancelled';
+  static const String noInternetConnection = 'noInternetConnection';
+  static const String unexpectedError = 'unexpectedError';
+  static const String unknownError = 'unknownError';
+  static const String invalidRequest = 'invalidRequest';
+  static const String authFailed = 'authFailed';
+  static const String forbidden = 'forbidden';
+  static const String notFound = 'notFound';
+  static const String serverError = 'serverError';
+  static const String defaultError = 'defaultError';
+  static const String defaultErrorTryAgain = 'defaultErrorTryAgain';
+  static const String unexpectedErrorTryAgain = 'unexpectedErrorTryAgain';
+  static const String userAlreadyExists = 'userAlreadyExists';
+  static const String invalidGender = 'invalidGender';
+  static const String invalidPhoneFormat = 'invalidPhoneFormat';
 
-  // Occasions
-  static String get noProductsFound => 'noProductsFound'.tr();
-  static String get addToCart => 'addToCart'.tr();
-  static String get occasion => 'occasion'.tr();
-  static String get occasionSubtitle => 'occasionSubtitle'.tr();
-  static String get egp => 'egp'.tr();
-  //home
-  static String get flowery => 'flowery'.tr();
-  static String get search => 'search'.tr();
-  static String get deliverToMockAddress => 'deliverToMockAddress'.tr();
-  static String get icon => 'icon'.tr();
-  static String get label => 'label'.tr();
-  static String get bestSeller => 'bestSeller'.tr();
-  static String get image => 'image'.tr();
-  static String get title => 'title'.tr();
-  static String get price => 'price'.tr();
-  static String get viewAll => 'viewAll'.tr();
-  static String get noBestSellersAvailable => 'noBestSellersAvailable'.tr();
-  static String get bestSellers => 'bestSellers'.tr();
-  static String get noCategoriesAvailable => 'noCategoriesAvailable'.tr();
-  static String get deliverTo => 'deliverTo'.tr();
-  static String get noOccasionsAvailable => 'noOccasionsAvailable'.tr();
-  //Best Seller
-  static String get retry => 'retry'.tr();
-  static String get subTitleBestSeller => 'subTitleBestSeller'.tr();
+  // Validation Messages
+  static const String emailRequired = 'emailRequired';
+  static const String invalidEmail = 'invalidEmail';
+  static const String invalidPassword = 'invalidPassword';
+  static const String passwordRequired = 'passwordRequired';
+  static const String passwordTooShort = 'passwordTooShort';
+  static const String passwordLowercase = 'passwordLowercase';
+  static const String passwordUppercase = 'passwordUppercase';
+  static const String passwordNumber = 'passwordNumber';
+  static const String passwordSpecialCharacter = 'passwordSpecialCharacter';
+  static const String passwordNotMatched = 'passwordNotMatched';
+  static const String confirmPasswordRequired = 'confirmPasswordRequired';
+  static const String usernameRequired = 'usernameRequired';
+  static const String usernameTooShort = 'usernameTooShort';
+  static const String usernameInvalid = 'usernameInvalid';
+  static const String firstNameRequired = 'firstNameRequired';
+  static const String lastNameRequired = 'lastNameRequired';
+  static const String nameTooShort = 'nameTooShort';
+  static const String nameNoNumbers = 'nameNoNumbers';
+  static const String phoneRequired = 'phoneRequired';
+  static const String invalidPhone = 'invalidPhone';
+  static const String phoneMustStartWithCountryCode =
+      'phoneMustStartWithCountryCode';
+
+  // ===========================================================================
+  // API Constants (Values sent directly to Backend - Do NOT Translate)
+  // ===========================================================================
+  static const String femaleValue = 'female';
+  static const String maleValue = 'male';
 }
