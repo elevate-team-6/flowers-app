@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'config/cache/hive_helper.dart';
 import 'config/cache/secure_cache_helper.dart';
 import 'config/di/di.dart';
+import 'core/utils/app_constants.dart';
 import 'core/utils/app_keys.dart';
 import 'features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';
 
@@ -27,8 +28,11 @@ Future<void> main() async {
   final isLoggedIn = token != null && token.isNotEmpty && isRemembered;
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('ar')],
-      path: 'assets/translations',
+      supportedLocales: const [
+        Locale(AppConstants.englishCode),
+        Locale(AppConstants.arabicCode),
+      ],
+      path: AppConstants.translationsPath,
       fallbackLocale: const Locale('en'),
       child: MyApp(isLoggedIn: isLoggedIn),
     ),
