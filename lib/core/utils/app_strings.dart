@@ -130,6 +130,12 @@ abstract class AppStrings {
   static const String version = 'version';
   static const String confirmLogout = 'confirmLogout';
 
+  // Edit Profile Screen
+  static const String editProfile = 'editProfile';
+  static const String editProfileSuccessfly = 'editProfileSuccessfly';
+  static const String change = 'change';
+  static const String update = 'update';
+
   // Main Layout
   static const String home = 'home';
   static const String categories = 'categories';

@@ -38,7 +38,7 @@ class LoginCubit extends Bloc<LoginEvent, LoginState> {
 
         await _cacheHelper.writeData(
           key: AppKeys.rememberMeKey,
-          value:<< event.isRememberMe,
+          value: event.isRememberMe.toString(),
         );
 
         emit(state.copyWith(isLoading: false, user: user));
