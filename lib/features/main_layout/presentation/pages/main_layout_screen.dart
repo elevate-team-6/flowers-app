@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/services/exit_app_dialog.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
@@ -18,7 +19,6 @@ import '../cubit/main_layout_cubit.dart';
 import '../cubit/main_layout_event.dart';
 import '../cubit/main_layout_state.dart';
 import '../widgets/main_nav_bar_item.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class MainLayoutScreen extends StatelessWidget {
   final int? initialIndex;

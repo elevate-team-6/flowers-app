@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
@@ -5,18 +6,17 @@ import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
+import 'package:flowers_app/core/widgets/custom_gender_selector.dart';
 import 'package:flowers_app/core/widgets/rich_text_with_link.dart';
 import 'package:flowers_app/features/auth/signup/data/models/requestes/signup_request.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_events.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_states.dart';
 import 'package:flowers_app/features/auth/signup/presentation/widgets/custom_text_field.dart';
-import 'package:flowers_app/core/widgets/custom_gender_selector.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -92,7 +92,9 @@ class _SignupScreenState extends State<SignupScreen> {
             LoadingDialog.hide();
           }
           if (state.signupState.data != null) {
-            SnackBarServices.showSuccessMessage(AppStrings.registerSuccess.tr());
+            SnackBarServices.showSuccessMessage(
+              AppStrings.registerSuccess.tr(),
+            );
             Navigator.pop(context);
           } else if (state.signupState.errorMessage != null) {
             SnackBarServices.showErrorMessage(state.signupState.errorMessage!);
@@ -206,7 +208,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     text: TextSpan(
                       style: AppTextStyles.gray12400,
                       children: [
-                        TextSpan(text: AppStrings.creatingAccountAgreement.tr()),
+                        TextSpan(
+                          text: AppStrings.creatingAccountAgreement.tr(),
+                        ),
                         TextSpan(
                           text: AppStrings.termsAndConditions.tr(),
                           style: AppTextStyles.black12600.copyWith(
