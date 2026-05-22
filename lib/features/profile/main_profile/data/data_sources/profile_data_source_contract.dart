@@ -3,4 +3,5 @@ import 'package:flowers_app/features/profile/main_profile/data/models/response/g
 
 abstract interface class ProfileDataSourceContract {
   Future<BaseResponse<GetProfileResponse>> getProfileData();
+  Future<BaseResponse<void>> logout();
 }

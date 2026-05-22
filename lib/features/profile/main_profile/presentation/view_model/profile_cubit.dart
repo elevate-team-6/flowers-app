@@ -5,14 +5,21 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../config/base_response/base_response.dart';
 import '../../../../../config/base_state/base_state.dart';
+import '../../../../../config/cache/secure_cache_helper.dart';
+import '../../../../../config/di/di.dart';
+import '../../../../../core/utils/app_keys.dart';
+import '../../../../../core/utils/app_strings.dart';
+import '../../domain/use_cases/logout_use_case.dart';
 import 'profile_events.dart';
 import 'profile_states.dart';
 
 @injectable
 class ProfileCubit extends Cubit<ProfileStates> {
-  final GetProfileDataUseCase _useCase;
+  final GetProfileDataUseCase _getProfileDataUseCase;
+  final LogoutUseCase _logoutUseCase;
 
-  ProfileCubit(this._useCase) : super(const ProfileStates());
+  ProfileCubit(this._getProfileDataUseCase, this._logoutUseCase)
+    : super(const ProfileStates());
 
   void doEvent(ProfileEvents event) {
     switch (event) {
@@ -22,12 +29,15 @@ class ProfileCubit extends Cubit<ProfileStates> {
       case ChangeLanguageEvent():
         emit(state.copyWith(selectedLanguage: event.language));
         break;
+      case LogoutEvent():
+        _logout();
+        break;
     }
   }
 
   Future<void> _getProfileData() async {
     emit(state.copyWith(profileDateState: const BaseState(isLoading: true)));
-    final result = await _useCase.call();
+    final result = await _getProfileDataUseCase.call();
     switch (result) {
       case SuccessBaseResponse<UserProfileEntity>():
         emit(
@@ -45,6 +55,27 @@ class ProfileCubit extends Cubit<ProfileStates> {
             profileDateState: BaseState<UserProfileEntity>(
               isLoading: false,
               errorMessage: result.errorMessage,
+            ),
+          ),
+        );
+        break;
+    }
+  }
+
+  Future<void> _logout() async {
+    emit(state.copyWith(logoutState: const BaseState(isLoading: true)));
+    final result = await _logoutUseCase.logout();
+    switch (result) {
+      case SuccessBaseResponse<void>():
+        await getIt<SecureCacheHelper>().deleteData(key: AppKeys.tokenKey);
+        emit(state.copyWith(logoutState: const BaseState(isLoading: false)));
+        break;
+      case ErrorBaseResponse<void>():
+        emit(
+          state.copyWith(
+            logoutState: BaseState(
+              isLoading: false,
+              errorMessage: AppStrings.someThingWentWrong,
             ),
           ),
         );

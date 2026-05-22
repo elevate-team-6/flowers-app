@@ -18,4 +18,7 @@ abstract class ProfileApiClient {
   //todo: how much duration to cache the data
   @Extra({AppKeys.cacheDurationHours: 24})
   Future<GetProfileResponse> getProfileData();
+
+  @GET(AppEndPoints.logout)
+  Future<void> logout();
 }

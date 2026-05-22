@@ -51,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                   (state) => !state.profileDateState.isLoading,
                 );
               },
-              child: ProfileBody(context: context, state: state),
+              child: ProfileBody(state: state),
             );
           },
         ),

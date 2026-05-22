@@ -1,3 +1,4 @@
+import 'package:flowers_app/features/profile/main_profile/presentation/widgets/logout_dialog.dart';
 import 'package:flowers_app/features/profile/main_profile/presentation/widgets/profile_header.dart';
 import 'package:flowers_app/features/profile/main_profile/presentation/widgets/profile_menu_item.dart';
 import 'package:flowers_app/features/profile/main_profile/presentation/widgets/profile_shimmer.dart';
@@ -17,9 +18,8 @@ import '../view_model/profile_states.dart';
 import 'language_bottom_sheet.dart';
 
 class ProfileBody extends StatelessWidget {
-  final BuildContext context;
   final ProfileStates state;
-  const ProfileBody({super.key, required this.context, required this.state});
+  const ProfileBody({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,13 @@ class ProfileBody extends StatelessWidget {
                           backgroundColor: AppColors.red,
                         ),
                         onPressed: () {
-                          //todo: logout
+                          showDialog(
+                            context: context,
+                            builder: (dialogContext) => BlocProvider.value(
+                              value: context.read<ProfileCubit>(),
+                              child: const LogoutDialog(),
+                            ),
+                          );
                         },
                         child: Text(
                           AppStrings.logout,
@@ -173,7 +179,13 @@ class ProfileBody extends StatelessWidget {
               ),
             ),
             onTap: () {
-              //Todo: show dialog to confirm logout
+              showDialog(
+                context: context,
+                builder: (dialogContext) => BlocProvider.value(
+                  value: context.read<ProfileCubit>(),
+                  child: const LogoutDialog(),
+                ),
+              );
             },
           ),
           const SizedBox(height: 10),

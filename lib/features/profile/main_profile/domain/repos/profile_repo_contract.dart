@@ -3,4 +3,5 @@ import 'package:flowers_app/features/profile/main_profile/domain/entities/user_p
 
 abstract interface class ProfileRepoContract {
   Future<BaseResponse<UserProfileEntity>> getProfileData();
+  Future<BaseResponse<void>> logout();
 }

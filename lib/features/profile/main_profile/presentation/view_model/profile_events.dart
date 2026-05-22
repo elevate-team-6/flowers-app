@@ -20,3 +20,9 @@ class ChangeLanguageEvent extends ProfileEvents {
   @override
   List<Object?> get props => [language];
 }
+
+class LogoutEvent extends ProfileEvents {
+  const LogoutEvent();
+  @override
+  List<Object?> get props => [];
+}

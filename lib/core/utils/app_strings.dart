@@ -239,4 +239,5 @@ abstract class AppStrings {
   static const String aboutUs = 'About us';
   static const String logout = 'Logout';
   static const String version = 'v 6.3.0 - (446)';
+  static const String confirmLogout = 'Confirm logout!!';
 }

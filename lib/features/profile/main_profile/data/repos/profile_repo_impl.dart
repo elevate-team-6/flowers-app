@@ -24,4 +24,9 @@ class ProfileRepoImpl implements ProfileRepoContract {
         return ErrorBaseResponse<UserProfileEntity>(result.errorMessage);
     }
   }
+
+  @override
+  Future<BaseResponse<void>> logout() async {
+    return await _dataSource.logout();
+  }
 }
