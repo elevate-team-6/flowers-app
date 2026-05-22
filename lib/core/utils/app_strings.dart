@@ -117,6 +117,19 @@ abstract class AppStrings {
   static const String bouqetInclude = 'bouqetInclude';
   static const String noProductDetailsFound = 'noProductDetailsFound';
 
+  // Profile Screen
+  static const String myOrders = 'myOrders';
+  static const String savedAddress = 'savedAddress';
+  static const String notification = 'notification';
+  static const String language = 'language';
+  static const String changeLanguage = 'changeLanguage';
+  static const String arabic = 'arabic';
+  static const String english = 'english';
+  static const String aboutUs = 'aboutUs';
+  static const String logout = 'logout';
+  static const String version = 'version';
+  static const String confirmLogout = 'confirmLogout';
+
   // Main Layout
   static const String home = 'home';
   static const String categories = 'categories';
