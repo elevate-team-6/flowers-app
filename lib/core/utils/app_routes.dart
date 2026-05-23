@@ -125,22 +125,27 @@ abstract class AppRoutes {
           ),
         );
 
-          case productDetails:
+      case productDetails:
         final String productId = settings.arguments.toString();
-
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) =>
-            getIt<ProductDetailsCubit>()
-              ..doEvent(GetProductDetailsEvent(productId)),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    getIt<ProductDetailsCubit>()
+                      ..doEvent(GetProductDetailsEvent(productId)),
+              ),
+              BlocProvider.value(value: getIt<CartBloc>()),
+            ],
             child: const ProductDetailsScreen(),
           ),
         );
 
-        default:
-          return _unDefinedRoute(settings.name);
-      }
+      default:
+        return _unDefinedRoute(settings.name);
     }
+  }
+
   static MaterialPageRoute<dynamic> _unDefinedRoute(String? name) {
     return MaterialPageRoute(
       builder: (_) =>

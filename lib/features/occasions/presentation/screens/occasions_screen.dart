@@ -11,6 +11,7 @@ import 'package:flowers_app/features/occasions/presentation/view_model/occasions
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OccasionsScreen extends StatefulWidget {
   final String? initialOccasionId;
@@ -79,9 +80,9 @@ class _OccasionsScreenState extends State<OccasionsScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(AppStrings.occasion),
+              Text(AppStrings.occasion.tr()),
               Text(
-                AppStrings.occasionSubtitle,
+                AppStrings.occasionSubtitle.tr(),
                 style: AppTextStyles.black12400.copyWith(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
@@ -140,7 +141,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                       if (productsList.isEmpty) {
                         return Center(
                           child: Text(
-                            AppStrings.noProductsFound,
+                            AppStrings.noProductsFound.tr(),
                             style: AppTextStyles.black16400,
                           ),
                         );

@@ -18,6 +18,7 @@ import '../cubit/main_layout_cubit.dart';
 import '../cubit/main_layout_event.dart';
 import '../cubit/main_layout_state.dart';
 import '../widgets/main_nav_bar_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MainLayoutScreen extends StatelessWidget {
   final int? initialIndex;
@@ -86,19 +87,19 @@ class MainLayoutScreen extends StatelessWidget {
                   items: [
                     MainNavBarItem(
                       iconPath: AppIcons.home,
-                      label: AppStrings.home,
+                      label: AppStrings.home.tr(),
                     ),
                     MainNavBarItem(
                       iconPath: AppIcons.categories,
-                      label: AppStrings.categories,
+                      label: AppStrings.categories.tr(),
                     ),
                     MainNavBarItem(
                       iconPath: AppIcons.cart,
-                      label: AppStrings.cart,
+                      label: AppStrings.cart.tr(),
                     ),
                     MainNavBarItem(
                       iconPath: AppIcons.profile,
-                      label: AppStrings.profile,
+                      label: AppStrings.profile.tr(),
                     ),
                   ],
                 ),

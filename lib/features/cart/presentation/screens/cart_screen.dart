@@ -12,6 +12,7 @@ import 'package:flowers_app/features/cart/domain/entities/cart_item_entity.dart'
 import 'package:flowers_app/features/cart/presentation/widgets/cart_item_card.dart';
 import 'package:flowers_app/features/cart/presentation/widgets/cart_summary.dart';
 import 'package:flowers_app/features/cart/presentation/widgets/cart_shimmer.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -46,14 +47,14 @@ class _CartScreenState extends State<CartScreen> {
                 return Row(
                   children: [
                     Text(
-                      AppStrings.cart,
+                      AppStrings.cart.tr(),
                       style: AppTextStyles.black16400.copyWith(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
-                      ' ($count ${AppStrings.items})',
+                      ' ($count ${AppStrings.items.tr()})',
                       style: AppTextStyles.black16400.copyWith(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w500,
@@ -70,7 +71,7 @@ class _CartScreenState extends State<CartScreen> {
                 Image.asset(AppIcons.location, width: 24.w, height: 24.w),
                 SizedBox(width: 4.w),
                 Text(
-                  AppStrings.deliverto,
+                  AppStrings.deliverto.tr(),
                   style: AppTextStyles.gray12400.copyWith(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -79,7 +80,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 Expanded(
                   child: Text(
-                    AppStrings.delivertoAddress,
+                    AppStrings.delivertoAddress.tr(),
                     style: AppTextStyles.black16400.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
@@ -103,7 +104,7 @@ class _CartScreenState extends State<CartScreen> {
           if (state.status == CartStatus.failure) {
             return Center(
               child: Text(
-                state.errorMessage ?? AppStrings.somethingWentWrong,
+                state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
                 style: AppTextStyles.black16400,
               ),
             );
@@ -122,7 +123,7 @@ class _CartScreenState extends State<CartScreen> {
                     color: AppColors.black30,
                   ),
                   SizedBox(height: 16.h),
-                  Text(AppStrings.cartEmpty, style: AppTextStyles.black16400),
+                  Text(AppStrings.cartEmpty.tr(), style: AppTextStyles.black16400),
                 ],
               ),
             );

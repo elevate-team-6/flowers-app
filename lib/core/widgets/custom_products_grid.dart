@@ -8,6 +8,7 @@ import 'package:flowers_app/features/cart/presentation/view_model/cart_state.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomProductsGrid extends StatelessWidget {
   final List<ProductEntity> products;
@@ -21,7 +22,7 @@ class CustomProductsGrid extends StatelessWidget {
       listenWhen: (prev, curr) =>
           (curr.cart?.numOfCartItems ?? 0) > (prev.cart?.numOfCartItems ?? 0),
       listener: (context, state) {
-        SnackBarServices.showSuccessMessage(AppStrings.addedToCart);
+        SnackBarServices.showSuccessMessage(AppStrings.addedToCart.tr());
       },
       child: GridView.builder(
         padding: EdgeInsets.all(16.w),

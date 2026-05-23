@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SnackBarServices.showErrorMessage(state.errorMessage!);
           }
           if (state.user != null) {
-            SnackBarServices.showSuccessMessage(AppStrings.loginSuccess);
+            SnackBarServices.showSuccessMessage(AppStrings.loginSuccess.tr());
 
             Navigator.pushNamedAndRemoveUntil(
               context,
@@ -86,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         child: Scaffold(
-          appBar: AppBar(title: const Text(AppStrings.login)),
+          appBar: AppBar(title: Text(AppStrings.login.tr())),
           body: SafeArea(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -137,8 +138,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           RichTextWithLink(
                             textAlign: TextAlign.center,
                             linkTextColor: AppColors.primary,
-                            normalText: AppStrings.dontHaveAccount,
-                            linkText: AppStrings.signup,
+                            normalText: AppStrings.dontHaveAccount.tr(),
+                            linkText: AppStrings.signup.tr(),
                             onLinkTap: () {
                               Navigator.pushNamed(context, AppRoutes.signup);
                             },

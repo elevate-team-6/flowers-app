@@ -18,6 +18,7 @@ void main() {
     provideDummy<BaseResponse<ProductDetailsEntity>>(
       SuccessBaseResponse(
         ProductDetailsEntity(
+          id: '1',
           title: '',
           description: '',
           images: [],
@@ -44,6 +45,7 @@ void main() {
     const productId = '1';
 
     final product = ProductDetailsEntity(
+      id: '1',
       title: 'Rose',
       description: 'Beautiful flower',
       images: ['image'],

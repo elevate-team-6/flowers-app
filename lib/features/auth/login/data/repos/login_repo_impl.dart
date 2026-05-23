@@ -6,6 +6,7 @@ import 'package:flowers_app/features/auth/login/data/models/login_response/login
 import 'package:flowers_app/features/auth/login/domain/entities/user_entity.dart';
 import 'package:flowers_app/features/auth/login/domain/repositories/login_repo_contract.dart';
 import 'package:injectable/injectable.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 @Injectable(as: LoginRepoContract)
 class LoginRepoImpl implements LoginRepoContract {
@@ -19,7 +20,7 @@ class LoginRepoImpl implements LoginRepoContract {
       case SuccessBaseResponse<LoginResponse>():
         final data = response.data;
         if (data.user == null) {
-          return ErrorBaseResponse(AppStrings.someThingWentWrong);
+          return ErrorBaseResponse(AppStrings.someThingWentWrong.tr());
         }
         final user = data.user!;
         return SuccessBaseResponse(

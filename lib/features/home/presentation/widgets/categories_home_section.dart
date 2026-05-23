@@ -7,6 +7,7 @@ import 'package:flowers_app/features/main_layout/presentation/cubit/main_layout_
 import 'package:flowers_app/features/main_layout/presentation/cubit/main_layout_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CategoriesHomeSection extends StatelessWidget {
   final HomeStates state;
@@ -36,9 +37,9 @@ class CategoriesHomeSection extends StatelessWidget {
     final categories = categoriesState.data;
 
     if (categories == null || categories.isEmpty) {
-      return const SizedBox(
+      return SizedBox(
         height: 90,
-        child: Center(child: Text(AppStrings.noCategoriesAvailable)),
+        child: Center(child: Text(AppStrings.noCategoriesAvailable.tr())),
       );
     }
 
@@ -46,7 +47,7 @@ class CategoriesHomeSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HomeCommonHeaderSection(
-          title: AppStrings.categories,
+          title: AppStrings.categories.tr(),
           onViewAll: () {
             context.read<MainLayoutCubit>().doEvent(ChangeIndexEvent(1));
           },

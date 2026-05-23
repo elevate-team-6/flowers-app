@@ -5,6 +5,7 @@ import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FilterFloatingButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -36,7 +37,7 @@ class FilterFloatingButton extends StatelessWidget {
               BlendMode.srcIn,
             ),
           ),
-          label: Text(AppStrings.filter, style: AppTextStyles.white14600),
+          label: Text(AppStrings.filter.tr(), style: AppTextStyles.white14600),
         ),
       ),
     );

@@ -73,6 +73,7 @@ class ProductDetailsModel extends Equatable {
       );
 
   ProductDetailsEntity toEntity() => ProductDetailsEntity(
+    id: id ?? '',
     title: title ?? '',
     imgCover: imgCover ?? '',
     price: price ?? 0,
