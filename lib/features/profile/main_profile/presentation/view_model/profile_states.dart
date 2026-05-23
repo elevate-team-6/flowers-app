@@ -19,13 +19,13 @@ class ProfileStates extends Equatable {
   });
 
   ProfileStates copyWith({
-    BaseState<UserProfileEntity>? profileDateState,
+    BaseState<UserProfileEntity>? profileDataState,
     BaseState<void>? logoutState,
     SelectedLanguage? selectedLanguage,
     bool? isNotificationEnabled,
   }) {
     return ProfileStates(
-      profileDataState: profileDateState ?? this.profileDataState,
+      profileDataState: profileDataState ?? this.profileDataState,
       logoutState: logoutState ?? this.logoutState,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
       isNotificationEnabled:

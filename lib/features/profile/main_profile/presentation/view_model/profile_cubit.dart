@@ -6,9 +6,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../config/base_response/base_response.dart';
 import '../../../../../config/base_state/base_state.dart';
-import '../../../../../config/cache/secure_cache_helper.dart';
-import '../../../../../config/di/di.dart';
-import '../../../../../core/utils/app_keys.dart';
 import '../../../../../core/utils/app_strings.dart';
 import '../../domain/use_cases/logout_use_case.dart';
 import 'profile_events.dart';
@@ -40,13 +37,13 @@ class ProfileCubit extends Cubit<ProfileStates> {
   }
 
   Future<void> _getProfileData() async {
-    emit(state.copyWith(profileDateState: const BaseState(isLoading: true)));
+    emit(state.copyWith(profileDataState: const BaseState(isLoading: true)));
     final result = await _getProfileDataUseCase.call();
     switch (result) {
       case SuccessBaseResponse<UserProfileEntity>():
         emit(
           state.copyWith(
-            profileDateState: BaseState<UserProfileEntity>(
+            profileDataState: BaseState<UserProfileEntity>(
               isLoading: false,
               data: result.data,
             ),
@@ -56,7 +53,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
       case ErrorBaseResponse<UserProfileEntity>():
         emit(
           state.copyWith(
-            profileDateState: BaseState<UserProfileEntity>(
+            profileDataState: BaseState<UserProfileEntity>(
               isLoading: false,
               errorMessage: result.errorMessage,
             ),
@@ -71,7 +68,6 @@ class ProfileCubit extends Cubit<ProfileStates> {
     final result = await _logoutUseCase.logout();
     switch (result) {
       case SuccessBaseResponse<void>():
-        await getIt<SecureCacheHelper>().deleteData(key: AppKeys.tokenKey);
         emit(state.copyWith(logoutState: const BaseState(isLoading: false)));
         break;
       case ErrorBaseResponse<void>():
