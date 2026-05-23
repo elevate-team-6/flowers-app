@@ -9,6 +9,6 @@ class LogoutUseCase {
   LogoutUseCase(this._repo);
 
   Future<BaseResponse<void>> logout() async {
-    return await _repo.logout();
+    return _repo.logout();
   }
 }

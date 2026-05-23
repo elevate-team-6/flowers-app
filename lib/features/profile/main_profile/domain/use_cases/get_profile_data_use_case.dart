@@ -11,6 +11,6 @@ class GetProfileDataUseCase {
   GetProfileDataUseCase(this._repo);
 
   Future<BaseResponse<UserProfileEntity>> call() async {
-    return await _repo.getProfileData();
+    return _repo.getProfileData();
   }
 }
