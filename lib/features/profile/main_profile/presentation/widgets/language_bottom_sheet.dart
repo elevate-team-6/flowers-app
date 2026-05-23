@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../view_model/profile_cubit.dart';
 import '../view_model/profile_events.dart';
 import '../view_model/profile_states.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LanguageBottomSheet extends StatelessWidget {
   const LanguageBottomSheet({super.key});
@@ -38,13 +39,13 @@ class LanguageBottomSheet extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               Text(
-                AppStrings.changeLanguage,
+                AppStrings.changeLanguage.tr(),
                 style: AppTextStyles.primary20700,
               ),
               SizedBox(height: 20.h),
               _buildLanguageItem(
                 context: context,
-                title: AppStrings.arabic,
+                title: AppStrings.arabic.tr(),
                 isSelected: state.selectedLanguage == SelectedLanguage.arabic,
                 onSelect: () {
                   context.read<ProfileCubit>().doEvent(
@@ -56,7 +57,7 @@ class LanguageBottomSheet extends StatelessWidget {
               SizedBox(height: 12.h),
               _buildLanguageItem(
                 context: context,
-                title: AppStrings.english,
+                title: AppStrings.english.tr(),
                 isSelected: state.selectedLanguage == SelectedLanguage.english,
                 onSelect: () {
                   context.read<ProfileCubit>().doEvent(

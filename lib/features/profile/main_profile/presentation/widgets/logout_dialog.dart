@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../config/services/snack_bar_services.dart';
 import '../view_model/profile_events.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LogoutDialog extends StatelessWidget {
   const LogoutDialog({super.key});
@@ -24,11 +25,11 @@ class LogoutDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              AppStrings.logout.toUpperCase(),
+              AppStrings.logout.tr().toUpperCase(),
               style: AppTextStyles.black18600,
             ),
             SizedBox(height: 8.h),
-            Text(AppStrings.confirmLogout, style: AppTextStyles.black16400),
+            Text(AppStrings.confirmLogout.tr(), style: AppTextStyles.black16400),
             SizedBox(height: 24.h),
             Row(
               children: [
@@ -46,7 +47,7 @@ class LogoutDialog extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      AppStrings.cancel,
+                      AppStrings.cancel.tr(),
                       style: AppTextStyles.black14600,
                     ),
                   ),
@@ -96,7 +97,7 @@ class LogoutDialog extends StatelessWidget {
                                 ),
                               )
                             : Text(
-                                AppStrings.logout,
+                                AppStrings.logout.tr(),
                                 style: AppTextStyles.white14600,
                               ),
                       ),
