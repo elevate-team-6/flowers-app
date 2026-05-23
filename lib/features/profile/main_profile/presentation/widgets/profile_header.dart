@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/utils/app_routes.dart';
+import '../../../../../core/widgets/custom_cached_image.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String firstName;
@@ -26,11 +27,19 @@ class ProfileHeader extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 50,
-          backgroundImage: image != null ? NetworkImage(image!) : null,
           backgroundColor: AppColors.white60,
-          child: image == null
-              ? SvgPicture.asset(AppIcons.profile, width: 50, height: 50)
-              : null,
+          child: image != null
+              ? ClipOval(
+                  child: CustomCachedImage(
+                    imageUrl: image!.startsWith('http')
+                        ? image!
+                        : "${AppImages.imageBaseUrl}$image",
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                )
+              : SvgPicture.asset(AppIcons.profile, width: 50, height: 50),
         ),
         const SizedBox(height: 10),
         Row(

@@ -1,4 +1,4 @@
-import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../config/services/snack_bar_services.dart';
 import '../view_model/profile_events.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class LogoutDialog extends StatelessWidget {
   const LogoutDialog({super.key});
@@ -29,27 +28,17 @@ class LogoutDialog extends StatelessWidget {
               style: AppTextStyles.black18600,
             ),
             SizedBox(height: 8.h),
-            Text(AppStrings.confirmLogout.tr(), style: AppTextStyles.black16400),
+            Text(
+              AppStrings.confirmLogout.tr(),
+              style: AppTextStyles.black16400,
+            ),
             SizedBox(height: 24.h),
             Row(
               children: [
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => Navigator.pop(context),
-                    style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24.r),
-                      ),
-                      side: const BorderSide(
-                        color: AppColors.black10,
-                        width: 1,
-                      ),
-                    ),
-                    child: Text(
-                      AppStrings.cancel.tr(),
-                      style: AppTextStyles.black14600,
-                    ),
+                    child: Text(AppStrings.cancel.tr()),
                   ),
                 ),
                 SizedBox(width: 16.w),
@@ -65,27 +54,27 @@ class LogoutDialog extends StatelessWidget {
                         state.logoutState.errorMessage!,
                       );
                       Navigator.pop(context);
-                    } else {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        AppRoutes.login,
-                        (route) => false,
-                      );
                     }
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRoutes.login,
+                      (route) => false,
+                    );
                   },
                   builder: (context, state) {
                     return Expanded(
                       child: ElevatedButton(
-                        onPressed: () {
-                          context.read<ProfileCubit>().doEvent(LogoutEvent());
-                        },
+                        onPressed: state.logoutState.isLoading
+                            ? null
+                            : () {
+                                context.read<ProfileCubit>().doEvent(
+                                  const LogoutEvent(),
+                                );
+                              },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          padding: EdgeInsets.symmetric(vertical: 12.h),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24.r),
                           ),
-                          elevation: 0,
                         ),
                         child: state.logoutState.isLoading
                             ? SizedBox(
@@ -96,10 +85,7 @@ class LogoutDialog extends StatelessWidget {
                                   strokeWidth: 2,
                                 ),
                               )
-                            : Text(
-                                AppStrings.logout.tr(),
-                                style: AppTextStyles.white14600,
-                              ),
+                            : Text(AppStrings.logout.tr()),
                       ),
                     );
                   },

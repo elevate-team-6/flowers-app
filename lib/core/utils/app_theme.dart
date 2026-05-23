@@ -48,6 +48,19 @@ abstract class AppTheme {
         ),
       ),
 
+      // outlined button theme
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.black,
+          minimumSize: Size(double.infinity, 48.h),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100.r),
+          ),
+          side: const BorderSide(color: AppColors.black10, width: 1),
+          textStyle: AppTextStyles.black14600,
+        ),
+      ),
+
       // text button theme
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
