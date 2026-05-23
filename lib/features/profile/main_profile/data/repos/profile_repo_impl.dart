@@ -4,6 +4,7 @@ import 'package:flowers_app/features/profile/main_profile/domain/repos/profile_r
 import 'package:injectable/injectable.dart';
 
 import '../../../../../config/base_response/base_response.dart';
+import '../../../../../core/utils/app_strings.dart';
 import '../data_sources/profile_data_source_contract.dart';
 
 @Injectable(as: ProfileRepoContract)
@@ -17,9 +18,15 @@ class ProfileRepoImpl implements ProfileRepoContract {
     final result = await _dataSource.getProfileData();
     switch (result) {
       case SuccessBaseResponse<GetProfileResponse>():
-        return SuccessBaseResponse<UserProfileEntity>(
-          result.data.user!.toEntity(),
-        );
+        if (result.data.user != null) {
+          return SuccessBaseResponse<UserProfileEntity>(
+            result.data.user!.toEntity(),
+          );
+        } else {
+          return ErrorBaseResponse<UserProfileEntity>(
+            AppStrings.profileDataNotFound,
+          );
+        }
       case ErrorBaseResponse<GetProfileResponse>():
         return ErrorBaseResponse<UserProfileEntity>(result.errorMessage);
     }
@@ -27,6 +34,6 @@ class ProfileRepoImpl implements ProfileRepoContract {
 
   @override
   Future<BaseResponse<void>> logout() async {
-    return await _dataSource.logout();
+    return _dataSource.logout();
   }
 }

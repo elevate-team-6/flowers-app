@@ -14,7 +14,7 @@ class ProfileDataSourceImpl implements ProfileDataSourceContract {
 
   @override
   Future<BaseResponse<GetProfileResponse>> getProfileData() async {
-    return await ErrorHandler.handleApiCall(() => _apiClient.getProfileData());
+    return ErrorHandler.handleApiCall(() => _apiClient.getProfileData());
   }
 
   @override

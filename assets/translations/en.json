@@ -64,6 +64,7 @@
   "unknownError": "An unknown error occurred. Please try again.",
   "invalidRequest": "Invalid request. Please check your input.",
   "authFailed": "Authentication failed. Please log in again.",
+  "profileDataNotFound": "Profile data not found",
   "forbidden": "You don't have permission to perform this action.",
   "notFound": "The requested resource was not found.",
   "serverError": "Our servers are currently experiencing issues. Please try again later.",

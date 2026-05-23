@@ -177,6 +177,7 @@ abstract class AppStrings {
   static const String forbidden = 'forbidden';
   static const String notFound = 'notFound';
   static const String serverError = 'serverError';
+  static const String profileDataNotFound = 'profileDataNotFound';
   static const String defaultError = 'defaultError';
   static const String defaultErrorTryAgain = 'defaultErrorTryAgain';
   static const String unexpectedErrorTryAgain = 'unexpectedErrorTryAgain';

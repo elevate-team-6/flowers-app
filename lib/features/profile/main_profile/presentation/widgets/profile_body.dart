@@ -24,11 +24,11 @@ class ProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (state.profileDateState.isLoading) {
+    if (state.profileDataState.isLoading) {
       return const ProfileShimmer();
     }
 
-    if (state.profileDateState.errorMessage != null) {
+    if (state.profileDataState.errorMessage != null) {
       return LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
@@ -48,7 +48,7 @@ class ProfileBody extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        state.profileDateState.errorMessage!,
+                        state.profileDataState.errorMessage!,
                         textAlign: TextAlign.center,
                         style: AppTextStyles.black16400,
                       ),
@@ -96,7 +96,7 @@ class ProfileBody extends StatelessWidget {
       );
     }
 
-    final UserProfileEntity? user = state.profileDateState.data;
+    final UserProfileEntity? user = state.profileDataState.data;
 
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),

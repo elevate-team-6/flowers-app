@@ -6,12 +6,12 @@ import '../../domain/entities/user_profile_entity.dart';
 enum SelectedLanguage { english, arabic }
 
 class ProfileStates extends Equatable {
-  final BaseState<UserProfileEntity> profileDateState;
+  final BaseState<UserProfileEntity> profileDataState;
   final BaseState<void> logoutState;
   final SelectedLanguage selectedLanguage;
 
   const ProfileStates({
-    this.profileDateState = const BaseState(),
+    this.profileDataState = const BaseState(),
     this.logoutState = const BaseState(),
     this.selectedLanguage = SelectedLanguage.english,
   });
@@ -22,21 +22,21 @@ class ProfileStates extends Equatable {
     SelectedLanguage? selectedLanguage,
   }) {
     return ProfileStates(
-      profileDateState: profileDateState ?? this.profileDateState,
+      profileDataState: profileDateState ?? this.profileDataState,
       logoutState: logoutState ?? this.logoutState,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
     );
   }
 
   @override
-  List<Object?> get props => [profileDateState, logoutState, selectedLanguage];
+  List<Object?> get props => [profileDataState, logoutState, selectedLanguage];
 }
 
-class LoginStates extends Equatable {
+class LogoutStates extends Equatable {
   final bool isLoading;
   final String? errorMessage;
 
-  const LoginStates(this.isLoading, this.errorMessage);
+  const LogoutStates(this.isLoading, this.errorMessage);
 
   @override
   List<Object?> get props => [isLoading, errorMessage];
