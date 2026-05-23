@@ -2,6 +2,7 @@ import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
+import 'package:flowers_app/features/auth/login/data/models/login_response/user_dto.dart';
 import 'package:flowers_app/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_cubit.dart';
 import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
@@ -95,12 +96,20 @@ abstract class AppRoutes {
             child: const BestSellerScreen(),
           ),
         );
-        case editProfile:
+      case editProfile:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) =>
-                getIt<EditProfileCubit>(),
-            child: const EditProfileScreen(),
+            create: (_) => getIt<EditProfileCubit>(),
+            child: EditProfileScreen(
+              user: UserDto(
+                firstName: 'Youssef',
+                lastName: 'Tech2',
+                email: 'ahmed00mutti@gmail.com',
+                phone: '01154099777',
+                gender: 'male',
+                photo: '',
+              ),
+            ),
           ),
         );
 

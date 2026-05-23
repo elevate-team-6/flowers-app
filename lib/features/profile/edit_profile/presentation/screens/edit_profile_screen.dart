@@ -1,9 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:flowers_app/config/cache/secure_cache_helper.dart';
-import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
-import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/core/widgets/custom_gender_selector.dart';
@@ -19,114 +14,85 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+  final UserDto user;
+
+  const EditProfileScreen({super.key, required this.user});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  UserDto? currentUser;
+  final formKey = GlobalKey<FormState>();
+
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
 
-  final SecureCacheHelper cacheHelper = getIt<SecureCacheHelper>();
-
-  String? selectedGender;
-  File? selectedImage;
-
-  final formKey = GlobalKey<FormState>();
-
   @override
   void initState() {
     super.initState();
 
+    final cubit = context.read<EditProfileCubit>();
+
+    cubit.initialize(widget.user);
+
+    firstNameController.text = widget.user.firstName ?? '';
+
+    lastNameController.text = widget.user.lastName ?? '';
+
+    emailController.text = widget.user.email ?? '';
+
+    phoneController.text = widget.user.phone ?? '';
+
     firstNameController.addListener(_onChanged);
     lastNameController.addListener(_onChanged);
     phoneController.addListener(_onChanged);
-
-    loadUserData();
   }
 
   void _onChanged() {
-    setState(() {});
-  }
-
-  bool get isDataChanged {
-    return firstNameController.text != currentUser?.firstName ||
-        lastNameController.text != currentUser?.lastName ||
-        phoneController.text != currentUser?.phone ||
-        selectedGender != currentUser?.gender ||
-        selectedImage != null;
-  }
-
-  Future<void> loadUserData() async {
-    final userData = await cacheHelper.readData(key: AppKeys.userKey);
-
-    if (userData != null) {
-      currentUser = UserDto.fromJson(jsonDecode(userData));
-
-      firstNameController.text = currentUser?.firstName ?? '';
-      lastNameController.text = currentUser?.lastName ?? '';
-      emailController.text = currentUser?.email ?? '';
-      phoneController.text = currentUser?.phone ?? '';
-      selectedGender = currentUser?.gender;
-      setState(() {});
-    }
+    context.read<EditProfileCubit>().checkIfDataChanged(
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      phone: phoneController.text,
+    );
   }
 
   @override
   void dispose() {
-    firstNameController.removeListener(_onChanged);
-    lastNameController.removeListener(_onChanged);
-    phoneController.removeListener(_onChanged);
-    emailController.dispose();
-    phoneController.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<EditProfileCubit>();
+
     return BlocListener<EditProfileCubit, EditProfileState>(
-      listenWhen: (previous, current) =>
-          previous.editProfileState != current.editProfileState ||
-          previous.uploadPhotoState != current.uploadPhotoState,
-      listener: (context, state) async {
+      listenWhen: (previous, current) {
+        return previous.editProfileState != current.editProfileState ||
+            previous.uploadPhotoState != current.uploadPhotoState;
+      },
+      listener: (context, state) {
+        final isLoading =
+            state.editProfileState.isLoading ||
+            state.uploadPhotoState.isLoading;
+
+        if (isLoading) {
+          LoadingDialog.show(context: context);
+        } else {
+          LoadingDialog.hide(context: context);
+        }
+
         if (state.uploadPhotoState.errorMessage != null) {
           SnackBarServices.showErrorMessage(
             state.uploadPhotoState.errorMessage!,
           );
-        }
-        if (state.uploadPhotoState.data != null) {
-          final updatedDto = UserDto(
-            firstName: currentUser?.firstName,
-            lastName: currentUser?.lastName,
-            email: currentUser?.email,
-            gender: currentUser?.gender,
-            phone: currentUser?.phone,
-            photo: state.uploadPhotoState.data!,
-          );
-
-          await cacheHelper.writeData(
-            key: AppKeys.userKey,
-            value: jsonEncode(updatedDto.toJson()),
-          );
-
-          setState(() {
-            currentUser = updatedDto;
-          });
-
-          SnackBarServices.showSuccessMessage('Photo updated successfully');
-        }
-
-        if (state.editProfileState.isLoading) {
-          LoadingDialog.show(context: context);
-        } else {
-          LoadingDialog.hide(context: context);
         }
 
         if (state.editProfileState.errorMessage != null) {
@@ -135,70 +101,45 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           );
         }
 
+        if (state.uploadPhotoState.data != null &&
+            !state.editProfileState.isLoading) {
+          cubit.clearUploadPhotoState();
+
+          cubit.doEvent(
+            UpdateProfileEvent(
+              request: EditProfileRequest(
+                firstName: firstNameController.text,
+                lastName: lastNameController.text,
+                phone: '+2${phoneController.text}',
+              ),
+            ),
+          );
+        }
+
         if (state.editProfileState.data != null) {
-          final updatedUser = state.editProfileState.data!;
-          final updatedDto = UserDto(
-            firstName: updatedUser.firstName,
-            lastName: updatedUser.lastName,
-            email: currentUser?.email,
-            gender: updatedUser.gender,
-            phone: updatedUser.phone,
-            photo: updatedUser.photo ?? currentUser?.photo,
-          );
-
-          await cacheHelper.writeData(
-            key: AppKeys.userKey,
-            value: jsonEncode(updatedDto.toJson()),
-          );
-
-          setState(() {
-            currentUser = updatedDto;
-            firstNameController.text = updatedUser.firstName ?? '';
-            lastNameController.text = updatedUser.lastName ?? '';
-            phoneController.text = updatedUser.phone ?? '';
-            selectedGender = updatedUser.gender;
-            selectedImage = null;
-          });
           SnackBarServices.showSuccessMessage(AppStrings.editProfileSuccessfly);
+
+          cubit.clearEditProfileState();
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(AppStrings.editProfile),
-          titleSpacing: 0,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          ),
-        ),
+        appBar: AppBar(title: Text(AppStrings.editProfile)),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: BlocBuilder<EditProfileCubit, EditProfileState>(
             builder: (context, state) {
-              if (currentUser == null) {
-                return const Center(child: CircularProgressIndicator());
-              }
-
               return SingleChildScrollView(
                 child: Column(
                   children: [
                     EditProfileImage(
-                      image: currentUser?.photo ?? '',
-                      selectedImage: selectedImage,
+                      image: state.user?.photo ?? '',
+                      selectedImage: state.selectedImage,
                       onImageSelected: (image) {
-                        setState(() {
-                          selectedImage = image;
-                        });
-
-                        context.read<EditProfileCubit>().doEvent(
-                          UploadPhotoEvent(file: image),
-                        );
+                        cubit.changeImage(image);
                       },
                     ),
 
-                    const SizedBox(height: 50),
+                    SizedBox(height: 50.h),
 
                     Form(
                       key: formKey,
@@ -210,33 +151,33 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
 
-                    SizedBox(height: 20.w),
+                    SizedBox(height: 20.h),
 
-                    CustomGenderSelector(
-                      selectedGender: selectedGender,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedGender = value;
-                        });
-                      },
-                    ),
+                    CustomGenderSelector(selectedGender: state.user?.gender),
 
                     SizedBox(height: 30.h),
 
                     ElevatedButton(
-                      onPressed: isDataChanged
+                      onPressed: state.isDataChanged
                           ? () {
                               if (formKey.currentState!.validate()) {
-                                context.read<EditProfileCubit>().doEvent(
-                                  UpdateProfileEvent(
-                                    request: EditProfileRequest(
-                                      firstName: firstNameController.text,
-                                      lastName: lastNameController.text,
-                                      phone: phoneController.text,
-                                      gender: selectedGender,
+                                if (state.selectedImage != null) {
+                                  cubit.doEvent(
+                                    UploadPhotoEvent(
+                                      file: state.selectedImage!,
                                     ),
-                                  ),
-                                );
+                                  );
+                                } else {
+                                  cubit.doEvent(
+                                    UpdateProfileEvent(
+                                      request: EditProfileRequest(
+                                        firstName: firstNameController.text,
+                                        lastName: lastNameController.text,
+                                        phone: '+2${phoneController.text}',
+                                      ),
+                                    ),
+                                  );
+                                }
                               }
                             }
                           : null,

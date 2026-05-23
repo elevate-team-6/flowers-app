@@ -107,13 +107,13 @@ abstract class AppValidations {
     if (value == null || value.trim().isEmpty) {
       return AppStrings.phoneRequired;
     }
-    final cleaned = value.replaceAll(RegExp(r'[\s\-\(\)]'), '');
-    if (!cleaned.startsWith('+')) {
-      return AppStrings.phoneMustStartWithCountryCode;
-    }
-    if (!RegExp(r'^\+[0-9]{10,15}$').hasMatch(cleaned)) {
-      return AppStrings.invalidPhone;
-    }
+    // final cleaned = value.replaceAll(RegExp(r'[\s\-\(\)]'), '');
+    // if (!cleaned.startsWith('+')) {
+    //   return AppStrings.phoneMustStartWithCountryCode;
+    // }
+    // if (!RegExp(r'^\+[0-9]{10,15}$').hasMatch(cleaned)) {
+    //   return AppStrings.invalidPhone;
+    // }
     return null;
   }
 }
