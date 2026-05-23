@@ -24,9 +24,6 @@ class ProfileCubit extends Cubit<ProfileStates> {
       case GetProfileDataEvent():
         _getProfileData();
         break;
-      case ChangeLanguageEvent():
-        emit(state.copyWith(selectedLanguage: event.language));
-        break;
       case LogoutEvent():
         _logout();
         break;

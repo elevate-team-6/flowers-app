@@ -1,76 +1,65 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../view_model/profile_cubit.dart';
-import '../view_model/profile_events.dart';
-import '../view_model/profile_states.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class LanguageBottomSheet extends StatelessWidget {
   const LanguageBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, ProfileStates>(
-      builder: (context, state) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+    final currentLocale = context.locale.languageCode;
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              width: 50.w,
+              height: 4.h,
+              decoration: BoxDecoration(
+                color: AppColors.black.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+            ),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 50.w,
-                  height: 4.h,
-                  decoration: BoxDecoration(
-                    color: AppColors.black.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.h),
-              Text(
-                AppStrings.changeLanguage.tr(),
-                style: AppTextStyles.primary20700,
-              ),
-              SizedBox(height: 20.h),
-              _buildLanguageItem(
-                context: context,
-                title: AppStrings.arabic.tr(),
-                isSelected: state.selectedLanguage == SelectedLanguage.arabic,
-                onSelect: () {
-                  context.read<ProfileCubit>().doEvent(
-                    const ChangeLanguageEvent(SelectedLanguage.arabic),
-                  );
-                  Navigator.pop(context); // قفل الشيت بعد الاختيار
-                },
-              ),
-              SizedBox(height: 12.h),
-              _buildLanguageItem(
-                context: context,
-                title: AppStrings.english.tr(),
-                isSelected: state.selectedLanguage == SelectedLanguage.english,
-                onSelect: () {
-                  context.read<ProfileCubit>().doEvent(
-                    const ChangeLanguageEvent(SelectedLanguage.english),
-                  );
-                  Navigator.pop(context); // قفل الشيت بعد الاختيار
-                },
-              ),
-              SizedBox(height: 24.h),
-            ],
+          SizedBox(height: 16.h),
+          Text(
+            AppStrings.changeLanguage.tr(),
+            style: AppTextStyles.primary20700,
           ),
-        );
-      },
+          SizedBox(height: 20.h),
+          _buildLanguageItem(
+            context: context,
+            title: AppStrings.arabic.tr(),
+            isSelected: currentLocale == 'ar',
+            onSelect: () {
+              context.setLocale(const Locale('ar'));
+              Navigator.pop(context);
+            },
+          ),
+          SizedBox(height: 12.h),
+          _buildLanguageItem(
+            context: context,
+            title: AppStrings.english.tr(),
+            isSelected: currentLocale == 'en',
+            onSelect: () {
+              context.setLocale(const Locale('en'));
+              Navigator.pop(context);
+            },
+          ),
+          SizedBox(height: 24.h),
+        ],
+      ),
     );
   }
 
