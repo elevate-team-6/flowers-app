@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/features/profile/main_profile/domain/entities/user_profile_entity.dart';
 import 'package:flowers_app/features/profile/main_profile/domain/use_cases/get_profile_data_use_case.dart';
 import 'package:injectable/injectable.dart';
@@ -12,7 +13,6 @@ import '../../../../../core/utils/app_strings.dart';
 import '../../domain/use_cases/logout_use_case.dart';
 import 'profile_events.dart';
 import 'profile_states.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 @injectable
 class ProfileCubit extends Cubit<ProfileStates> {
@@ -32,6 +32,9 @@ class ProfileCubit extends Cubit<ProfileStates> {
         break;
       case LogoutEvent():
         _logout();
+        break;
+      case ToggleNotificationEvent():
+        _toggleNotification(event.isEnabled);
         break;
     }
   }
@@ -82,5 +85,11 @@ class ProfileCubit extends Cubit<ProfileStates> {
         );
         break;
     }
+  }
+
+  void _toggleNotification(bool isEnabled) {
+    // Update local state first for instant UI feedback
+    emit(state.copyWith(isNotificationEnabled: isEnabled));
+    // TODO: Add notification API call here in the future
   }
 }

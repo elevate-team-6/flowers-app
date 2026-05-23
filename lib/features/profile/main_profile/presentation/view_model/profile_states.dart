@@ -9,35 +9,35 @@ class ProfileStates extends Equatable {
   final BaseState<UserProfileEntity> profileDataState;
   final BaseState<void> logoutState;
   final SelectedLanguage selectedLanguage;
+  final bool isNotificationEnabled;
 
   const ProfileStates({
     this.profileDataState = const BaseState(),
     this.logoutState = const BaseState(),
     this.selectedLanguage = SelectedLanguage.english,
+    this.isNotificationEnabled = true,
   });
 
   ProfileStates copyWith({
     BaseState<UserProfileEntity>? profileDateState,
     BaseState<void>? logoutState,
     SelectedLanguage? selectedLanguage,
+    bool? isNotificationEnabled,
   }) {
     return ProfileStates(
       profileDataState: profileDateState ?? this.profileDataState,
       logoutState: logoutState ?? this.logoutState,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
+      isNotificationEnabled:
+          isNotificationEnabled ?? this.isNotificationEnabled,
     );
   }
 
   @override
-  List<Object?> get props => [profileDataState, logoutState, selectedLanguage];
-}
-
-class LogoutStates extends Equatable {
-  final bool isLoading;
-  final String? errorMessage;
-
-  const LogoutStates(this.isLoading, this.errorMessage);
-
-  @override
-  List<Object?> get props => [isLoading, errorMessage];
+  List<Object?> get props => [
+    profileDataState,
+    logoutState,
+    selectedLanguage,
+    isNotificationEnabled,
+  ];
 }

@@ -26,3 +26,11 @@ class LogoutEvent extends ProfileEvents {
   @override
   List<Object?> get props => [];
 }
+
+class ToggleNotificationEvent extends ProfileEvents {
+  final bool isEnabled;
+  const ToggleNotificationEvent(this.isEnabled);
+
+  @override
+  List<Object?> get props => [isEnabled];
+}

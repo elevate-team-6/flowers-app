@@ -130,7 +130,17 @@ class ProfileBody extends StatelessWidget {
           const SizedBox(height: 10),
           ProfileMenuItem(
             title: AppStrings.notification.tr(),
-            leading: SvgPicture.asset(AppIcons.orders, width: 24, height: 24),
+            leading: SizedBox(
+              height: 20,
+              child: Switch.adaptive(
+                value: state.isNotificationEnabled,
+                onChanged: (value) {
+                  context.read<ProfileCubit>().doEvent(
+                    ToggleNotificationEvent(value),
+                  );
+                },
+              ),
+            ),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.notificationScreen);
             },
