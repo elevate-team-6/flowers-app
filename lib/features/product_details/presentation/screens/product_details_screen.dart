@@ -110,7 +110,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                           } else {
                                             context.read<CartBloc>().add(
                                               AddToCartEvent(
-                                                productId: productDetails.id,
+                                                product: productDetails
+                                                    .toProductEntity(),
                                               ),
                                             );
                                           }

@@ -65,7 +65,7 @@ class CustomProductsGrid extends StatelessWidget {
                 isInCart: data.isInCart,
                 isLoading: data.isLoading,
                 onAddToCart: () => context.read<CartBloc>().add(
-                  AddToCartEvent(productId: product.id),
+                  AddToCartEvent(product: product),
                 ),
                 onRemove: () {
                   if (data.itemId != null) {

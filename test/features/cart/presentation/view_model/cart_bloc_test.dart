@@ -116,37 +116,61 @@ void main() {
       ],
       verify: (_) => verify(getCartUseCase()).called(1),
     );
+
+    blocTest<CartBloc, CartState>(
+      'does not fetch again when cart is already loaded',
+      build: buildBloc,
+      seed: () => const CartState(status: CartStatus.success, cart: cart),
+      act: (bloc) => bloc.add(const GetCartEvent()),
+      expect: () => [],
+      verify: (_) => verifyNever(getCartUseCase()),
+    );
   });
 
   group('AddToCartEvent', () {
     blocTest<CartBloc, CartState>(
-      'emits [loadingItem, success] when addToCart succeeds',
+      'optimistically adds item then emits success',
       setUp: () {
         when(
           addToCartUseCase('p1', 1),
         ).thenAnswer((_) async => SuccessBaseResponse(cart));
       },
       build: buildBloc,
-      act: (bloc) => bloc.add(const AddToCartEvent(productId: 'p1')),
+      seed: () => const CartState(status: CartStatus.success, cart: emptyCart),
+      act: (bloc) => bloc.add(const AddToCartEvent(product: product)),
       expect: () => [
-        const CartState(loadingItems: {'p1'}),
-        const CartState(status: CartStatus.success, cart: cart),
+        // Optimistic — الـ item اتضاف فوراً
+        isA<CartState>()
+            .having((s) => s.cart?.items.length, 'items added', 1)
+            .having((s) => s.loadingItems, 'product loading', {'p1'}),
+        // Success — الـ cart الحقيقي من الـ API
+        isA<CartState>()
+            .having((s) => s.cart, 'final cart', cart)
+            .having((s) => s.loadingItems, 'loading cleared', isEmpty),
       ],
       verify: (_) => verify(addToCartUseCase('p1', 1)).called(1),
     );
 
     blocTest<CartBloc, CartState>(
-      'emits [loadingItem, failure] when addToCart fails',
+      'rolls back when addToCart fails',
       setUp: () {
         when(
           addToCartUseCase('p1', 1),
         ).thenAnswer((_) async => ErrorBaseResponse('Error'));
       },
       build: buildBloc,
-      act: (bloc) => bloc.add(const AddToCartEvent(productId: 'p1')),
+      seed: () => const CartState(status: CartStatus.success, cart: emptyCart),
+      act: (bloc) => bloc.add(const AddToCartEvent(product: product)),
       expect: () => [
-        const CartState(loadingItems: {'p1'}),
-        const CartState(status: CartStatus.failure, errorMessage: 'Error'),
+        // Optimistic add
+        isA<CartState>()
+            .having((s) => s.cart?.items.length, 'items added', 1)
+            .having((s) => s.loadingItems, 'product loading', {'p1'}),
+        // Rollback — الكارت يرجع فاضي + رسالة error
+        isA<CartState>()
+            .having((s) => s.cart, 'rollback to empty', emptyCart)
+            .having((s) => s.errorMessage, 'has error', 'Error')
+            .having((s) => s.loadingItems, 'loading cleared', isEmpty),
       ],
       verify: (_) => verify(addToCartUseCase('p1', 1)).called(1),
     );
@@ -160,9 +184,10 @@ void main() {
         });
       },
       build: buildBloc,
+      seed: () => const CartState(status: CartStatus.success, cart: emptyCart),
       act: (bloc) {
-        bloc.add(const AddToCartEvent(productId: 'p1'));
-        bloc.add(const AddToCartEvent(productId: 'p1'));
+        bloc.add(const AddToCartEvent(product: product));
+        bloc.add(const AddToCartEvent(product: product));
       },
       wait: const Duration(milliseconds: 200),
       verify: (_) => verify(addToCartUseCase('p1', 1)).called(1),
