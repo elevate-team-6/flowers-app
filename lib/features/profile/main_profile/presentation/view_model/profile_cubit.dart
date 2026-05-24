@@ -1,12 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/features/profile/main_profile/domain/entities/user_profile_entity.dart';
 import 'package:flowers_app/features/profile/main_profile/domain/use_cases/get_profile_data_use_case.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../config/base_response/base_response.dart';
 import '../../../../../config/base_state/base_state.dart';
-import '../../../../../core/utils/app_strings.dart';
 import '../../domain/use_cases/logout_use_case.dart';
 import 'profile_events.dart';
 import 'profile_states.dart';
@@ -72,7 +70,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
           state.copyWith(
             logoutState: BaseState(
               isLoading: false,
-              errorMessage: AppStrings.someThingWentWrong.tr(),
+              errorMessage: result.errorMessage,
             ),
           ),
         );
