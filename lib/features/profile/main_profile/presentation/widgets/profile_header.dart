@@ -1,6 +1,7 @@
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/features/profile/main_profile/domain/entities/user_profile_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,18 +9,9 @@ import '../../../../../core/utils/app_routes.dart';
 import '../../../../../core/widgets/custom_cached_image.dart';
 
 class ProfileHeader extends StatelessWidget {
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String? image;
+  final UserProfileEntity? user;
 
-  const ProfileHeader({
-    super.key,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    this.image,
-  });
+  const ProfileHeader({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +20,10 @@ class ProfileHeader extends StatelessWidget {
         CircleAvatar(
           radius: 50,
           backgroundColor: AppColors.white60,
-          child: image != null
+          child: user?.photo != null && user!.photo!.startsWith('http')
               ? ClipOval(
                   child: CustomCachedImage(
-                    imageUrl: image!.startsWith('http')
-                        ? image!
-                        : "${AppImages.imageBaseUrl}$image",
+                    imageUrl: user!.photo!,
                     width: 100,
                     height: 100,
                     fit: BoxFit.cover,
@@ -45,7 +35,10 @@ class ProfileHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("$firstName $lastName", style: AppTextStyles.black18500),
+            Text(
+              "${user?.firstName} ${user?.lastName}",
+              style: AppTextStyles.black18500,
+            ),
             const SizedBox(width: 5),
             GestureDetector(
               onTap: () {
@@ -56,7 +49,7 @@ class ProfileHeader extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 5),
-        Text(email, style: AppTextStyles.gray18500),
+        Text(user?.email ?? '', style: AppTextStyles.gray18500),
       ],
     );
   }

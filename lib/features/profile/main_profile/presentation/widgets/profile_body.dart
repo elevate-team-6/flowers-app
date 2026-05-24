@@ -103,12 +103,7 @@ class ProfileBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          ProfileHeader(
-            firstName: user?.firstName ?? "",
-            lastName: user?.lastName ?? "",
-            email: user?.email ?? "",
-            image: user?.photo,
-          ),
+          ProfileHeader(user: user),
           const SizedBox(height: 20),
           ProfileMenuItem(
             title: AppStrings.myOrders.tr(),
