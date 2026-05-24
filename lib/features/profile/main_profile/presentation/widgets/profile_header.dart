@@ -42,7 +42,11 @@ class ProfileHeader extends StatelessWidget {
             const SizedBox(width: 5),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, AppRoutes.editProfile);
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.editProfile,
+                  arguments: user,
+                );
               },
               child: Icon(Icons.edit, size: 20, color: AppColors.primary),
             ),
