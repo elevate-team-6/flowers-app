@@ -8,12 +8,14 @@ class CartState extends Equatable {
   final CartEntity? cart;
   final String? errorMessage;
   final Set<String> loadingItems;
+  final bool itemAddedSuccess;
 
   const CartState({
     this.status = CartStatus.initial,
     this.cart,
     this.errorMessage,
     this.loadingItems = const {},
+    this.itemAddedSuccess = false,
   });
 
   CartState copyWith({
@@ -21,12 +23,14 @@ class CartState extends Equatable {
     CartEntity? cart,
     String? errorMessage,
     Set<String>? loadingItems,
+    bool? itemAddedSuccess,
   }) {
     return CartState(
       status: status ?? this.status,
       cart: cart ?? this.cart,
       errorMessage: errorMessage ?? this.errorMessage,
       loadingItems: loadingItems ?? this.loadingItems,
+      itemAddedSuccess: itemAddedSuccess ?? false,
     );
   }
 

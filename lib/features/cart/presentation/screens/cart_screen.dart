@@ -42,7 +42,8 @@ class _CartScreenState extends State<CartScreen> {
           children: [
             BlocBuilder<CartBloc, CartState>(
               buildWhen: (prev, curr) =>
-                  prev.cart?.numOfCartItems != curr.cart?.numOfCartItems,
+                  prev.cart?.numOfCartItems != curr.cart?.numOfCartItems ||
+                  prev.status != curr.status,
               builder: (context, state) {
                 final count = state.cart?.numOfCartItems ?? 0;
                 final hasError = state.status == CartStatus.failure;

@@ -1,6 +1,7 @@
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
 import 'package:flowers_app/core/widgets/custom_tab_bar.dart';
@@ -128,11 +129,15 @@ class _OccasionsScreenState extends State<OccasionsScreen>
 
                       if (state.productsState.errorMessage != null &&
                           products == null) {
-                        return Center(
-                          child: Text(
-                            state.productsState.errorMessage!,
-                            style: AppTextStyles.black16400,
-                          ),
+                        return CustomErrorStateView(
+                          message: state.productsState.errorMessage!,
+                          onRetry: () {
+                            _cubit.doEvent(
+                              GetProductsEvent(
+                                _occasions[_tabController.index].name,
+                              ),
+                            );
+                          },
                         );
                       }
 

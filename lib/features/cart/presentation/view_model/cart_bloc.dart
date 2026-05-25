@@ -120,6 +120,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             status: CartStatus.success,
             cart: result.data,
             loadingItems: newLoadingItems,
+            itemAddedSuccess: true,
           ),
         );
       case ErrorBaseResponse<CartEntity>():
@@ -183,6 +184,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       case ErrorBaseResponse<CartEntity>():
         emit(
           state.copyWith(
+            status: CartStatus.failure,
             cart: event.oldCart,
             errorMessage: result.errorMessage,
           ),
@@ -223,6 +225,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(
           state.copyWith(
             cart: oldCart,
+            status: CartStatus.failure,
             loadingItems: newLoadingItems,
             errorMessage: result.errorMessage,
           ),
