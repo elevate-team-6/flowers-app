@@ -108,12 +108,13 @@ abstract class AppValidations {
     if (value == null || value.trim().isEmpty) {
       return AppStrings.phoneRequired.tr();
     }
-    final cleaned = value.replaceAll(RegExp(r'[\s\-\(\)]'), '');
-    if (!cleaned.startsWith('+')) {
-      return AppStrings.phoneMustStartWithCountryCode.tr();
-    }
-    if (!RegExp(r'^\+[0-9]{10,15}$').hasMatch(cleaned)) {
-      return AppStrings.invalidPhone.tr();
+
+    final phone = value.trim();
+
+    final regex = RegExp(r'^01[0-2,5]{1}[0-9]{8}$');
+
+    if (!regex.hasMatch(phone)) {
+      return AppStrings.phoneRequiredEgyptian.tr();
     }
     return null;
   }

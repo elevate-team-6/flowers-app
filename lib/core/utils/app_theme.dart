@@ -55,6 +55,15 @@ abstract class AppTheme {
           textStyle: AppTextStyles.black16400,
         ),
       ),
+      // Radio Theme
+      radioTheme: RadioThemeData(
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.primary;
+          }
+          return AppColors.gray;
+        }),
+      ),
 
       // text field
       inputDecorationTheme: InputDecorationTheme(
@@ -64,8 +73,8 @@ abstract class AppTheme {
         labelStyle: AppTextStyles.black12400,
         errorStyle: TextStyle(color: AppColors.error, fontSize: 12.sp),
         errorMaxLines: 4,
-        border: _border(AppColors.black30),
-        enabledBorder: _border(AppColors.black30),
+        border: _border(AppColors.black30, 2),
+        enabledBorder: _border(AppColors.black30, 2),
         focusedBorder: _border(AppColors.primary, 1.5),
         errorBorder: _border(AppColors.error),
         focusedErrorBorder: _border(AppColors.error, 2),
