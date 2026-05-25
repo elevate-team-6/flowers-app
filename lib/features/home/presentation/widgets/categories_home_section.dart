@@ -7,6 +7,7 @@ import 'package:flowers_app/features/main_layout/presentation/cubit/main_layout_
 import 'package:flowers_app/features/main_layout/presentation/cubit/main_layout_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CategoriesHomeSection extends StatelessWidget {
   final HomeStates state;
@@ -15,11 +16,10 @@ class CategoriesHomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final categoriesState = state.categoryState;
-    final categoriesState = (state as dynamic).categoryState;
+    final categoriesState = state.categoryState;
 
     if (categoriesState.isLoading) {
-      return CategoriesShimmer();
+      return const CategoriesShimmer();
     }
 
     if (categoriesState.errorMessage != null) {
@@ -34,12 +34,12 @@ class CategoriesHomeSection extends StatelessWidget {
       );
     }
 
-    final categories = categoriesState.data!.categories;
+    final categories = categoriesState.data;
 
-    if (categories!.isEmpty) {
-      return const SizedBox(
+    if (categories == null || categories.isEmpty) {
+      return SizedBox(
         height: 90,
-        child: Center(child: Text(AppStrings.noCategoriesAvailable)),
+        child: Center(child: Text(AppStrings.noCategoriesAvailable.tr())),
       );
     }
 
@@ -47,7 +47,7 @@ class CategoriesHomeSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HomeCommonHeaderSection(
-          title: AppStrings.categories,
+          title: AppStrings.categories.tr(),
           onViewAll: () {
             context.read<MainLayoutCubit>().doEvent(ChangeIndexEvent(1));
           },
@@ -69,8 +69,8 @@ class CategoriesHomeSection extends StatelessWidget {
                     ChangeIndexEvent(1, categoryId: category.id),
                   );
                 },
-                imageUrl: category.image, // Customize based on your entity
-                label: category.name!,
+                imageUrl: category.image ?? "",
+                label: category.name ?? "",
               );
             },
           ),

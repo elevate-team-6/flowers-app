@@ -1,4 +1,5 @@
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 abstract class AppValidations {
   AppValidations._();
@@ -14,39 +15,39 @@ abstract class AppValidations {
   // ── Name ──
   static String? validateUserName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return AppStrings.usernameRequired;
+      return AppStrings.usernameRequired.tr();
     }
     if (value.length < 3) {
-      return AppStrings.usernameTooShort;
+      return AppStrings.usernameTooShort.tr();
     }
     if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
-      return AppStrings.usernameInvalid;
+      return AppStrings.usernameInvalid.tr();
     }
     return null;
   }
 
   static String? validateFirstName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return AppStrings.firstNameRequired;
+      return AppStrings.firstNameRequired.tr();
     }
     if (value.trim().length < 3) {
-      return AppStrings.nameTooShort;
+      return AppStrings.nameTooShort.tr();
     }
     if (RegExp(r'[0-9]').hasMatch(value)) {
-      return AppStrings.nameNoNumbers;
+      return AppStrings.nameNoNumbers.tr();
     }
     return null;
   }
 
   static String? validateLastName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return AppStrings.lastNameRequired;
+      return AppStrings.lastNameRequired.tr();
     }
     if (value.trim().length < 3) {
-      return AppStrings.nameTooShort;
+      return AppStrings.nameTooShort.tr();
     }
     if (RegExp(r'[0-9]').hasMatch(value)) {
-      return AppStrings.nameNoNumbers;
+      return AppStrings.nameNoNumbers.tr();
     }
     return null;
   }
@@ -54,11 +55,11 @@ abstract class AppValidations {
   // ── Email ──
   static String? validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return AppStrings.emailRequired;
+      return AppStrings.emailRequired.tr();
     }
     final regex = RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!regex.hasMatch(value.trim())) {
-      return AppStrings.invalidEmail;
+      return AppStrings.invalidEmail.tr();
     }
     return null;
   }
@@ -66,27 +67,27 @@ abstract class AppValidations {
   // ── Password ──
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return AppStrings.passwordRequired;
+      return AppStrings.passwordRequired.tr();
     }
 
     if (value.length < 8) {
-      return AppStrings.passwordTooShort;
+      return AppStrings.passwordTooShort.tr();
     }
 
     if (!value.contains(RegExp(r'[a-z]'))) {
-      return AppStrings.passwordLowercase;
+      return AppStrings.passwordLowercase.tr();
     }
 
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return AppStrings.passwordUppercase;
+      return AppStrings.passwordUppercase.tr();
     }
 
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return AppStrings.passwordNumber;
+      return AppStrings.passwordNumber.tr();
     }
 
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return AppStrings.passwordSpecialCharacter;
+      return AppStrings.passwordSpecialCharacter.tr();
     }
 
     return null;
@@ -94,10 +95,10 @@ abstract class AppValidations {
 
   static String? validateConfirmPassword(String? value, String? password) {
     if (value == null || value.isEmpty) {
-      return AppStrings.confirmPasswordRequired;
+      return AppStrings.confirmPasswordRequired.tr();
     }
     if (value != password) {
-      return AppStrings.passwordNotMatched;
+      return AppStrings.passwordNotMatched.tr();
     }
     return null;
   }
@@ -105,7 +106,7 @@ abstract class AppValidations {
   // ── Phone ──
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Phone number is required';
+      return AppStrings.phoneRequired.tr();
     }
 
     final phone = value.trim();
@@ -113,7 +114,7 @@ abstract class AppValidations {
     final regex = RegExp(r'^01[0-2,5]{1}[0-9]{8}$');
 
     if (!regex.hasMatch(phone)) {
-      return 'Enter valid Egyptian phone number';
+      return AppStrings.phoneRequiredEgyptian.tr();
     }
     return null;
   }

@@ -1,4 +1,5 @@
 import 'package:flowers_app/config/services/snack_bar_services.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_error_state.dart';
@@ -10,6 +11,7 @@ import 'package:flowers_app/features/best_seller/presentation/cubit/best_seller_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BestSellerScreen extends StatelessWidget {
   const BestSellerScreen({super.key});
@@ -38,9 +40,9 @@ class BestSellerScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Text(AppStrings.bestSeller),
+              Text(AppStrings.bestSeller.tr()),
               Text(
-                AppStrings.subTitleBestSeller,
+                AppStrings.subTitleBestSeller.tr(),
                 style: AppTextStyles.black12400.copyWith(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
@@ -67,9 +69,16 @@ class BestSellerScreen extends StatelessWidget {
             }
             final products = state.bestSellerState.data ?? [];
             if (products.isEmpty) {
-              return const Center(child: Text(AppStrings.noProductsFound));
+              return Center(child: Text(AppStrings.noProductsFound.tr()));
             }
-            return CustomProductsGrid(products: products, onAddToCart: (_) {});
+            return CustomProductsGrid(products: products,
+              onTap: (product) {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.productDetails,
+                  arguments: product.id,
+                );
+              });
           },
         ),
       ),

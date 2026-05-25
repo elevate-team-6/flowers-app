@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
+import 'package:flowers_app/config/helpers/phone_extension.dart';
 import 'package:flowers_app/features/auth/login/data/models/login_response/user_dto.dart';
 import 'package:flowers_app/features/profile/edit_profile/data/models/edit_profile_request/edit_profile_request.dart';
 import 'package:flowers_app/features/profile/edit_profile/domain/entities/user_edit_profile_entity.dart';
@@ -62,7 +63,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
     switch (response) {
       case SuccessBaseResponse<UserEditProfileEntity>():
-
         currentUser = UserDto(
           firstName: response.data.firstName,
           lastName: response.data.lastName,
@@ -85,7 +85,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         );
 
       case ErrorBaseResponse<UserEditProfileEntity>():
-
         emit(
           state.copyWith(
             editProfileState: state.editProfileState.copyWith(
@@ -113,7 +112,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
     switch (response) {
       case SuccessBaseResponse<String>():
-
         currentUser = UserDto(
           firstName: currentUser.firstName,
           lastName: currentUser.lastName,
@@ -133,7 +131,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         );
 
       case ErrorBaseResponse<String>():
-
         emit(
           state.copyWith(
             uploadPhotoState: state.uploadPhotoState.copyWith(
@@ -160,9 +157,9 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     required String phone,
   }) {
     final changed =
-        firstName != currentUser.firstName ||
-        lastName != currentUser.lastName ||
-        phone != currentUser.phone ||
+        firstName.trim() != (currentUser.firstName ?? '') ||
+        lastName.trim() != (currentUser.lastName ?? '') ||
+        phone.toEgyptianPhone() != (currentUser.phone ?? '') ||
         state.selectedImage != null;
 
     emit(

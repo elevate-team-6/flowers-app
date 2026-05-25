@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/best_sellers_home_section.dart';
+import '../widgets/categories_home_section.dart';
+import '../widgets/occasions__home_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,14 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     const SizedBox(height: 16),
 
-                    //categories
-                    // BlocBuilder<HomeViewModel, HomeStates>(
-                    //   buildWhen: (previous, current) =>
-                    //       previous.categoryState != current.categoryState,
-                    //   builder: (context, state) {
-                    //     return CategoriesHomeSection(state: state);
-                    //   },
-                    // ),
+                    // categories
+                    BlocBuilder<HomeViewModel, HomeStates>(
+                      buildWhen: (previous, current) =>
+                          previous.categoryState != current.categoryState,
+                      builder: (context, state) {
+                        return CategoriesHomeSection(state: state);
+                      },
+                    ),
                     const SizedBox(height: 24),
                     //best seller
                     BlocBuilder<HomeViewModel, HomeStates>(
@@ -65,13 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 24),
 
                     //occasions
-                    // BlocBuilder<HomeViewModel, HomeStates>(
-                    //   buildWhen: (previous, current) =>
-                    //       previous.occasionsState != current.occasionsState,
-                    //   builder: (context, state) {
-                    //     return OccasionsHomeSecion(state: state);
-                    //   },
-                    // ),
+                    BlocBuilder<HomeViewModel, HomeStates>(
+                      buildWhen: (previous, current) =>
+                          previous.occasionsState != current.occasionsState,
+                      builder: (context, state) {
+                        return OccasionsHomeSection(state: state);
+                      },
+                    ),
                     const SizedBox(height: 40),
                   ],
                 ),

@@ -1,188 +1,211 @@
 abstract class AppStrings {
+  // ===========================================================================
+  // Configuration Keys (Keys used in JSON files)
+  // ===========================================================================
+
   // Common & Auth
-  static const String login = 'Login';
-  static const String signup = 'Signup';
-  static const String signupWithSpace = 'Sign up';
-  static const String password = 'Password';
-  static const String email = 'Email';
-  static const String continueText = 'Continue';
-  static const String confirmPassword = 'Confirm password';
+  static const String login = 'login';
+  static const String signup = 'signup';
+  static const String signupWithSpace = 'signupWithSpace';
+  static const String password = 'password';
+  static const String email = 'email';
+  static const String continueText = 'continueText';
+  static const String confirmPassword = 'confirmPassword';
 
   // Login Screen
-  static const String enterYourEmail = 'Enter your email';
-  static const String enterYourPassword = 'Enter your password';
-  static const String rememberMe = 'Remember me';
-  static const String forgetPasswordQuestion = 'Forget password?';
-  static const String dontHaveAccount = "Don't have an account? ";
-  static const String loginSuccess = 'Login success';
-  static const String forgetPasswordText = 'Forget password?';
+  static const String enterYourEmail = 'enterYourEmail';
+  static const String enterYourPassword = 'enterYourPassword';
+  static const String rememberMe = 'rememberMe';
+  static const String forgetPasswordQuestion = 'forgetPasswordQuestion';
+  static const String dontHaveAccount = 'dontHaveAccount';
+  static const String loginSuccess = 'loginSuccess';
+  static const String forgetPasswordText = 'forgetPasswordText';
 
   // Sign Up Screen
-  static const String userName = 'User name';
-  static const String enterYourUserName = 'Enter your user name';
-  static const String firstName = 'First name';
-  static const String enterFirstName = 'Enter first name';
-  static const String lastName = 'Last name';
-  static const String enterLastName = 'Enter last name';
-  static const String phoneNumber = 'Phone number';
-  static const String enterPhoneNumber = 'Enter phone number';
-  static const String alreadyHaveAccount = 'Already have an account? ';
-  static const String registerSuccess = 'Register success';
-  static const String signupFailedUserIsNull = 'Signup failed: user is null';
+  static const String userName = 'userName';
+  static const String enterYourUserName = 'enterYourUserName';
+  static const String firstName = 'firstName';
+  static const String enterFirstName = 'enterFirstName';
+  static const String lastName = 'lastName';
+  static const String enterLastName = 'enterLastName';
+  static const String phoneNumber = 'phoneNumber';
+  static const String enterPhoneNumber = 'enterPhoneNumber';
+  static const String alreadyHaveAccount = 'alreadyHaveAccount';
+  static const String registerSuccess = 'registerSuccess';
+  static const String signupFailedUserIsNull = 'signupFailedUserIsNull';
+  static const String gender = 'gender';
+  static const String female = 'female';
+  static const String male = 'male';
+  static const String pleaseSelectGender = 'pleaseSelectGender';
+  static const String creatingAccountAgreement = 'creatingAccountAgreement';
+  static const String iAgree = 'iAgree';
 
-  static const String termsAndConditions = 'Terms & Conditions';
-  static const String termsFooterNote =
-      'By tapping "I Agree", you confirm that you have read and understood these Terms & Conditions.';
-  static const String iAgree = 'I Agree';
-
-  static const String termsSection1Title = 'Acceptance of Terms';
-  static const String termsSection1Body =
-      'By creating an account and using Flowers App, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services.';
-
-  static const String termsSection2Title = 'Privacy Policy';
-  static const String termsSection2Body =
-      'We collect and use your personal data as described in our Privacy Policy. Your data is stored securely and will not be shared with third parties without your consent.';
-
-  static const String termsSection3Title = 'User Responsibilities';
-  static const String termsSection3Body =
-      'You are responsible for maintaining the confidentiality of your account credentials. You agree not to share your account with others or use it for unauthorized purposes.';
-
-  static const String termsSection4Title = 'Changes to Terms';
-  static const String termsSection4Body =
-      'We reserve the right to modify these terms at any time. Continued use of the app after changes constitutes your acceptance of the new terms.';
+  // Terms & Conditions
+  static const String termsAndConditions = 'termsAndConditions';
+  static const String termsFooterNote = 'termsFooterNote';
+  static const String termsSection1Title = 'termsSection1Title';
+  static const String termsSection1Body = 'termsSection1Body';
+  static const String termsSection2Title = 'termsSection2Title';
+  static const String termsSection2Body = 'termsSection2Body';
+  static const String termsSection3Title = 'termsSection3Title';
+  static const String termsSection3Body = 'termsSection3Body';
+  static const String termsSection4Title = 'termsSection4Title';
+  static const String termsSection4Body = 'termsSection4Body';
 
   // Forget Password Screen
-  static const String forgetPasswordTitle = 'Forget password';
-  static const String forgetPasswordSubtitle =
-      'Please enter your email associated to your account';
+  static const String forgetPasswordTitle = 'forgetPasswordTitle';
+  static const String forgetPasswordSubtitle = 'forgetPasswordSubtitle';
   static const String verificationCodeSentToYourEmail =
-      'Verification code sent to your email';
-  static const String confirm = '"Confirm"';
+      'verificationCodeSentToYourEmail';
+  static const String confirm = 'confirm';
 
   // Email Verification Screen
-  static const String emailVerification = 'Email verification';
-  static const String emailVerificationSubtitle =
-      'Please enter your code that sent to your email address';
-  static const String invalidCode = 'Invalid code';
-  static const String didntReceiveCode = "Didn't receive code? ";
-  static const String resend = 'Resend';
-  static const String verificationCodeIsCorrect =
-      'verification code is correct';
+  static const String emailVerification = 'emailVerification';
+  static const String emailVerificationSubtitle = 'emailVerificationSubtitle';
+  static const String invalidCode = 'invalidCode';
+  static const String didntReceiveCode = 'didntReceiveCode';
+  static const String resend = 'resend';
+  static const String verificationCodeIsCorrect = 'verificationCodeIsCorrect';
 
   // Reset Password Screen
-  static const String resetPasswordTitle = 'Reset password';
-  static const String resetPasswordSubtitle =
-      'Password must not be empty and must contain 6 characters with upper case letter and one number at least';
-  static const String newPassword = 'New password';
-  static const String passwordResetSuccessfully = "Password reset successfully";
+  static const String resetPasswordTitle = 'resetPasswordTitle';
+  static const String resetPasswordSubtitle = 'resetPasswordSubtitle';
+  static const String newPassword = 'newPassword';
+  static const String passwordResetSuccessfully = 'passwordResetSuccessfully';
 
-  // Error messages
-  static const String someThingWentWrong = 'Something went wrong';
-  static const String connectionTimeout =
-      "Connection timed out. Please check your internet and try again.";
-  static const String sendTimeout =
-      "Request timed out while sending data. Please try again.";
-  static const String receiveTimeout =
-      "Server took too long to respond. Please try again.";
-  static const String requestCancelled = "The request was cancelled.";
-  static const String noInternetConnection =
-      "No internet connection. Please check your network.";
-  static const String unexpectedError =
-      "An unexpected error occurred. Please try again later.";
-  static const String unknownError =
-      "An unknown error occurred. Please try again.";
-  static const String invalidRequest =
-      "Invalid request. Please check your input.";
-  static const String authFailed =
-      "Authentication failed. Please log in again.";
-  static const String forbidden =
-      "You don't have permission to perform this action.";
-  static const String notFound = "The requested resource was not found.";
-  static const String serverError =
-      "Our servers are currently experiencing issues. Please try again later.";
-  static const String defaultError = "Oops! Something went wrong.";
-  static const String defaultErrorTryAgain =
-      "Oops! Something went wrong. Please try again.";
-  static const String unexpectedErrorTryAgain =
-      "An unexpected error occurred. Please try again.";
-  static const String userAlreadyExists =
-      'This account already exists. Please try logging in or use a different email/phone.';
-  static const String invalidGender = 'Please select a valid gender.';
-  static const String invalidPhoneFormat =
-      'Invalid phone number format. Please check and try again.';
+  // Home & Main Layout
+  static const String viewAll = 'viewAll';
+  static const String noBestSellersAvailable = 'noBestSellersAvailable';
+  static const String bestSellers = 'bestSellers';
+  static const String noCategoriesAvailable = 'noCategoriesAvailable';
+  static const String deliverTo = 'deliverTo';
+  static const String noOccasionsAvailable = 'noOccasionsAvailable';
 
-  // Validation messages
-  static const String emailRequired = 'Email is required';
-  static const String invalidEmail = 'Enter a valid email address';
-  static const String invalidPassword = 'Invalid password';
-  static const String passwordRequired = 'Password is required';
-  static const String passwordTooShort =
-      'Password must be at least 8 characters';
-  static const String passwordLowercase =
-      'Password must contain at least one lowercase letter';
-  static const String passwordUppercase =
-      'Password must contain at least one uppercase letter';
-  static const String passwordNumber =
-      'Password must contain at least one number';
-  static const String passwordSpecialCharacter =
-      'Password must contain at least 1 special character';
-  static const String passwordNotMatched = 'Password not matched';
-  static const String confirmPasswordRequired = 'Please confirm your password';
-  static const String usernameRequired = 'Username is required';
-  static const String usernameTooShort =
-      'Username must be at least 3 characters';
-  static const String usernameInvalid =
-      'Only letters, numbers and underscore allowed';
-  static const String firstNameRequired = 'First name is required';
-  static const String lastNameRequired = 'Last name is required';
-  static const String nameTooShort = 'Must be at least 3 characters';
-  static const String nameNoNumbers = 'Name must not contain numbers';
-  static const String phoneRequired = 'Phone number is required';
-  static const String invalidPhone = 'Enter a valid phone number';
-  static const String phoneMustStartWithCountryCode =
-      'Phone must start with country code (e.g. +20)';
+  // Best Seller
+  static const String retry = 'retry';
+  static const String subTitleBestSeller = 'subTitleBestSeller';
+
+  // Cart
+  static const String items = 'items';
+  static const String clearAll = 'clearAll';
+  static const String cartEmpty = 'cartEmpty';
+  static const String subTotal = 'subTotal';
+  static const String deliveryFee = 'deliveryFee';
+  static const String total = 'total';
+  static const String checkout = 'checkout';
+  static const String somethingWentWrong = 'somethingWentWrong';
+  static const String dollar = 'dollar';
+  static const String addedToCart = 'addedToCart';
+  static const String deliverto = 'deliverto';
+  static const String delivertoAddress = 'delivertoAddress';
+  static const String remove = 'remove';
+  static const String loading = 'loading';
+
+  // dialog
+  static const String exitAppTitle = 'exitAppTitle';
+  static const String exitAppMessage = 'exitAppMessage';
+  static const String cancel = 'cancel';
+  static const String exit = 'exit';
+
+  // Product Details
+  static const String allPricesIncludeTax = 'allPricesIncludeTax';
+  static const String status = 'status';
+  static const String description = 'description';
+  static const String inStock = 'inStock';
+  static const String outOfStock = 'outOfStock';
+  static const String roses = 'roses';
+  static const String bouqetInclude = 'bouqetInclude';
+  static const String noProductDetailsFound = 'noProductDetailsFound';
 
   // Main Layout
-  static const String home = 'Home';
-  static const String categories = 'Categories';
-  static const String cart = 'Cart';
-  static const String profile = 'Profile';
+  static const String home = 'home';
+  static const String categories = 'categories';
+  static const String cart = 'cart';
+  static const String profile = 'profile';
 
-  //home
-  static const String flowery = 'Flowery';
-  static const String search = 'Search';
-  static const String deliverToMockAddress =
-      'Deliver to 2XVP+XC · Sheikh Zayed';
+  // Products
+  static const String addToCart = 'addToCart';
+
+  // Filters
+  static const String sortBy = 'sortBy';
+  static const String filter = 'filter';
+  static const String search = 'search';
+  static const String all = 'all';
+  static const String noProductsFound = 'noProductsFound';
+
+  // Occasions
+  static const String occasion = 'occasion';
+  static const String occasionSubtitle = 'occasionSubtitle';
+  static const String egp = 'egp';
+
+  // home
+  static const String flowery = 'flowery';
+  static const String deliverToMockAddress = 'deliverToMockAddress';
+
+  // Placeholder/Generic
   static const String icon = 'icon';
   static const String label = 'label';
-  static const String bestSeller = 'Best seller';
   static const String image = 'image';
   static const String title = 'title';
   static const String price = 'price';
-  static const String occasion = 'Occasion';
-  static const String viewAll = 'View All';
-  static const String noBestSellersAvailable = 'No best sellers available';
-  static const String bestSellers = 'Best Sellers';
-  static const String noCategoriesAvailable = 'No categories available';
-  static const String deliverTo = 'Deliver to: Cairo, Egypt';
-  static const String noOccasionsAvailable = 'No occasions available';
-  static const String egp = 'EGP';
-  //Best Seller
-  static const String addToCart = 'Add to cart';
-  static const String retry = 'Retry';
-  static const String noProductsFound = 'No Products Found';
-  static const String subTitleBestSeller =
-      'Bloom with our exquisite best sellers';
 
     // edit profile
   static const String editProfile = 'Edit profile';
   static const String editProfileSuccessfly = 'Edit profile Successfly';
   static const String change = 'Change';
-  static const String gender = 'Gender';
-  static const String female = 'Female';
-  static const String male = 'Male';
   static const String update = 'Update';
   static const String femaleValue = 'female';
   static const String maleValue = 'male';
   static const String photo = 'photo';
+  static const String bestSeller = 'bestSeller';
+
+  // Error Messages
+  static const String someThingWentWrong = 'someThingWentWrong';
+  static const String connectionTimeout = 'connectionTimeout';
+  static const String sendTimeout = 'sendTimeout';
+  static const String receiveTimeout = 'receiveTimeout';
+  static const String requestCancelled = 'requestCancelled';
+  static const String noInternetConnection = 'noInternetConnection';
+  static const String unexpectedError = 'unexpectedError';
+  static const String unknownError = 'unknownError';
+  static const String invalidRequest = 'invalidRequest';
+  static const String authFailed = 'authFailed';
+  static const String forbidden = 'forbidden';
+  static const String notFound = 'notFound';
+  static const String serverError = 'serverError';
+  static const String defaultError = 'defaultError';
+  static const String defaultErrorTryAgain = 'defaultErrorTryAgain';
+  static const String unexpectedErrorTryAgain = 'unexpectedErrorTryAgain';
+  static const String userAlreadyExists = 'userAlreadyExists';
+  static const String invalidGender = 'invalidGender';
+  static const String invalidPhoneFormat = 'invalidPhoneFormat';
+
+  // Validation Messages
+  static const String emailRequired = 'emailRequired';
+  static const String invalidEmail = 'invalidEmail';
+  static const String invalidPassword = 'invalidPassword';
+  static const String passwordRequired = 'passwordRequired';
+  static const String passwordTooShort = 'passwordTooShort';
+  static const String passwordLowercase = 'passwordLowercase';
+  static const String passwordUppercase = 'passwordUppercase';
+  static const String passwordNumber = 'passwordNumber';
+  static const String passwordSpecialCharacter = 'passwordSpecialCharacter';
+  static const String passwordNotMatched = 'passwordNotMatched';
+  static const String confirmPasswordRequired = 'confirmPasswordRequired';
+  static const String usernameRequired = 'usernameRequired';
+  static const String usernameTooShort = 'usernameTooShort';
+  static const String usernameInvalid = 'usernameInvalid';
+  static const String firstNameRequired = 'firstNameRequired';
+  static const String lastNameRequired = 'lastNameRequired';
+  static const String nameTooShort = 'nameTooShort';
+  static const String nameNoNumbers = 'nameNoNumbers';
+  static const String phoneRequired = 'phoneRequired';
+  static const String phoneRequiredEgyptian = 'Enter valid Egyptian phone number';
+  static const String invalidPhone = 'invalidPhone';
+  static const String phoneMustStartWithCountryCode =
+      'phoneMustStartWithCountryCode';
+
+  // ===========================================================================
+  // API Constants (Values sent directly to Backend - Do NOT Translate)
+  // ===========================================================================
 }

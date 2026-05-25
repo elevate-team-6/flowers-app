@@ -15,6 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
   dio_cache_interceptor: ^3.5.0
+  easy_localization: ^3.0.7
   equatable: ^2.0.8
   flutter:
     sdk: flutter
@@ -35,7 +36,6 @@ dependencies:
   pin_code_fields: ^8.0.1
   retrofit: ^4.9.2
   shimmer: ^3.0.0
-
 dev_dependencies:
   bloc_test: ^10.0.0
   build_runner: ^2.12.2
@@ -56,3 +56,4 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/lottie_files/
+    - assets/translations/

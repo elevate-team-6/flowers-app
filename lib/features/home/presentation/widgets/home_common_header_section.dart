@@ -1,6 +1,7 @@
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeCommonHeaderSection extends StatelessWidget {
   final String title;
@@ -29,8 +30,8 @@ class HomeCommonHeaderSection extends StatelessWidget {
           ),
           GestureDetector(
             onTap: onViewAll,
-            child: const Text(
-              AppStrings.viewAll,
+            child: Text(
+              AppStrings.viewAll.tr(),
               style: TextStyle(
                 decoration: TextDecoration.underline,
 

@@ -1,7 +1,6 @@
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
-import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -59,7 +58,7 @@ class _LoadingDialogState extends State<LoadingDialog>
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.8),
+              color: Colors.transparent,
               borderRadius: BorderRadius.circular(15.r),
             ),
             child: Column(
@@ -82,9 +81,6 @@ class _LoadingDialogState extends State<LoadingDialog>
                     fit: BoxFit.contain,
                   ),
                 ),
-                SizedBox(height: 5.h),
-                Text('Loading...', style: AppTextStyles.primary16400),
-                SizedBox(height: 15.h),
               ],
             ),
           ),

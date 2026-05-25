@@ -1,6 +1,6 @@
+import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomProductsShimmer extends StatelessWidget {
@@ -9,8 +9,8 @@ class CustomProductsShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+      baseColor: AppColors.white70,
+      highlightColor: AppColors.white20,
       child: GridView.builder(
         padding: EdgeInsets.all(16.w),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -33,7 +33,7 @@ class _ShimmerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Column(

@@ -17,13 +17,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class EditProfileScreen extends StatefulWidget {
   final UserDto user;
 
-  const EditProfileScreen({super.key, required this.user});
+  const EditProfileScreen({
+    super.key,
+    required this.user,
+  });
 
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  State<EditProfileScreen> createState() =>
+      _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _EditProfileScreenState
+    extends State<EditProfileScreen> {
   final formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
@@ -39,13 +44,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     cubit.initialize(widget.user);
 
-    firstNameController.text = widget.user.firstName ?? '';
+    firstNameController.text =
+        widget.user.firstName ?? '';
 
-    lastNameController.text = widget.user.lastName ?? '';
+    lastNameController.text =
+        widget.user.lastName ?? '';
 
-    emailController.text = widget.user.email ?? '';
+    emailController.text =
+        widget.user.email ?? '';
 
-    phoneController.text = widget.user.phone ?? '';
+    phoneController.text =
+        widget.user.phone ?? '';
 
     firstNameController.addListener(_onChanged);
     lastNameController.addListener(_onChanged);
@@ -74,15 +83,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     final cubit = context.read<EditProfileCubit>();
 
-    return BlocListener<EditProfileCubit, EditProfileState>(
+    return BlocListener<EditProfileCubit,
+        EditProfileState>(
       listenWhen: (previous, current) {
-        return previous.editProfileState != current.editProfileState ||
-            previous.uploadPhotoState != current.uploadPhotoState;
+        return previous.editProfileState !=
+                current.editProfileState ||
+            previous.uploadPhotoState !=
+                current.uploadPhotoState;
       },
       listener: (context, state) {
         final isLoading =
             state.editProfileState.isLoading ||
-            state.uploadPhotoState.isLoading;
+                state.uploadPhotoState.isLoading;
 
         if (isLoading) {
           LoadingDialog.show(context: context);
@@ -90,13 +102,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           LoadingDialog.hide(context: context);
         }
 
-        if (state.uploadPhotoState.errorMessage != null) {
+        if (state.uploadPhotoState.errorMessage !=
+            null) {
           SnackBarServices.showErrorMessage(
             state.uploadPhotoState.errorMessage!,
           );
         }
 
-        if (state.editProfileState.errorMessage != null) {
+        if (state.editProfileState.errorMessage !=
+            null) {
           SnackBarServices.showErrorMessage(
             state.editProfileState.errorMessage!,
           );
@@ -109,32 +123,43 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           cubit.doEvent(
             UpdateProfileEvent(
               request: EditProfileRequest(
-                firstName: firstNameController.text,
-                lastName: lastNameController.text,
-                phone: '+2${phoneController.text}',
+                firstName:
+                    firstNameController.text.trim(),
+                lastName:
+                    lastNameController.text.trim(),
+                phone: phoneController.text
+                    .toEgyptianPhone(),
               ),
             ),
           );
         }
 
         if (state.editProfileState.data != null) {
-          SnackBarServices.showSuccessMessage(AppStrings.editProfileSuccessfly);
+          SnackBarServices.showSuccessMessage(
+            AppStrings.editProfileSuccessfly,
+          );
 
           cubit.clearEditProfileState();
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: Text(AppStrings.editProfile)),
+        appBar: AppBar(
+          title: Text(AppStrings.editProfile),
+        ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: BlocBuilder<EditProfileCubit, EditProfileState>(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16.w,
+          ),
+          child: BlocBuilder<EditProfileCubit,
+              EditProfileState>(
             builder: (context, state) {
               return SingleChildScrollView(
                 child: Column(
                   children: [
                     EditProfileImage(
                       image: state.user?.photo ?? '',
-                      selectedImage: state.selectedImage,
+                      selectedImage:
+                          state.selectedImage,
                       onImageSelected: (image) {
                         cubit.changeImage(image);
                       },
@@ -145,45 +170,68 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Form(
                       key: formKey,
                       child: EditProfileForm(
-                        firstNameController: firstNameController,
-                        lastNameController: lastNameController,
-                        emailController: emailController,
-                        phoneController: phoneController,
+                        firstNameController:
+                            firstNameController,
+                        lastNameController:
+                            lastNameController,
+                        emailController:
+                            emailController,
+                        phoneController:
+                            phoneController,
                       ),
                     ),
 
                     SizedBox(height: 20.h),
 
-                    CustomGenderSelector(selectedGender: state.user?.gender),
+                    CustomGenderSelector(
+                      selectedGender:
+                          state.user?.gender,
+                    ),
 
                     SizedBox(height: 30.h),
 
                     ElevatedButton(
-                      onPressed: state.isDataChanged
-                          ? () {
-                              if (formKey.currentState!.validate()) {
-                                if (state.selectedImage != null) {
-                                  cubit.doEvent(
-                                    UploadPhotoEvent(
-                                      file: state.selectedImage!,
-                                    ),
-                                  );
-                                } else {
-                                  cubit.doEvent(
-                                    UpdateProfileEvent(
-                                      request: EditProfileRequest(
-                                        firstName: firstNameController.text,
-                                        lastName: lastNameController.text,
-                                        phone: phoneController.text
-                                            .toEgyptianPhone(),
-                                      ),
-                                    ),
-                                  );
+                      onPressed:
+                          state.isDataChanged
+                              ? () {
+                                  if (formKey
+                                      .currentState!
+                                      .validate()) {
+                                    if (state
+                                            .selectedImage !=
+                                        null) {
+                                      cubit.doEvent(
+                                        UploadPhotoEvent(
+                                          file: state
+                                              .selectedImage!,
+                                        ),
+                                      );
+                                    } else {
+                                      cubit.doEvent(
+                                        UpdateProfileEvent(
+                                          request:
+                                              EditProfileRequest(
+                                            firstName:
+                                                firstNameController
+                                                    .text
+                                                    .trim(),
+                                            lastName:
+                                                lastNameController
+                                                    .text
+                                                    .trim(),
+                                            phone:
+                                                phoneController
+                                                    .text
+                                                    .toEgyptianPhone(),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  }
                                 }
-                              }
-                            }
-                          : null,
-                      child: Text(AppStrings.update),
+                              : null,
+                      child:
+                          Text(AppStrings.update),
                     ),
                   ],
                 ),

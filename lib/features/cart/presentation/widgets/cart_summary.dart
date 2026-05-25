@@ -1,0 +1,105 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+class CartSummary extends StatelessWidget {
+  final CartEntity cart;
+
+  const CartSummary({super.key, required this.cart});
+
+  @override
+  Widget build(BuildContext context) {
+    final subtotal = cart.items.fold<int>(
+      0,
+      (sum, item) => sum + (item.product.priceAfterDiscount * item.quantity),
+    );
+    const deliveryFee = 10;
+    final total = subtotal + deliveryFee;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 12.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _SummaryRow(
+            label: AppStrings.subTotal.tr(),
+            value: '$subtotal${AppStrings.dollar.tr()}',
+          ),
+          SizedBox(height: 8.h),
+          _SummaryRow(
+            label: AppStrings.deliveryFee.tr(),
+            value: '$deliveryFee${AppStrings.dollar.tr()}',
+          ),
+          SizedBox(height: 12.h),
+          Divider(color: AppColors.white70, thickness: 0.5),
+          SizedBox(height: 12.h),
+          _SummaryRow(
+            label: AppStrings.total.tr(),
+            value: '$total${AppStrings.dollar.tr()}',
+            isBold: true,
+          ),
+          SizedBox(height: 40.h),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              padding: EdgeInsets.symmetric(vertical: 14.h),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.r),
+              ),
+            ),
+            onPressed: () {},
+            child: Text(
+              AppStrings.checkout.tr(),
+              style: AppTextStyles.white16500.copyWith(fontSize: 18.sp),
+            ),
+          ),
+          SizedBox(height: 8.h),
+        ],
+      ),
+    );
+  }
+}
+
+class _SummaryRow extends StatelessWidget {
+  final String label;
+  final String value;
+  final bool isBold;
+
+  const _SummaryRow({
+    required this.label,
+    required this.value,
+    this.isBold = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: isBold
+              ? AppTextStyles.black16400.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18.sp,
+                )
+              : AppTextStyles.black16400,
+        ),
+        Text(
+          value,
+          style: isBold
+              ? AppTextStyles.black16400.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18.sp,
+                )
+              : AppTextStyles.black16400,
+        ),
+      ],
+    );
+  }
+}

@@ -15,7 +15,7 @@ abstract class AppTheme {
         backgroundColor: AppColors.white,
         elevation: 0,
         centerTitle: false,
-        titleTextStyle: AppTextStyles.black18500,
+        titleTextStyle: AppTextStyles.black20500,
         iconTheme: const IconThemeData(color: AppColors.black),
       ),
 
@@ -99,6 +99,20 @@ abstract class AppTheme {
         type: BottomNavigationBarType.fixed,
         elevation: 0,
         showUnselectedLabels: true,
+      ),
+
+      tabBarTheme: TabBarThemeData(
+        labelColor: AppColors.primary,
+        unselectedLabelColor: AppColors.white70,
+        labelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+        unselectedLabelStyle: TextStyle(
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w400,
+        ),
+        indicatorColor: AppColors.primary,
+        dividerColor: Colors.transparent,
+        overlayColor: WidgetStatePropertyAll(Colors.transparent),
+        tabAlignment: TabAlignment.start,
       ),
     );
   }

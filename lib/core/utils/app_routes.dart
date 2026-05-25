@@ -8,21 +8,23 @@ import 'package:flowers_app/features/auth/login/presentation/view_model/login_cu
 import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
 import 'package:flowers_app/features/auth/signup/presentation/screens/terms_and_conditions_screen.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
-import 'package:flowers_app/features/main_layout/presentation/pages/main_layout_screen.dart';
+import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
+import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
+import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
+import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
+import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/screens/edit_profile_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_event.dart';
 import '../../features/best_seller/presentation/screens/best_seller_screen.dart';
-
-/// A centralized class for managing all application routes and navigation.
-///
-/// [AppRoutes] ensures that route names and navigation logic are organized in one place.
+import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 
 abstract class AppRoutes {
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -35,20 +37,39 @@ abstract class AppRoutes {
   static const String forgotPassword = '/forgotPassword';
   static const String verifyResetCode = '/VerifyResetCode';
   static const String resetPassword = '/resetPassword';
+  static const String occasions = '/occasions';
+  static const String bestSeller = '/bestSeller';
+  static const String productDetails = '/productDetails';
   static const String mainLayout = 'mainLayout';
-  static const String bestSeller = 'bestSeller';
-  static const String productDetails = 'ProductDetails';
-  static const String occasions = 'occasions';
-  static const String categories = 'categories';
-  static const String editProfile = 'editProfile';
+  static const String editProfile = '/editProfile';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case mainLayout:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<HomeViewModel>()..doEvent(GetAllHomeData()),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    getIt<HomeViewModel>()..doEvent(GetAllHomeData()),
+              ),
+              BlocProvider.value(
+                value: getIt<CartBloc>()..add(const GetCartEvent()),
+              ),
+            ],
             child: const MainLayoutScreen(),
+          ),
+        );
+
+      case occasions:
+        final String? occasionId = settings.arguments as String?;
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => getIt<OccasionsCubit>()),
+              BlocProvider.value(value: getIt<CartBloc>()),
+            ],
+            child: OccasionsScreen(initialOccasionId: occasionId),
           ),
         );
 
@@ -90,10 +111,32 @@ abstract class AppRoutes {
 
       case bestSeller:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) =>
-                getIt<BestSellerCubit>()..doEvent(GetBestSellerProductsEvent()),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    getIt<BestSellerCubit>()
+                      ..doEvent(GetBestSellerProductsEvent()),
+              ),
+              BlocProvider.value(value: getIt<CartBloc>()),
+            ],
             child: const BestSellerScreen(),
+          ),
+        );
+
+      case productDetails:
+        final String productId = settings.arguments.toString();
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    getIt<ProductDetailsCubit>()
+                      ..doEvent(GetProductDetailsEvent(productId)),
+              ),
+              BlocProvider.value(value: getIt<CartBloc>()),
+            ],
+            child: const ProductDetailsScreen(),
           ),
         );
       case editProfile:

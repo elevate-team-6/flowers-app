@@ -16,10 +16,25 @@ abstract class AppEndPoints {
   static const String editProfile = "$baseUrl/auth/editProfile";
   static const String uploadPhoto = "$baseUrl/auth/upload-photo";
 
-  // Home:
-    static const String bestSeller = "$baseUrl/best-seller";
+  //ocasions:
+  static const String occasions = "$baseUrl/occasions";
 
-  // ---------------------------------------------------------------------------
+  // Home:
+  static const String bestSeller = "$baseUrl/best-seller";
+
+  // Categories:
+  static const String categories = "$baseUrl/categories";
+
+  // Products:
+  static const String products = "$baseUrl/products";
+  static const String productDetails = "$baseUrl/products/{id}";
+
+
+  // cart:
+  static const String cart = '$baseUrl/cart';
+  static const String cartProductPath = '$cart/{productId}';
+  static const String productIdParam = 'productId';
+// ---------------------------------------------------------------------------
   // TO ADD NEW ENDPOINTS:
   // 1. Group them by feature (e.g., // Products, // Cart).
   // 2. Use 'static const String' with camelCase naming.
