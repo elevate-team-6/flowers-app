@@ -1,3 +1,4 @@
+import 'package:flowers_app/config/helpers/phone_extension.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
@@ -173,7 +174,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       request: EditProfileRequest(
                                         firstName: firstNameController.text,
                                         lastName: lastNameController.text,
-                                        phone: '+2${phoneController.text}',
+                                        phone: phoneController.text
+                                            .toEgyptianPhone(),
                                       ),
                                     ),
                                   );

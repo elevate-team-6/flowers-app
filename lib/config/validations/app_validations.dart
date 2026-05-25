@@ -105,15 +105,16 @@ abstract class AppValidations {
   // ── Phone ──
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return AppStrings.phoneRequired;
+      return 'Phone number is required';
     }
-    // final cleaned = value.replaceAll(RegExp(r'[\s\-\(\)]'), '');
-    // if (!cleaned.startsWith('+')) {
-    //   return AppStrings.phoneMustStartWithCountryCode;
-    // }
-    // if (!RegExp(r'^\+[0-9]{10,15}$').hasMatch(cleaned)) {
-    //   return AppStrings.invalidPhone;
-    // }
+
+    final phone = value.trim();
+
+    final regex = RegExp(r'^01[0-2,5]{1}[0-9]{8}$');
+
+    if (!regex.hasMatch(phone)) {
+      return 'Enter valid Egyptian phone number';
+    }
     return null;
   }
 }
