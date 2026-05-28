@@ -41,12 +41,12 @@ void main() {
   group('getProfileData', () {
     blocTest<ProfileCubit, ProfileStates>(
       'success with user data',
-      build: () {
+      setUp: () {
         when(
           mockGetProfileDataUseCase.call(),
         ).thenAnswer((_) async => SuccessBaseResponse(tUserEntity));
-        return cubit;
       },
+      build: () => cubit,
       act: (cubit) => cubit.doEvent(GetProfileDataEvent()),
       expect: () => [
         const ProfileStates(profileDataState: BaseState(isLoading: true)),
@@ -59,12 +59,12 @@ void main() {
 
     blocTest<ProfileCubit, ProfileStates>(
       'error fetching data',
-      build: () {
+      setUp: () {
         when(
           mockGetProfileDataUseCase.call(),
         ).thenAnswer((_) async => ErrorBaseResponse('Error message'));
-        return cubit;
       },
+      build: () => cubit,
       act: (cubit) => cubit.doEvent(GetProfileDataEvent()),
       expect: () => [
         const ProfileStates(profileDataState: BaseState(isLoading: true)),
@@ -81,12 +81,12 @@ void main() {
   group('logout', () {
     blocTest<ProfileCubit, ProfileStates>(
       'logout success',
-      build: () {
+      setUp: () {
         when(
           mockLogoutUseCase.logout(),
         ).thenAnswer((_) async => SuccessBaseResponse<void>(null));
-        return cubit;
       },
+      build: () => cubit,
       act: (cubit) => cubit.doEvent(LogoutEvent()),
       expect: () => [
         const ProfileStates(logoutState: BaseState(isLoading: true)),
@@ -97,12 +97,12 @@ void main() {
 
     blocTest<ProfileCubit, ProfileStates>(
       'logout failure',
-      build: () {
+      setUp: () {
         when(
           mockLogoutUseCase.logout(),
         ).thenAnswer((_) async => ErrorBaseResponse<void>('Logout error'));
-        return cubit;
       },
+      build: () => cubit,
       act: (cubit) => cubit.doEvent(LogoutEvent()),
       expect: () => [
         const ProfileStates(logoutState: BaseState(isLoading: true)),
