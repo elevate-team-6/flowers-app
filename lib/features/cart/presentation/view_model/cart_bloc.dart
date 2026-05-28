@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flowers_app/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:flowers_app/features/cart/domain/use_cases/add_to_cart_use_case.dart';
 import 'package:flowers_app/features/cart/domain/use_cases/get_cart_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,6 +39,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onGetCart(GetCartEvent event, Emitter<CartState> emit) async {
+    if (state.status == CartStatus.success && state.cart != null) {
+      return;
+    }
+
     emit(state.copyWith(status: CartStatus.loading));
     final result = await _getCartUseCase();
     switch (result) {
@@ -57,18 +62,56 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     AddToCartEvent event,
     Emitter<CartState> emit,
   ) async {
-    if (_activeRequests.contains(event.productId)) return;
-    _activeRequests.add(event.productId);
+    final productId = event.product.id;
 
-    emit(
-      state.copyWith(loadingItems: {...state.loadingItems, event.productId}),
-    );
+    if (_activeRequests.contains(productId)) return;
+    _activeRequests.add(productId);
 
-    final result = await _addToCartUseCase(event.productId, event.quantity);
-    _activeRequests.remove(event.productId);
+    final oldCart = state.cart;
+
+    if (oldCart != null) {
+      final existingIndex = oldCart.items.indexWhere(
+        (item) => item.product.id == productId,
+      );
+
+      final List<CartItemEntity> updatedItems;
+      if (existingIndex != -1) {
+        updatedItems = oldCart.items.map((item) {
+          if (item.product.id == productId) {
+            return item.copyWith(quantity: item.quantity + event.quantity);
+          }
+          return item;
+        }).toList();
+      } else {
+        updatedItems = [
+          ...oldCart.items,
+          CartItemEntity(
+            id: 'temp_$productId',
+            product: event.product,
+            price: event.product.priceAfterDiscount,
+            quantity: event.quantity,
+          ),
+        ];
+      }
+
+      emit(
+        state.copyWith(
+          cart: oldCart.copyWith(
+            items: updatedItems,
+            numOfCartItems: updatedItems.length,
+          ),
+          loadingItems: {...state.loadingItems, productId},
+        ),
+      );
+    } else {
+      emit(state.copyWith(loadingItems: {...state.loadingItems, productId}));
+    }
+
+    final result = await _addToCartUseCase(productId, event.quantity);
+    _activeRequests.remove(productId);
 
     final newLoadingItems = Set<String>.from(state.loadingItems)
-      ..remove(event.productId);
+      ..remove(productId);
 
     switch (result) {
       case SuccessBaseResponse<CartEntity>():
@@ -77,12 +120,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             status: CartStatus.success,
             cart: result.data,
             loadingItems: newLoadingItems,
+            itemAddedSuccess: true,
           ),
         );
       case ErrorBaseResponse<CartEntity>():
         emit(
           state.copyWith(
             status: CartStatus.failure,
+            cart: oldCart,
             errorMessage: result.errorMessage,
             loadingItems: newLoadingItems,
           ),
@@ -139,6 +184,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       case ErrorBaseResponse<CartEntity>():
         emit(
           state.copyWith(
+            status: CartStatus.failure,
             cart: event.oldCart,
             errorMessage: result.errorMessage,
           ),
@@ -179,6 +225,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(
           state.copyWith(
             cart: oldCart,
+            status: CartStatus.failure,
             loadingItems: newLoadingItems,
             errorMessage: result.errorMessage,
           ),

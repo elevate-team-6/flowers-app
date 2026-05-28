@@ -161,6 +161,15 @@ abstract class AppStrings {
   static const String image = 'image';
   static const String title = 'title';
   static const String price = 'price';
+
+    // edit profile
+  static const String editProfile = 'Edit profile';
+  static const String editProfileSuccessfly = 'Edit profile Successfly';
+  static const String change = 'Change';
+  static const String update = 'Update';
+  static const String femaleValue = 'female';
+  static const String maleValue = 'male';
+  static const String photo = 'photo';
   static const String bestSeller = 'bestSeller';
 
   // Error Messages
@@ -205,6 +214,7 @@ abstract class AppStrings {
   static const String nameTooShort = 'nameTooShort';
   static const String nameNoNumbers = 'nameNoNumbers';
   static const String phoneRequired = 'phoneRequired';
+  static const String phoneRequiredEgyptian = 'Enter valid Egyptian phone number';
   static const String invalidPhone = 'invalidPhone';
   static const String phoneMustStartWithCountryCode =
       'phoneMustStartWithCountryCode';
@@ -212,6 +222,4 @@ abstract class AppStrings {
   // ===========================================================================
   // API Constants (Values sent directly to Backend - Do NOT Translate)
   // ===========================================================================
-  static const String femaleValue = 'female';
-  static const String maleValue = 'male';
 }

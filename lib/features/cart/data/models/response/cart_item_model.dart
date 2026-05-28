@@ -20,7 +20,7 @@ class CartItemModel extends Equatable {
   );
 
   CartItemEntity toEntity() => CartItemEntity(
-    id: id ?? '',
+    id: (id != null && id!.isNotEmpty) ? id! : (product?.id ?? ''),
     product: product ?? ProductEntity.empty,
     price: price ?? 0,
     quantity: quantity ?? 1,

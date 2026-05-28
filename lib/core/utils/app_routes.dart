@@ -2,6 +2,7 @@ import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
+import 'package:flowers_app/features/auth/login/data/models/login_response/user_dto.dart';
 import 'package:flowers_app/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_cubit.dart';
 import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
@@ -16,6 +17,8 @@ import 'package:flowers_app/features/occasions/presentation/view_model/occasions
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
+import 'package:flowers_app/features/profile/edit_profile/presentation/screens/edit_profile_screen.dart';
+import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
@@ -138,6 +141,22 @@ abstract class AppRoutes {
               BlocProvider.value(value: getIt<CartBloc>()),
             ],
             child: const ProductDetailsScreen(),
+          ),
+        );
+      case editProfile:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<EditProfileCubit>(),
+            child: EditProfileScreen(
+              user: UserDto(
+                firstName: 'Youssef',
+                lastName: 'Tech2',
+                email: 'ahmed00mutti@gmail.com',
+                phone: '01154099777',
+                gender: 'male',
+                photo: '',
+              ),
+            ),
           ),
         );
 

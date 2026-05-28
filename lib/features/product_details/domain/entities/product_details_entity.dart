@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flowers_app/core/entities/product_entity.dart';
 
 class ProductDetailsEntity extends Equatable {
   final String id;
@@ -18,6 +19,16 @@ class ProductDetailsEntity extends Equatable {
     required this.price,
     required this.quantity,
   });
+
+  ProductEntity toProductEntity() => ProductEntity(
+    id: id,
+    title: title,
+    imgCover: imgCover,
+    price: price,
+    priceAfterDiscount: price,
+    discount: 0,
+    description: description,
+  );
 
   @override
   List<Object?> get props => [

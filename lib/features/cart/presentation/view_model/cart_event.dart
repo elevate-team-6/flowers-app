@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 
 abstract class CartEvent extends Equatable {
@@ -12,13 +13,13 @@ class GetCartEvent extends CartEvent {
 }
 
 class AddToCartEvent extends CartEvent {
-  final String productId;
+  final ProductEntity product;
   final int quantity;
 
-  const AddToCartEvent({required this.productId, this.quantity = 1});
+  const AddToCartEvent({required this.product, this.quantity = 1});
 
   @override
-  List<Object?> get props => [productId, quantity];
+  List<Object?> get props => [product, quantity];
 }
 
 class UpdateQuantityEvent extends CartEvent {

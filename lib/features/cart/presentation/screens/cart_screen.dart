@@ -1,4 +1,5 @@
 import 'package:flowers_app/core/utils/app_assets.dart';
+import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_state.dart';
@@ -41,9 +42,12 @@ class _CartScreenState extends State<CartScreen> {
           children: [
             BlocBuilder<CartBloc, CartState>(
               buildWhen: (prev, curr) =>
-                  prev.cart?.numOfCartItems != curr.cart?.numOfCartItems,
+                  prev.cart?.numOfCartItems != curr.cart?.numOfCartItems ||
+                  prev.status != curr.status,
               builder: (context, state) {
                 final count = state.cart?.numOfCartItems ?? 0;
+                final hasError = state.status == CartStatus.failure;
+
                 return Row(
                   children: [
                     Text(
@@ -53,14 +57,15 @@ class _CartScreenState extends State<CartScreen> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
-                      ' ($count ${AppStrings.items.tr()})',
-                      style: AppTextStyles.black16400.copyWith(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.white90,
+                    if (!hasError)
+                      Text(
+                        ' ($count ${AppStrings.items.tr()})',
+                        style: AppTextStyles.black16400.copyWith(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.white90,
+                        ),
                       ),
-                    ),
                   ],
                 );
               },
@@ -102,11 +107,11 @@ class _CartScreenState extends State<CartScreen> {
           }
 
           if (state.status == CartStatus.failure) {
-            return Center(
-              child: Text(
-                state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
-                style: AppTextStyles.black16400,
-              ),
+            return CustomErrorStateView(
+              message: state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
+              onRetry: () {
+                context.read<CartBloc>().add(const GetCartEvent());
+              },
             );
           }
 
@@ -123,21 +128,21 @@ class _CartScreenState extends State<CartScreen> {
                     color: AppColors.black30,
                   ),
                   SizedBox(height: 16.h),
-                  Text(AppStrings.cartEmpty.tr(), style: AppTextStyles.black16400),
+                  Text(
+                    AppStrings.cartEmpty.tr(),
+                    style: AppTextStyles.black16400,
+                  ),
                 ],
               ),
             );
           }
 
-          // الـ ids بس - عشان الـ ListView يعرف عدد الـ items والترتيب
-          final itemIds = items.map((e) => e.id).toList();
-
           return ListView.separated(
             padding: EdgeInsets.all(16.w),
-            itemCount: itemIds.length + 1,
+            itemCount: items.length + 1,
             separatorBuilder: (_, _) => SizedBox(height: 12.h),
             itemBuilder: (context, index) {
-              if (index == itemIds.length) {
+              if (index == items.length) {
                 return BlocSelector<CartBloc, CartState, int>(
                   selector: (state) {
                     final items = state.cart?.items ?? [];
@@ -156,17 +161,25 @@ class _CartScreenState extends State<CartScreen> {
                 );
               }
 
-              final itemId = itemIds[index];
+              final itemIndex = index;
 
               return BlocSelector<
                 CartBloc,
                 CartState,
                 ({CartItemEntity? item, bool isLoading})
               >(
-                selector: (state) => (
-                  item: state.cart?.itemsMap[itemId],
-                  isLoading: state.isItemLoading(itemId),
-                ),
+                selector: (state) {
+                  final items = state.cart?.items ?? [];
+                  final item = itemIndex < items.length
+                      ? items[itemIndex]
+                      : null;
+                  return (
+                    item: item,
+                    isLoading: item != null
+                        ? state.isItemLoading(item.id)
+                        : false,
+                  );
+                },
                 builder: (context, data) {
                   final currentItem = data.item;
                   if (currentItem == null) return const SizedBox();

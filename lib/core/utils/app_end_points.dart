@@ -13,6 +13,8 @@ abstract class AppEndPoints {
 
   static const String logout = "$baseUrl/auth/logout";
   static const String profileData = "$baseUrl/auth/profile-Data";
+  static const String editProfile = "$baseUrl/auth/editProfile";
+  static const String uploadPhoto = "$baseUrl/auth/upload-photo";
 
   //ocasions:
   static const String occasions = "$baseUrl/occasions";
