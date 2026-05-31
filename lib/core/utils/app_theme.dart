@@ -48,12 +48,34 @@ abstract class AppTheme {
         ),
       ),
 
+      // outlined button theme
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.black,
+          minimumSize: Size(double.infinity, 48.h),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100.r),
+          ),
+          side: const BorderSide(color: AppColors.black10, width: 1),
+          textStyle: AppTextStyles.black14600,
+        ),
+      ),
+
       // text button theme
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppColors.primary,
           textStyle: AppTextStyles.black16400,
         ),
+      ),
+      // Radio Theme
+      radioTheme: RadioThemeData(
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.primary;
+          }
+          return AppColors.gray;
+        }),
       ),
 
       // text field
@@ -64,8 +86,8 @@ abstract class AppTheme {
         labelStyle: AppTextStyles.black12400,
         errorStyle: TextStyle(color: AppColors.error, fontSize: 12.sp),
         errorMaxLines: 4,
-        border: _border(AppColors.black30),
-        enabledBorder: _border(AppColors.black30),
+        border: _border(AppColors.black30, 2),
+        enabledBorder: _border(AppColors.black30, 2),
         focusedBorder: _border(AppColors.primary, 1.5),
         errorBorder: _border(AppColors.error),
         focusedErrorBorder: _border(AppColors.error, 2),
@@ -78,6 +100,25 @@ abstract class AppTheme {
           borderRadius: BorderRadius.circular(12.r),
         ),
         contentTextStyle: AppTextStyles.white16500,
+      ),
+
+      // progress indicator theme
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
+        color: AppColors.primary,
+        refreshBackgroundColor: AppColors.white,
+      ),
+
+      // switch theme
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return AppColors.white;
+          return null;
+        }),
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return AppColors.primary;
+          return AppColors.black10;
+        }),
+        trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
       ),
 
       // bottom navigation bar theme

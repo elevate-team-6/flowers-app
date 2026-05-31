@@ -2,6 +2,7 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomErrorState extends StatelessWidget {
   final String message;
@@ -17,30 +18,19 @@ class CustomErrorState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.error_outline,
-              size: 70,
-              color: AppColors.error,
-            ),
+            const Icon(Icons.error_outline, size: 70, color: AppColors.error),
 
             const SizedBox(height: 16),
 
-            Text(
-              message,
-              textAlign: TextAlign.center,
-            ),
+            Text(message, textAlign: TextAlign.center),
 
             const SizedBox(height: 20),
 
-            ElevatedButton(
-              onPressed: onRetry,
-              child: const Text(AppStrings.retry),
-            ),
+            ElevatedButton(onPressed: onRetry, child: Text(AppStrings.retry.tr())),
           ],
         ),
       ),

@@ -1,5 +1,7 @@
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
 import 'package:flowers_app/core/widgets/custom_tab_bar.dart';
@@ -10,6 +12,7 @@ import 'package:flowers_app/features/occasions/presentation/view_model/occasions
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OccasionsScreen extends StatefulWidget {
   final String? initialOccasionId;
@@ -78,9 +81,9 @@ class _OccasionsScreenState extends State<OccasionsScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(AppStrings.occasion),
+              Text(AppStrings.occasion.tr()),
               Text(
-                AppStrings.occasionSubtitle,
+                AppStrings.occasionSubtitle.tr(),
                 style: AppTextStyles.black12400.copyWith(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
@@ -118,34 +121,46 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                     buildWhen: (prev, curr) =>
                         prev.productsState != curr.productsState,
                     builder: (context, state) {
-                      if (state.productsState.isLoading) {
+                      final products = state.productsState.data;
+
+                      if (state.productsState.isLoading && products == null) {
                         return const CustomProductsShimmer();
                       }
 
-                      if (state.productsState.errorMessage != null) {
-                        return Center(
-                          child: Text(
-                            state.productsState.errorMessage!,
-                            style: AppTextStyles.black16400,
-                          ),
+                      if (state.productsState.errorMessage != null &&
+                          products == null) {
+                        return CustomErrorStateView(
+                          message: state.productsState.errorMessage!,
+                          onRetry: () {
+                            _cubit.doEvent(
+                              GetProductsEvent(
+                                _occasions[_tabController.index].name,
+                              ),
+                            );
+                          },
                         );
                       }
 
-                      final products = state.productsState.data ?? [];
+                      final productsList = products ?? [];
 
-                      if (products.isEmpty &&
-                          state.occasionsState.data != null) {
+                      if (productsList.isEmpty) {
                         return Center(
                           child: Text(
-                            AppStrings.noProductsFound,
+                            AppStrings.noProductsFound.tr(),
                             style: AppTextStyles.black16400,
                           ),
                         );
                       }
 
                       return CustomProductsGrid(
-                        products: products,
-                        onAddToCart: (product) {},
+                        products: productsList,
+                        onTap: (product) {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.productDetails,
+                            arguments: product.id,
+                          );
+                        },
                       );
                     },
                   ),

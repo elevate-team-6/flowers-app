@@ -17,6 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../main_layout/presentation/cubit/main_layout_state.dart';
 import 'categories_tab_mixin.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
@@ -95,7 +96,7 @@ class _CategoriesScreenBodyState extends State<_CategoriesScreenBody>
 
   Widget _buildTabBar(List<dynamic> categories) {
     final List<String> allTabTitles = [
-      AppStrings.all,
+      AppStrings.all.tr(),
       ...categories.map((e) => e.name?.toString() ?? ''),
     ];
     updateTabController(allTabTitles.length, categories);

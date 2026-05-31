@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/categories/presentation/widgets/filter_option_item.dart';
@@ -21,15 +23,15 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   @override
   void initState() {
     super.initState();
-    _selectedSort = widget.initialSort ?? AppStrings.highestPrice;
+    _selectedSort = widget.initialSort ?? AppConstants.highestPrice;
   }
 
   final List<String> _sortOptions = [
-    AppStrings.lowestPrice,
-    AppStrings.highestPrice,
-    AppStrings.newText,
-    AppStrings.oldText,
-    AppStrings.discountText,
+    AppConstants.lowestPrice,
+    AppConstants.highestPrice,
+    AppConstants.newText,
+    AppConstants.oldText,
+    AppConstants.discountText,
   ];
 
   @override
@@ -58,10 +60,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           SizedBox(height: 24.h),
 
           // Title
-          Text(
-            AppStrings.sortBy,
-            style: AppTextStyles.primary20700,
-          ),
+          Text(AppStrings.sortBy.tr(), style: AppTextStyles.primary20700),
           SizedBox(height: 16.h),
 
           // Filter options
@@ -100,7 +99,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 ),
               ),
               label: Text(
-                AppStrings.filter,
+                AppStrings.filter.tr(),
                 style: AppTextStyles.white16600,
               ),
             ),

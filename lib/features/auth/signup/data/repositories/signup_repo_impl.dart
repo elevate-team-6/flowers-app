@@ -6,6 +6,7 @@ import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/features/auth/signup/data/data_sources/signup_remote_data_source_contract.dart';
 import 'package:flowers_app/features/auth/signup/data/models/requestes/signup_request.dart';
 import 'package:flowers_app/features/auth/signup/domain/entities/user_entity.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 @Injectable(as: SignupRepoContract)
 class SignupRepoImpl implements SignupRepoContract {
@@ -19,7 +20,7 @@ class SignupRepoImpl implements SignupRepoContract {
     switch (response) {
       case SuccessBaseResponse<SignupResponse>():
         if (response.data.user == null) {
-          return ErrorBaseResponse(AppStrings.signupFailedUserIsNull);
+          return ErrorBaseResponse(AppStrings.signupFailedUserIsNull.tr());
         }
         return SuccessBaseResponse(response.data.user!.toEntity());
       case ErrorBaseResponse<SignupResponse>():

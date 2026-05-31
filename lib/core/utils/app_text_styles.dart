@@ -22,7 +22,16 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.black,
   );
-
+  static TextStyle get black16500 => GoogleFonts.inter(
+    fontSize: _sp(20),
+    fontWeight: FontWeight.w500,
+    color: AppColors.black,
+  );
+  static TextStyle get black20700 => GoogleFonts.inter(
+    fontSize: _sp(20),
+    fontWeight: FontWeight.w700,
+    color: AppColors.black,
+  );
   static TextStyle get black13400 => GoogleFonts.inter(
     fontSize: _sp(13),
     fontWeight: FontWeight.w400,
@@ -57,12 +66,23 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.black,
   );
+  static TextStyle get gray18500 => GoogleFonts.inter(
+    fontSize: _sp(18),
+    fontWeight: FontWeight.w500,
+    color: AppColors.white90,
+  );
+
+  static TextStyle get black18600 => GoogleFonts.inter(
+    fontSize: _sp(18),
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+  );
 
   // Gray Styles
   static TextStyle get gray14400 => GoogleFonts.inter(
     fontSize: _sp(14),
     fontWeight: FontWeight.w400,
-    color: AppColors.black30,
+    color: AppColors.gray,
   );
 
   static TextStyle get gray12400 => GoogleFonts.inter(
@@ -70,7 +90,6 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.gray,
   );
-
   // White Styles
   static TextStyle get white16500 => GoogleFonts.inter(
     fontSize: _sp(16),
@@ -79,7 +98,6 @@ abstract class AppTextStyles {
   );
 
   // primary color styles
-
   static TextStyle get primary16400 => GoogleFonts.inter(
     fontSize: _sp(16),
     fontWeight: FontWeight.w400,
@@ -91,10 +109,22 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.primary,
   );
+  static TextStyle get primary12600 => GoogleFonts.inter(
+    fontSize: _sp(12),
+    fontWeight: FontWeight.w600,
+    color: AppColors.primary,
+  );
 
   static TextStyle get primary20700 => GoogleFonts.inter(
     fontSize: _sp(20),
     fontWeight: FontWeight.w700,
+    color: AppColors.primary,
+  );
+
+  // imFellEnglish primary styles
+  static TextStyle get primary20400imFellEnglish => GoogleFonts.imFellEnglish(
+    fontSize: _sp(20),
+    fontWeight: FontWeight.w400,
     color: AppColors.primary,
   );
 

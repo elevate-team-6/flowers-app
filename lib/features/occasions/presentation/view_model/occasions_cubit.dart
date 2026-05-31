@@ -56,11 +56,14 @@ class OccasionsCubit extends Cubit<OccasionsState> {
   }
 
   Future<void> _getProducts(String occasionName) async {
-    emit(
-      state.copyWith(
-        productsStateParam: BaseState<List<ProductEntity>>(isLoading: true),
+   emit(
+    state.copyWith(
+      productsStateParam: BaseState<List<ProductEntity>>(
+        isLoading: true,
+        data: state.productsState.data,
       ),
-    );
+    ),
+  );
 
     final result = await _getProductsUseCase(occasionName);
 

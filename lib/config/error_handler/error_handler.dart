@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ErrorHandler {
   static Future<BaseResponse<T>> handleApiCall<T>(
@@ -18,30 +19,30 @@ class ErrorHandler {
     if (error is DioException) {
       switch (error.type) {
         case DioExceptionType.connectionTimeout:
-          return AppStrings.connectionTimeout;
+          return AppStrings.connectionTimeout.tr();
         case DioExceptionType.sendTimeout:
-          return AppStrings.sendTimeout;
+          return AppStrings.sendTimeout.tr();
         case DioExceptionType.receiveTimeout:
-          return AppStrings.receiveTimeout;
+          return AppStrings.receiveTimeout.tr();
         case DioExceptionType.badResponse:
           return _handleBadResponse(error.response);
         case DioExceptionType.cancel:
-          return AppStrings.requestCancelled;
+          return AppStrings.requestCancelled.tr();
         case DioExceptionType.connectionError:
-          return AppStrings.noInternetConnection;
+          return AppStrings.noInternetConnection.tr();
         case DioExceptionType.unknown:
-          return AppStrings.unexpectedError;
+          return AppStrings.unexpectedError.tr();
         default:
-          return AppStrings.defaultErrorTryAgain;
+          return AppStrings.defaultErrorTryAgain.tr();
       }
     } else {
-      return AppStrings.unknownError;
+      return AppStrings.unknownError.tr();
     }
   }
 
   static String _handleBadResponse(Response? response) {
     if (response == null) {
-      return AppStrings.unexpectedErrorTryAgain;
+      return AppStrings.unexpectedErrorTryAgain.tr();
     }
 
     final dynamic data = response.data;
@@ -57,17 +58,17 @@ class ErrorHandler {
 
     switch (response.statusCode) {
       case 400:
-        return AppStrings.invalidRequest;
+        return AppStrings.invalidRequest.tr();
       case 401:
-        return AppStrings.authFailed;
+        return AppStrings.authFailed.tr();
       case 403:
-        return AppStrings.forbidden;
+        return AppStrings.forbidden.tr();
       case 404:
-        return AppStrings.notFound;
+        return AppStrings.notFound.tr();
       case 500:
-        return AppStrings.serverError;
+        return AppStrings.serverError.tr();
       default:
-        return AppStrings.defaultError;
+        return AppStrings.defaultError.tr();
     }
   }
 
@@ -75,14 +76,14 @@ class ErrorHandler {
     final lowerMessage = message.toLowerCase();
 
     if (lowerMessage.contains('user already exists')) {
-      return AppStrings.userAlreadyExists;
+      return AppStrings.userAlreadyExists.tr();
     }
     if (lowerMessage.contains('gender') &&
         lowerMessage.contains('must be one of')) {
-      return AppStrings.invalidGender;
+      return AppStrings.invalidGender.tr();
     }
     if (lowerMessage.contains('invalid phone number format')) {
-      return AppStrings.invalidPhoneFormat;
+      return AppStrings.invalidPhoneFormat.tr();
     }
 
     return message;
