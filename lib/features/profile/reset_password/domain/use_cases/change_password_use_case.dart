@@ -7,6 +7,6 @@ class ChangePasswordUseCase {
   final ChangePasswordRepoContract _repo;
   const ChangePasswordUseCase(this._repo);
 
-  Future<BaseResponse<void>> call(String password, String newPassword) =>
+  Future<BaseResponse<String>> call(String password, String newPassword) =>
       _repo.changePassword(password, newPassword);
 }

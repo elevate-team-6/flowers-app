@@ -55,10 +55,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             SnackBarServices.showSuccessMessage(
               AppStrings.passwordChangedSuccess,
             );
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => LoginScreen()),
-              (Route<dynamic> route) => false,
-            );
+            Navigator.pop(context); // ← يرجع لشاشة الـ Edit Profile
           } else if (state.status == ChangePasswordStatus.failure) {
             SnackBarServices.showErrorMessage(
               state.errorMessage ?? AppStrings.someThingWentWrong,

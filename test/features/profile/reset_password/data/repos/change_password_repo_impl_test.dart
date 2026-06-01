@@ -13,7 +13,7 @@ void main() {
   late ChangePasswordRepoImpl repo;
 
   setUpAll(() {
-    provideDummy<BaseResponse<void>>(ErrorBaseResponse<void>('dummy'));
+    provideDummy<BaseResponse<String>>(ErrorBaseResponse<String>('dummy'));
   });
 
   setUp(() {
@@ -23,27 +23,29 @@ void main() {
 
   const currentPassword = 'OldPass@123';
   const newPassword = 'NewPass@123';
+  const token = 'new_token_123';
 
   group('changePassword', () {
-    test('returns SuccessBaseResponse when success', () async {
+    test('returns SuccessBaseResponse with token when success', () async {
       when(
         dataSource.changePassword(currentPassword, newPassword),
-      ).thenAnswer((_) async => SuccessBaseResponse<void>(null));
+      ).thenAnswer((_) async => SuccessBaseResponse<String>(token));
 
       final result = await repo.changePassword(currentPassword, newPassword);
 
-      expect(result, isA<SuccessBaseResponse<void>>());
+      expect(result, isA<SuccessBaseResponse<String>>());
+      expect((result as SuccessBaseResponse).data, token);
       verify(dataSource.changePassword(currentPassword, newPassword)).called(1);
     });
 
-    test('returns ErrorBaseResponse when failure', () async {
+    test('returns ErrorBaseResponse with message when failure', () async {
       when(
         dataSource.changePassword(currentPassword, newPassword),
-      ).thenAnswer((_) async => ErrorBaseResponse<void>('Error'));
+      ).thenAnswer((_) async => ErrorBaseResponse<String>('Error'));
 
       final result = await repo.changePassword(currentPassword, newPassword);
 
-      expect(result, isA<ErrorBaseResponse<void>>());
+      expect(result, isA<ErrorBaseResponse<String>>());
       expect((result as ErrorBaseResponse).errorMessage, 'Error');
     });
   });

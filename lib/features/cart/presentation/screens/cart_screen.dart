@@ -3,6 +3,7 @@ import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_state.dart';
+import 'package:flowers_app/features/home/presentation/widgets/home_delivery_address_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -71,29 +72,7 @@ class _CartScreenState extends State<CartScreen> {
               },
             ),
             SizedBox(height: 10.h),
-            Row(
-              children: [
-                Image.asset(AppIcons.location, width: 24.w, height: 24.w),
-                SizedBox(width: 4.w),
-                Text(
-                  AppStrings.deliverto.tr(),
-                  style: AppTextStyles.gray12400.copyWith(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.white90,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    AppStrings.delivertoAddress.tr(),
-                    style: AppTextStyles.black16400.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Image.asset(AppIcons.arrowRight, width: 24.w, height: 24.w),
-              ],
-            ),
+            HomeDeliveryAddressSection(),
           ],
         ),
       ),

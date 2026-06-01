@@ -1,4 +1,5 @@
 import 'package:flowers_app/config/validations/app_validations.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/widgets/password_stars.dart';
@@ -79,7 +80,8 @@ class EditProfileForm extends StatelessWidget {
             labelText: AppStrings.password,
             prefixIcon: const PasswordStars(),
             suffixIcon: TextButton(
-              onPressed: () {},
+              onPressed: () =>
+                  Navigator.pushNamed(context, AppRoutes.changePassword),
               child: Text(AppStrings.change, style: AppTextStyles.primary12600),
             ),
           ),

@@ -12,12 +12,23 @@ class ChangePasswordRemoteDataSourceImpl
   const ChangePasswordRemoteDataSourceImpl(this._apiClient);
 
   @override
-  Future<BaseResponse<void>> changePassword(
+  Future<BaseResponse<String>> changePassword(
     String password,
     String newPassword,
-  ) => ErrorHandler.handleApiCall(
-    () => _apiClient.changePassword(
-      ChangePasswordRequest(password: password, newPassword: newPassword),
-    ),
-  );
+  ) async {
+    final result = await ErrorHandler.handleApiCall(
+      () => _apiClient.changePassword(
+        ChangePasswordRequest(password: password, newPassword: newPassword),
+      ),
+    );
+
+    return switch (result) {
+      SuccessBaseResponse(:final data) => SuccessBaseResponse<String>(
+        data.token ?? '',
+      ),
+      ErrorBaseResponse(:final errorMessage) => ErrorBaseResponse<String>(
+        errorMessage,
+      ),
+    };
+  }
 }

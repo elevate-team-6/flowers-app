@@ -9,7 +9,7 @@ class ChangePasswordRepoImpl implements ChangePasswordRepoContract {
   const ChangePasswordRepoImpl(this._dataSource);
 
   @override
-  Future<BaseResponse<void>> changePassword(
+  Future<BaseResponse<String>> changePassword(
     String password,
     String newPassword,
   ) => _dataSource.changePassword(password, newPassword);
