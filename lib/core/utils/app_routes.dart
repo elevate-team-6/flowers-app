@@ -13,6 +13,8 @@ import 'package:flowers_app/features/home/presentation/view_model/cubit/home_vie
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
 import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
+import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
+import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
@@ -38,10 +40,11 @@ abstract class AppRoutes {
   static const String forgotPassword = '/forgotPassword';
   static const String verifyResetCode = '/VerifyResetCode';
   static const String resetPassword = '/resetPassword';
+  static const String changePassword = '/changePassword';
+  static const String mainLayout = '/mainLayout';
   static const String occasions = '/occasions';
   static const String bestSeller = '/bestSeller';
   static const String productDetails = '/productDetails';
-  static const String mainLayout = 'mainLayout';
   static const String ordersScreen = '/ordersScreen';
   static const String savedAddressScreen = '/savedAddressScreen';
   static const String notificationScreen = '/notificationScreen';
@@ -114,6 +117,13 @@ abstract class AppRoutes {
           builder: (_) => ResetPasswordScreen(email: email),
         );
 
+      case changePassword:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<ChangePasswordCubit>(),
+            child: const ChangePasswordScreen(),
+          ),
+        );
       case bestSeller:
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(

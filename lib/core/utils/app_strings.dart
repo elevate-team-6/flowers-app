@@ -74,16 +74,10 @@ abstract class AppStrings {
   static const String passwordResetSuccessfully = 'passwordResetSuccessfully';
 
   // Home & Main Layout
-  static const String viewAll = 'viewAll';
-  static const String noBestSellersAvailable = 'noBestSellersAvailable';
-  static const String bestSellers = 'bestSellers';
-  static const String noCategoriesAvailable = 'noCategoriesAvailable';
-  static const String deliverTo = 'deliverTo';
-  static const String noOccasionsAvailable = 'noOccasionsAvailable';
+  static const String viewAll = 'View All';
 
   // Best Seller
   static const String retry = 'retry';
-  static const String subTitleBestSeller = 'subTitleBestSeller';
 
   // Cart
   static const String items = 'items';
@@ -161,8 +155,20 @@ abstract class AppStrings {
   static const String image = 'image';
   static const String title = 'title';
   static const String price = 'price';
+  static const String noBestSellersAvailable = 'No best sellers available';
+  static const String bestSellers = 'Best Sellers';
+  static const String noCategoriesAvailable = 'No categories available';
+  static const String deliverTo = 'Deliver to: Cairo, Egypt';
+  static const String noOccasionsAvailable = 'No occasions available';
+  //Best Seller
+  static const String subTitleBestSeller =
+      'Bloom with our exquisite best sellers';
+  // reset password
+  static const String resetPassword = 'Reset password';
+  static const String currentPassword = 'Current password';
+  static const String passwordChangedSuccess = 'Password changed successfully';
 
-    // edit profile
+  // edit profile
   static const String editProfile = 'Edit profile';
   static const String editProfileSuccessfly = 'Edit profile Successfly';
   static const String change = 'Change';
@@ -214,7 +220,8 @@ abstract class AppStrings {
   static const String nameTooShort = 'nameTooShort';
   static const String nameNoNumbers = 'nameNoNumbers';
   static const String phoneRequired = 'phoneRequired';
-  static const String phoneRequiredEgyptian = 'Enter valid Egyptian phone number';
+  static const String phoneRequiredEgyptian =
+      'Enter valid Egyptian phone number';
   static const String invalidPhone = 'invalidPhone';
   static const String phoneMustStartWithCountryCode =
       'phoneMustStartWithCountryCode';
