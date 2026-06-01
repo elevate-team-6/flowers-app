@@ -95,6 +95,7 @@
   "phoneRequired": "رقم الهاتف مطلوب",
   "invalidPhone": "أدخل رقم هاتف صالح",
   "phoneMustStartWithCountryCode": "يجب أن يبدأ الهاتف برمز الدولة (مثلاً +20)",
+  "phoneRequiredEgyptian": "يرجى إدخال رقم هاتف مصري صالح",
   "home": "الرئيسية",
   "categories": "الأقسام",
   "cart": "السلة",
@@ -124,7 +125,7 @@
   "image": "صورة",
   "title": "عنوان",
   "price": "سعر",
-  "viewAll": "عرض الكل",
+  "view_all": "عرض الكل",
   "noBestSellersAvailable": "لا توجد منتجات أكثر مبيعاً متاحة",
   "bestSellers": "الأكثر مبيعاً",
   "noCategoriesAvailable": "لا توجد أقسام متاحة",
@@ -165,5 +166,13 @@
   "oldText": "قديم",
   "discountText": "خصم",
   "filter": "تصفية",
-  "all": "الكل"
+  "all": "الكل",
+  "resetPassword": "إعادة تعيين كلمة المرور",
+  "currentPassword": "كلمة المرور الحالية",
+  "passwordChangedSuccess": "تم تغيير كلمة المرور بنجاح",
+  "editProfile": "تعديل الملف الشخصي",
+  "editProfileSuccessfully": "تم تعديل الملف الشخصي بنجاح",
+  "change": "تغيير",
+  "update": "تحديث",
+  "photo": "صورة"
 }

@@ -95,6 +95,7 @@
   "phoneRequired": "Phone number is required",
   "invalidPhone": "Enter a valid phone number",
   "phoneMustStartWithCountryCode": "Phone must start with country code (e.g. +20)",
+  "phoneRequiredEgyptian": "Enter valid Egyptian phone number",
   "home": "Home",
   "categories": "Categories",
   "cart": "Cart",
@@ -124,7 +125,7 @@
   "image": "image",
   "title": "title",
   "price": "price",
-  "viewAll": "View All",
+  "view_all": "View All",
   "noBestSellersAvailable": "No best sellers available",
   "bestSellers": "Best Sellers",
   "noCategoriesAvailable": "No categories available",
@@ -165,5 +166,13 @@
   "oldText": "Old",
   "discountText": "Discount",
   "filter": "Filter",
-  "all": "All"
+  "all": "All",
+  "resetPassword": "Reset password",
+  "currentPassword": "Current password",
+  "passwordChangedSuccess": "Password changed successfully",
+  "editProfile": "Edit profile",
+  "editProfileSuccessfly": "Edit profile successfully",
+  "change": "Change",
+  "update": "Update",
+  "photo": "Photo"
 }

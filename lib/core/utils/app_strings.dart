@@ -74,7 +74,7 @@ abstract class AppStrings {
   static const String passwordResetSuccessfully = 'passwordResetSuccessfully';
 
   // Home & Main Layout
-  static const String viewAll = 'View All';
+  static const String viewAll = 'view_all';
 
   // Best Seller
   static const String retry = 'retry';
@@ -90,8 +90,8 @@ abstract class AppStrings {
   static const String somethingWentWrong = 'somethingWentWrong';
   static const String dollar = 'dollar';
   static const String addedToCart = 'addedToCart';
-  static const String deliverto = 'deliverto';
-  static const String delivertoAddress = 'delivertoAddress';
+  static const String deliverTo = 'deliverTo';
+  static const String deliverToAddress = 'delivertoAddress';
   static const String remove = 'remove';
   static const String loading = 'loading';
 
@@ -155,24 +155,22 @@ abstract class AppStrings {
   static const String image = 'image';
   static const String title = 'title';
   static const String price = 'price';
-  static const String noBestSellersAvailable = 'No best sellers available';
-  static const String bestSellers = 'Best Sellers';
-  static const String noCategoriesAvailable = 'No categories available';
-  static const String deliverTo = 'Deliver to: Cairo, Egypt';
-  static const String noOccasionsAvailable = 'No occasions available';
+  static const String noBestSellersAvailable = 'noBestSellersAvailable';
+  static const String bestSellers = 'bestSellers';
+  static const String noCategoriesAvailable = 'noCategoriesAvailable';
+  static const String noOccasionsAvailable = 'noOccasionsAvailable';
   //Best Seller
-  static const String subTitleBestSeller =
-      'Bloom with our exquisite best sellers';
+  static const String subTitleBestSeller = 'subTitleBestSeller';
   // reset password
-  static const String resetPassword = 'Reset password';
-  static const String currentPassword = 'Current password';
-  static const String passwordChangedSuccess = 'Password changed successfully';
+  static const String resetPassword = 'resetPassword';
+  static const String currentPassword = 'currentPassword';
+  static const String passwordChangedSuccess = 'passwordChangedSuccess';
 
   // edit profile
-  static const String editProfile = 'Edit profile';
-  static const String editProfileSuccessfly = 'Edit profile Successfly';
-  static const String change = 'Change';
-  static const String update = 'Update';
+  static const String editProfile = 'editProfile';
+  static const String editProfileSuccessfly = 'editProfileSuccessfly';
+  static const String change = 'change';
+  static const String update = 'update';
   static const String femaleValue = 'female';
   static const String maleValue = 'male';
   static const String photo = 'photo';
@@ -220,8 +218,7 @@ abstract class AppStrings {
   static const String nameTooShort = 'nameTooShort';
   static const String nameNoNumbers = 'nameNoNumbers';
   static const String phoneRequired = 'phoneRequired';
-  static const String phoneRequiredEgyptian =
-      'Enter valid Egyptian phone number';
+  static const String phoneRequiredEgyptian = 'phoneRequiredEgyptian';
   static const String invalidPhone = 'invalidPhone';
   static const String phoneMustStartWithCountryCode =
       'phoneMustStartWithCountryCode';
