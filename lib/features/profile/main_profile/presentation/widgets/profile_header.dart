@@ -1,11 +1,16 @@
+import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/features/profile/edit_profile/presentation/screens/edit_profile_screen.dart';
+import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:flowers_app/features/profile/main_profile/domain/entities/user_profile_entity.dart';
+import 'package:flowers_app/features/profile/main_profile/presentation/view_model/profile_cubit.dart';
+import 'package:flowers_app/features/profile/main_profile/presentation/view_model/profile_events.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../core/utils/app_routes.dart';
 import '../../../../../core/widgets/custom_cached_image.dart';
 
 class ProfileHeader extends StatelessWidget {
@@ -41,12 +46,20 @@ class ProfileHeader extends StatelessWidget {
             ),
             const SizedBox(width: 5),
             GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(
+              onTap: () async {
+                final result = await Navigator.push(
                   context,
-                  AppRoutes.editProfile,
-                  arguments: user,
+                  MaterialPageRoute(
+                    builder: (_) => BlocProvider(
+                      create: (_) => getIt<EditProfileCubit>(),
+                      child: EditProfileScreen(profileUser: user!),
+                    ),
+                  ),
                 );
+
+                if (result == true) {
+                  context.read<ProfileCubit>().doEvent(GetProfileDataEvent());
+                }
               },
               child: Icon(Icons.edit, size: 20, color: AppColors.primary),
             ),

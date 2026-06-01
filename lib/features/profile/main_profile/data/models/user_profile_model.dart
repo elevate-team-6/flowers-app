@@ -43,6 +43,8 @@ class UserProfileModel {
     id: id,
     firstName: firstName,
     lastName: lastName,
+    gender: gender,
+    phone: phone,
     email: email,
     photo: photo,
     wishlist: wishlist,

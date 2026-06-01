@@ -3,7 +3,6 @@ import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/core/widgets/custom_gender_selector.dart';
-import 'package:flowers_app/features/auth/login/data/models/login_response/user_dto.dart';
 import 'package:flowers_app/features/profile/edit_profile/data/models/edit_profile_request/edit_profile_request.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_event.dart';
@@ -37,25 +36,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
 
     final cubit = context.read<EditProfileCubit>();
+    cubit.initialize(widget.profileUser);
 
-    final UserDto user = UserDto(
-      photo: widget.profileUser.photo,
-      firstName: widget.profileUser.firstName,
-      lastName: widget.profileUser.lastName,
-      email: widget.profileUser.email,
-      phone: widget.profileUser.phone,
-      gender: widget.profileUser.gender,
-    );
-
-    cubit.initialize(user);
-
-    firstNameController.text = user.firstName ?? '';
-
-    lastNameController.text = user.lastName ?? '';
-
-    emailController.text = user.email ?? '';
-
-    phoneController.text = user.phone ?? '';
+    firstNameController.text = widget.profileUser.firstName ?? '';
+    lastNameController.text = widget.profileUser.lastName ?? '';
+    emailController.text = widget.profileUser.email ?? '';
+    phoneController.text = (widget.profileUser.phone ?? '')
+        .toLocalEgyptianPhone();
 
     firstNameController.addListener(_onChanged);
     lastNameController.addListener(_onChanged);
@@ -129,8 +116,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
         if (state.editProfileState.data != null) {
           SnackBarServices.showSuccessMessage(AppStrings.editProfileSuccessfly);
-
           cubit.clearEditProfileState();
+
+          Navigator.pop(context, true);
         }
       },
       child: Scaffold(

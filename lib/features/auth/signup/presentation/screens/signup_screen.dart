@@ -1,3 +1,4 @@
+import 'package:flowers_app/config/helpers/phone_extension.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
@@ -66,7 +67,7 @@ class _SignupScreenState extends State<SignupScreen> {
           email: _emailController.text.trim(),
           password: _passwordController.text,
           rePassword: _confirmPasswordController.text,
-          phone: _phoneController.text.trim(),
+          phone: _phoneController.text.trim().toEgyptianPhone(),
           gender: _selectedGender!,
         ),
       ),
@@ -92,7 +93,9 @@ class _SignupScreenState extends State<SignupScreen> {
             LoadingDialog.hide();
           }
           if (state.signupState.data != null) {
-            SnackBarServices.showSuccessMessage(AppStrings.registerSuccess.tr());
+            SnackBarServices.showSuccessMessage(
+              AppStrings.registerSuccess.tr(),
+            );
             Navigator.pop(context);
           } else if (state.signupState.errorMessage != null) {
             SnackBarServices.showErrorMessage(state.signupState.errorMessage!);
@@ -206,7 +209,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     text: TextSpan(
                       style: AppTextStyles.gray12400,
                       children: [
-                        TextSpan(text: AppStrings.creatingAccountAgreement.tr()),
+                        TextSpan(
+                          text: AppStrings.creatingAccountAgreement.tr(),
+                        ),
                         TextSpan(
                           text: AppStrings.termsAndConditions.tr(),
                           style: AppTextStyles.black12600.copyWith(

@@ -13,14 +13,16 @@ import 'package:injectable/injectable.dart';
 class EditProfileRemoteDataSourctImpl
     implements EditProfileRemoteDataSourceContract {
   final EditProfileApiClient _editProfileApiClient;
+
   const EditProfileRemoteDataSourctImpl(this._editProfileApiClient);
+
   @override
   Future<BaseResponse<EditProfileResponse>> editProfile(
     EditProfileRequest request,
   ) {
-    return ErrorHandler.handleApiCall(() async {
-      return _editProfileApiClient.editProfile(request);
-    });
+    return ErrorHandler.handleApiCall(
+      () async => _editProfileApiClient.editProfile(request),
+    );
   }
 
   @override

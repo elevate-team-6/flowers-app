@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
-import 'package:flowers_app/features/auth/login/data/models/login_response/user_dto.dart';
 import 'package:flowers_app/features/profile/edit_profile/data/models/edit_profile_request/edit_profile_request.dart';
 import 'package:flowers_app/features/profile/edit_profile/domain/entities/user_edit_profile_entity.dart';
 import 'package:flowers_app/features/profile/edit_profile/domain/use_cases/edit_profile_use_case.dart';
@@ -11,6 +10,7 @@ import 'package:flowers_app/features/profile/edit_profile/domain/use_cases/uploa
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_event.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_state.dart';
+import 'package:flowers_app/features/profile/main_profile/domain/entities/user_profile_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -26,7 +26,7 @@ void main() {
 
   late EditProfileRequest request;
   late UserEditProfileEntity userEntity;
-  late UserDto userDto;
+  late UserProfileEntity userProfileEntity;
   late File file;
 
   setUpAll(() async {
@@ -44,7 +44,7 @@ void main() {
       gender: 'male',
     );
 
-    userDto = UserDto(
+    userProfileEntity = UserProfileEntity(
       firstName: 'Youssef',
       lastName: 'Singer',
       email: 'youssef@gmail.com',
@@ -73,7 +73,7 @@ void main() {
 
     cubit = EditProfileCubit(editProfileUseCase, uploadProfileUseCase);
 
-    cubit.initialize(userDto);
+    cubit.initialize(userProfileEntity);
   });
 
   group('EditProfileCubit', () {
@@ -90,7 +90,7 @@ void main() {
       },
       expect: () => [
         EditProfileState(
-          user: userDto,
+          user: userProfileEntity,
           editProfileState: const BaseState(isLoading: true),
         ),
         isA<EditProfileState>()
@@ -120,7 +120,7 @@ void main() {
       },
       expect: () => [
         EditProfileState(
-          user: userDto,
+          user: userProfileEntity,
           editProfileState: const BaseState(isLoading: true),
         ),
         isA<EditProfileState>()
@@ -153,7 +153,7 @@ void main() {
       },
       expect: () => [
         EditProfileState(
-          user: userDto,
+          user: userProfileEntity,
           uploadPhotoState: const BaseState(isLoading: true),
         ),
         isA<EditProfileState>()
@@ -182,7 +182,7 @@ void main() {
       },
       expect: () => [
         EditProfileState(
-          user: userDto,
+          user: userProfileEntity,
           uploadPhotoState: const BaseState(isLoading: true),
         ),
         isA<EditProfileState>()

@@ -8,4 +8,14 @@ extension PhoneExtension on String {
 
     return '+2$cleaned';
   }
+
+  String toLocalEgyptianPhone() {
+    final cleaned = trim();
+
+    if (cleaned.startsWith('+20')) {
+      return '0${cleaned.substring(3)}';
+    }
+
+    return cleaned;
+  }
 }

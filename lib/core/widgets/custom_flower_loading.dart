@@ -7,28 +7,39 @@ import 'package:lottie/lottie.dart';
 
 class LoadingDialog extends StatefulWidget {
   final double speed;
+
   const LoadingDialog({super.key, this.speed = 1.5});
+
+  static bool _isShowing = false;
 
   @override
   State<LoadingDialog> createState() => _LoadingDialogState();
 
   static void show({BuildContext? context, double speed = 3}) {
     final ctx = context ?? AppRoutes.navigatorKey.currentContext;
-    if (ctx == null) return;
+
+    if (ctx == null || _isShowing) return;
+
+    _isShowing = true;
 
     showDialog(
       context: ctx,
       barrierDismissible: false,
       barrierColor: AppColors.black.withValues(alpha: 0.5),
-      builder: (context) => LoadingDialog(speed: speed),
-    );
+      builder: (_) => LoadingDialog(speed: speed),
+    ).then((_) {
+      _isShowing = false;
+    });
   }
 
   static void hide({BuildContext? context}) {
     final ctx = context ?? AppRoutes.navigatorKey.currentContext;
-    if (ctx != null && Navigator.canPop(ctx)) {
-      Navigator.pop(ctx);
-    }
+
+    if (ctx == null || !_isShowing) return;
+
+    Navigator.of(ctx, rootNavigator: true).pop();
+
+    _isShowing = false;
   }
 }
 
@@ -54,7 +65,7 @@ class _LoadingDialogState extends State<LoadingDialog>
       canPop: false,
       child: Center(
         child: Material(
-          type: MaterialType.transparency, // يحل مشكلة الخط الأصفر تحت التكست
+          type: MaterialType.transparency,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             decoration: BoxDecoration(

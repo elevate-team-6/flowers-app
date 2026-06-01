@@ -14,6 +14,7 @@ import 'package:flowers_app/features/cart/presentation/widgets/cart_item_card.da
 import 'package:flowers_app/features/cart/presentation/widgets/cart_summary.dart';
 import 'package:flowers_app/features/cart/presentation/widgets/cart_shimmer.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -73,7 +74,7 @@ class _CartScreenState extends State<CartScreen> {
             SizedBox(height: 10.h),
             Row(
               children: [
-                Image.asset(AppIcons.location, width: 24.w, height: 24.w),
+                SvgPicture.asset(AppIcons.location, width: 24.w, height: 24.w),
                 SizedBox(width: 4.w),
                 Text(
                   AppStrings.deliverto.tr(),
