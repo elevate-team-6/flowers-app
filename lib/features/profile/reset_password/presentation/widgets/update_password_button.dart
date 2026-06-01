@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
@@ -40,7 +41,7 @@ class UpdatePasswordButton extends StatelessWidget {
           backgroundColor: isFormValid ? AppColors.primary : AppColors.black30,
           disabledBackgroundColor: AppColors.black30,
         ),
-        child: Text(AppStrings.update),
+        child: Text(AppStrings.update.tr()),
       ),
     );
   }

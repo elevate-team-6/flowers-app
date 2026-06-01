@@ -33,12 +33,10 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
 
     switch (result) {
       case SuccessBaseResponse():
-        if (result.data != null) {
-          await _secureCacheHelper.writeData(
-            key: AppKeys.tokenKey,
-            value: result.data!,
-          );
-        }
+        await _secureCacheHelper.writeData(
+          key: AppKeys.tokenKey,
+          value: result.data,
+        );
         emit(state.copyWith(status: ChangePasswordStatus.success));
       case ErrorBaseResponse():
         emit(

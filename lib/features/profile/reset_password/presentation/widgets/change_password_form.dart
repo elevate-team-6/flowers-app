@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -67,21 +68,21 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
           children: [
             PasswordField(
               controller: widget.currentPasswordController,
-              labelText: AppStrings.currentPassword,
+              labelText: AppStrings.currentPassword.tr(),
               validator: AppValidations.validatePassword,
               textInputAction: TextInputAction.next,
             ),
             SizedBox(height: 16.h),
             PasswordField(
               controller: widget.newPasswordController,
-              labelText: AppStrings.newPassword,
+              labelText: AppStrings.newPassword.tr(),
               validator: AppValidations.validatePassword,
               textInputAction: TextInputAction.next,
             ),
             SizedBox(height: 16.h),
             PasswordField(
               controller: widget.confirmPasswordController,
-              labelText: AppStrings.confirmPassword,
+              labelText: AppStrings.confirmPassword.tr(),
               validator: (v) => AppValidations.validateConfirmPassword(
                 v,
                 widget.newPasswordController.text,
