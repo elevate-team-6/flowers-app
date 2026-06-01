@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/helpers/phone_extension.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
@@ -115,14 +116,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         }
 
         if (state.editProfileState.data != null) {
-          SnackBarServices.showSuccessMessage(AppStrings.editProfileSuccessfly);
+          SnackBarServices.showSuccessMessage(
+            AppStrings.editProfileSuccessfly.tr(),
+          );
           cubit.clearEditProfileState();
 
           Navigator.pop(context, true);
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: Text(AppStrings.editProfile)),
+        appBar: AppBar(title: Text(AppStrings.editProfile.tr())),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: BlocBuilder<EditProfileCubit, EditProfileState>(
@@ -183,7 +186,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               }
                             }
                           : null,
-                      child: Text(AppStrings.update),
+                      child: Text(AppStrings.update.tr()),
                     ),
                   ],
                 ),

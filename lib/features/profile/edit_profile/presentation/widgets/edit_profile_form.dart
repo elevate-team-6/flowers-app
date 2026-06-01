@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
@@ -30,7 +31,9 @@ class EditProfileForm extends StatelessWidget {
           children: [
             Expanded(
               child: TextFormField(
-                decoration: InputDecoration(labelText: AppStrings.firstName),
+                decoration: InputDecoration(
+                  labelText: AppStrings.firstName.tr(),
+                ),
                 validator: AppValidations.validateFirstName,
                 controller: firstNameController,
                 onTapOutside: unfocus,
@@ -42,7 +45,9 @@ class EditProfileForm extends StatelessWidget {
             SizedBox(width: 16.w),
             Expanded(
               child: TextFormField(
-                decoration: InputDecoration(labelText: AppStrings.lastName),
+                decoration: InputDecoration(
+                  labelText: AppStrings.lastName.tr(),
+                ),
                 validator: AppValidations.validateLastName,
                 controller: lastNameController,
                 onTapOutside: unfocus,
@@ -56,7 +61,7 @@ class EditProfileForm extends StatelessWidget {
         SizedBox(height: 24.h),
         TextFormField(
           readOnly: true,
-          decoration: InputDecoration(labelText: AppStrings.email),
+          decoration: InputDecoration(labelText: AppStrings.email.tr()),
           validator: AppValidations.validateEmail,
           controller: emailController,
           onTapOutside: unfocus,
@@ -66,7 +71,7 @@ class EditProfileForm extends StatelessWidget {
         ),
         SizedBox(height: 24.h),
         TextFormField(
-          decoration: InputDecoration(labelText: AppStrings.phoneNumber),
+          decoration: InputDecoration(labelText: AppStrings.phoneNumber.tr()),
           validator: AppValidations.validatePhoneNumber,
           controller: phoneController,
           onTapOutside: unfocus,
@@ -77,12 +82,15 @@ class EditProfileForm extends StatelessWidget {
         SizedBox(height: 24.h),
         TextFormField(
           decoration: InputDecoration(
-            labelText: AppStrings.password,
+            labelText: AppStrings.password.tr(),
             prefixIcon: const PasswordStars(),
             suffixIcon: TextButton(
               onPressed: () =>
                   Navigator.pushNamed(context, AppRoutes.changePassword),
-              child: Text(AppStrings.change, style: AppTextStyles.primary12600),
+              child: Text(
+                AppStrings.change.tr(),
+                style: AppTextStyles.primary12600,
+              ),
             ),
           ),
           readOnly: true,
