@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/services/exit_app_dialog.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
@@ -18,7 +19,6 @@ import '../cubit/main_layout_cubit.dart';
 import '../cubit/main_layout_event.dart';
 import '../cubit/main_layout_state.dart';
 import '../widgets/main_nav_bar_item.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class MainLayoutScreen extends StatelessWidget {
   final int? initialIndex;
@@ -26,15 +26,15 @@ class MainLayoutScreen extends StatelessWidget {
 
   const MainLayoutScreen({super.key, this.initialIndex, this.categoryId});
 
-  static final List<Widget> _screens = [
-    HomeScreen(),
-    CategoriesScreen(),
-    CartScreen(),
-    ProfileScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Widget> screens = [
+      HomeScreen(),
+      CategoriesScreen(),
+      CartScreen(),
+      ProfileScreen(),
+    ];
+
     return BlocProvider(
       create: (context) {
         final cubit = getIt<MainLayoutCubit>();
@@ -63,7 +63,8 @@ class MainLayoutScreen extends StatelessWidget {
               }
             },
             child: Scaffold(
-              body: IndexedStack(index: state.currentIndex, children: _screens),
+              key: ValueKey(context.locale.languageCode),
+              body: IndexedStack(index: state.currentIndex, children: screens),
               bottomNavigationBar: Container(
                 padding: EdgeInsets.symmetric(vertical: 5.h),
                 decoration: BoxDecoration(
