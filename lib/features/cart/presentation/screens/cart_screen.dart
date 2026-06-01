@@ -1,19 +1,19 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
-import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
-import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
-import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
-import 'package:flowers_app/features/cart/presentation/view_model/cart_state.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_state.dart';
 import 'package:flowers_app/features/cart/presentation/widgets/cart_item_card.dart';
-import 'package:flowers_app/features/cart/presentation/widgets/cart_summary.dart';
 import 'package:flowers_app/features/cart/presentation/widgets/cart_shimmer.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/features/cart/presentation/widgets/cart_summary.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CartScreen extends StatefulWidget {
@@ -77,7 +77,7 @@ class _CartScreenState extends State<CartScreen> {
                 SvgPicture.asset(AppIcons.location, width: 24.w, height: 24.w),
                 SizedBox(width: 4.w),
                 Text(
-                  AppStrings.deliverto.tr(),
+                  AppStrings.deliverTo.tr(),
                   style: AppTextStyles.gray12400.copyWith(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -86,7 +86,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 Expanded(
                   child: Text(
-                    AppStrings.delivertoAddress.tr(),
+                    AppStrings.deliverToAddress.tr(),
                     style: AppTextStyles.black16400.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
