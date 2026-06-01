@@ -34,7 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeTopBar(),
 
             // Delivery Address
-            HomeDeliveryAddressSection(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
+              child: HomeDeliveryAddressSection(),
+            ),
 
             const SizedBox(height: 8),
 
