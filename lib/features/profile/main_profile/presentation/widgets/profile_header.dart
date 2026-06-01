@@ -57,6 +57,8 @@ class ProfileHeader extends StatelessWidget {
                   ),
                 );
 
+                if (!context.mounted) return;
+
                 if (result == true) {
                   context.read<ProfileCubit>().doEvent(GetProfileDataEvent());
                 }
