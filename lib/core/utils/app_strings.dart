@@ -82,6 +82,7 @@ abstract class AppStrings {
   // Cart
   static const String items = 'items';
   static const String clearAll = 'clearAll';
+  static const String recentSearches = 'recentSearches';
   static const String cartEmpty = 'cartEmpty';
   static const String subTotal = 'subTotal';
   static const String deliveryFee = 'deliveryFee';
