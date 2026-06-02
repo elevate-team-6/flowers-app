@@ -17,6 +17,8 @@ class SearchCubit extends Cubit<SearchStates> {
   final HiveHelper _hiveHelper;
   Timer? _debounce;
 
+  static const int _maxHistoryItems = 10;
+
   SearchCubit(this._searchProductsUseCase, this._hiveHelper)
     : super(const SearchStates()) {
     doEvent(const GetSearchHistoryEvent());
@@ -94,8 +96,8 @@ class SearchCubit extends Cubit<SearchStates> {
       history.remove(query);
     }
     history.insert(0, query);
-    if (history.length > 10) {
-      history = history.sublist(0, 10);
+    if (history.length > _maxHistoryItems) {
+      history = history.sublist(0, _maxHistoryItems);
     }
     await _hiveHelper.cacheData(
       boxName: AppKeys.searchHistoryBox,

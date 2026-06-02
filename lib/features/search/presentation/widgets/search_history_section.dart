@@ -37,7 +37,10 @@ class SearchHistorySection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Recent Searches', style: AppTextStyles.black16600),
+              Text(
+                AppStrings.recentSearches.tr(),
+                style: AppTextStyles.black16600,
+              ),
               TextButton(
                 onPressed: () => context.read<SearchCubit>().doEvent(
                   const ClearSearchHistoryEvent(),
@@ -76,27 +79,33 @@ class _HistoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-        decoration: BoxDecoration(
-          color: AppColors.white50,
-          borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: AppColors.white60),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(query, style: AppTextStyles.black14400),
-            SizedBox(width: 8.w),
-            GestureDetector(
-              onTap: () => context.read<SearchCubit>().doEvent(
-                RemoveSearchQueryEvent(query),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(20.r),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+          decoration: BoxDecoration(
+            color: AppColors.white50,
+            borderRadius: BorderRadius.circular(20.r),
+            border: Border.all(color: AppColors.white60),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: Text(query, style: AppTextStyles.black14400),
               ),
-              child: Icon(Icons.close, size: 16.w, color: AppColors.gray),
-            ),
-          ],
+              SizedBox(width: 8.w),
+              GestureDetector(
+                onTap: () => context.read<SearchCubit>().doEvent(
+                  RemoveSearchQueryEvent(query),
+                ),
+                child: Icon(Icons.close, size: 16.w, color: AppColors.gray),
+              ),
+            ],
+          ),
         ),
       ),
     );

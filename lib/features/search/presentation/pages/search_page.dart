@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_cubit.dart';
@@ -10,6 +12,7 @@ import 'package:flowers_app/features/search/presentation/widgets/search_history_
 import 'package:flowers_app/features/search/presentation/widgets/search_top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -88,7 +91,32 @@ class _SearchPageState extends State<SearchPage> {
 
                   if (state.searchProductsState.errorMessage != null) {
                     return Center(
-                      child: Text(state.searchProductsState.errorMessage!),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            size: 64.w,
+                            color: AppColors.gray,
+                          ),
+                          SizedBox(height: 16.h),
+                          Text(
+                            state.searchProductsState.errorMessage!,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(color: AppColors.gray),
+                          ),
+                          SizedBox(height: 24.h),
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              context.read<SearchCubit>().doEvent(
+                                SearchQueryChangedEvent(_searchController.text),
+                              );
+                            },
+                            icon: const Icon(Icons.refresh),
+                            label: Text(AppStrings.retry.tr()),
+                          ),
+                        ],
+                      ),
                     );
                   }
 
