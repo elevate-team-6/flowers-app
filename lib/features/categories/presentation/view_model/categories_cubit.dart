@@ -30,9 +30,6 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
       case CategoryChangedEvent():
         emit(state.copyWith(categoryId: event.categoryId ?? 'all'));
         _onGetProducts();
-      case SearchChangedEvent():
-        emit(state.copyWith(searchQuery: event.query));
-        _onGetProducts();
       case FilterChangedEvent():
         emit(state.copyWith(sort: event.sort));
         _onGetProducts();
@@ -82,7 +79,6 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
 
     final params = GetProductsParams(
       category: state.categoryId == 'all' ? null : state.categoryId,
-      search: state.searchQuery.isEmpty ? null : state.searchQuery,
       sort: apiSort,
     );
 
