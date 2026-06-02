@@ -137,6 +137,7 @@ abstract class AppStrings {
   static const String sortBy = 'sortBy';
   static const String filter = 'filter';
   static const String search = 'search';
+  static const String searchForAnyProduct = 'searchForAnyProduct';
   static const String all = 'all';
   static const String noProductsFound = 'noProductsFound';
 
