@@ -84,7 +84,7 @@ abstract class AppStrings {
   static const String clearAll = 'clearAll';
   static const String cartEmpty = 'cartEmpty';
   static const String subTotal = 'subTotal';
-  static const String deliveryFee = 'deliveryFee';
+  static const String deliveryFee = 'delivery Fee';
   static const String total = 'total';
   static const String checkout = 'checkout';
   static const String somethingWentWrong = 'somethingWentWrong';
@@ -222,6 +222,26 @@ abstract class AppStrings {
   static const String invalidPhone = 'invalidPhone';
   static const String phoneMustStartWithCountryCode =
       'phoneMustStartWithCountryCode';
+
+  //checkout
+  static const String deliveryAddress = 'Delivery address';
+  static const String deliveryTime = 'Delivery time';
+  static const String instant = 'Instant, ';
+  static const String cashOnDelivery = 'Cash on delivery';
+  static const String creditCard = 'Credit Card';
+  static const String itIsGift = 'It is a gift';
+  static const String name = 'Name';
+  static const String selectPaymentMethod = 'Select Payment Method';
+  static const String selectAddressFirst = 'Select Address First';
+  static const String dollarSign = '\$';
+  static const String enterName = 'Enter the name';
+  static const String placeOrder = 'Place Order';
+  static const String addNew = 'Add new';
+  static const String paymentMethod = 'Payment method';
+  static const String paymentWasCancelled = 'Payment was cancelled';
+  static const String paymentWasNotCompleted= 'Payment was not completed';
+  static const String paymentCompletedSuccessfully = 'Payment completed successfully';
+  static const String enterThePhoneNumber = 'Enter The Phone Number';
 
   // ===========================================================================
   // API Constants (Values sent directly to Backend - Do NOT Translate)

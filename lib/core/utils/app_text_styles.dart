@@ -49,6 +49,12 @@ abstract class AppTextStyles {
     color: AppColors.black,
   );
 
+    static TextStyle get gray16400 => GoogleFonts.inter(
+    fontSize: _sp(16),
+    fontWeight: FontWeight.w400,
+    color: AppColors.white90,
+  );
+
   static TextStyle get black12400 => GoogleFonts.inter(
     fontSize: _sp(12),
     fontWeight: FontWeight.w400,
@@ -114,6 +120,11 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.primary,
   );
+  static TextStyle get primary14500 => GoogleFonts.inter(
+    fontSize: _sp(14),
+    fontWeight: FontWeight.w500,
+    color: AppColors.primary,
+  );
 
   static TextStyle get primary20700 => GoogleFonts.inter(
     fontSize: _sp(20),
@@ -157,6 +168,12 @@ abstract class AppTextStyles {
     fontSize: _sp(14),
     fontWeight: FontWeight.w600,
     color: AppColors.black,
+  );
+
+  static TextStyle get success14500 => GoogleFonts.inter(
+    fontSize: _sp(14),
+    fontWeight: FontWeight.w500,
+    color: AppColors.success,
   );
 
   static TextStyle get gray11400LineThrough => GoogleFonts.inter(

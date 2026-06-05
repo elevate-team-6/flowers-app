@@ -1,7 +1,7 @@
-import 'package:flowers_app/features/checkout/data/models/checkout_responses/card_response/checkout_session_model.dart';
+import 'package:flowers_app/features/checkout/data/models/checkout_responses/card_response/card_model.dart';
 class CardCheckoutResponse {
   final String message;
-  final CheckoutSessionModel session;
+  final CardModel session;
 
   const CardCheckoutResponse({
     required this.message,
@@ -13,7 +13,7 @@ class CardCheckoutResponse {
   ) {
     return CardCheckoutResponse(
       message: json['message'] ?? '',
-      session: CheckoutSessionModel.fromJson(
+      session: CardModel.fromJson(
         json['session'],
       ),
     );

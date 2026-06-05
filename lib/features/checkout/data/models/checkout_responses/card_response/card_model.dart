@@ -1,22 +1,22 @@
 import 'package:flowers_app/features/checkout/domain/entities/card_entity.dart';
 
-class CheckoutSessionModel {
+class CardModel {
   final String id;
   final String paymentStatus;
   final String status;
   final String url;
 
-  const CheckoutSessionModel({
+  const CardModel({
     required this.id,
     required this.paymentStatus,
     required this.status,
     required this.url,
   });
 
-  factory CheckoutSessionModel.fromJson(
+  factory CardModel.fromJson(
     Map<String, dynamic> json,
   ) {
-    return CheckoutSessionModel(
+    return CardModel(
       id: json['id'] ?? '',
       paymentStatus: json['payment_status'] ?? '',
       status: json['status'] ?? '',
