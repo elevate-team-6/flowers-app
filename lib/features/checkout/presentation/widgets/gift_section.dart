@@ -33,7 +33,7 @@ class GiftSection extends StatelessWidget {
               inactiveThumbColor: AppColors.white,
               inactiveTrackColor:AppColors.white80,
             ),
-            Text(AppStrings.itIsGift, style: AppTextStyles.black18500),
+            Text(AppStrings.itIsGift.tr(), style: AppTextStyles.black18500),
           ],
         ),
 
@@ -42,7 +42,7 @@ class GiftSection extends StatelessWidget {
           TextFormField(
             decoration: InputDecoration(
               labelText: AppStrings.name.tr(),
-              hintText: AppStrings.enterName,
+              hintText: AppStrings.enterName.tr(),
             ),
             validator: AppValidations.validateUserName,
             controller: nameController,
@@ -54,7 +54,7 @@ class GiftSection extends StatelessWidget {
           TextFormField(
             decoration: InputDecoration(
               labelText: AppStrings.phoneNumber.tr(),
-              hintText: AppStrings.enterThePhoneNumber,
+              hintText: AppStrings.enterThePhoneNumber.tr(),
             ),
             validator: AppValidations.validatePhoneNumber,
             controller: phoneController,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
@@ -76,19 +77,19 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           switch (result) {
             case PaymentResult.success:
               SnackBarServices.showSuccessMessage(
-                AppStrings.paymentCompletedSuccessfully,
+                AppStrings.paymentCompletedSuccessfully.tr(),
               );
               if (!context.mounted) return;
               Navigator.pop(context, true);
             case PaymentResult.cancelled:
-              SnackBarServices.showErrorMessage(AppStrings.paymentWasCancelled);
+              SnackBarServices.showErrorMessage(AppStrings.paymentWasCancelled.tr());
             case PaymentResult.noInternet:
               SnackBarServices.showErrorMessage(
-                AppStrings.noInternetConnection,
+                AppStrings.noInternetConnection.tr(),
               );
             case PaymentResult.backPressed:
               SnackBarServices.showErrorMessage(
-                AppStrings.paymentWasNotCompleted,
+                AppStrings.paymentWasNotCompleted.tr(),
               );
             default:
               break;
@@ -97,7 +98,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppStrings.checkout),
+          title: Text(AppStrings.checkout.tr()),
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back_ios_new_outlined),
@@ -137,7 +138,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           const Icon(Icons.add, color: AppColors.primary),
                           const SizedBox(width: 8),
                           Text(
-                            AppStrings.addNew,
+                            AppStrings.addNew.tr(),
                             style: AppTextStyles.primary14500,
                           ),
                         ],

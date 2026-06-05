@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,11 @@ class CheckoutOrderSummary extends StatelessWidget {
               MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              AppStrings.subTotal,
+              AppStrings.subTotal.tr(),
               style: AppTextStyles.gray16400,
             ),
             Text(
-              '$subtotal ${AppStrings.dollarSign}',
+              '$subtotal ${AppStrings.dollarSign.tr()}',
               style: AppTextStyles.gray16400,
             ),
           ],
@@ -37,11 +38,11 @@ class CheckoutOrderSummary extends StatelessWidget {
               MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              AppStrings.deliveryFee,
+              AppStrings.deliveryFee.tr(),
               style: AppTextStyles.gray16400,
             ),
             Text(
-              '$deliveryFee ${AppStrings.dollarSign}',
+              '$deliveryFee ${AppStrings.dollarSign.tr()}',
               style: AppTextStyles.gray16400,
             ),
           ],
@@ -52,11 +53,11 @@ class CheckoutOrderSummary extends StatelessWidget {
               MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              AppStrings.total,
+              AppStrings.total.tr(),
               style: AppTextStyles.black18500,
             ),
             Text(
-              '$total ${AppStrings.dollarSign}',
+              '$total ${AppStrings.dollarSign.tr()}',
               style: AppTextStyles.black18500,
             ),
           ],

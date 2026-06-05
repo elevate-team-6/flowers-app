@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
@@ -22,7 +23,7 @@ class CheckoutAddressesSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppStrings.deliveryAddress,
+          AppStrings.deliveryAddress.tr(),
           style: AppTextStyles.black18500,
         ),
         ListView.separated(

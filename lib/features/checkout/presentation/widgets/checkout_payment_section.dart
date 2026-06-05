@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
@@ -22,7 +23,7 @@ class CheckoutPaymentSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppStrings.paymentMethod,
+          AppStrings.paymentMethod.tr(),
           style: AppTextStyles.black18500,
         ),
         const SizedBox(height: 20),
@@ -31,7 +32,7 @@ class CheckoutPaymentSection extends StatelessWidget {
           PaymentCard(
             isSelected:
                 state.selectedPaymentMethod == AppConstants.cash,
-            paymentMethodName: AppStrings.cashOnDelivery,
+            paymentMethodName: AppStrings.cashOnDelivery.tr(),
             onTap: () {
               context.read<CheckoutCubit>().doEvent(
                 const SelectPaymentMethodEvent(
@@ -46,7 +47,7 @@ class CheckoutPaymentSection extends StatelessWidget {
         PaymentCard(
           isSelected:
               state.selectedPaymentMethod == AppConstants.card,
-          paymentMethodName: AppStrings.creditCard,
+          paymentMethodName: AppStrings.creditCard.tr(),
           onTap: () {
             context.read<CheckoutCubit>().doEvent(
               const SelectPaymentMethodEvent(

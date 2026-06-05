@@ -24,7 +24,7 @@ class CheckoutDeliverySection extends StatelessWidget {
             SvgPicture.asset(AppIcons.time),
             SizedBox(width: 6.w),
             Text(
-              AppStrings.instant,
+              AppStrings.instant.tr(),
               style: AppTextStyles.black14600,
             ),
             Text(
