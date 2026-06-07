@@ -6,4 +6,7 @@ abstract interface class SearchRepo {
   Future<BaseResponse<List<ProductEntity>>> searchProducts(
     GetProductsParams params,
   );
+  Future<List<String>> getSearchHistory();
+  Future<void> saveSearchHistory(List<String> history);
+  Future<void> clearSearchHistory();
 }
