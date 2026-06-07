@@ -28,13 +28,6 @@ class CategoryChangedEvent extends CategoriesEvent {
   List<Object?> get props => [categoryId];
 }
 
-class SearchChangedEvent extends CategoriesEvent {
-  final String? query;
-  const SearchChangedEvent(this.query);
-  @override
-  List<Object?> get props => [query];
-}
-
 class FilterChangedEvent extends CategoriesEvent {
   final String? sort;
   const FilterChangedEvent(this.sort);
