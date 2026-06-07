@@ -45,6 +45,7 @@ void main() {
     mockClearSearchHistoryUseCase = MockClearSearchHistoryUseCase();
     mockRemoveSearchQueryUseCase = MockRemoveSearchQueryUseCase();
 
+    // هندلة الـ initial event اللي بيشتغل في الـ constructor تلقائياً
     when(mockGetSearchHistoryUseCase()).thenAnswer((_) async => []);
 
     bloc = SearchBloc(
@@ -74,9 +75,26 @@ void main() {
   group('SearchBloc - Events', () {
     blocTest<SearchBloc, SearchStates>(
       'emit search query when SearchQueryChangedEvent is dispatched',
+      setUp: () {
+        // بنعمل Mock للـ UseCase عشان الكلمة مش فاضية، وبنخليه يرجع قائمة فاضية كأنه ملقاش حاجة
+        when(
+          mockSearchProductsUseCase(GetProductsParams(search: 'rose')),
+        ).thenAnswer((_) async => SuccessBaseResponse(const []));
+      },
       build: () => bloc,
       act: (bloc) => bloc.add(const SearchQueryChangedEvent('rose')),
-      expect: () => [const SearchStates(searchQuery: 'rose')],
+      wait: const Duration(milliseconds: 600), // وقت كافي لانتهاء الـ debounce
+      expect: () => [
+        const SearchStates(searchQuery: 'rose'),
+        SearchStates(
+          searchQuery: 'rose',
+          searchProductsState: const BaseState(isLoading: true),
+        ),
+        const SearchStates(
+          searchQuery: 'rose',
+          searchProductsState: BaseState(isLoading: false, data: []),
+        ),
+      ],
     );
 
     blocTest<SearchBloc, SearchStates>(
@@ -89,21 +107,9 @@ void main() {
       act: (bloc) => bloc.add(const SearchQueryChangedEvent('')),
       wait: const Duration(milliseconds: 600),
       expect: () => [
-        const SearchStates(
+        SearchStates(
           searchQuery: '',
-          searchProductsState: BaseState(
-            data: [
-              ProductEntity(
-                id: '1',
-                title: 'Rose',
-                imgCover: 'https://example.com/rose.jpg',
-                price: 100,
-                priceAfterDiscount: 80,
-                discount: 20,
-                description: 'Beautiful Rose',
-              ),
-            ],
-          ),
+          searchProductsState: BaseState(data: tProductList),
         ),
         const SearchStates(searchQuery: '', searchProductsState: BaseState()),
       ],
