@@ -178,6 +178,30 @@ abstract class AppStrings {
   static const String photo = 'photo';
   static const String bestSeller = 'bestSeller';
 
+  // Address Feature
+  static const String userNotFound = 'userNotFound';
+  static const String addressIdRequired = 'addressIdRequired';
+  static const String addressAddedSuccess = 'addressAddedSuccess';
+  static const String address = 'address';
+  static const String addressUpdatedSuccess = 'addressUpdatedSuccess';
+  static const String addressDeletedSuccess = 'addressDeletedSuccess';
+  static const String noAddressesSaved = 'noAddressesSaved';
+  static const String startAddingAddresses = 'startAddingAddresses';
+  static const String addNewAddress = 'addNewAddress';
+  static const String saveAddress = 'saveAddress';
+  static const String updateAddress = 'updateAddress';
+  static const String selectLocation = 'selectLocation';
+  static const String selectLocationOnMap = 'selectLocationOnMap';
+  static const String enterAddress = 'enterAddress';
+  static const String enterRecipientName = 'enterRecipientName';
+  static const String recipientName = 'recipientName';
+  static const String city = 'city';
+  static const String selectCity = 'selectCity';
+  static const String area = 'area';
+  static const String selectArea = 'selectArea';
+  static const String pleaseSelectCityAndArea = 'pleaseSelectCityAndArea';
+  static const String pleaseSelectLocationOnMap = 'pleaseSelectLocationOnMap';
+
   // Error Messages
   static const String someThingWentWrong = 'someThingWentWrong';
   static const String connectionTimeout = 'connectionTimeout';
@@ -224,6 +248,7 @@ abstract class AppStrings {
   static const String invalidPhone = 'invalidPhone';
   static const String phoneMustStartWithCountryCode =
       'phoneMustStartWithCountryCode';
+  static const String recipientNameRequired = 'recipientNameRequired';
 
   // ===========================================================================
   // API Constants (Values sent directly to Backend - Do NOT Translate)

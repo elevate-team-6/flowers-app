@@ -1,5 +1,5 @@
-import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 
 abstract class AppValidations {
   AppValidations._();
@@ -42,6 +42,19 @@ abstract class AppValidations {
   static String? validateLastName(String? value) {
     if (value == null || value.trim().isEmpty) {
       return AppStrings.lastNameRequired.tr();
+    }
+    if (value.trim().length < 3) {
+      return AppStrings.nameTooShort.tr();
+    }
+    if (RegExp(r'[0-9]').hasMatch(value)) {
+      return AppStrings.nameNoNumbers.tr();
+    }
+    return null;
+  }
+
+  static String? validateRecipientName(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return AppStrings.recipientNameRequired.tr();
     }
     if (value.trim().length < 3) {
       return AppStrings.nameTooShort.tr();
