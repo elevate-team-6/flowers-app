@@ -30,7 +30,6 @@ class OrderEntity extends Equatable {
     required this.updatedAt,
   });
 
-  // helper getter — لتفرقة Active vs Completed
   bool get isActive => !isDelivered;
 
   @override
