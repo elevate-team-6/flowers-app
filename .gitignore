@@ -67,8 +67,8 @@ windows/flutter/generated_plugins.cmake
 macos/Flutter/GeneratedPluginRegistrant.swift
 devtools_options.yaml
 
-# Firebase config (contains API keys)
+# Firebase (Sensitive files - Do not push)
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
-
+firebase.json
