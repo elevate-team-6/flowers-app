@@ -33,6 +33,9 @@ abstract class AppEndPoints {
   static const String cart = '$baseUrl/cart';
   static const String cartProductPath = '$cart/{productId}';
   static const String productIdParam = 'productId';
+
+  // orders:
+  static const String orders = '$baseUrl/orders';
   // ---------------------------------------------------------------------------
   // TO ADD NEW ENDPOINTS:
   // 1. Group them by feature (e.g., // Products, // Cart).
