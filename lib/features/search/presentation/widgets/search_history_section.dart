@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
-import 'package:flowers_app/features/search/presentation/view_model/search_cubit.dart';
+import 'package:flowers_app/features/search/presentation/view_model/search_bloc.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +42,7 @@ class SearchHistorySection extends StatelessWidget {
                 style: AppTextStyles.black16600,
               ),
               TextButton(
-                onPressed: () => context.read<SearchCubit>().doEvent(
+                onPressed: () => context.read<SearchBloc>().add(
                   const ClearSearchHistoryEvent(),
                 ),
                 child: Text(
@@ -94,12 +94,10 @@ class _HistoryChip extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Flexible(
-                child: Text(query, style: AppTextStyles.black14400),
-              ),
+              Flexible(child: Text(query, style: AppTextStyles.black14400)),
               SizedBox(width: 8.w),
               GestureDetector(
-                onTap: () => context.read<SearchCubit>().doEvent(
+                onTap: () => context.read<SearchBloc>().add(
                   RemoveSearchQueryEvent(query),
                 ),
                 child: Icon(Icons.close, size: 16.w, color: AppColors.gray),

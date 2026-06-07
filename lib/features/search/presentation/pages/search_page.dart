@@ -4,7 +4,7 @@ import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
-import 'package:flowers_app/features/search/presentation/view_model/search_cubit.dart';
+import 'package:flowers_app/features/search/presentation/view_model/search_bloc.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_event.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_state.dart';
 import 'package:flowers_app/features/search/presentation/widgets/search_empty_state.dart';
@@ -46,25 +46,23 @@ class _SearchPageState extends State<SearchPage> {
             SearchTopBar(
               controller: _searchController,
               onChanged: (value) {
-                context.read<SearchCubit>().doEvent(
-                  SearchQueryChangedEvent(value),
-                );
+                context.read<SearchBloc>().add(SearchQueryChangedEvent(value));
               },
               onClear: () {
-                context.read<SearchCubit>().doEvent(
+                context.read<SearchBloc>().add(
                   const SearchQueryChangedEvent(''),
                 );
               },
             ),
             Expanded(
-              child: BlocBuilder<SearchCubit, SearchStates>(
+              child: BlocBuilder<SearchBloc, SearchStates>(
                 builder: (context, state) {
                   if (state.searchQuery.isEmpty) {
                     return SearchHistorySection(
                       history: state.searchHistory,
                       onHistoryItemTap: (query) {
                         _searchController.text = query;
-                        context.read<SearchCubit>().doEvent(
+                        context.read<SearchBloc>().add(
                           SearchQueryChangedEvent(query),
                         );
                       },
@@ -108,7 +106,7 @@ class _SearchPageState extends State<SearchPage> {
                           SizedBox(height: 24.h),
                           ElevatedButton.icon(
                             onPressed: () {
-                              context.read<SearchCubit>().doEvent(
+                              context.read<SearchBloc>().add(
                                 SearchQueryChangedEvent(_searchController.text),
                               );
                             },

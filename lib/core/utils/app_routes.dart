@@ -21,7 +21,6 @@ import 'package:flowers_app/features/profile/edit_profile/presentation/view_mode
 import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flowers_app/features/search/presentation/pages/search_page.dart';
-import 'package:flowers_app/features/search/presentation/view_model/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,6 +29,7 @@ import '../../features/best_seller/presentation/cubit/best_seller_event.dart';
 import '../../features/best_seller/presentation/screens/best_seller_screen.dart';
 import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 import '../../features/profile/main_profile/domain/entities/user_profile_entity.dart';
+import '../../features/search/presentation/view_model/search_bloc.dart';
 
 abstract class AppRoutes {
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -170,7 +170,7 @@ abstract class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider(create: (_) => getIt<SearchCubit>()),
+              BlocProvider(create: (_) => getIt<SearchBloc>()),
               BlocProvider.value(value: getIt<CartBloc>()),
             ],
             child: const SearchPage(),
