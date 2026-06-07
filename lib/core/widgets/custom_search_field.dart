@@ -64,16 +64,17 @@ class CustomSearchField extends StatelessWidget {
   }
 
   Widget? _buildSuffixIcon() {
-    if (readOnly || controller == null) return null;
+    final currentController = controller;
+    if (readOnly || currentController == null) return null;
 
     return ValueListenableBuilder<TextEditingValue>(
-      valueListenable: controller!,
+      valueListenable: currentController,
       builder: (context, value, child) {
         if (value.text.isEmpty) return const SizedBox.shrink();
 
         return GestureDetector(
           onTap: () {
-            controller!.clear();
+            currentController.clear();
             if (onSuffixTap != null) onSuffixTap!();
           },
           child: Icon(Icons.cancel, color: AppColors.gray, size: 20.w),
