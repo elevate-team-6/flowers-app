@@ -30,7 +30,7 @@ class CustomSearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: heroTag,
+      tag: readOnly ? '${heroTag}_${identityHashCode(this)}' : heroTag,
       child: Material(
         color: Colors.transparent,
         child: SizedBox(

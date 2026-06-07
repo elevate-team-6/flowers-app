@@ -6,12 +6,18 @@ import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/features/categories/data/models/request/get_products_params.dart';
 import 'package:flowers_app/features/search/domain/use_cases/clear_search_history_use_case.dart';
 import 'package:flowers_app/features/search/domain/use_cases/get_search_history_use_case.dart';
+import 'package:flowers_app/features/search/domain/use_cases/remove_search_query_use_case.dart';
 import 'package:flowers_app/features/search/domain/use_cases/save_search_query_use_case.dart';
 import 'package:flowers_app/features/search/domain/use_cases/search_products_use_case.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_event.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:stream_transform/stream_transform.dart';
+
+EventTransformer<E> debounce<E>(Duration duration) {
+  return (events, mapper) => events.debounce(duration).switchMap(mapper);
+}
 
 @injectable
 class SearchBloc extends Bloc<SearchEvent, SearchStates> {
@@ -19,8 +25,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchStates> {
   final GetSearchHistoryUseCase _getSearchHistoryUseCase;
   final SaveSearchHistoryUseCase _saveSearchHistoryUseCase;
   final ClearSearchHistoryUseCase _clearSearchHistoryUseCase;
+  final RemoveSearchQueryUseCase _removeSearchQueryUseCase;
 
-  Timer? _debounce;
   static const int _maxHistoryItems = 10;
 
   SearchBloc(
@@ -28,8 +34,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchStates> {
     this._getSearchHistoryUseCase,
     this._saveSearchHistoryUseCase,
     this._clearSearchHistoryUseCase,
+    this._removeSearchQueryUseCase,
   ) : super(const SearchStates()) {
-    on<SearchQueryChangedEvent>(_onSearchQueryChanged);
+    on<SearchQueryChangedEvent>(
+      _onSearchQueryChanged,
+      transformer: debounce(const Duration(milliseconds: 500)),
+    );
     on<GetSearchHistoryEvent>(_onGetSearchHistory);
     on<RemoveSearchQueryEvent>(_onRemoveSearchQuery);
     on<ClearSearchHistoryEvent>(_onClearSearchHistory);
@@ -42,15 +52,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchStates> {
     Emitter<SearchStates> emit,
   ) async {
     emit(state.copyWith(searchQuery: event.query));
-
-    if (_debounce?.isActive ?? false) _debounce!.cancel();
-
-    final completer = Completer<void>();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      completer.complete();
-    });
-
-    await completer.future;
 
     if (event.query.isNotEmpty) {
       await _searchProducts(event.query, emit);
@@ -116,9 +117,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchStates> {
     RemoveSearchQueryEvent event,
     Emitter<SearchStates> emit,
   ) async {
-    List<String> history = List.from(state.searchHistory);
-    history.remove(event.query);
-    await _saveSearchHistoryUseCase(history);
+    await _removeSearchQueryUseCase(state.searchHistory, event.query);
+    final history = List<String>.from(state.searchHistory)..remove(event.query);
     emit(state.copyWith(searchHistory: history));
   }
 
@@ -128,11 +128,5 @@ class SearchBloc extends Bloc<SearchEvent, SearchStates> {
   ) async {
     await _clearSearchHistoryUseCase();
     emit(state.copyWith(searchHistory: []));
-  }
-
-  @override
-  Future<void> close() {
-    _debounce?.cancel();
-    return super.close();
   }
 }
