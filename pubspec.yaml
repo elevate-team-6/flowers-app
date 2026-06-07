@@ -17,6 +17,8 @@ dependencies:
   dio_cache_interceptor: ^3.5.0
   easy_localization: ^3.0.7
   equatable: ^2.0.8
+  firebase_core: ^4.9.0
+  firebase_crashlytics: ^5.2.3
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1

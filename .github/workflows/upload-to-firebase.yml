@@ -1,0 +1,51 @@
+name: Upload to Firebase App Distribution
+
+on:
+  pull_request:
+    types: [labeled]
+    branches: [release]
+
+jobs:
+  build_and_distribute:
+    name: Build and Upload APK
+    if: github.event.label.name == 'ReadyForTesting'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Create google-services.json
+        run: echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > android/app/google-services.json
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run build_runner
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          groups: testers
+          releaseNotes: |
+            PR #${{ github.event.pull_request.number }}
+            ${{ github.event.pull_request.title }}
+          file: build/app/outputs/flutter-apk/app-release.apk
