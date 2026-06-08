@@ -8,6 +8,7 @@ import 'package:flowers_app/features/orders/presentation/view_model/orders_cubit
 import 'package:flowers_app/features/orders/presentation/view_model/orders_event.dart';
 import 'package:flowers_app/features/orders/presentation/view_model/orders_state.dart';
 import 'package:flowers_app/features/orders/presentation/widgets/order_card.dart';
+import 'package:flowers_app/features/orders/presentation/widgets/orders_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -59,9 +60,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         body: BlocBuilder<OrdersCubit, OrdersState>(
           builder: (context, state) {
             if (state.status == OrdersStatus.loading) {
-              return const Center(
-                child: CircularProgressIndicator(color: AppColors.primary),
-              );
+              return const OrdersShimmer();
             }
 
             if (state.status == OrdersStatus.failure) {
