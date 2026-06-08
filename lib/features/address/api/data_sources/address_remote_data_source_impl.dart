@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/cache/secure_cache_helper.dart';
+import 'package:flowers_app/config/error_handler/error_handler.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
@@ -32,43 +33,30 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSourceContract {
   }
 
   @override
-  Future<BaseResponse<AddressResponse>> getAddresses() async {
-    try {
-      final response = await _apiClient.getAddresses();
-      return SuccessBaseResponse(response);
-    } catch (e) {
-      return ErrorBaseResponse(e.toString());
-    }
+  Future<BaseResponse<AddressResponse>> getAddresses() {
+    return ErrorHandler.handleApiCall(() => _apiClient.getAddresses());
   }
 
   @override
-  Future<BaseResponse<AddressResponse>> addAddress(AddressModel address) async {
-    try {
-      final response = await _apiClient.addAddress(address);
-      return SuccessBaseResponse(response);
-    } catch (e) {
-      return ErrorBaseResponse(e.toString());
-    }
+  Future<BaseResponse<AddressResponse>> addAddress(AddressModel address) {
+    return ErrorHandler.handleApiCall(() => _apiClient.addAddress(address));
   }
 
   @override
   Future<BaseResponse<AddressResponse>> updateAddress(
     AddressModel address,
   ) async {
-    try {
-      if (address.id == null) {
-        return ErrorBaseResponse(AppStrings.addressIdRequired.tr());
-      }
-      final response = await _apiClient.updateAddress(address.id!, address);
-      return SuccessBaseResponse(response);
-    } catch (e) {
-      return ErrorBaseResponse(e.toString());
+    if (address.id == null) {
+      return ErrorBaseResponse(AppStrings.addressIdRequired.tr());
     }
+    return ErrorHandler.handleApiCall(
+      () => _apiClient.updateAddress(address.id!, address),
+    );
   }
 
   @override
-  Future<BaseResponse<AddressResponse>> deleteAddress(String addressId) async {
-    try {
+  Future<BaseResponse<AddressResponse>> deleteAddress(String addressId) {
+    return ErrorHandler.handleApiCall(() async {
       final response = await _apiClient.deleteAddress(addressId);
 
       // If this was the default address, remove it from Firebase
@@ -81,42 +69,35 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSourceContract {
         }
       }
 
-      return SuccessBaseResponse(response);
-    } catch (e) {
-      return ErrorBaseResponse(e.toString());
-    }
+      return response;
+    });
   }
 
   @override
-  Future<BaseResponse<void>> setDefaultAddress(AddressModel address) async {
-    try {
+  Future<BaseResponse<void>> setDefaultAddress(AddressModel address) {
+    return ErrorHandler.handleApiCall(() async {
       final userId = await _cacheHelper.readData(key: AppKeys.userIdKey);
       if (userId == null) {
-        return ErrorBaseResponse(AppStrings.userNotFound.tr());
+        throw Exception(AppStrings.userNotFound.tr());
       }
 
       await _getDefaultAddressDoc(userId).set(address.toJson());
-      return SuccessBaseResponse(null);
-    } catch (e) {
-      return ErrorBaseResponse(e.toString());
-    }
+    });
   }
 
   @override
-  Future<BaseResponse<AddressModel?>> getDefaultAddress() async {
-    try {
+  Future<BaseResponse<AddressModel?>> getDefaultAddress() {
+    return ErrorHandler.handleApiCall(() async {
       final userId = await _cacheHelper.readData(key: AppKeys.userIdKey);
       if (userId == null) {
-        return ErrorBaseResponse(AppStrings.userNotFound.tr());
+        throw Exception(AppStrings.userNotFound.tr());
       }
 
       final doc = await _getDefaultAddressDoc(userId).get();
       if (doc.exists && doc.data() != null) {
-        return SuccessBaseResponse(AddressModel.fromJson(doc.data()!));
+        return AddressModel.fromJson(doc.data()!);
       }
-      return SuccessBaseResponse(null);
-    } catch (e) {
-      return ErrorBaseResponse(e.toString());
-    }
+      return null;
+    });
   }
 }
