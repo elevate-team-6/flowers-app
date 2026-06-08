@@ -81,7 +81,9 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSourceContract {
         throw Exception(AppStrings.userNotFound.tr());
       }
 
-      await _getDefaultAddressDoc(userId).set(address.toJson());
+      await _getDefaultAddressDoc(
+        userId,
+      ).set({...address.toJson(), '_id': address.id});
     });
   }
 
