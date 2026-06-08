@@ -82,6 +82,7 @@ abstract class AppStrings {
   // Cart
   static const String items = 'items';
   static const String clearAll = 'clearAll';
+  static const String recentSearches = 'recentSearches';
   static const String cartEmpty = 'cartEmpty';
   static const String subTotal = 'subTotal';
   static const String deliveryFee = 'deliveryFee';
@@ -137,6 +138,7 @@ abstract class AppStrings {
   static const String sortBy = 'sortBy';
   static const String filter = 'filter';
   static const String search = 'search';
+  static const String searchForAnyProduct = 'searchForAnyProduct';
   static const String all = 'all';
   static const String noProductsFound = 'noProductsFound';
 
