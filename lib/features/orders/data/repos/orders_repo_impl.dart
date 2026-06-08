@@ -11,6 +11,16 @@ class OrdersRepoImpl implements OrdersRepoContract {
   const OrdersRepoImpl(this._dataSource);
 
   @override
-  Future<BaseResponse<List<OrderEntity>>> getUserOrders() =>
-      _dataSource.getUserOrders();
+  Future<BaseResponse<List<OrderEntity>>> getUserOrders() async {
+    final result = await _dataSource.getUserOrders();
+
+    return switch (result) {
+      SuccessBaseResponse(:final data) =>
+        SuccessBaseResponse<List<OrderEntity>>(
+          data.orders?.map((dto) => dto.toEntity()).toList() ?? <OrderEntity>[],
+        ),
+      ErrorBaseResponse(:final errorMessage) =>
+        ErrorBaseResponse<List<OrderEntity>>(errorMessage),
+    };
+  }
 }
