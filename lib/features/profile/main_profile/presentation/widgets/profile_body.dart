@@ -109,7 +109,7 @@ class ProfileBody extends StatelessWidget {
             title: AppStrings.myOrders.tr(),
             leading: SvgPicture.asset(AppIcons.orders, width: 24, height: 24),
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.ordersScreen);
+              Navigator.pushNamed(context, AppRoutes.orders);
             },
           ),
           const SizedBox(height: 5),

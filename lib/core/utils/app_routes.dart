@@ -13,6 +13,8 @@ import 'package:flowers_app/features/home/presentation/view_model/cubit/home_vie
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
 import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
+import 'package:flowers_app/features/orders/presentation/screens/orders_screen.dart';
+import 'package:flowers_app/features/orders/presentation/view_model/orders_cubit.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
@@ -50,6 +52,7 @@ abstract class AppRoutes {
   static const String notificationScreen = '/notificationScreen';
   static const String aboutUsScreen = '/aboutUsScreen';
   static const String editProfile = '/editProfile';
+  static const String orders = '/orders';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -160,6 +163,14 @@ abstract class AppRoutes {
           builder: (_) => BlocProvider(
             create: (_) => getIt<EditProfileCubit>(),
             child: EditProfileScreen(profileUser: user),
+          ),
+        );
+
+      case orders:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<OrdersCubit>(),
+            child: const OrdersScreen(),
           ),
         );
 

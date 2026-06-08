@@ -174,5 +174,14 @@
   "editProfileSuccessfly": "Edit profile successfully",
   "change": "Change",
   "update": "Update",
-  "photo": "Photo"
+  "photo": "Photo",
+  "my_orders": "My orders",
+  "active": "Active",
+  "completed": "Completed",
+  "track_order": "Track order",
+  "reorder": "Reorder",
+  "order_number": "Order number#",
+  "delivered_on": "Delivered on",
+  "no_active_orders": "No active orders",
+  "no_completed_orders": "No completed orders"
 }
