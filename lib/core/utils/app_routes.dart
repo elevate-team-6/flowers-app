@@ -20,6 +20,7 @@ import 'package:flowers_app/features/profile/edit_profile/presentation/screens/e
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
+import 'package:flowers_app/features/search/presentation/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,6 +32,7 @@ import '../../features/best_seller/presentation/cubit/best_seller_event.dart';
 import '../../features/best_seller/presentation/screens/best_seller_screen.dart';
 import '../../features/main_layout/presentation/pages/main_layout_screen.dart';
 import '../../features/profile/main_profile/domain/entities/user_profile_entity.dart';
+import '../../features/search/presentation/view_model/search_bloc.dart';
 
 abstract class AppRoutes {
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -54,6 +56,7 @@ abstract class AppRoutes {
   static const String notificationScreen = '/notificationScreen';
   static const String aboutUsScreen = '/aboutUsScreen';
   static const String editProfile = '/editProfile';
+  static const String search = '/search';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -172,6 +175,17 @@ abstract class AppRoutes {
         final address = settings.arguments as AddressEntity?;
         return MaterialPageRoute(
           builder: (_) => AddAddressScreen(addressToEdit: address),
+        );
+
+      case search:
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => getIt<SearchBloc>()),
+              BlocProvider.value(value: getIt<CartBloc>()),
+            ],
+            child: const SearchPage(),
+          ),
         );
 
       default:
