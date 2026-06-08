@@ -220,7 +220,12 @@ void main() {
         final result = await dataSource.setDefaultAddress(tAddressModel);
 
         expect(result, isA<SuccessBaseResponse<void>>());
-        verify(mockNestedDoc.set(tAddressModel.toJson())).called(1);
+        verify(
+          mockNestedDoc.set({
+            ...tAddressModel.toJson(),
+            '_id': tAddressModel.id,
+          }),
+        ).called(1);
       });
 
       test(
