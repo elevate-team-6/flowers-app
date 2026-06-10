@@ -9,7 +9,10 @@ class SetDefaultAddressUseCase {
 
   SetDefaultAddressUseCase(this._repository);
 
-  Future<BaseResponse<void>> call(AddressEntity address) {
+  Future<BaseResponse<void>> call(
+    AddressEntity address, {
+    bool selectedByUser = true,
+  }) {
     return _repository.setDefaultAddress(address);
   }
 }

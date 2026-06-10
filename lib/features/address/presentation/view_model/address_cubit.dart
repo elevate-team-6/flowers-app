@@ -1,5 +1,6 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
+import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
 import 'package:flowers_app/features/address/domain/entities/city_entity.dart';
 import 'package:flowers_app/features/address/domain/entities/governorate_entity.dart';
@@ -11,6 +12,8 @@ import 'package:flowers_app/features/address/domain/use_cases/get_governorates_u
 import 'package:flowers_app/features/address/domain/use_cases/update_address_use_case.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:injectable/injectable.dart';
@@ -33,7 +36,11 @@ class AddressCubit extends Cubit<AddressStates> {
     this._getGovernoratesUseCase,
     this._getCitiesUseCase,
   ) : super(const AddressStates());
-
+ void _refreshAddressDetails() {
+  getIt<AddressDetailsCubit>().doEvent(
+    InitializeAddressDetailsEvent(),
+  );
+}
   void doEvent(AddressEvent event) {
     switch (event) {
       case GetAddressesEvent():
@@ -132,6 +139,7 @@ class AddressCubit extends Cubit<AddressStates> {
     emit(state.copyWith(actionState: const BaseState(isLoading: true)));
     final result = await _addAddressUseCase(address);
     if (result is SuccessBaseResponse<List<AddressEntity>>) {
+         _refreshAddressDetails();
       emit(
         state.copyWith(
           actionState: const BaseState(isLoading: false, data: true),
@@ -154,6 +162,7 @@ class AddressCubit extends Cubit<AddressStates> {
     emit(state.copyWith(actionState: const BaseState(isLoading: true)));
     final result = await _updateAddressUseCase(address);
     if (result is SuccessBaseResponse<List<AddressEntity>>) {
+         _refreshAddressDetails();
       emit(
         state.copyWith(
           actionState: const BaseState(isLoading: false, data: true),
@@ -176,6 +185,7 @@ class AddressCubit extends Cubit<AddressStates> {
     emit(state.copyWith(actionState: const BaseState(isLoading: true)));
     final result = await _deleteAddressUseCase(addressId);
     if (result is SuccessBaseResponse<List<AddressEntity>>) {
+         _refreshAddressDetails();
       emit(
         state.copyWith(
           actionState: const BaseState(isLoading: false, data: true),

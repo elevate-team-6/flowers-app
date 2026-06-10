@@ -88,14 +88,22 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSourceContract {
   }
 
   @override
-  Future<BaseResponse<void>> setDefaultAddress(AddressModel address) async {
+  Future<BaseResponse<void>> setDefaultAddress(
+    AddressModel address, {
+    bool selectedByUser = true,
+  }) async {
     try {
       final userId = await _cacheHelper.readData(key: AppKeys.userIdKey);
+
       if (userId == null) {
         return ErrorBaseResponse(AppStrings.userNotFound.tr());
       }
 
-      await _getDefaultAddressDoc(userId).set(address.toJson());
+      await _getDefaultAddressDoc(userId).set({
+        ...address.toJson(),
+        '_id': address.id,
+        'selectedByUser': selectedByUser,
+      });
       return SuccessBaseResponse(null);
     } catch (e) {
       return ErrorBaseResponse(e.toString());
@@ -106,11 +114,13 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSourceContract {
   Future<BaseResponse<AddressModel?>> getDefaultAddress() async {
     try {
       final userId = await _cacheHelper.readData(key: AppKeys.userIdKey);
+
       if (userId == null) {
         return ErrorBaseResponse(AppStrings.userNotFound.tr());
       }
 
       final doc = await _getDefaultAddressDoc(userId).get();
+
       if (doc.exists && doc.data() != null) {
         return SuccessBaseResponse(AddressModel.fromJson(doc.data()!));
       }

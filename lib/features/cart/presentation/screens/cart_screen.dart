@@ -1,9 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_event.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_state.dart';
+import 'package:flowers_app/features/address_details/presentation/widgets/location_Dialog.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
@@ -23,202 +28,307 @@ class CartScreen extends StatefulWidget {
   State<CartScreen> createState() => _CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _CartScreenState extends State<CartScreen> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     context.read<CartBloc>().add(const GetCartEvent());
+    context.read<AddressDetailsCubit>().doEvent(
+      InitializeAddressDetailsEvent(),
+    );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      context.read<AddressDetailsCubit>().doEvent(ValidateLocationEvent());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        toolbarHeight: 70.h,
-        titleSpacing: 10.w,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            BlocBuilder<CartBloc, CartState>(
-              buildWhen: (prev, curr) =>
-                  prev.cart?.numOfCartItems != curr.cart?.numOfCartItems ||
-                  prev.status != curr.status,
-              builder: (context, state) {
-                final count = state.cart?.numOfCartItems ?? 0;
-                final hasError = state.status == CartStatus.failure;
+    return BlocListener<AddressDetailsCubit, AddressDetailsState>(
+      listenWhen: (previous, current) =>
+          previous.locationStatus != current.locationStatus,
+      listener: (context, state) {
+  
+        if (state.locationStatus == DeliveryLocationStatus.locationDisabled ||
+            state.locationStatus == DeliveryLocationStatus.permissionDenied ||
+            state.locationStatus ==
+                DeliveryLocationStatus.permissionDeniedForever) {
+          showDialog(context: context, builder: (_) => const LocationDialog());
+          return;
+        }
 
-                return Row(
-                  children: [
-                    Text(
-                      AppStrings.cart.tr(),
-                      style: AppTextStyles.black16400.copyWith(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    if (!hasError)
+        if (state.locationStatus == DeliveryLocationStatus.enabled) {
+          Navigator.pushNamed(context, AppRoutes.addAddressScreen);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          toolbarHeight: 70.h,
+          titleSpacing: 10.w,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BlocBuilder<CartBloc, CartState>(
+                buildWhen: (prev, curr) =>
+                    prev.cart?.numOfCartItems != curr.cart?.numOfCartItems ||
+                    prev.status != curr.status,
+                builder: (context, state) {
+                  final count = state.cart?.numOfCartItems ?? 0;
+                  final hasError = state.status == CartStatus.failure;
+
+                  return Row(
+                    children: [
                       Text(
-                        ' ($count ${AppStrings.items.tr()})',
+                        AppStrings.cart.tr(),
                         style: AppTextStyles.black16400.copyWith(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.white90,
                         ),
                       ),
-                  ],
-                );
-              },
-            ),
-            SizedBox(height: 10.h),
-            Row(
-              children: [
-                SvgPicture.asset(AppIcons.location, width: 24.w, height: 24.w),
-                SizedBox(width: 4.w),
-                Text(
-                  AppStrings.deliverTo.tr(),
-                  style: AppTextStyles.gray12400.copyWith(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.white90,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    AppStrings.deliverToAddress.tr(),
-                    style: AppTextStyles.black16400.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Image.asset(AppIcons.arrowRight, width: 24.w, height: 24.w),
-              ],
-            ),
-          ],
-        ),
-      ),
-      body: BlocBuilder<CartBloc, CartState>(
-        buildWhen: (prev, curr) =>
-            prev.status != curr.status ||
-            prev.cart?.items.length != curr.cart?.items.length,
-        builder: (context, state) {
-          if (state.status == CartStatus.loading) {
-            return const CartShimmer();
-          }
-
-          if (state.status == CartStatus.failure) {
-            return CustomErrorStateView(
-              message: state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
-              onRetry: () {
-                context.read<CartBloc>().add(const GetCartEvent());
-              },
-            );
-          }
-
-          final items = state.cart?.items ?? [];
-
-          if (items.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.shopping_cart_outlined,
-                    size: 80.sp,
-                    color: AppColors.black30,
-                  ),
-                  SizedBox(height: 16.h),
-                  Text(
-                    AppStrings.cartEmpty.tr(),
-                    style: AppTextStyles.black16400,
-                  ),
-                ],
-              ),
-            );
-          }
-
-          return ListView.separated(
-            padding: EdgeInsets.all(16.w),
-            itemCount: items.length + 1,
-            separatorBuilder: (_, _) => SizedBox(height: 12.h),
-            itemBuilder: (context, index) {
-              if (index == items.length) {
-                return BlocSelector<CartBloc, CartState, int>(
-                  selector: (state) {
-                    final items = state.cart?.items ?? [];
-                    return items.fold<int>(
-                      0,
-                      (sum, item) =>
-                          sum +
-                          (item.product.priceAfterDiscount * item.quantity),
-                    );
-                  },
-                  builder: (context, _) {
-                    final cart = context.read<CartBloc>().state.cart;
-                    if (cart == null) return const SizedBox();
-                    return CartSummary(cart: cart);
-                  },
-                );
-              }
-
-              final itemIndex = index;
-
-              return BlocSelector<
-                CartBloc,
-                CartState,
-                ({CartItemEntity? item, bool isLoading})
-              >(
-                selector: (state) {
-                  final items = state.cart?.items ?? [];
-                  final item = itemIndex < items.length
-                      ? items[itemIndex]
-                      : null;
-                  return (
-                    item: item,
-                    isLoading: item != null
-                        ? state.isItemLoading(item.id)
-                        : false,
+                      if (!hasError)
+                        Text(
+                          ' ($count ${AppStrings.items.tr()})',
+                          style: AppTextStyles.black16400.copyWith(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.white90,
+                          ),
+                        ),
+                    ],
                   );
                 },
-                builder: (context, data) {
-                  final currentItem = data.item;
-                  if (currentItem == null) return const SizedBox();
-                  return CartItemCard(
-                    item: currentItem,
-                    isLoading: data.isLoading,
-                    onIncrement: () {
-                      context.read<CartBloc>().add(
-                        UpdateQuantityEvent(
-                          itemId: currentItem.id,
-                          productId: currentItem.product.id,
-                          quantity: currentItem.quantity + 1,
+              ),
+              SizedBox(height: 10.h),
+              BlocBuilder<AddressDetailsCubit, AddressDetailsState>(
+                buildWhen: (previous, current) =>
+                    previous.defaultAddressState !=
+                        current.defaultAddressState ||
+                    previous.locationStatus != current.locationStatus,
+                builder: (context, addressState) {
+                  final address = addressState.defaultAddressState.data;
+
+                  if (address != null) {
+                    return Row(
+                      children: [
+                        SvgPicture.asset(
+                          AppIcons.location,
+                          width: 24.w,
+                          height: 24.w,
                         ),
+                        SizedBox(width: 4.w),
+
+                        Text(
+                          AppStrings.deliverTo.tr(),
+                          style: AppTextStyles.gray12400.copyWith(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.white90,
+                          ),
+                        ),
+
+                        SizedBox(width: 4.w),
+
+                        Expanded(
+                          child: Text(
+                            address.street,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyles.black16400.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+
+                        Image.asset(
+                          AppIcons.arrowRight,
+                          width: 24.w,
+                          height: 24.w,
+                        ),
+                      ],
+                    );
+                  }
+
+                  if (addressState.locationStatus ==
+                      DeliveryLocationStatus.checking) {
+                    return const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  return GestureDetector(
+                    onTap: () {
+                      context.read<AddressDetailsCubit>().doEvent(
+                        ValidateLocationEvent(),
                       );
                     },
-                    onDecrement: () {
-                      context.read<CartBloc>().add(
-                        UpdateQuantityEvent(
-                          itemId: currentItem.id,
-                          productId: currentItem.product.id,
-                          quantity: currentItem.quantity - 1,
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          AppIcons.location,
+                          width: 24.w,
+                          height: 24.w,
                         ),
-                      );
-                    },
-                    onRemove: () {
-                      context.read<CartBloc>().add(
-                        RemoveItemEvent(
-                          itemId: currentItem.id,
-                          productId: currentItem.product.id,
+                        SizedBox(width: 4.w),
+
+                        Expanded(
+                          child: Text(
+                            AppStrings.addNewAddress.tr(),
+                            style: AppTextStyles.black16400.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
-                      );
-                    },
+
+                        Image.asset(
+                          AppIcons.arrowRight,
+                          width: 24.w,
+                          height: 24.w,
+                        ),
+                      ],
+                    ),
                   );
+                },
+              ),
+            ],
+          ),
+        ),
+        body: BlocBuilder<CartBloc, CartState>(
+          buildWhen: (prev, curr) =>
+              prev.status != curr.status ||
+              prev.cart?.items.length != curr.cart?.items.length,
+          builder: (context, state) {
+            if (state.status == CartStatus.loading) {
+              return const CartShimmer();
+            }
+
+            if (state.status == CartStatus.failure) {
+              return CustomErrorStateView(
+                message:
+                    state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
+                onRetry: () {
+                  context.read<CartBloc>().add(const GetCartEvent());
                 },
               );
-            },
-          );
-        },
+            }
+
+            final items = state.cart?.items ?? [];
+
+            if (items.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 80.sp,
+                      color: AppColors.black30,
+                    ),
+                    SizedBox(height: 16.h),
+                    Text(
+                      AppStrings.cartEmpty.tr(),
+                      style: AppTextStyles.black16400,
+                    ),
+                  ],
+                ),
+              );
+            }
+
+            return ListView.separated(
+              padding: EdgeInsets.all(16.w),
+              itemCount: items.length + 1,
+              separatorBuilder: (_, _) => SizedBox(height: 12.h),
+              itemBuilder: (context, index) {
+                if (index == items.length) {
+                  return BlocSelector<CartBloc, CartState, int>(
+                    selector: (state) {
+                      final items = state.cart?.items ?? [];
+                      return items.fold<int>(
+                        0,
+                        (sum, item) =>
+                            sum +
+                            (item.product.priceAfterDiscount * item.quantity),
+                      );
+                    },
+                    builder: (context, _) {
+                      final cart = context.read<CartBloc>().state.cart;
+                      if (cart == null) return const SizedBox();
+                      return CartSummary(cart: cart);
+                    },
+                  );
+                }
+
+                final itemIndex = index;
+
+                return BlocSelector<
+                  CartBloc,
+                  CartState,
+                  ({CartItemEntity? item, bool isLoading})
+                >(
+                  selector: (state) {
+                    final items = state.cart?.items ?? [];
+                    final item = itemIndex < items.length
+                        ? items[itemIndex]
+                        : null;
+                    return (
+                      item: item,
+                      isLoading: item != null
+                          ? state.isItemLoading(item.id)
+                          : false,
+                    );
+                  },
+                  builder: (context, data) {
+                    final currentItem = data.item;
+                    if (currentItem == null) return const SizedBox();
+                    return CartItemCard(
+                      item: currentItem,
+                      isLoading: data.isLoading,
+                      onIncrement: () {
+                        context.read<CartBloc>().add(
+                          UpdateQuantityEvent(
+                            itemId: currentItem.id,
+                            productId: currentItem.product.id,
+                            quantity: currentItem.quantity + 1,
+                          ),
+                        );
+                      },
+                      onDecrement: () {
+                        context.read<CartBloc>().add(
+                          UpdateQuantityEvent(
+                            itemId: currentItem.id,
+                            productId: currentItem.product.id,
+                            quantity: currentItem.quantity - 1,
+                          ),
+                        );
+                      },
+                      onRemove: () {
+                        context.read<CartBloc>().add(
+                          RemoveItemEvent(
+                            itemId: currentItem.id,
+                            productId: currentItem.product.id,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

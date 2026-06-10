@@ -120,7 +120,10 @@ class AddressRepoImpl implements AddressRepoContract {
   }
 
   @override
-  Future<BaseResponse<void>> setDefaultAddress(AddressEntity address) {
+  Future<BaseResponse<void>> setDefaultAddress(
+    AddressEntity address, {
+    bool selectedByUser = true,
+  }) {
     final model = AddressModel(
       id: address.id,
       username: address.recipientName,
@@ -131,7 +134,10 @@ class AddressRepoImpl implements AddressRepoContract {
       lat: address.latitude,
       long: address.longitude,
     );
-    return _remoteDataSource.setDefaultAddress(model);
+    return _remoteDataSource.setDefaultAddress(
+      model,
+      selectedByUser: selectedByUser,
+    );
   }
 
   @override

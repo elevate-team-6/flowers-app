@@ -10,7 +10,10 @@ abstract class AddressRepoContract {
     AddressEntity address,
   );
   Future<BaseResponse<List<AddressEntity>>> deleteAddress(String addressId);
-  Future<BaseResponse<void>> setDefaultAddress(AddressEntity address);
+  Future<BaseResponse<void>> setDefaultAddress(
+    AddressEntity address, {
+    bool selectedByUser = true,
+  });
   Future<BaseResponse<AddressEntity?>> getDefaultAddress();
   Future<BaseResponse<List<GovernorateEntity>>> getGovernorates();
   Future<BaseResponse<List<CityEntity>>> getCities(String governorateId);

@@ -7,6 +7,9 @@ abstract interface class AddressRemoteDataSourceContract {
   Future<BaseResponse<AddressResponse>> addAddress(AddressModel address);
   Future<BaseResponse<AddressResponse>> updateAddress(AddressModel address);
   Future<BaseResponse<AddressResponse>> deleteAddress(String addressId);
-  Future<BaseResponse<void>> setDefaultAddress(AddressModel address);
+  Future<BaseResponse<void>> setDefaultAddress(
+    AddressModel address, {
+    bool selectedByUser = true,
+  });
   Future<BaseResponse<AddressModel?>> getDefaultAddress();
 }
