@@ -222,14 +222,14 @@ class AddressCubit extends Cubit<AddressStates> {
       SuccessBaseResponse<List<AddressEntity>>() => state.copyWith(
         deleteAddressState: const BaseState(isLoading: false, data: true),
         addressesState: BaseState(isLoading: false, data: result.data),
-        deletingAddressId: null,
+        resetDeletingId: true,
       ),
       ErrorBaseResponse<List<AddressEntity>>() => state.copyWith(
         deleteAddressState: BaseState(
           isLoading: false,
           errorMessage: result.errorMessage,
         ),
-        deletingAddressId: null,
+        resetDeletingId: true,
       ),
     });
   }
@@ -341,10 +341,10 @@ class AddressCubit extends Cubit<AddressStates> {
         addAddressState: const BaseState(),
         updateAddressState: const BaseState(),
         deleteAddressState: const BaseState(),
-        autoAddressDetails: null,
-        selectedLocation: null,
-        selectedGovernorateId: null,
-        selectedCityId: null,
+        resetAutoDetails: true,
+        resetLocation: true,
+        resetGovernorate: true,
+        resetCity: true,
       ),
     );
   }

@@ -49,6 +49,10 @@ class AddressStates extends Equatable {
     String? selectedCityId,
     String? autoAddressDetails,
     bool resetCity = false,
+    bool resetDeletingId = false,
+    bool resetLocation = false,
+    bool resetGovernorate = false,
+    bool resetAutoDetails = false,
   }) {
     return AddressStates(
       addressesState: addressesState ?? this.addressesState,
@@ -57,14 +61,21 @@ class AddressStates extends Equatable {
       addAddressState: addAddressState ?? this.addAddressState,
       updateAddressState: updateAddressState ?? this.updateAddressState,
       deleteAddressState: deleteAddressState ?? this.deleteAddressState,
-      deletingAddressId: deletingAddressId ?? this.deletingAddressId,
-      selectedLocation: selectedLocation ?? this.selectedLocation,
-      selectedGovernorateId:
-          selectedGovernorateId ?? this.selectedGovernorateId,
+      deletingAddressId: resetDeletingId
+          ? null
+          : (deletingAddressId ?? this.deletingAddressId),
+      selectedLocation: resetLocation
+          ? null
+          : (selectedLocation ?? this.selectedLocation),
+      selectedGovernorateId: resetGovernorate
+          ? null
+          : (selectedGovernorateId ?? this.selectedGovernorateId),
       selectedCityId: resetCity
           ? null
           : (selectedCityId ?? this.selectedCityId),
-      autoAddressDetails: autoAddressDetails ?? this.autoAddressDetails,
+      autoAddressDetails: resetAutoDetails
+          ? null
+          : (autoAddressDetails ?? this.autoAddressDetails),
     );
   }
 
