@@ -47,7 +47,6 @@ abstract class AppEndPoints {
   // orders:
   static const String orders = '$baseUrl/orders';
   // Addresses:
-  static const String addresses = "$baseUrl/addresses";
   static const String addressIdParam = "id";
   static const String addressPath = "$addresses/{$addressIdParam}";
   // ---------------------------------------------------------------------------

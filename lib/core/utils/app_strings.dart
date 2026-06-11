@@ -270,6 +270,7 @@ abstract class AppStrings {
   static const String creditCard = 'Credit Card';
   static const String itIsGift = 'It is a gift';
   static const String name = 'Name';
+  static const String payment = 'Payment';
   static const String selectPaymentMethod = 'Select Payment Method';
   static const String selectAddressFirst = 'Select Address First';
   static const String dollarSign = '\$';

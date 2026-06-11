@@ -6,8 +6,6 @@ import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
-import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
-import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_events.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_states.dart';
@@ -33,6 +31,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<CheckoutCubit>().doEvent(LoadDeliveryDaysEvent());
+  }
 
   @override
   void dispose() {
@@ -46,12 +50,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final cart = widget.cart;
     return BlocListener<CheckoutCubit, CheckoutStates>(
       listenWhen: (previous, current) =>
-          previous.addressesState != current.addressesState ||
           previous.cashCheckoutState != current.cashCheckoutState ||
           previous.cardCheckoutState != current.cardCheckoutState,
       listener: (context, state) async {
         final error =
-            state.addressesState.errorMessage ??
             state.cardCheckoutState.errorMessage ??
             state.cashCheckoutState.errorMessage;
         if (error != null) {
@@ -59,8 +61,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           return;
         }
         if (state.cashCheckoutState.data != null) {
-          context.read<CartBloc>().add(GetCartEvent());
-
           Navigator.pushNamedAndRemoveUntil(
             context,
             AppRoutes.mainLayout,
@@ -121,7 +121,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                     CheckoutDeliverySection(deliveryDays: state.deliveryDays,),
+                    CheckoutDeliverySection(deliveryDays: state.deliveryDays),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 24),
                       child: Divider(
@@ -183,7 +183,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           phoneController: phoneController,
                         ),
                       ),
-                    
+
                     CheckoutOrderSummary(
                       subtotal: cart.subtotal,
                       deliveryFee: cart.deliveryFee,

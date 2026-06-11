@@ -1,13 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
+import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_requests/checkout_request.dart';
-import 'package:flowers_app/features/checkout/domain/entities/address_entity.dart';
 import 'package:flowers_app/features/checkout/domain/entities/card_entity.dart';
 import 'package:flowers_app/features/checkout/domain/entities/order_entity.dart';
 import 'package:flowers_app/features/checkout/domain/use_cases/card_checkout_use_case.dart';
 import 'package:flowers_app/features/checkout/domain/use_cases/cash_checkout_use_case.dart';
-import 'package:flowers_app/features/checkout/domain/use_cases/get_addresses_use_case.dart';
 import 'package:flowers_app/features/checkout/domain/use_cases/get_delivery_dayes_use_case.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_events.dart';
@@ -19,14 +18,12 @@ import 'package:mockito/mockito.dart';
 import 'checkout_cubit_test.mocks.dart';
 
 @GenerateMocks([
-  GetAddressesUseCase,
   CashCheckoutUseCase,
   CardCheckoutUseCase,
   GetDeliveryDaysUseCase,
 ])
 void main() {
   late CheckoutCubit cubit;
-  late MockGetAddressesUseCase mockGetAddressesUseCase;
   late MockCashCheckoutUseCase mockCashCheckoutUseCase;
   late MockCardCheckoutUseCase mockCardCheckoutUseCase;
   late MockGetDeliveryDaysUseCase mockGetDeliveryDaysUseCase;
@@ -35,10 +32,11 @@ void main() {
     id: '1',
     street: 'Home',
     city: 'Giza',
-    phone: '',
-    lat: '',
-    long: '',
-    username: '',
+    recipientName: '',
+    phoneNumber: '',
+    area: '',
+    latitude: '',
+    longitude: '',
   );
 
   const order = OrderEntity(
@@ -68,12 +66,12 @@ void main() {
 
   setUpAll(() {
     provideDummy<BaseResponse<List<AddressEntity>>>(
-       SuccessBaseResponse([address]),
+      SuccessBaseResponse([address]),
     );
 
-    provideDummy<BaseResponse<OrderEntity>>( SuccessBaseResponse(order));
+    provideDummy<BaseResponse<OrderEntity>>(SuccessBaseResponse(order));
 
-    provideDummy<BaseResponse<CardEntity>>( SuccessBaseResponse(card));
+    provideDummy<BaseResponse<CardEntity>>(SuccessBaseResponse(card));
 
     provideDummy<int>(2);
 
@@ -83,7 +81,6 @@ void main() {
   });
 
   setUp(() {
-    mockGetAddressesUseCase = MockGetAddressesUseCase();
     mockCashCheckoutUseCase = MockCashCheckoutUseCase();
     mockCardCheckoutUseCase = MockCardCheckoutUseCase();
     mockGetDeliveryDaysUseCase = MockGetDeliveryDaysUseCase();
@@ -91,7 +88,6 @@ void main() {
     when(mockGetDeliveryDaysUseCase()).thenReturn(2);
 
     cubit = CheckoutCubit(
-      mockGetAddressesUseCase,
       mockCardCheckoutUseCase,
       mockCashCheckoutUseCase,
       mockGetDeliveryDaysUseCase,
@@ -102,45 +98,13 @@ void main() {
     await cubit.close();
   });
 
-  group('GetAddressesEvent', () {
-    blocTest<CheckoutCubit, CheckoutStates>(
-      'should get addresses successfully',
-      build: () {
-        when(
-          mockGetAddressesUseCase(),
-        ).thenAnswer((_) async =>  SuccessBaseResponse([address]));
-
-        return cubit;
-      },
-      act: (cubit) => cubit.doEvent(GetAddressesEvent()),
-      verify: (_) {
-        verify(mockGetAddressesUseCase()).called(1);
-      },
-    );
-
-    blocTest<CheckoutCubit, CheckoutStates>(
-      'should emit error when addresses fail',
-      build: () {
-        when(
-          mockGetAddressesUseCase(),
-        ).thenAnswer((_) async => ErrorBaseResponse('error'));
-
-        return cubit;
-      },
-      act: (cubit) => cubit.doEvent(GetAddressesEvent()),
-      verify: (_) {
-        verify(mockGetAddressesUseCase()).called(1);
-      },
-    );
-  });
-
   group('CashCheckoutEvent', () {
     blocTest<CheckoutCubit, CheckoutStates>(
       'should checkout cash successfully',
       build: () {
         when(
           mockCashCheckoutUseCase(any),
-        ).thenAnswer((_) async =>  SuccessBaseResponse(order));
+        ).thenAnswer((_) async => SuccessBaseResponse(order));
 
         return cubit;
       },
@@ -172,7 +136,7 @@ void main() {
       build: () {
         when(
           mockCardCheckoutUseCase(any, any),
-        ).thenAnswer((_) async =>  SuccessBaseResponse(card));
+        ).thenAnswer((_) async => SuccessBaseResponse(card));
 
         return cubit;
       },

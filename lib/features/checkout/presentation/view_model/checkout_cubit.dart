@@ -1,12 +1,11 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
+import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_requests/checkout_request.dart';
-import 'package:flowers_app/features/checkout/domain/entities/address_entity.dart';
 import 'package:flowers_app/features/checkout/domain/entities/card_entity.dart';
 import 'package:flowers_app/features/checkout/domain/entities/order_entity.dart';
 import 'package:flowers_app/features/checkout/domain/use_cases/card_checkout_use_case.dart';
 import 'package:flowers_app/features/checkout/domain/use_cases/cash_checkout_use_case.dart';
-import 'package:flowers_app/features/checkout/domain/use_cases/get_addresses_use_case.dart';
 import 'package:flowers_app/features/checkout/domain/use_cases/get_delivery_dayes_use_case.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_events.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_states.dart';
@@ -16,22 +15,17 @@ import 'package:injectable/injectable.dart';
 @injectable
 class CheckoutCubit extends Cubit<CheckoutStates> {
   CheckoutCubit(
-    this._addressesUseCase,
     this._cardCheckoutUseCase,
     this._cashCheckoutUseCase,
-    this._getDeliveryDaysUseCase
+    this._getDeliveryDaysUseCase,
   ) : super(const CheckoutStates());
 
-  final GetAddressesUseCase _addressesUseCase;
   final CashCheckoutUseCase _cashCheckoutUseCase;
   final CardCheckoutUseCase _cardCheckoutUseCase;
   final GetDeliveryDaysUseCase _getDeliveryDaysUseCase;
 
   Future<void> doEvent(CheckoutEvent event) async {
     switch (event) {
-      case GetAddressesEvent():
-        return _getAddresses();
-
       case SelectAddressEvent():
         _selectAddress(event.address);
         return;
@@ -50,46 +44,8 @@ class CheckoutCubit extends Cubit<CheckoutStates> {
         _toggleGift(event.isGift);
         return;
       case LoadDeliveryDaysEvent():
-       _loadDeliveryDays();
-  return;
-    }
-  }
-
-  Future<void> _getAddresses() async {
-    emit(
-      state.copyWith(
-        addressesState: state.addressesState.copyWith(
-          isLoading: true,
-          errorMessage: null,
-        ),
-      ),
-    );
-
-    final response = await _addressesUseCase();
-
-    switch (response) {
-      case SuccessBaseResponse<List<AddressEntity>>():
-        emit(
-          state.copyWith(
-            addressesState: state.addressesState.copyWith(
-              isLoading: false,
-              data: response.data,
-            ),
-            selectedAddress: response.data.isNotEmpty
-                ? response.data.first
-                : null,
-          ),
-        );
-
-      case ErrorBaseResponse<List<AddressEntity>>():
-        emit(
-          state.copyWith(
-            addressesState: state.addressesState.copyWith(
-              isLoading: false,
-              errorMessage: response.errorMessage,
-            ),
-          ),
-        );
+        _loadDeliveryDays();
+        return;
     }
   }
 
@@ -178,11 +134,8 @@ class CheckoutCubit extends Cubit<CheckoutStates> {
   void _toggleGift(bool isGift) {
     emit(state.copyWith(isGift: isGift));
   }
+
   void _loadDeliveryDays() {
-  emit(
-    state.copyWith(
-      deliveryDays: _getDeliveryDaysUseCase(),
-    ),
-  );
-}
+    emit(state.copyWith(deliveryDays: _getDeliveryDaysUseCase()));
+  }
 }

@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_events.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_states.dart';
@@ -12,36 +14,36 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CheckoutAddressesSection extends StatelessWidget {
   final CheckoutStates state;
 
-  const CheckoutAddressesSection({
-    super.key,
-    required this.state,
-  });
+  const CheckoutAddressesSection({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          AppStrings.deliveryAddress.tr(),
-          style: AppTextStyles.black18500,
-        ),
-        ListView.separated(
-          padding: EdgeInsets.symmetric(vertical: 16.h),
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: state.addressesState.data?.length ?? 0,
-          separatorBuilder: (_, _) => SizedBox(height: 16.h),
-          itemBuilder: (context, index) {
-            final address = state.addressesState.data![index];
+        Text(AppStrings.deliveryAddress.tr(), style: AppTextStyles.black18500),
+        BlocBuilder<AddressCubit, AddressStates>(
+          builder: (context, addressState) {
+            final addresses = addressState.addressesState.data ?? [];
 
-            return AddressCard(
-              addressName: address.street,
-              address: '${address.street}, ${address.city}',
-              isSelected: state.selectedAddress?.id == address.id,
-              onTap: () {
-                context.read<CheckoutCubit>().doEvent(
-                  SelectAddressEvent(address),
+            return ListView.separated(
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: addresses.length,
+              separatorBuilder: (_, _) => SizedBox(height: 16.h),
+              itemBuilder: (context, index) {
+                final address = addresses[index];
+
+                return AddressCard(
+                  addressName: address.street,
+                  address: '${address.street}, ${address.city}',
+                  isSelected: state.selectedAddress?.id == address.id,
+                  onTap: () {
+                    context.read<CheckoutCubit>().doEvent(
+                      SelectAddressEvent(address),
+                    );
+                  },
                 );
               },
             );

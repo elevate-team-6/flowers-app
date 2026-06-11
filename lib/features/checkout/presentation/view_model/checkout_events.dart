@@ -1,12 +1,8 @@
+import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_requests/checkout_request.dart';
-import 'package:flowers_app/features/checkout/domain/entities/address_entity.dart';
 
 sealed class CheckoutEvent {
   const CheckoutEvent();
-}
-
-class GetAddressesEvent extends CheckoutEvent {
-  const GetAddressesEvent();
 }
 
 class SelectAddressEvent extends CheckoutEvent {

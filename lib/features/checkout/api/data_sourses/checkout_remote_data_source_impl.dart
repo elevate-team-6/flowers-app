@@ -5,7 +5,6 @@ import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/features/checkout/api/checkout_api_client/checkout_api_client.dart';
 import 'package:flowers_app/features/checkout/data/data_sources/checkout_remote_data_source_contract.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_requests/checkout_request.dart';
-import 'package:flowers_app/features/checkout/data/models/checkout_responses/address_response/adress_response.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_responses/card_response/card_checkout_response.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_responses/cash_response/cash_checkout_response.dart';
 import 'package:injectable/injectable.dart';
@@ -14,14 +13,7 @@ import 'package:injectable/injectable.dart';
 class CheckoutRemoteDataSourceImpl implements CheckoutRemoteDataSourceContract {
   final CheckoutApiClient _apiClient;
   final RemoteConfigService _remoteConfig;
-  const CheckoutRemoteDataSourceImpl(this._apiClient,this._remoteConfig);
-
-  @override
-  Future<BaseResponse<AddressResponse>> addresses() {
-    return ErrorHandler.handleApiCall(() {
-      return _apiClient.addresses();
-    });
-  }
+  const CheckoutRemoteDataSourceImpl(this._apiClient, this._remoteConfig);
 
   @override
   Future<BaseResponse<CardCheckoutResponse>> cardCheckout(

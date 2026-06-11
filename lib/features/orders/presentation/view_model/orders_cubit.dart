@@ -35,7 +35,7 @@ class OrdersCubit extends Cubit<OrdersState> {
     switch (result) {
       case SuccessBaseResponse<List<OrderEntity>>():
         // استخدم الـ use cases لتقسيم الـ orders
-        final allOrders = result.data ?? [];
+        final allOrders = result.data;
         final activeOrders = _getActiveOrdersUseCase(allOrders);
         final completedOrders = _getCompletedOrdersUseCase(allOrders);
 

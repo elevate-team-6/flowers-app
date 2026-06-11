@@ -21,7 +21,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../../domain/use_cases/get_current_location_use_case.dart';
 
-@singleton
+@injectable
 class AddressCubit extends Cubit<AddressStates> {
   final GetAddressesUseCase _getAddressesUseCase;
   final AddAddressUseCase _addAddressUseCase;

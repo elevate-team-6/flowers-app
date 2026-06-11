@@ -1,4 +1,6 @@
 import 'package:flowers_app/config/di/di.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
@@ -12,7 +14,6 @@ import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/checkout/presentation/screens/checkout_screen.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
-import 'package:flowers_app/features/checkout/presentation/view_model/checkout_events.dart';
 import 'package:flowers_app/features/checkout/presentation/widgets/payment_webview.dart';
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
@@ -185,9 +186,16 @@ abstract class AppRoutes {
         );
       case checkout:
         final cart = settings.arguments as CartEntity;
+
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<CheckoutCubit>()..doEvent(GetAddressesEvent()),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => getIt<CheckoutCubit>()),
+              BlocProvider(
+                create: (_) =>
+                    getIt<AddressCubit>()..doEvent(GetAddressesEvent()),
+              ),
+            ],
             child: CheckoutScreen(cart: cart),
           ),
         );

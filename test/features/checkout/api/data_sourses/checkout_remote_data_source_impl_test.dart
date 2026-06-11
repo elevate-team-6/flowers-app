@@ -3,7 +3,6 @@ import 'package:flowers_app/config/services/remote_config_service.dart';
 import 'package:flowers_app/features/checkout/api/checkout_api_client/checkout_api_client.dart';
 import 'package:flowers_app/features/checkout/api/data_sourses/checkout_remote_data_source_impl.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_requests/checkout_request.dart';
-import 'package:flowers_app/features/checkout/data/models/checkout_responses/address_response/adress_response.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_responses/card_response/card_checkout_response.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_responses/card_response/card_model.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_responses/cash_response/cash_checkout_response.dart';
@@ -14,10 +13,7 @@ import 'package:mockito/mockito.dart';
 
 import 'checkout_remote_data_source_impl_test.mocks.dart';
 
-@GenerateMocks([
-  CheckoutApiClient,
-  RemoteConfigService,
-])
+@GenerateMocks([CheckoutApiClient, RemoteConfigService])
 void main() {
   late CheckoutRemoteDataSourceImpl remoteDataSource;
   late MockCheckoutApiClient mockApiClient;
@@ -52,26 +48,6 @@ void main() {
   });
 
   group('CheckoutRemoteDataSourceImpl', () {
-    test(
-      'addresses should return SuccessBaseResponse<AddressResponse>',
-      () async {
-        final dummyResponse = AddressResponse(
-          message: 'success',
-          addresses: [],
-        );
-
-        when(
-          mockApiClient.addresses(),
-        ).thenAnswer((_) async => dummyResponse);
-
-        final result = await remoteDataSource.addresses();
-
-        expect(result, isA<SuccessBaseResponse<AddressResponse>>());
-
-        verify(mockApiClient.addresses()).called(1);
-      },
-    );
-
     test(
       'cashCheckout should return SuccessBaseResponse<CashCheckoutResponse>',
       () async {
@@ -122,16 +98,11 @@ void main() {
           mockApiClient.cardCheckout(any, request),
         ).thenAnswer((_) async => dummyResponse);
 
-        final result = await remoteDataSource.cardCheckout(
-          cartId,
-          request,
-        );
+        final result = await remoteDataSource.cardCheckout(cartId, request);
 
         expect(result, isA<SuccessBaseResponse<CardCheckoutResponse>>());
 
-        verify(
-          mockApiClient.cardCheckout(any, request),
-        ).called(1);
+        verify(mockApiClient.cardCheckout(any, request)).called(1);
       },
     );
   });

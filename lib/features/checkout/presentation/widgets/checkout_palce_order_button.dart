@@ -25,8 +25,7 @@ class CheckoutPlaceOrderButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLoading =
-        state.cashCheckoutState.isLoading ||
-        state.cardCheckoutState.isLoading;
+        state.cashCheckoutState.isLoading || state.cardCheckoutState.isLoading;
 
     return ElevatedButton(
       onPressed: isLoading
@@ -46,8 +45,7 @@ class CheckoutPlaceOrderButton extends StatelessWidget {
                 return;
               }
 
-              if (state.isGift &&
-                  !formKey.currentState!.validate()) {
+              if (state.isGift && !formKey.currentState!.validate()) {
                 return;
               }
 
@@ -55,23 +53,19 @@ class CheckoutPlaceOrderButton extends StatelessWidget {
 
               final request = CheckoutRequest(
                 street: address.street,
-                phone: address.phone,
                 city: address.city,
-                lat: address.lat,
-                long: address.long,
+                phone: '',
+                lat: '',
+                long: '',
               );
 
-              if (state.selectedPaymentMethod ==
-                  AppConstants.cash) {
+              if (state.selectedPaymentMethod == AppConstants.cash) {
                 context.read<CheckoutCubit>().doEvent(
                   CashCheckoutEvent(request),
                 );
               } else {
                 context.read<CheckoutCubit>().doEvent(
-                  CardCheckoutEvent(
-                    cartId: cart.id,
-                    request: request,
-                  ),
+                  CardCheckoutEvent(cartId: cart.id, request: request),
                 );
               }
             },
