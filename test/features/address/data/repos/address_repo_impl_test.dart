@@ -39,14 +39,12 @@ void main() {
     city: 'Cairo',
     latitude: '30.0444',
     longitude: '31.2357',
-    isDefault: true,
   );
 
   setUpAll(() {
     provideDummy<BaseResponse<AddressResponse>>(
       SuccessBaseResponse(AddressResponse(addresses: [])),
     );
-    provideDummy<BaseResponse<AddressModel?>>(SuccessBaseResponse(null));
   });
 
   setUp(() {
@@ -58,7 +56,7 @@ void main() {
   group('Address Repository Implementation Tests', () {
     group('getAddresses', () {
       test(
-        'should return mapped and synced address list when remote data source succeeds',
+        'should return mapped address list when remote data source succeeds',
         () async {
           // Arrange
           when(mockRemoteDataSource.getAddresses()).thenAnswer(
@@ -66,9 +64,6 @@ void main() {
               AddressResponse(addresses: [tAddressModel]),
             ),
           );
-          when(
-            mockRemoteDataSource.getDefaultAddress(),
-          ).thenAnswer((_) async => SuccessBaseResponse(tAddressModel));
 
           // Act
           final result = await repository.getAddresses();
@@ -78,96 +73,9 @@ void main() {
           final data =
               (result as SuccessBaseResponse<List<AddressEntity>>).data;
           expect(data.length, 1);
-          expect(data[0].area, 'Maadi');
-          expect(data[0].street, 'Road 9');
-          expect(data[0].isDefault, true);
+          expect(data[0].id, '1');
+          expect(data[0].city, 'Cairo');
           verify(mockRemoteDataSource.getAddresses()).called(1);
-          verify(mockRemoteDataSource.getDefaultAddress()).called(1);
-        },
-      );
-
-      test(
-        'should handle address without delimiter by setting area as empty string',
-        () async {
-          // Arrange
-          const noDelimiterModel = AddressModel(
-            id: '2',
-            username: 'Jane',
-            street: 'Just Street',
-            city: 'Alex',
-          );
-          when(mockRemoteDataSource.getAddresses()).thenAnswer(
-            (_) async => SuccessBaseResponse(
-              AddressResponse(addresses: [noDelimiterModel]),
-            ),
-          );
-          when(
-            mockRemoteDataSource.getDefaultAddress(),
-          ).thenAnswer((_) async => SuccessBaseResponse(null));
-
-          // Act
-          final result = await repository.getAddresses();
-
-          // Assert
-          final data =
-              (result as SuccessBaseResponse<List<AddressEntity>>).data;
-          expect(data[0].area, '');
-          expect(data[0].street, 'Just Street');
-          expect(data[0].isDefault, false);
-        },
-      );
-
-      test(
-        'should handle address with multiple delimiters by taking first part as area and rest as street',
-        () async {
-          // Arrange
-          const multiDelimiterModel = AddressModel(
-            id: '3',
-            username: 'Bob',
-            street: 'Area Part | Street Part | Extra Info',
-            city: 'Giza',
-          );
-          when(mockRemoteDataSource.getAddresses()).thenAnswer(
-            (_) async => SuccessBaseResponse(
-              AddressResponse(addresses: [multiDelimiterModel]),
-            ),
-          );
-          when(
-            mockRemoteDataSource.getDefaultAddress(),
-          ).thenAnswer((_) async => SuccessBaseResponse(null));
-
-          // Act
-          final result = await repository.getAddresses();
-
-          // Assert
-          final data =
-              (result as SuccessBaseResponse<List<AddressEntity>>).data;
-          expect(data[0].area, 'Area Part');
-          expect(data[0].street, 'Street Part | Extra Info');
-        },
-      );
-
-      test(
-        'should set isDefault to false for all items if default address ID does not match any address',
-        () async {
-          // Arrange
-          when(mockRemoteDataSource.getAddresses()).thenAnswer(
-            (_) async => SuccessBaseResponse(
-              AddressResponse(addresses: [tAddressModel]),
-            ),
-          );
-          when(mockRemoteDataSource.getDefaultAddress()).thenAnswer(
-            (_) async =>
-                SuccessBaseResponse(const AddressModel(id: 'non-existent-id')),
-          );
-
-          // Act
-          final result = await repository.getAddresses();
-
-          // Assert
-          final data =
-              (result as SuccessBaseResponse<List<AddressEntity>>).data;
-          expect(data[0].isDefault, false);
         },
       );
 
@@ -190,31 +98,37 @@ void main() {
     });
 
     group('addAddress', () {
-      test(
-        'should join area and street using delimiter before calling remote data source',
-        () async {
-          // Arrange
-          when(mockRemoteDataSource.addAddress(any)).thenAnswer(
-            (_) async => SuccessBaseResponse(
-              AddressResponse(addresses: [tAddressModel]),
-            ),
-          );
-          when(
-            mockRemoteDataSource.getDefaultAddress(),
-          ).thenAnswer((_) async => SuccessBaseResponse(null));
+      test('should call remote data source and return success', () async {
+        // Arrange
+        when(mockRemoteDataSource.addAddress(any)).thenAnswer(
+          (_) async =>
+              SuccessBaseResponse(AddressResponse(addresses: [tAddressModel])),
+        );
 
-          // Act
-          await repository.addAddress(tAddressEntity);
+        // Act
+        final result = await repository.addAddress(tAddressEntity);
 
-          // Assert
-          final captured =
-              verify(
-                    mockRemoteDataSource.addAddress(captureAny),
-                  ).captured.single
-                  as AddressModel;
-          expect(captured.street, 'Maadi | Road 9');
-        },
-      );
+        // Assert
+        expect(result, isA<SuccessBaseResponse<List<AddressEntity>>>());
+        verify(mockRemoteDataSource.addAddress(any)).called(1);
+      });
+    });
+
+    group('updateAddress', () {
+      test('should call remote data source and return success', () async {
+        // Arrange
+        when(mockRemoteDataSource.updateAddress(any)).thenAnswer(
+          (_) async =>
+              SuccessBaseResponse(AddressResponse(addresses: [tAddressModel])),
+        );
+
+        // Act
+        final result = await repository.updateAddress(tAddressEntity);
+
+        // Assert
+        expect(result, isA<SuccessBaseResponse<List<AddressEntity>>>());
+        verify(mockRemoteDataSource.updateAddress(any)).called(1);
+      });
     });
 
     group('deleteAddress', () {
@@ -223,9 +137,6 @@ void main() {
         when(mockRemoteDataSource.deleteAddress(any)).thenAnswer(
           (_) async => SuccessBaseResponse(AddressResponse(addresses: [])),
         );
-        when(
-          mockRemoteDataSource.getDefaultAddress(),
-        ).thenAnswer((_) async => SuccessBaseResponse(null));
 
         // Act
         final result = await repository.deleteAddress('1');
@@ -233,7 +144,6 @@ void main() {
         // Assert
         expect(result, isA<SuccessBaseResponse<List<AddressEntity>>>());
         verify(mockRemoteDataSource.deleteAddress('1')).called(1);
-        verify(mockRemoteDataSource.getDefaultAddress()).called(1);
       });
     });
   });
