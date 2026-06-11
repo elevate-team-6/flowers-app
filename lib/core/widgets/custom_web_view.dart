@@ -7,15 +7,15 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import 'custom_flower_loading.dart';
 
-class AppWebView extends StatefulWidget {
+class CustomWebView extends StatefulWidget {
   final String url;
-  const AppWebView({super.key, required this.url});
+  const CustomWebView({super.key, required this.url});
 
   @override
-  State<AppWebView> createState() => _AppWebViewState();
+  State<CustomWebView> createState() => _CustomWebViewState();
 }
 
-class _AppWebViewState extends State<AppWebView> {
+class _CustomWebViewState extends State<CustomWebView> {
   late final WebViewController _controller;
   bool _isLoading = true;
   bool _hasError = false;

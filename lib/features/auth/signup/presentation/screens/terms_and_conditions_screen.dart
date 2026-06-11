@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_end_points.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/core/widgets/app_web_view.dart';
+import 'package:flowers_app/core/widgets/custom_web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +21,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
       body: Column(
         children: [
           const Expanded(
-            child: AppWebView(url: AppEndPoints.termsAndConditionsUrl),
+            child: CustomWebView(url: AppEndPoints.termsAndConditionsUrl),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 24.h),
