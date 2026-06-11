@@ -9,10 +9,12 @@ import 'package:flowers_app/features/address/domain/use_cases/delete_address_use
 import 'package:flowers_app/features/address/domain/use_cases/get_addresses_use_case.dart';
 import 'package:flowers_app/features/address/domain/use_cases/get_cities_use_case.dart';
 import 'package:flowers_app/features/address/domain/use_cases/get_governorates_use_case.dart';
+import 'package:flowers_app/features/address/domain/use_cases/get_placemark_use_case.dart';
+import 'package:flowers_app/features/address/domain/use_cases/get_current_location_use_case.dart';
 import 'package:flowers_app/features/address/domain/use_cases/update_address_use_case.dart';
+import 'package:flowers_app/features/address/domain/utils/address_matcher.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
-import 'package:flowers_app/features/address/presentation/view_model/address_service.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -27,7 +29,9 @@ import 'address_cubit_test.mocks.dart';
   DeleteAddressUseCase,
   GetGovernoratesUseCase,
   GetCitiesUseCase,
-  AddressService,
+  GetPlacemarkUseCase,
+  GetCurrentLocationUseCase,
+  AddressMatcher,
 ])
 void main() {
   late MockGetAddressesUseCase mockGetAddressesUseCase;
@@ -36,7 +40,9 @@ void main() {
   late MockDeleteAddressUseCase mockDeleteAddressUseCase;
   late MockGetGovernoratesUseCase mockGetGovernoratesUseCase;
   late MockGetCitiesUseCase mockGetCitiesUseCase;
-  late MockAddressService mockAddressService;
+  late MockGetPlacemarkUseCase mockGetPlacemarkUseCase;
+  late MockGetCurrentLocationUseCase mockGetCurrentLocationUseCase;
+  late MockAddressMatcher mockAddressMatcher;
 
   const tAddress = AddressEntity(
     id: '1',
@@ -76,7 +82,9 @@ void main() {
     mockDeleteAddressUseCase = MockDeleteAddressUseCase();
     mockGetGovernoratesUseCase = MockGetGovernoratesUseCase();
     mockGetCitiesUseCase = MockGetCitiesUseCase();
-    mockAddressService = MockAddressService();
+    mockGetPlacemarkUseCase = MockGetPlacemarkUseCase();
+    mockGetCurrentLocationUseCase = MockGetCurrentLocationUseCase();
+    mockAddressMatcher = MockAddressMatcher();
   });
 
   AddressCubit buildCubit() => AddressCubit(
@@ -86,7 +94,9 @@ void main() {
     mockDeleteAddressUseCase,
     mockGetGovernoratesUseCase,
     mockGetCitiesUseCase,
-    mockAddressService,
+    mockGetPlacemarkUseCase,
+    mockGetCurrentLocationUseCase,
+    mockAddressMatcher,
   );
 
   group('Address Cubit Test Group', () {
@@ -180,7 +190,7 @@ void main() {
 
     group('InitEditAddressEvent', () {
       blocTest<AddressCubit, AddressStates>(
-        'initializes edit mode by matching names to IDs using AddressService',
+        'initializes edit mode by matching names to IDs using AddressMatcher',
         setUp: () {
           when(mockGetGovernoratesUseCase()).thenAnswer(
             (_) async => SuccessBaseResponse<List<GovernorateEntity>>([tGov]),
@@ -188,8 +198,8 @@ void main() {
           when(mockGetCitiesUseCase('1')).thenAnswer(
             (_) async => SuccessBaseResponse<List<CityEntity>>([tCity]),
           );
-          when(mockAddressService.matchGovernorate(any, any)).thenReturn('1');
-          when(mockAddressService.matchCityByName(any, any)).thenReturn('1');
+          when(mockAddressMatcher.matchGovernorate(any, any)).thenReturn('1');
+          when(mockAddressMatcher.matchCityByName(any, any)).thenReturn('1');
         },
         build: buildCubit,
         act: (cubit) => cubit.doEvent(const InitEditAddressEvent(tAddress)),
