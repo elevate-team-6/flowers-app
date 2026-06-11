@@ -17,15 +17,8 @@ class AddressRepoImpl implements AddressRepoContract {
 
   AddressRepoImpl(this._remoteDataSource, this._localDataSource);
 
-  Future<List<AddressEntity>> _mapAndSync(AddressResponse response) async {
+  List<AddressEntity> _mapToEntityList(AddressResponse response) {
     final models = response.addresses ?? [];
-
-    // Get default address from Firebase
-    final defaultResult = await _remoteDataSource.getDefaultAddress();
-    String? defaultId;
-    if (defaultResult is SuccessBaseResponse<AddressModel?>) {
-      defaultId = defaultResult.data?.id;
-    }
 
     return models.map((model) {
       String area = "";
@@ -47,7 +40,7 @@ class AddressRepoImpl implements AddressRepoContract {
         city: model.city ?? '',
         latitude: model.lat ?? '',
         longitude: model.long ?? '',
-        isDefault: model.id != null && model.id == defaultId,
+        isDefault: false, // Default logic removed as requested
       );
     }).toList();
   }
@@ -55,11 +48,14 @@ class AddressRepoImpl implements AddressRepoContract {
   @override
   Future<BaseResponse<List<AddressEntity>>> getAddresses() async {
     final response = await _remoteDataSource.getAddresses();
-    if (response is SuccessBaseResponse<AddressResponse>) {
-      final syncedList = await _mapAndSync(response.data);
-      return SuccessBaseResponse(syncedList);
-    }
-    return ErrorBaseResponse((response as ErrorBaseResponse).errorMessage);
+    return switch (response) {
+      SuccessBaseResponse<AddressResponse>() => SuccessBaseResponse(
+        _mapToEntityList(response.data),
+      ),
+      ErrorBaseResponse<AddressResponse>() => ErrorBaseResponse(
+        response.errorMessage,
+      ),
+    };
   }
 
   @override
@@ -70,7 +66,6 @@ class AddressRepoImpl implements AddressRepoContract {
       id: address.id,
       username: address.recipientName,
       phone: address.phoneNumber,
-      // Store Area and Street combined
       street:
           "${address.area}${AppConstants.addressDelimiter}${address.street}",
       city: address.city,
@@ -78,11 +73,14 @@ class AddressRepoImpl implements AddressRepoContract {
       long: address.longitude,
     );
     final response = await _remoteDataSource.addAddress(model);
-    if (response is SuccessBaseResponse<AddressResponse>) {
-      final syncedList = await _mapAndSync(response.data);
-      return SuccessBaseResponse(syncedList);
-    }
-    return ErrorBaseResponse((response as ErrorBaseResponse).errorMessage);
+    return switch (response) {
+      SuccessBaseResponse<AddressResponse>() => SuccessBaseResponse(
+        _mapToEntityList(response.data),
+      ),
+      ErrorBaseResponse<AddressResponse>() => ErrorBaseResponse(
+        response.errorMessage,
+      ),
+    };
   }
 
   @override
@@ -100,11 +98,14 @@ class AddressRepoImpl implements AddressRepoContract {
       long: address.longitude,
     );
     final response = await _remoteDataSource.updateAddress(model);
-    if (response is SuccessBaseResponse<AddressResponse>) {
-      final syncedList = await _mapAndSync(response.data);
-      return SuccessBaseResponse(syncedList);
-    }
-    return ErrorBaseResponse((response as ErrorBaseResponse).errorMessage);
+    return switch (response) {
+      SuccessBaseResponse<AddressResponse>() => SuccessBaseResponse(
+        _mapToEntityList(response.data),
+      ),
+      ErrorBaseResponse<AddressResponse>() => ErrorBaseResponse(
+        response.errorMessage,
+      ),
+    };
   }
 
   @override
@@ -112,58 +113,14 @@ class AddressRepoImpl implements AddressRepoContract {
     String addressId,
   ) async {
     final response = await _remoteDataSource.deleteAddress(addressId);
-    if (response is SuccessBaseResponse<AddressResponse>) {
-      final syncedList = await _mapAndSync(response.data);
-      return SuccessBaseResponse(syncedList);
-    }
-    return ErrorBaseResponse((response as ErrorBaseResponse).errorMessage);
-  }
-
-  @override
-  Future<BaseResponse<void>> setDefaultAddress(AddressEntity address) {
-    final model = AddressModel(
-      id: address.id,
-      username: address.recipientName,
-      phone: address.phoneNumber,
-      street:
-          "${address.area}${AppConstants.addressDelimiter}${address.street}",
-      city: address.city,
-      lat: address.latitude,
-      long: address.longitude,
-    );
-    return _remoteDataSource.setDefaultAddress(model);
-  }
-
-  @override
-  Future<BaseResponse<AddressEntity?>> getDefaultAddress() async {
-    final result = await _remoteDataSource.getDefaultAddress();
-    if (result is SuccessBaseResponse<AddressModel?>) {
-      final model = result.data;
-      if (model == null) return SuccessBaseResponse(null);
-
-      String area = "";
-      String street = model.street ?? "";
-      if (street.contains(AppConstants.addressDelimiter)) {
-        final parts = street.split(AppConstants.addressDelimiter);
-        area = parts[0];
-        street = parts.sublist(1).join(AppConstants.addressDelimiter);
-      }
-
-      return SuccessBaseResponse(
-        AddressEntity(
-          id: model.id,
-          recipientName: model.username ?? '',
-          phoneNumber: model.phone ?? '',
-          street: street,
-          area: area,
-          city: model.city ?? '',
-          latitude: model.lat ?? '',
-          longitude: model.long ?? '',
-          isDefault: true,
-        ),
-      );
-    }
-    return ErrorBaseResponse((result as ErrorBaseResponse).errorMessage);
+    return switch (response) {
+      SuccessBaseResponse<AddressResponse>() => SuccessBaseResponse(
+        _mapToEntityList(response.data),
+      ),
+      ErrorBaseResponse<AddressResponse>() => ErrorBaseResponse(
+        response.errorMessage,
+      ),
+    };
   }
 
   @override
