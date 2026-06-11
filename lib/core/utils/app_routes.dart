@@ -22,10 +22,16 @@ import 'package:flowers_app/features/product_details/presentation/cubit/product_
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/screens/edit_profile_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
+import 'package:flowers_app/features/profile/presentation/pages/about_us_screen.dart';
 import 'package:flowers_app/features/search/presentation/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/address/domain/entities/address_entity.dart';
+import '../../features/address/presentation/screens/add_address_screen.dart';
+import '../../features/address/presentation/screens/map_picker_screen.dart';
+import '../../features/address/presentation/screens/saved_addresses_screen.dart';
+import 'package:latlong2/latlong.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_event.dart';
 import '../../features/best_seller/presentation/screens/best_seller_screen.dart';
@@ -51,6 +57,8 @@ abstract class AppRoutes {
   static const String productDetails = '/productDetails';
   static const String ordersScreen = '/ordersScreen';
   static const String savedAddressScreen = '/savedAddressScreen';
+  static const String addAddressScreen = '/addAddressScreen';
+  static const String mapPicker = '/mapPicker';
   static const String notificationScreen = '/notificationScreen';
   static const String aboutUsScreen = '/aboutUsScreen';
   static const String editProfile = '/editProfile';
@@ -168,6 +176,22 @@ abstract class AppRoutes {
             child: EditProfileScreen(profileUser: user),
           ),
         );
+      case savedAddressScreen:
+        return MaterialPageRoute(builder: (_) => const SavedAddressesScreen());
+      case addAddressScreen:
+        final address = settings.arguments as AddressEntity?;
+        return MaterialPageRoute(
+          builder: (_) => AddAddressScreen(addressToEdit: address),
+        );
+
+      case mapPicker:
+        final LatLng initialLocation = settings.arguments as LatLng;
+        return MaterialPageRoute(
+          builder: (_) => MapPickerScreen(initialLocation: initialLocation),
+        );
+
+      case aboutUsScreen:
+        return MaterialPageRoute(builder: (_) => const AboutUsScreen());
 
       case orders:
         return MaterialPageRoute(

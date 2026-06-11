@@ -1,0 +1,105 @@
+require 'fileutils'
+
+default_platform(:android)
+
+platform :android do
+
+  desc "Build a debug APK for internal QA testing and upload to Firebase"
+  lane :dev do
+    # 1) اجلب اسم الـ branch من git
+    branch_name = sh("git rev-parse --abbrev-ref HEAD").strip
+    
+    # 2) اجلب الـ commit hash
+    commit_hash = sh("git rev-parse --short HEAD").strip
+    
+    # 3) اجلب وقت البناء
+    build_time = Time.now.strftime("%Y-%m-%d %H:%M:%S")
+    
+    # 4) زوّد الـ build number في pubspec.yaml
+    bump_build_number
+    
+    # 5) اطبع المعلومات
+    UI.message("📦 Branch: #{branch_name}")
+    UI.message("🔖 Commit: #{commit_hash}")
+    UI.message("🕐 Time: #{build_time}")
+    
+    # 6) ابني APK debug
+    gradle(
+      task: "assembleDebug",
+      project_dir: "."
+    )
+    
+    # 7) سمّي الـ APK باسم ذكي
+    apk_path = rename_apk(branch_name: branch_name, commit_hash: commit_hash)
+    
+    # 8) ارفع على Firebase App Distribution
+    upload_to_firebase(
+      apk_path: apk_path,
+      branch_name: branch_name,
+      commit_hash: commit_hash,
+      build_time: build_time
+    )
+    
+    UI.success("✅ Build complete and uploaded!")
+  end
+
+  # دالة مساعدة — تزوّد الـ build number في pubspec.yaml
+  private_lane :bump_build_number do
+    pubspec_path = File.expand_path("../../pubspec.yaml", __dir__)    
+    content = File.read(pubspec_path)
+    
+    new_content = content.sub(/version:\s+(\d+\.\d+\.\d+)\+(\d+)/) do |match|
+      version_name = $1
+      build_number = $2.to_i
+      new_build_number = build_number + 1
+      
+      UI.message("🔢 Build number: #{build_number} → #{new_build_number}")
+      
+      "version: #{version_name}+#{new_build_number}"
+    end
+    
+    File.write(pubspec_path, new_content)
+  end
+
+  # دالة مساعدة — تنسخ الـ APK باسم branch + commit
+  # ترجع مسار الـ APK الجديد
+  private_lane :rename_apk do |options|
+    branch_name = options[:branch_name]
+    commit_hash = options[:commit_hash]
+    
+    safe_branch_name = branch_name.gsub("/", "-")
+    
+    apk_folder = File.expand_path("../../build/app/outputs/flutter-apk", __dir__)
+    original_apk = "#{apk_folder}/app-debug.apk"
+    new_apk_name = "flowers-app-#{safe_branch_name}-#{commit_hash}-debug.apk"
+    new_apk_path = "#{apk_folder}/#{new_apk_name}"
+    
+    FileUtils.cp(original_apk, new_apk_path)
+    
+    UI.success("📱 APK saved as: #{new_apk_name}")
+    
+    # رجّع المسار عشان الـ lane التالية تستخدمه
+    new_apk_path
+  end
+
+  # دالة مساعدة — ترفع الـ APK على Firebase App Distribution
+  private_lane :upload_to_firebase do |options|
+    apk_path = options[:apk_path]
+    branch_name = options[:branch_name]
+    commit_hash = options[:commit_hash]
+    build_time = options[:build_time]
+    
+    UI.message("🚀 Uploading to Firebase App Distribution...")
+    
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],
+      service_credentials_file: ENV["FIREBASE_SERVICE_ACCOUNT_PATH"],
+      android_artifact_path: apk_path,
+      groups: "testers",
+      release_notes: "Branch: #{branch_name}\nCommit: #{commit_hash}\nBuilt at: #{build_time}"
+    )
+    
+    UI.success("☁️  Uploaded successfully!")
+  end
+
+end
