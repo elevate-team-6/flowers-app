@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'address_model.dart';
@@ -23,6 +24,10 @@ class AddressResponse extends Equatable {
       _$AddressResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$AddressResponseToJson(this);
+
+  List<AddressEntity> toEntity() {
+    return (addresses ?? []).map((model) => model.toEntity()).toList();
+  }
 
   @override
   List<Object?> get props => [message, addresses];

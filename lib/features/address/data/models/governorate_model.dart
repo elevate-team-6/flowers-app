@@ -4,15 +4,24 @@ import 'package:json_annotation/json_annotation.dart';
 part 'governorate_model.g.dart';
 
 @JsonSerializable()
-class GovernorateModel extends GovernorateEntity {
+class GovernorateModel {
+  final String id;
+  @JsonKey(name: 'governorate_name_ar')
+  final String nameAr;
+  @JsonKey(name: 'governorate_name_en')
+  final String nameEn;
+
   const GovernorateModel({
-    required super.id,
-    @JsonKey(name: 'governorate_name_ar') required super.nameAr,
-    @JsonKey(name: 'governorate_name_en') required super.nameEn,
+    required this.id,
+    required this.nameAr,
+    required this.nameEn,
   });
 
   factory GovernorateModel.fromJson(Map<String, dynamic> json) =>
       _$GovernorateModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$GovernorateModelToJson(this);
+
+  GovernorateEntity toEntity() =>
+      GovernorateEntity(id: id, nameAr: nameAr, nameEn: nameEn);
 }
