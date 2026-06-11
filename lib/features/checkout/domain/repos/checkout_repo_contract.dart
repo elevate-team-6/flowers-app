@@ -11,4 +11,5 @@ abstract interface class CheckoutRepoContract {
     String cartId,
     CheckoutRequest request,
   );
+    int getDeliveryDays();
 }

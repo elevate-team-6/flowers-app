@@ -20,7 +20,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await RemoteConfigService.init();
+await getIt<RemoteConfigService>().init();
   configureDependencies();
 
   // Initialize Hive

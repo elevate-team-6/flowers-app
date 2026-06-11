@@ -242,6 +242,7 @@ abstract class AppStrings {
   static const String paymentWasNotCompleted= 'Payment was not completed';
   static const String paymentCompletedSuccessfully = 'Payment completed successfully';
   static const String enterThePhoneNumber = 'Enter The Phone Number';
+  static const String deliveryDays = 'delivery_days';
 
   // ===========================================================================
   // API Constants (Values sent directly to Backend - Do NOT Translate)

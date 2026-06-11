@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowers_app/config/services/remote_config_service.dart';
+import 'package:flowers_app/config/helpers/date_time_extension.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
@@ -8,18 +8,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CheckoutDeliverySection extends StatelessWidget {
-  const CheckoutDeliverySection({super.key});
+    final int deliveryDays;
+
+  const CheckoutDeliverySection({super.key,required this.deliveryDays});
 
   @override
   Widget build(BuildContext context) {
     final deliveryDate = DateTime.now().add(
-      Duration(days: RemoteConfigService.deliveryDays),
+      Duration(days: deliveryDays),
     );
 
-    final formattedDate = DateFormat(
-      'dd MMM',
-      context.locale.languageCode,
-    ).format(deliveryDate);
+    final formattedDate = deliveryDate.formatDeliveryDate(
+  context.locale.languageCode,
+);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

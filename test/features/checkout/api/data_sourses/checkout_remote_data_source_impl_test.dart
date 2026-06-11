@@ -1,4 +1,5 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/config/services/remote_config_service.dart';
 import 'package:flowers_app/features/checkout/api/checkout_api_client/checkout_api_client.dart';
 import 'package:flowers_app/features/checkout/api/data_sourses/checkout_remote_data_source_impl.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_requests/checkout_request.dart';
@@ -13,10 +14,14 @@ import 'package:mockito/mockito.dart';
 
 import 'checkout_remote_data_source_impl_test.mocks.dart';
 
-@GenerateMocks([CheckoutApiClient])
+@GenerateMocks([
+  CheckoutApiClient,
+  RemoteConfigService,
+])
 void main() {
   late CheckoutRemoteDataSourceImpl remoteDataSource;
   late MockCheckoutApiClient mockApiClient;
+  late MockRemoteConfigService mockRemoteConfig;
 
   const dummyOrderModel = OrderModel(
     id: '1',
@@ -36,9 +41,14 @@ void main() {
     url: 'https://test.com',
   );
 
-  setUpAll(() {
+  setUp(() {
     mockApiClient = MockCheckoutApiClient();
-    remoteDataSource = CheckoutRemoteDataSourceImpl(mockApiClient);
+    mockRemoteConfig = MockRemoteConfigService();
+
+    remoteDataSource = CheckoutRemoteDataSourceImpl(
+      mockApiClient,
+      mockRemoteConfig,
+    );
   });
 
   group('CheckoutRemoteDataSourceImpl', () {
@@ -50,7 +60,9 @@ void main() {
           addresses: [],
         );
 
-        when(mockApiClient.addresses()).thenAnswer((_) async => dummyResponse);
+        when(
+          mockApiClient.addresses(),
+        ).thenAnswer((_) async => dummyResponse);
 
         final result = await remoteDataSource.addresses();
 
@@ -110,11 +122,16 @@ void main() {
           mockApiClient.cardCheckout(any, request),
         ).thenAnswer((_) async => dummyResponse);
 
-        final result = await remoteDataSource.cardCheckout(cartId, request);
+        final result = await remoteDataSource.cardCheckout(
+          cartId,
+          request,
+        );
 
         expect(result, isA<SuccessBaseResponse<CardCheckoutResponse>>());
 
-        verify(mockApiClient.cardCheckout(any, request)).called(1);
+        verify(
+          mockApiClient.cardCheckout(any, request),
+        ).called(1);
       },
     );
   });

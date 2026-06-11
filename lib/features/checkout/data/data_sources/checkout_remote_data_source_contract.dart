@@ -11,4 +11,5 @@ abstract interface class CheckoutRemoteDataSourceContract {
     String cartId,
     CheckoutRequest request,
   );
+   int getDeliveryDays();
 }

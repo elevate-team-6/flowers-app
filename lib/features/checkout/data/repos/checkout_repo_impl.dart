@@ -57,4 +57,8 @@ class CheckoutRepoImpl implements CheckoutRepoContract {
         return ErrorBaseResponse(response.errorMessage);
     }
   }
+    @override
+  int getDeliveryDays() {
+    return _checkoutRemoteDataSource.getDeliveryDays();
+  }
 }

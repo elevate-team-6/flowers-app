@@ -11,6 +11,7 @@ class CheckoutStates extends Equatable {
   final AddressEntity? selectedAddress;
   final String? selectedPaymentMethod;
   final bool isGift;
+  final int deliveryDays;
   const CheckoutStates({
     this.addressesState = const BaseState(),
     this.cardCheckoutState = const BaseState(),
@@ -18,6 +19,7 @@ class CheckoutStates extends Equatable {
     this.selectedAddress,
     this.selectedPaymentMethod,
     this.isGift = false,
+    this.deliveryDays = 2,
   });
   CheckoutStates copyWith({
     BaseState<List<AddressEntity>>? addressesState,
@@ -26,6 +28,7 @@ class CheckoutStates extends Equatable {
     AddressEntity? selectedAddress,
     String? selectedPaymentMethod,
     final bool? isGift,
+    int? deliveryDays,
   }) {
     return CheckoutStates(
       addressesState: addressesState ?? this.addressesState,
@@ -35,6 +38,7 @@ class CheckoutStates extends Equatable {
       selectedPaymentMethod:
           selectedPaymentMethod ?? this.selectedPaymentMethod,
       isGift: isGift ?? this.isGift,
+      deliveryDays: deliveryDays ?? this.deliveryDays,
     );
   }
 
@@ -46,5 +50,6 @@ class CheckoutStates extends Equatable {
     selectedAddress,
     selectedPaymentMethod,
     isGift,
+    deliveryDays,
   ];
 }

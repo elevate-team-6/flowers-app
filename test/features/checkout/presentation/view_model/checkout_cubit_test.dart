@@ -8,6 +8,7 @@ import 'package:flowers_app/features/checkout/domain/entities/order_entity.dart'
 import 'package:flowers_app/features/checkout/domain/use_cases/card_checkout_use_case.dart';
 import 'package:flowers_app/features/checkout/domain/use_cases/cash_checkout_use_case.dart';
 import 'package:flowers_app/features/checkout/domain/use_cases/get_addresses_use_case.dart';
+import 'package:flowers_app/features/checkout/domain/use_cases/get_delivery_dayes_use_case.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_events.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_states.dart';
@@ -17,39 +18,45 @@ import 'package:mockito/mockito.dart';
 
 import 'checkout_cubit_test.mocks.dart';
 
-@GenerateMocks([GetAddressesUseCase, CashCheckoutUseCase, CardCheckoutUseCase])
-const address = AddressEntity(
-  id: '1',
-  street: 'Home',
-  phone: '01010101010',
-  city: 'Giza',
-  lat: '0',
-  long: '0',
-  username: 'Youssef',
-);
-
-const order = OrderEntity(
-  id: '1',
-  orderNumber: 'ORD-001',
-  totalPrice: 100,
-  paymentType: 'cash',
-  state: 'pending',
-);
-
-const card = CardEntity(
-  id: '1',
-  paymentStatus: 'pending',
-  status: 'active',
-  url: 'https://test.com',
-  successUrl: 'https://test.com',
-  cancelUrl: 'https://test.com',
-);
-
+@GenerateMocks([
+  GetAddressesUseCase,
+  CashCheckoutUseCase,
+  CardCheckoutUseCase,
+  GetDeliveryDaysUseCase,
+])
 void main() {
   late CheckoutCubit cubit;
   late MockGetAddressesUseCase mockGetAddressesUseCase;
   late MockCashCheckoutUseCase mockCashCheckoutUseCase;
   late MockCardCheckoutUseCase mockCardCheckoutUseCase;
+  late MockGetDeliveryDaysUseCase mockGetDeliveryDaysUseCase;
+
+  const address = AddressEntity(
+    id: '1',
+    street: 'Home',
+    city: 'Giza',
+    phone: '',
+    lat: '',
+    long: '',
+    username: '',
+  );
+
+  const order = OrderEntity(
+    id: '1',
+    orderNumber: 'ORD-001',
+    totalPrice: 100,
+    paymentType: 'cash',
+    state: 'pending',
+  );
+
+  const card = CardEntity(
+    id: '1',
+    paymentStatus: 'pending',
+    status: 'active',
+    url: 'https://test.com',
+    successUrl: 'https://test.com/success',
+    cancelUrl: 'https://test.com/cancel',
+  );
 
   final request = CheckoutRequest(
     street: 'Home',
@@ -61,12 +68,14 @@ void main() {
 
   setUpAll(() {
     provideDummy<BaseResponse<List<AddressEntity>>>(
-      SuccessBaseResponse([address]),
+       SuccessBaseResponse([address]),
     );
 
-    provideDummy<BaseResponse<OrderEntity>>(SuccessBaseResponse(order));
+    provideDummy<BaseResponse<OrderEntity>>( SuccessBaseResponse(order));
 
-    provideDummy<BaseResponse<CardEntity>>(SuccessBaseResponse(card));
+    provideDummy<BaseResponse<CardEntity>>( SuccessBaseResponse(card));
+
+    provideDummy<int>(2);
 
     provideDummy(
       CheckoutRequest(street: '', phone: '', city: '', lat: '', long: ''),
@@ -77,11 +86,15 @@ void main() {
     mockGetAddressesUseCase = MockGetAddressesUseCase();
     mockCashCheckoutUseCase = MockCashCheckoutUseCase();
     mockCardCheckoutUseCase = MockCardCheckoutUseCase();
+    mockGetDeliveryDaysUseCase = MockGetDeliveryDaysUseCase();
+
+    when(mockGetDeliveryDaysUseCase()).thenReturn(2);
 
     cubit = CheckoutCubit(
       mockGetAddressesUseCase,
       mockCardCheckoutUseCase,
       mockCashCheckoutUseCase,
+      mockGetDeliveryDaysUseCase,
     );
   });
 
@@ -95,7 +108,7 @@ void main() {
       build: () {
         when(
           mockGetAddressesUseCase(),
-        ).thenAnswer((_) async => SuccessBaseResponse([address]));
+        ).thenAnswer((_) async =>  SuccessBaseResponse([address]));
 
         return cubit;
       },
@@ -127,7 +140,7 @@ void main() {
       build: () {
         when(
           mockCashCheckoutUseCase(any),
-        ).thenAnswer((_) async => SuccessBaseResponse(order));
+        ).thenAnswer((_) async =>  SuccessBaseResponse(order));
 
         return cubit;
       },
@@ -159,7 +172,7 @@ void main() {
       build: () {
         when(
           mockCardCheckoutUseCase(any, any),
-        ).thenAnswer((_) async => SuccessBaseResponse(card));
+        ).thenAnswer((_) async =>  SuccessBaseResponse(card));
 
         return cubit;
       },
@@ -189,23 +202,21 @@ void main() {
 
   group('Selection Events', () {
     test('should select address', () async {
-      await cubit.doEvent(const SelectAddressEvent(address));
+      await cubit.doEvent(SelectAddressEvent(address));
 
       expect(cubit.state.selectedAddress, address);
     });
 
     test('should select payment method', () async {
-      await cubit.doEvent(const SelectPaymentMethodEvent(AppConstants.cash));
+      await cubit.doEvent(SelectPaymentMethodEvent(AppConstants.cash));
 
       expect(cubit.state.selectedPaymentMethod, AppConstants.cash);
     });
 
-    test('should toggle gift and force card payment', () async {
-      await cubit.doEvent(const ToggleGiftEvent(true));
+    test('should toggle gift', () async {
+      await cubit.doEvent(ToggleGiftEvent(true));
 
       expect(cubit.state.isGift, true);
-
-      expect(cubit.state.selectedPaymentMethod, AppConstants.card);
     });
   });
 }

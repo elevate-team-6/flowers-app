@@ -7,6 +7,7 @@ import 'package:flowers_app/features/checkout/domain/entities/order_entity.dart'
 import 'package:flowers_app/features/checkout/domain/use_cases/card_checkout_use_case.dart';
 import 'package:flowers_app/features/checkout/domain/use_cases/cash_checkout_use_case.dart';
 import 'package:flowers_app/features/checkout/domain/use_cases/get_addresses_use_case.dart';
+import 'package:flowers_app/features/checkout/domain/use_cases/get_delivery_dayes_use_case.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_events.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,11 +19,13 @@ class CheckoutCubit extends Cubit<CheckoutStates> {
     this._addressesUseCase,
     this._cardCheckoutUseCase,
     this._cashCheckoutUseCase,
+    this._getDeliveryDaysUseCase
   ) : super(const CheckoutStates());
 
   final GetAddressesUseCase _addressesUseCase;
   final CashCheckoutUseCase _cashCheckoutUseCase;
   final CardCheckoutUseCase _cardCheckoutUseCase;
+  final GetDeliveryDaysUseCase _getDeliveryDaysUseCase;
 
   Future<void> doEvent(CheckoutEvent event) async {
     switch (event) {
@@ -46,6 +49,9 @@ class CheckoutCubit extends Cubit<CheckoutStates> {
       case ToggleGiftEvent():
         _toggleGift(event.isGift);
         return;
+      case LoadDeliveryDaysEvent():
+       _loadDeliveryDays();
+  return;
     }
   }
 
@@ -172,4 +178,11 @@ class CheckoutCubit extends Cubit<CheckoutStates> {
   void _toggleGift(bool isGift) {
     emit(state.copyWith(isGift: isGift));
   }
+  void _loadDeliveryDays() {
+  emit(
+    state.copyWith(
+      deliveryDays: _getDeliveryDaysUseCase(),
+    ),
+  );
+}
 }

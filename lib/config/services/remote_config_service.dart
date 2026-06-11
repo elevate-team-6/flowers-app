@@ -1,21 +1,24 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class RemoteConfigService {
-  static final FirebaseRemoteConfig _remoteConfig =
+   final FirebaseRemoteConfig _remoteConfig =
       FirebaseRemoteConfig.instance;
 
-  static Future<void> init() async {
-    await _remoteConfig.setDefaults({'delivery_days': 2});
+   Future<void> init() async {
+    await _remoteConfig.setDefaults({AppStrings.deliveryDays: 2});
 
     await _remoteConfig.setConfigSettings(
       RemoteConfigSettings(
         fetchTimeout: const Duration(seconds: 30),
-        minimumFetchInterval: Duration.zero,
+        minimumFetchInterval: Duration(minutes: 30),
       ),
     );
 
     await _remoteConfig.fetchAndActivate();
   }
 
-  static int get deliveryDays => _remoteConfig.getInt('delivery_days');
+   int get deliveryDays => _remoteConfig.getInt('delivery_days');
 }

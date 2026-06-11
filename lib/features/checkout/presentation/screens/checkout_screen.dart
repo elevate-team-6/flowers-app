@@ -121,7 +121,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    const CheckoutDeliverySection(),
+                     CheckoutDeliverySection(deliveryDays: state.deliveryDays,),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 24),
                       child: Divider(

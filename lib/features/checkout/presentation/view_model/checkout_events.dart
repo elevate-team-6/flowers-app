@@ -38,3 +38,4 @@ class ToggleGiftEvent extends CheckoutEvent {
 
   const ToggleGiftEvent(this.isGift);
 }
+class LoadDeliveryDaysEvent extends CheckoutEvent {}
