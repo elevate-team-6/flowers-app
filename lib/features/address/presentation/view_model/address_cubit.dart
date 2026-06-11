@@ -10,9 +10,9 @@ import 'package:flowers_app/features/address/domain/use_cases/get_cities_use_cas
 import 'package:flowers_app/features/address/domain/use_cases/get_governorates_use_case.dart';
 import 'package:flowers_app/features/address/domain/use_cases/update_address_use_case.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_service.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:injectable/injectable.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -24,6 +24,7 @@ class AddressCubit extends Cubit<AddressStates> {
   final DeleteAddressUseCase _deleteAddressUseCase;
   final GetGovernoratesUseCase _getGovernoratesUseCase;
   final GetCitiesUseCase _getCitiesUseCase;
+  final AddressService _addressService;
 
   AddressCubit(
     this._getAddressesUseCase,
@@ -32,6 +33,7 @@ class AddressCubit extends Cubit<AddressStates> {
     this._deleteAddressUseCase,
     this._getGovernoratesUseCase,
     this._getCitiesUseCase,
+    this._addressService,
   ) : super(const AddressStates());
 
   void doEvent(AddressEvent event) {
@@ -65,6 +67,28 @@ class AddressCubit extends Cubit<AddressStates> {
       await _onGetGovernorates();
     }
 
+    final govs = state.governoratesState.data;
+    if (govs == null) return;
+
+    // 2. Local variables to hold data before single emit
+    String? matchedGovId;
+    String? matchedCityId;
+    List<CityEntity>? cities;
+
+    // Match Governorate
+    matchedGovId = _addressService.matchGovernorate(govs, address.city);
+
+    if (matchedGovId != null) {
+      // Load cities for this gov
+      final citiesResult = await _getCitiesUseCase(matchedGovId);
+      if (citiesResult is SuccessBaseResponse<List<CityEntity>>) {
+        cities = citiesResult.data;
+        // Match City
+        matchedCityId = _addressService.matchCityByName(cities, address.area);
+      }
+    }
+
+    // 3. Single Emit for everything (Efficiency)
     final double? lat = double.tryParse(address.latitude);
     final double? long = double.tryParse(address.longitude);
 
@@ -74,166 +98,118 @@ class AddressCubit extends Cubit<AddressStates> {
             ? LatLng(lat, long)
             : null,
         autoAddressDetails: address.street,
+        selectedGovernorateId: matchedGovId,
+        selectedCityId: matchedCityId,
+        citiesState: cities != null
+            ? BaseState(isLoading: false, data: cities)
+            : state.citiesState,
       ),
     );
-
-    // Match Governorate and City to select them in dropdowns
-    final govs = state.governoratesState.data;
-    if (govs != null) {
-      try {
-        final matchedGov = govs.firstWhere(
-          (g) =>
-              g.nameEn.toLowerCase() == address.city.toLowerCase() ||
-              g.nameAr == address.city,
-        );
-
-        emit(state.copyWith(selectedGovernorateId: matchedGov.id));
-
-        // 2. Load cities for this gov
-        await _onGetCities(matchedGov.id);
-
-        final cities = state.citiesState.data;
-        if (cities != null) {
-          try {
-            final matchedCity = cities.firstWhere(
-              (c) =>
-                  c.nameEn.toLowerCase() == address.area.toLowerCase() ||
-                  c.nameAr == address.area,
-            );
-            emit(state.copyWith(selectedCityId: matchedCity.id));
-          } catch (_) {}
-        }
-      } catch (_) {}
-    }
   }
 
   Future<void> _onGetAddresses() async {
     emit(state.copyWith(addressesState: const BaseState(isLoading: true)));
     final result = await _getAddressesUseCase();
-    if (result is SuccessBaseResponse<List<AddressEntity>>) {
-      emit(
-        state.copyWith(
-          addressesState: BaseState(isLoading: false, data: result.data),
+
+    emit(switch (result) {
+      SuccessBaseResponse<List<AddressEntity>>() => state.copyWith(
+        addressesState: BaseState(isLoading: false, data: result.data),
+      ),
+      ErrorBaseResponse<List<AddressEntity>>() => state.copyWith(
+        addressesState: BaseState(
+          isLoading: false,
+          errorMessage: result.errorMessage,
         ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          addressesState: BaseState(
-            isLoading: false,
-            errorMessage: (result as ErrorBaseResponse).errorMessage,
-          ),
-        ),
-      );
-    }
+      ),
+    });
   }
 
   Future<void> _onAddAddress(AddressEntity address) async {
     emit(state.copyWith(actionState: const BaseState(isLoading: true)));
     final result = await _addAddressUseCase(address);
-    if (result is SuccessBaseResponse<List<AddressEntity>>) {
-      emit(
-        state.copyWith(
-          actionState: const BaseState(isLoading: false, data: true),
-          addressesState: BaseState(isLoading: false, data: result.data),
+
+    emit(switch (result) {
+      SuccessBaseResponse<List<AddressEntity>>() => state.copyWith(
+        actionState: const BaseState(isLoading: false, data: true),
+        addressesState: BaseState(isLoading: false, data: result.data),
+      ),
+      ErrorBaseResponse<List<AddressEntity>>() => state.copyWith(
+        actionState: BaseState(
+          isLoading: false,
+          errorMessage: result.errorMessage,
         ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          actionState: BaseState(
-            isLoading: false,
-            errorMessage: (result as ErrorBaseResponse).errorMessage,
-          ),
-        ),
-      );
-    }
+      ),
+    });
   }
 
   Future<void> _onUpdateAddress(AddressEntity address) async {
     emit(state.copyWith(actionState: const BaseState(isLoading: true)));
     final result = await _updateAddressUseCase(address);
-    if (result is SuccessBaseResponse<List<AddressEntity>>) {
-      emit(
-        state.copyWith(
-          actionState: const BaseState(isLoading: false, data: true),
-          addressesState: BaseState(isLoading: false, data: result.data),
+
+    emit(switch (result) {
+      SuccessBaseResponse<List<AddressEntity>>() => state.copyWith(
+        actionState: const BaseState(isLoading: false, data: true),
+        addressesState: BaseState(isLoading: false, data: result.data),
+      ),
+      ErrorBaseResponse<List<AddressEntity>>() => state.copyWith(
+        actionState: BaseState(
+          isLoading: false,
+          errorMessage: result.errorMessage,
         ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          actionState: BaseState(
-            isLoading: false,
-            errorMessage: (result as ErrorBaseResponse).errorMessage,
-          ),
-        ),
-      );
-    }
+      ),
+    });
   }
 
   Future<void> _onDeleteAddress(String addressId) async {
     emit(state.copyWith(actionState: const BaseState(isLoading: true)));
     final result = await _deleteAddressUseCase(addressId);
-    if (result is SuccessBaseResponse<List<AddressEntity>>) {
-      emit(
-        state.copyWith(
-          actionState: const BaseState(isLoading: false, data: true),
-          addressesState: BaseState(isLoading: false, data: result.data),
+
+    emit(switch (result) {
+      SuccessBaseResponse<List<AddressEntity>>() => state.copyWith(
+        actionState: const BaseState(isLoading: false, data: true),
+        addressesState: BaseState(isLoading: false, data: result.data),
+      ),
+      ErrorBaseResponse<List<AddressEntity>>() => state.copyWith(
+        actionState: BaseState(
+          isLoading: false,
+          errorMessage: result.errorMessage,
         ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          actionState: BaseState(
-            isLoading: false,
-            errorMessage: (result as ErrorBaseResponse).errorMessage,
-          ),
-        ),
-      );
-    }
+      ),
+    });
   }
 
   Future<void> _onGetGovernorates() async {
     emit(state.copyWith(governoratesState: const BaseState(isLoading: true)));
     final result = await _getGovernoratesUseCase();
-    if (result is SuccessBaseResponse<List<GovernorateEntity>>) {
-      emit(
-        state.copyWith(
-          governoratesState: BaseState(isLoading: false, data: result.data),
+
+    emit(switch (result) {
+      SuccessBaseResponse<List<GovernorateEntity>>() => state.copyWith(
+        governoratesState: BaseState(isLoading: false, data: result.data),
+      ),
+      ErrorBaseResponse<List<GovernorateEntity>>() => state.copyWith(
+        governoratesState: BaseState(
+          isLoading: false,
+          errorMessage: result.errorMessage,
         ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          governoratesState: BaseState(
-            isLoading: false,
-            errorMessage: (result as ErrorBaseResponse).errorMessage,
-          ),
-        ),
-      );
-    }
+      ),
+    });
   }
 
   Future<void> _onGetCities(String governorateId) async {
     emit(state.copyWith(citiesState: const BaseState(isLoading: true)));
     final result = await _getCitiesUseCase(governorateId);
-    if (result is SuccessBaseResponse<List<CityEntity>>) {
-      emit(
-        state.copyWith(
-          citiesState: BaseState(isLoading: false, data: result.data),
+
+    emit(switch (result) {
+      SuccessBaseResponse<List<CityEntity>>() => state.copyWith(
+        citiesState: BaseState(isLoading: false, data: result.data),
+      ),
+      ErrorBaseResponse<List<CityEntity>>() => state.copyWith(
+        citiesState: BaseState(
+          isLoading: false,
+          errorMessage: result.errorMessage,
         ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          citiesState: BaseState(
-            isLoading: false,
-            errorMessage: (result as ErrorBaseResponse).errorMessage,
-          ),
-        ),
-      );
-    }
+      ),
+    });
   }
 
   void _onGovernorateChanged(String? governorateId) {
@@ -241,7 +217,7 @@ class AddressCubit extends Cubit<AddressStates> {
       state.copyWith(
         selectedGovernorateId: governorateId,
         resetCity: true,
-        citiesState: const BaseState(), // Clear previous cities
+        citiesState: const BaseState(),
       ),
     );
     if (governorateId != null) {
@@ -249,90 +225,55 @@ class AddressCubit extends Cubit<AddressStates> {
     }
   }
 
-  Future<void> _onMapLocationPicked(dynamic location) async {
-    emit(state.copyWith(selectedLocation: location));
+  Future<void> _onMapLocationPicked(LatLng location) async {
+    // 1. Initial emit for location and loading state
+    emit(
+      state.copyWith(
+        selectedLocation: location,
+        citiesState: const BaseState(isLoading: true),
+      ),
+    );
+
     try {
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-        location.latitude,
-        location.longitude,
-      );
+      // 2. Get Placemark from Service (Architecture: Cubit doesn't talk to Geocoding)
+      final place = await _addressService.getPlacemarkFromLocation(location);
+      if (place == null) throw Exception("Could not find address");
 
-      if (placemarks.isNotEmpty) {
-        final place = placemarks.first;
-        final streetAddress =
-            "${place.street ?? ''}, ${place.subLocality ?? ''}, ${place.locality ?? ''}";
+      final streetAddress = _addressService.formatPlacemark(place);
 
-        String? matchedGovId;
-        String? matchedCityId;
+      String? matchedGovId;
+      String? matchedCityId;
+      List<CityEntity>? cities;
 
-        if (state.governoratesState.data != null) {
-          try {
-            final matchedGov = state.governoratesState.data!.firstWhere(
-              (gov) =>
-                  place.administrativeArea?.toLowerCase().contains(
-                    gov.nameEn.toLowerCase(),
-                  ) ??
-                  false,
-            );
-            matchedGovId = matchedGov.id;
-
-            // Always fetch cities if we found a governorate to enable the Area dropdown
-            emit(
-              state.copyWith(
-                selectedGovernorateId: matchedGovId,
-                citiesState: const BaseState(isLoading: true),
-              ),
-            );
-
-            final citiesResult = await _getCitiesUseCase(matchedGovId);
-            if (citiesResult is SuccessBaseResponse<List<CityEntity>>) {
-              try {
-                matchedCityId = citiesResult.data
-                    .firstWhere(
-                      (city) =>
-                          (place.subAdministrativeArea?.toLowerCase().contains(
-                                city.nameEn.toLowerCase(),
-                              ) ??
-                              false) ||
-                          (place.locality?.toLowerCase().contains(
-                                city.nameEn.toLowerCase(),
-                              ) ??
-                              false) ||
-                          (place.subLocality?.toLowerCase().contains(
-                                city.nameEn.toLowerCase(),
-                              ) ??
-                              false),
-                    )
-                    .id;
-              } catch (_) {}
-
-              emit(
-                state.copyWith(
-                  autoAddressDetails: streetAddress,
-                  selectedCityId: matchedCityId,
-                  citiesState: BaseState(
-                    isLoading: false,
-                    data: citiesResult.data,
-                  ),
-                ),
-              );
-              return; // Exit after successful update
-            }
-          } catch (_) {}
-        }
-
-        // Fallback if governorate not matched or cities fetch failed
-        emit(
-          state.copyWith(
-            autoAddressDetails: streetAddress,
-            selectedGovernorateId: matchedGovId,
-            selectedCityId: matchedCityId,
-          ),
+      // 3. Match Governorate
+      if (state.governoratesState.data != null) {
+        matchedGovId = _addressService.matchGovernorate(
+          state.governoratesState.data!,
+          place.administrativeArea,
         );
+
+        if (matchedGovId != null) {
+          // 4. Load Cities
+          final citiesResult = await _getCitiesUseCase(matchedGovId);
+          if (citiesResult is SuccessBaseResponse<List<CityEntity>>) {
+            cities = citiesResult.data;
+            matchedCityId = _addressService.matchCity(cities, place);
+          }
+        }
       }
+
+      emit(
+        state.copyWith(
+          autoAddressDetails: streetAddress,
+          selectedGovernorateId: matchedGovId,
+          selectedCityId: matchedCityId,
+          citiesState: BaseState(isLoading: false, data: cities),
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
+          citiesState: const BaseState(isLoading: false),
           actionState: BaseState(isLoading: false, errorMessage: e.toString()),
         ),
       );
