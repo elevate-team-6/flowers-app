@@ -17,6 +17,10 @@ abstract class AppConstants {
   static const String addressDelimiter = " | ";
   static const String governoratesJsonPath = 'assets/json/governorates.json';
   static const String citiesJsonPath = 'assets/json/cities.json';
+  static const String jsonNameKey = 'name';
+  static const String jsonDataKey = 'data';
+  static const String governoratesKey = 'governorates';
+  static const String citiesKey = 'cities';
 
   // Map Constants
   static const double defaultLatitude = 30.0444;

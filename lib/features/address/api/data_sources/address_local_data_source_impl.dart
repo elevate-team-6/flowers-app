@@ -20,8 +20,10 @@ class AddressLocalDataSourceImpl implements AddressLocalDataSourceContract {
 
       final governoratesData =
           data.firstWhere(
-                (element) => element['name'] == 'governorates',
-              )['data']
+                (element) =>
+                    element[AppConstants.jsonNameKey] ==
+                    AppConstants.governoratesKey,
+              )[AppConstants.jsonDataKey]
               as List;
 
       final governorates = governoratesData
@@ -42,7 +44,10 @@ class AddressLocalDataSourceImpl implements AddressLocalDataSourceContract {
       final List<dynamic> data = json.decode(response);
 
       final citiesData =
-          data.firstWhere((element) => element['name'] == 'cities')['data']
+          data.firstWhere(
+                (element) =>
+                    element[AppConstants.jsonNameKey] == AppConstants.citiesKey,
+              )[AppConstants.jsonDataKey]
               as List;
 
       final cities = citiesData
