@@ -16,6 +16,7 @@ class AddressRepoDetailsImpl implements AddressDetailsRepoContrect{
     if (response is SuccessBaseResponse<AddressResponse>) {
       // final syncedList = await _mapAndSync(response.data);
       // return SuccessBaseResponse(syncedList);
+       return  SuccessBaseResponse([]);
     }
     return ErrorBaseResponse((response as ErrorBaseResponse).errorMessage);
   }

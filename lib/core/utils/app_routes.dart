@@ -54,6 +54,7 @@ abstract class AppRoutes {
   static const String aboutUsScreen = '/aboutUsScreen';
   static const String editProfile = '/editProfile';
   static const String search = '/search';
+  static const String addAddressScreen = '/addAddressScreen';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {

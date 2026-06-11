@@ -140,6 +140,7 @@ abstract class AppStrings {
   static const String categories = 'categories';
   static const String cart = 'cart';
   static const String profile = 'profile';
+  static const String addNewAddress= 'Add New Address';
 
   // Products
   static const String addToCart = 'addToCart';
