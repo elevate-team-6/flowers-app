@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/core/extensions/date_time_extensions.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/utils/app_theme.dart';
 import 'package:flowers_app/features/orders/domain/entities/order_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -91,7 +93,7 @@ class OrderCard extends StatelessWidget {
                   Text(
                     order.isActive
                         ? '${AppStrings.orderNumber.tr()} ${order.orderNumber}'
-                        : '${AppStrings.deliveredOn.tr()} ${_formatDate(order.updatedAt)}',
+                        : '${AppStrings.deliveredOn.tr()} ${order.updatedAt.toShortDate()}',
                     style: AppTextStyles.gray12400.copyWith(
                       fontSize: 12.sp,
                       color: AppColors.white90,
@@ -103,22 +105,11 @@ class OrderCard extends StatelessWidget {
                     height: 32.h,
                     child: ElevatedButton(
                       onPressed: onActionPressed,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.r),
-                        ),
-                        padding: EdgeInsets.zero,
-                      ),
+                      style: AppTheme.secondaryButtonStyle,
                       child: Text(
                         order.isActive
                             ? AppStrings.trackOrder.tr()
                             : AppStrings.reorder.tr(),
-                        style: AppTextStyles.black14400.copyWith(
-                          color: AppColors.white,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                   ),
@@ -129,23 +120,5 @@ class OrderCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String _formatDate(DateTime date) {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return '${date.day}${months[date.month - 1]} ${date.year}';
   }
 }

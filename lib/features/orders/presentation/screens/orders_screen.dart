@@ -40,17 +40,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
           ),
           title: Text(AppStrings.myOrders.tr()),
           bottom: TabBar(
-            tabAlignment: TabAlignment.fill,
-            labelColor: AppColors.primary,
-            unselectedLabelColor: AppColors.white90,
-            labelStyle: AppTextStyles.black14400.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-            dividerColor: AppColors.black10,
-            dividerHeight: 2,
-            indicatorColor: AppColors.primary,
-            indicatorWeight: 3,
-            indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
               Tab(text: AppStrings.active.tr()),
               Tab(text: AppStrings.completed.tr()),

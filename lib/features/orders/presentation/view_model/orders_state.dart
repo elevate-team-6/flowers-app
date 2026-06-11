@@ -5,34 +5,36 @@ enum OrdersStatus { initial, loading, success, failure }
 
 class OrdersState extends Equatable {
   final OrdersStatus status;
-  final List<OrderEntity> orders;
+  final List<OrderEntity> activeOrders;
+  final List<OrderEntity> completedOrders;
   final String? errorMessage;
 
   const OrdersState({
     this.status = OrdersStatus.initial,
-    this.orders = const [],
+    this.activeOrders = const [],
+    this.completedOrders = const [],
     this.errorMessage,
   });
 
-  // helper getters للـ UI
-  List<OrderEntity> get activeOrders =>
-      orders.where((order) => order.isActive).toList();
-
-  List<OrderEntity> get completedOrders =>
-      orders.where((order) => !order.isActive).toList();
-
   OrdersState copyWith({
     OrdersStatus? status,
-    List<OrderEntity>? orders,
+    List<OrderEntity>? activeOrders,
+    List<OrderEntity>? completedOrders,
     String? errorMessage,
   }) {
     return OrdersState(
       status: status ?? this.status,
-      orders: orders ?? this.orders,
+      activeOrders: activeOrders ?? this.activeOrders,
+      completedOrders: completedOrders ?? this.completedOrders,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [status, orders, errorMessage];
+  List<Object?> get props => [
+    status,
+    activeOrders,
+    completedOrders,
+    errorMessage,
+  ];
 }

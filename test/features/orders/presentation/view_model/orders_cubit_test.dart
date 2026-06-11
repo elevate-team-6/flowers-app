@@ -3,6 +3,8 @@ import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/features/orders/domain/entities/order_entity.dart';
 import 'package:flowers_app/features/orders/domain/entities/order_item_entity.dart';
+import 'package:flowers_app/features/orders/domain/use_cases/get_active_orders_use_case.dart';
+import 'package:flowers_app/features/orders/domain/use_cases/get_completed_orders_use_case.dart';
 import 'package:flowers_app/features/orders/domain/use_cases/get_user_orders_use_case.dart';
 import 'package:flowers_app/features/orders/presentation/view_model/orders_cubit.dart';
 import 'package:flowers_app/features/orders/presentation/view_model/orders_event.dart';
@@ -13,9 +15,15 @@ import 'package:mockito/mockito.dart';
 
 import 'orders_cubit_test.mocks.dart';
 
-@GenerateMocks([GetUserOrdersUseCase])
+@GenerateMocks([
+  GetUserOrdersUseCase,
+  GetActiveOrdersUseCase,
+  GetCompletedOrdersUseCase,
+])
 void main() {
   late MockGetUserOrdersUseCase getUserOrdersUseCase;
+  late MockGetActiveOrdersUseCase getActiveOrdersUseCase;
+  late MockGetCompletedOrdersUseCase getCompletedOrdersUseCase;
 
   setUpAll(() {
     provideDummy<BaseResponse<List<OrderEntity>>>(
@@ -25,9 +33,15 @@ void main() {
 
   setUp(() {
     getUserOrdersUseCase = MockGetUserOrdersUseCase();
+    getActiveOrdersUseCase = MockGetActiveOrdersUseCase();
+    getCompletedOrdersUseCase = MockGetCompletedOrdersUseCase();
   });
 
-  OrdersCubit buildCubit() => OrdersCubit(getUserOrdersUseCase);
+  OrdersCubit buildCubit() => OrdersCubit(
+    getUserOrdersUseCase,
+    getActiveOrdersUseCase,
+    getCompletedOrdersUseCase,
+  );
 
   // Test data
   const productEntity = ProductEntity(
@@ -68,14 +82,24 @@ void main() {
         when(
           getUserOrdersUseCase(),
         ).thenAnswer((_) async => SuccessBaseResponse([orderEntity]));
+        when(getActiveOrdersUseCase([orderEntity])).thenReturn([orderEntity]);
+        when(getCompletedOrdersUseCase([orderEntity])).thenReturn([]);
       },
       build: buildCubit,
       act: (cubit) => cubit.doEvent(const GetUserOrdersEvent()),
       expect: () => [
         const OrdersState(status: OrdersStatus.loading),
-        OrdersState(status: OrdersStatus.success, orders: [orderEntity]),
+        OrdersState(
+          status: OrdersStatus.success,
+          activeOrders: [orderEntity],
+          completedOrders: [],
+        ),
       ],
-      verify: (_) => verify(getUserOrdersUseCase()).called(1),
+      verify: (_) {
+        verify(getUserOrdersUseCase()).called(1);
+        verify(getActiveOrdersUseCase([orderEntity])).called(1);
+        verify(getCompletedOrdersUseCase([orderEntity])).called(1);
+      },
     );
 
     blocTest<OrdersCubit, OrdersState>(

@@ -1,5 +1,7 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/features/orders/domain/entities/order_entity.dart';
+import 'package:flowers_app/features/orders/domain/use_cases/get_active_orders_use_case.dart';
+import 'package:flowers_app/features/orders/domain/use_cases/get_completed_orders_use_case.dart';
 import 'package:flowers_app/features/orders/domain/use_cases/get_user_orders_use_case.dart';
 import 'package:flowers_app/features/orders/presentation/view_model/orders_event.dart';
 import 'package:flowers_app/features/orders/presentation/view_model/orders_state.dart';
@@ -9,8 +11,14 @@ import 'package:injectable/injectable.dart';
 @injectable
 class OrdersCubit extends Cubit<OrdersState> {
   final GetUserOrdersUseCase _getUserOrdersUseCase;
+  final GetActiveOrdersUseCase _getActiveOrdersUseCase;
+  final GetCompletedOrdersUseCase _getCompletedOrdersUseCase;
 
-  OrdersCubit(this._getUserOrdersUseCase) : super(const OrdersState());
+  OrdersCubit(
+    this._getUserOrdersUseCase,
+    this._getActiveOrdersUseCase,
+    this._getCompletedOrdersUseCase,
+  ) : super(const OrdersState());
 
   Future<void> doEvent(OrdersEvent event) async {
     switch (event) {
@@ -26,7 +34,18 @@ class OrdersCubit extends Cubit<OrdersState> {
 
     switch (result) {
       case SuccessBaseResponse<List<OrderEntity>>():
-        emit(state.copyWith(status: OrdersStatus.success, orders: result.data));
+        // استخدم الـ use cases لتقسيم الـ orders
+        final allOrders = result.data ?? [];
+        final activeOrders = _getActiveOrdersUseCase(allOrders);
+        final completedOrders = _getCompletedOrdersUseCase(allOrders);
+
+        emit(
+          state.copyWith(
+            status: OrdersStatus.success,
+            activeOrders: activeOrders,
+            completedOrders: completedOrders,
+          ),
+        );
 
       case ErrorBaseResponse<List<OrderEntity>>():
         emit(
