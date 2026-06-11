@@ -136,7 +136,6 @@ class CheckoutCubit extends Cubit<CheckoutStates> {
 
     switch (response) {
       case SuccessBaseResponse<CardEntity>():
-
         emit(
           state.copyWith(
             cardCheckoutState: state.cardCheckoutState.copyWith(
@@ -162,17 +161,15 @@ class CheckoutCubit extends Cubit<CheckoutStates> {
   }
 
   void _selectPaymentMethod(String paymentMethod) {
-    emit(state.copyWith(selectedPaymentMethod: paymentMethod));
+    emit(
+      state.copyWith(
+        selectedPaymentMethod: paymentMethod,
+        isGift: paymentMethod == AppConstants.card ? state.isGift : false,
+      ),
+    );
   }
 
   void _toggleGift(bool isGift) {
-    emit(
-      state.copyWith(
-        isGift: isGift,
-        selectedPaymentMethod: isGift
-            ? AppConstants.card
-            : state.selectedPaymentMethod,
-      ),
-    );
+    emit(state.copyWith(isGift: isGift));
   }
 }

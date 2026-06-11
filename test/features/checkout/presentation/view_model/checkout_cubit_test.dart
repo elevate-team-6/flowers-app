@@ -41,6 +41,8 @@ const card = CardEntity(
   paymentStatus: 'pending',
   status: 'active',
   url: 'https://test.com',
+  successUrl: 'https://test.com',
+  cancelUrl: 'https://test.com',
 );
 
 void main() {

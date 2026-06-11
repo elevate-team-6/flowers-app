@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_events.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_states.dart';
@@ -25,34 +28,27 @@ class CheckoutScreen extends StatefulWidget {
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
 }
+
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     nameController.dispose();
     phoneController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    final subtotal = widget.cart.items.fold<int>(
-      0,
-      (sum, item) => sum + (item.product.priceAfterDiscount * item.quantity),
-    );
-    const deliveryFee = 10;
-    final total = subtotal + deliveryFee;
+    final cart = widget.cart;
     return BlocListener<CheckoutCubit, CheckoutStates>(
       listenWhen: (previous, current) =>
-          previous.cardCheckoutState.data != current.cardCheckoutState.data ||
-          previous.cashCheckoutState.data != current.cashCheckoutState.data ||
-          previous.addressesState.errorMessage !=
-              current.addressesState.errorMessage ||
-          previous.cashCheckoutState.errorMessage !=
-              current.cashCheckoutState.errorMessage ||
-          previous.cardCheckoutState.errorMessage !=
-              current.cardCheckoutState.errorMessage,
+          previous.addressesState != current.addressesState ||
+          previous.cashCheckoutState != current.cashCheckoutState ||
+          previous.cardCheckoutState != current.cardCheckoutState,
       listener: (context, state) async {
         final error =
             state.addressesState.errorMessage ??
@@ -63,8 +59,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           return;
         }
         if (state.cashCheckoutState.data != null) {
-          Navigator.pop(context, true);
-          return;
+          context.read<CartBloc>().add(GetCartEvent());
+
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.mainLayout,
+            (route) => false,
+          );
         }
         if (state.cardCheckoutState.data != null) {
           final result =
@@ -80,9 +81,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 AppStrings.paymentCompletedSuccessfully.tr(),
               );
               if (!context.mounted) return;
-              Navigator.pop(context, true);
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.mainLayout,
+                (route) => false,
+              );
+              return;
             case PaymentResult.cancelled:
-              SnackBarServices.showErrorMessage(AppStrings.paymentWasCancelled.tr());
+              SnackBarServices.showErrorMessage(
+                AppStrings.paymentWasCancelled.tr(),
+              );
             case PaymentResult.noInternet:
               SnackBarServices.showErrorMessage(
                 AppStrings.noInternetConnection.tr(),
@@ -161,31 +169,25 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         color: AppColors.gray10,
                       ),
                     ),
-                    Form(
-                      key: _formKey,
-                      child: GiftSection(
-                        isGift: state.isGift,
-                        onChanged: (value) {
-                          context.read<CheckoutCubit>().doEvent(
-                            ToggleGiftEvent(value),
-                          );
-                        },
-                        nameController: nameController,
-                        phoneController: phoneController,
+                    if (state.selectedPaymentMethod == AppConstants.card)
+                      Form(
+                        key: _formKey,
+                        child: GiftSection(
+                          isGift: state.isGift,
+                          onChanged: (value) {
+                            context.read<CheckoutCubit>().doEvent(
+                              ToggleGiftEvent(value),
+                            );
+                          },
+                          nameController: nameController,
+                          phoneController: phoneController,
+                        ),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24),
-                      child: Divider(
-                        height: 24,
-                        thickness: 24,
-                        color: AppColors.gray10,
-                      ),
-                    ),
+                    
                     CheckoutOrderSummary(
-                      subtotal: subtotal,
-                      deliveryFee: deliveryFee,
-                      total: total,
+                      subtotal: cart.subtotal,
+                      deliveryFee: cart.deliveryFee,
+                      total: cart.total,
                     ),
                     SizedBox(height: 50.h),
                     CheckoutPlaceOrderButton(

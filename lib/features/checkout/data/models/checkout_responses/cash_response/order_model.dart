@@ -1,29 +1,27 @@
 import 'package:flowers_app/features/checkout/domain/entities/order_entity.dart';
 
 class OrderModel {
-  final String id;
-  final String userId;
-  final double totalPrice;
-  final String paymentType;
-  final bool isPaid;
-  final bool isDelivered;
-  final String state;
-  final String orderNumber;
+  final String? id;
+  final String? userId;
+  final double? totalPrice;
+  final String? paymentType;
+  final bool? isPaid;
+  final bool? isDelivered;
+  final String? state;
+  final String? orderNumber;
 
   const OrderModel({
-    required this.id,
-    required this.userId,
-    required this.totalPrice,
-    required this.paymentType,
-    required this.isPaid,
-    required this.isDelivered,
-    required this.state,
-    required this.orderNumber,
+    this.id,
+    this.userId,
+    this.totalPrice,
+    this.paymentType,
+    this.isPaid,
+    this.isDelivered,
+    this.state,
+    this.orderNumber,
   });
 
-  factory OrderModel.fromJson(
-    Map<String, dynamic> json,
-  ) {
+  factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
       id: json['_id'] ?? '',
       userId: json['user'] ?? '',
@@ -38,11 +36,11 @@ class OrderModel {
 
   OrderEntity toDomain() {
     return OrderEntity(
-      id: id,
-      orderNumber: orderNumber,
-      totalPrice: totalPrice,
-      paymentType: paymentType,
-      state: state,
+      id: id ?? '',
+      orderNumber: orderNumber ?? '',
+      totalPrice: totalPrice ?? 0,
+      paymentType: paymentType ?? '',
+      state: state ?? '',
     );
   }
 }

@@ -20,7 +20,7 @@ class CheckoutRepoImpl implements CheckoutRepoContract {
     switch (response) {
       case SuccessBaseResponse<AddressResponse>():
         return SuccessBaseResponse(
-          response.data.addresses.map((e) => e.toDomain()).toList(),
+          (response.data.addresses??[]).map((e) => e.toDomain()).toList(),
         );
       case ErrorBaseResponse<AddressResponse>():
         return ErrorBaseResponse(response.errorMessage);
@@ -39,7 +39,7 @@ class CheckoutRepoImpl implements CheckoutRepoContract {
     switch (response) {
       case SuccessBaseResponse<CardCheckoutResponse>():
 
-        return SuccessBaseResponse(response.data.session.toDomain());
+        return SuccessBaseResponse(response.data.session!.toDomain());
       case ErrorBaseResponse<CardCheckoutResponse>():
         return ErrorBaseResponse(response.errorMessage);
     }
@@ -52,7 +52,7 @@ class CheckoutRepoImpl implements CheckoutRepoContract {
     final response = await _checkoutRemoteDataSource.cashCheckout(request);
     switch (response) {
       case SuccessBaseResponse<CashCheckoutResponse>():
-        return SuccessBaseResponse(response.data.order.toDomain());
+        return SuccessBaseResponse(response.data.order!.toDomain());
       case ErrorBaseResponse<CashCheckoutResponse>():
         return ErrorBaseResponse(response.errorMessage);
     }

@@ -30,7 +30,7 @@ class AddressCard extends StatelessWidget {
 
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF535353).withValues(alpha: 0.12),
+              color: AppColors.white90.withValues(alpha: 0.12),
               blurRadius: 4,
               offset: Offset.zero,
             ),
@@ -47,7 +47,14 @@ class AddressCard extends StatelessWidget {
                     children: [
                       CustomRadioButton(isSelected: isSelected),
                       SizedBox(width: 8.w),
-                      Text(addressName, style: AppTextStyles.black16500),
+                      Expanded(
+                        child: Text(
+                          addressName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.black16500,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 12.h),
