@@ -9,7 +9,12 @@ class AddressStates extends Equatable {
   final BaseState<List<AddressEntity>> addressesState;
   final BaseState<List<GovernorateEntity>> governoratesState;
   final BaseState<List<CityEntity>> citiesState;
-  final BaseState<bool> actionState;
+
+  // Split action state to avoid ambiguity
+  final BaseState<bool> addAddressState;
+  final BaseState<bool> updateAddressState;
+  final BaseState<bool> deleteAddressState;
+  final String? deletingAddressId;
 
   // Selection data for the form
   final LatLng? selectedLocation;
@@ -21,7 +26,10 @@ class AddressStates extends Equatable {
     this.addressesState = const BaseState(),
     this.governoratesState = const BaseState(),
     this.citiesState = const BaseState(),
-    this.actionState = const BaseState(),
+    this.addAddressState = const BaseState(),
+    this.updateAddressState = const BaseState(),
+    this.deleteAddressState = const BaseState(),
+    this.deletingAddressId,
     this.selectedLocation,
     this.selectedGovernorateId,
     this.selectedCityId,
@@ -32,7 +40,10 @@ class AddressStates extends Equatable {
     BaseState<List<AddressEntity>>? addressesState,
     BaseState<List<GovernorateEntity>>? governoratesState,
     BaseState<List<CityEntity>>? citiesState,
-    BaseState<bool>? actionState,
+    BaseState<bool>? addAddressState,
+    BaseState<bool>? updateAddressState,
+    BaseState<bool>? deleteAddressState,
+    String? deletingAddressId,
     LatLng? selectedLocation,
     String? selectedGovernorateId,
     String? selectedCityId,
@@ -43,7 +54,10 @@ class AddressStates extends Equatable {
       addressesState: addressesState ?? this.addressesState,
       governoratesState: governoratesState ?? this.governoratesState,
       citiesState: citiesState ?? this.citiesState,
-      actionState: actionState ?? this.actionState,
+      addAddressState: addAddressState ?? this.addAddressState,
+      updateAddressState: updateAddressState ?? this.updateAddressState,
+      deleteAddressState: deleteAddressState ?? this.deleteAddressState,
+      deletingAddressId: deletingAddressId ?? this.deletingAddressId,
       selectedLocation: selectedLocation ?? this.selectedLocation,
       selectedGovernorateId:
           selectedGovernorateId ?? this.selectedGovernorateId,
@@ -59,7 +73,10 @@ class AddressStates extends Equatable {
     addressesState,
     governoratesState,
     citiesState,
-    actionState,
+    addAddressState,
+    updateAddressState,
+    deleteAddressState,
+    deletingAddressId,
     selectedLocation,
     selectedGovernorateId,
     selectedCityId,

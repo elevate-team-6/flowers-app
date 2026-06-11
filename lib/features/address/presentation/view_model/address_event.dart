@@ -10,13 +10,27 @@ class GetAddressesEvent extends AddressEvent {
 }
 
 class AddAddressEvent extends AddressEvent {
-  final AddressEntity address;
-  const AddAddressEvent(this.address);
+  final String recipientName;
+  final String phoneNumber;
+  final String street;
+  const AddAddressEvent({
+    required this.recipientName,
+    required this.phoneNumber,
+    required this.street,
+  });
 }
 
 class UpdateAddressEvent extends AddressEvent {
-  final AddressEntity address;
-  const UpdateAddressEvent(this.address);
+  final String? id;
+  final String recipientName;
+  final String phoneNumber;
+  final String street;
+  const UpdateAddressEvent({
+    this.id,
+    required this.recipientName,
+    required this.phoneNumber,
+    required this.street,
+  });
 }
 
 class DeleteAddressEvent extends AddressEvent {

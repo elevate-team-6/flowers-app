@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/validations/app_validations.dart';
-import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
@@ -38,7 +37,7 @@ class AddressSelectionDropdowns extends StatelessWidget {
                   AppStrings.selectCity.tr(),
                   style: AppTextStyles.gray12400,
                 ),
-                decoration: _buildDropdownDecoration(AppStrings.city.tr()),
+                decoration: InputDecoration(labelText: AppStrings.city.tr()),
                 items: state.governoratesState.data
                     ?.map(
                       (gov) => DropdownMenuItem(
@@ -70,7 +69,7 @@ class AddressSelectionDropdowns extends StatelessWidget {
                   AppStrings.selectArea.tr(),
                   style: AppTextStyles.gray12400,
                 ),
-                decoration: _buildDropdownDecoration(AppStrings.area.tr()),
+                decoration: InputDecoration(labelText: AppStrings.area.tr()),
                 items: state.citiesState.data
                     ?.map(
                       (city) => DropdownMenuItem(
@@ -90,30 +89,6 @@ class AddressSelectionDropdowns extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  InputDecoration _buildDropdownDecoration(String label) {
-    return InputDecoration(
-      labelText: label,
-      labelStyle: AppTextStyles.black14400,
-      contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.r),
-        borderSide: const BorderSide(color: AppColors.black30, width: 1),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.r),
-        borderSide: const BorderSide(color: AppColors.primary, width: 1),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.r),
-        borderSide: const BorderSide(color: AppColors.error, width: 1),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.r),
-        borderSide: const BorderSide(color: AppColors.error, width: 1),
-      ),
     );
   }
 }

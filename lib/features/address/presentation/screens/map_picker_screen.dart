@@ -2,13 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_service.dart';
 import 'package:flowers_app/features/address/presentation/widgets/pick_location_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../../../config/di/di.dart';
 import '../../../../core/widgets/custom_flower_loading.dart';
 
 class MapPickerScreen extends StatefulWidget {
@@ -30,6 +31,7 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
   LatLng? _pickedLocation;
   final MapController _mapController = MapController();
   bool _isLoadingCurrentLocation = false;
+  final AddressService _addressService = getIt<AddressService>();
 
   @override
   void initState() {
@@ -46,37 +48,12 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
   }
 
   Future<void> _determinePosition({bool moveToLocation = true}) async {
-    try {
-      setState(() => _isLoadingCurrentLocation = true);
+    setState(() => _isLoadingCurrentLocation = true);
 
-      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) {
-        setState(() => _isLoadingCurrentLocation = false);
-        return;
-      }
+    final currentLatLng = await _addressService.getCurrentLocation();
 
-      LocationPermission permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          setState(() => _isLoadingCurrentLocation = false);
-          return;
-        }
-      }
-
-      if (permission == LocationPermission.deniedForever) {
-        setState(() => _isLoadingCurrentLocation = false);
-        return;
-      }
-
-      final position = await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.high,
-        ),
-      );
-      final currentLatLng = LatLng(position.latitude, position.longitude);
-
-      if (mounted) {
+    if (mounted) {
+      if (currentLatLng != null) {
         setState(() {
           _pickedLocation = currentLatLng;
           _isLoadingCurrentLocation = false;
@@ -84,10 +61,7 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
         if (moveToLocation) {
           _mapController.move(currentLatLng, 15);
         }
-      }
-    } catch (e) {
-      debugPrint("Error getting location: $e");
-      if (mounted) {
+      } else {
         setState(() => _isLoadingCurrentLocation = false);
       }
     }
@@ -127,8 +101,6 @@ class _MapPickerScreenState extends State<MapPickerScreen> {
             right: 24.w,
             child: FloatingActionButton(
               onPressed: () => _determinePosition(moveToLocation: true),
-              backgroundColor: AppColors.primary,
-              foregroundColor: AppColors.white,
               child: const Icon(Icons.my_location),
             ),
           ),

@@ -41,9 +41,18 @@ class AddressCubit extends Cubit<AddressStates> {
       case GetAddressesEvent():
         _onGetAddresses();
       case AddAddressEvent():
-        _onAddAddress(event.address);
+        _onAddAddress(
+          recipientName: event.recipientName,
+          phoneNumber: event.phoneNumber,
+          street: event.street,
+        );
       case UpdateAddressEvent():
-        _onUpdateAddress(event.address);
+        _onUpdateAddress(
+          id: event.id,
+          recipientName: event.recipientName,
+          phoneNumber: event.phoneNumber,
+          street: event.street,
+        );
       case DeleteAddressEvent():
         _onDeleteAddress(event.addressId);
       case GetGovernoratesEvent():
@@ -62,7 +71,6 @@ class AddressCubit extends Cubit<AddressStates> {
   }
 
   Future<void> _onInitEditAddress(AddressEntity address) async {
-    // 1. Ensure governorates are loaded
     if (state.governoratesState.data == null) {
       await _onGetGovernorates();
     }
@@ -70,25 +78,20 @@ class AddressCubit extends Cubit<AddressStates> {
     final govs = state.governoratesState.data;
     if (govs == null) return;
 
-    // 2. Local variables to hold data before single emit
     String? matchedGovId;
     String? matchedCityId;
     List<CityEntity>? cities;
 
-    // Match Governorate
     matchedGovId = _addressService.matchGovernorate(govs, address.city);
 
     if (matchedGovId != null) {
-      // Load cities for this gov
       final citiesResult = await _getCitiesUseCase(matchedGovId);
       if (citiesResult is SuccessBaseResponse<List<CityEntity>>) {
         cities = citiesResult.data;
-        // Match City
         matchedCityId = _addressService.matchCityByName(cities, address.area);
       }
     }
 
-    // 3. Single Emit for everything (Efficiency)
     final double? lat = double.tryParse(address.latitude);
     final double? long = double.tryParse(address.longitude);
 
@@ -124,17 +127,39 @@ class AddressCubit extends Cubit<AddressStates> {
     });
   }
 
-  Future<void> _onAddAddress(AddressEntity address) async {
-    emit(state.copyWith(actionState: const BaseState(isLoading: true)));
+  Future<void> _onAddAddress({
+    required String recipientName,
+    required String phoneNumber,
+    required String street,
+  }) async {
+    emit(state.copyWith(addAddressState: const BaseState(isLoading: true)));
+
+    final gov = state.governoratesState.data!.firstWhere(
+      (e) => e.id == state.selectedGovernorateId,
+    );
+    final city = state.citiesState.data!.firstWhere(
+      (e) => e.id == state.selectedCityId,
+    );
+
+    final address = AddressEntity(
+      recipientName: recipientName,
+      phoneNumber: phoneNumber,
+      street: street,
+      city: gov.nameEn,
+      area: city.nameEn,
+      latitude: (state.selectedLocation?.latitude ?? 0.0).toString(),
+      longitude: (state.selectedLocation?.longitude ?? 0.0).toString(),
+    );
+
     final result = await _addAddressUseCase(address);
 
     emit(switch (result) {
       SuccessBaseResponse<List<AddressEntity>>() => state.copyWith(
-        actionState: const BaseState(isLoading: false, data: true),
+        addAddressState: const BaseState(isLoading: false, data: true),
         addressesState: BaseState(isLoading: false, data: result.data),
       ),
       ErrorBaseResponse<List<AddressEntity>>() => state.copyWith(
-        actionState: BaseState(
+        addAddressState: BaseState(
           isLoading: false,
           errorMessage: result.errorMessage,
         ),
@@ -142,17 +167,41 @@ class AddressCubit extends Cubit<AddressStates> {
     });
   }
 
-  Future<void> _onUpdateAddress(AddressEntity address) async {
-    emit(state.copyWith(actionState: const BaseState(isLoading: true)));
+  Future<void> _onUpdateAddress({
+    String? id,
+    required String recipientName,
+    required String phoneNumber,
+    required String street,
+  }) async {
+    emit(state.copyWith(updateAddressState: const BaseState(isLoading: true)));
+
+    final gov = state.governoratesState.data!.firstWhere(
+      (e) => e.id == state.selectedGovernorateId,
+    );
+    final city = state.citiesState.data!.firstWhere(
+      (e) => e.id == state.selectedCityId,
+    );
+
+    final address = AddressEntity(
+      id: id,
+      recipientName: recipientName,
+      phoneNumber: phoneNumber,
+      street: street,
+      city: gov.nameEn,
+      area: city.nameEn,
+      latitude: (state.selectedLocation?.latitude ?? 0.0).toString(),
+      longitude: (state.selectedLocation?.longitude ?? 0.0).toString(),
+    );
+
     final result = await _updateAddressUseCase(address);
 
     emit(switch (result) {
       SuccessBaseResponse<List<AddressEntity>>() => state.copyWith(
-        actionState: const BaseState(isLoading: false, data: true),
+        updateAddressState: const BaseState(isLoading: false, data: true),
         addressesState: BaseState(isLoading: false, data: result.data),
       ),
       ErrorBaseResponse<List<AddressEntity>>() => state.copyWith(
-        actionState: BaseState(
+        updateAddressState: BaseState(
           isLoading: false,
           errorMessage: result.errorMessage,
         ),
@@ -161,19 +210,26 @@ class AddressCubit extends Cubit<AddressStates> {
   }
 
   Future<void> _onDeleteAddress(String addressId) async {
-    emit(state.copyWith(actionState: const BaseState(isLoading: true)));
+    emit(
+      state.copyWith(
+        deleteAddressState: const BaseState(isLoading: true),
+        deletingAddressId: addressId,
+      ),
+    );
     final result = await _deleteAddressUseCase(addressId);
 
     emit(switch (result) {
       SuccessBaseResponse<List<AddressEntity>>() => state.copyWith(
-        actionState: const BaseState(isLoading: false, data: true),
+        deleteAddressState: const BaseState(isLoading: false, data: true),
         addressesState: BaseState(isLoading: false, data: result.data),
+        deletingAddressId: null,
       ),
       ErrorBaseResponse<List<AddressEntity>>() => state.copyWith(
-        actionState: BaseState(
+        deleteAddressState: BaseState(
           isLoading: false,
           errorMessage: result.errorMessage,
         ),
+        deletingAddressId: null,
       ),
     });
   }
@@ -226,7 +282,6 @@ class AddressCubit extends Cubit<AddressStates> {
   }
 
   Future<void> _onMapLocationPicked(LatLng location) async {
-    // 1. Initial emit for location and loading state
     emit(
       state.copyWith(
         selectedLocation: location,
@@ -235,7 +290,6 @@ class AddressCubit extends Cubit<AddressStates> {
     );
 
     try {
-      // 2. Get Placemark from Service (Architecture: Cubit doesn't talk to Geocoding)
       final place = await _addressService.getPlacemarkFromLocation(location);
       if (place == null) throw Exception("Could not find address");
 
@@ -245,7 +299,6 @@ class AddressCubit extends Cubit<AddressStates> {
       String? matchedCityId;
       List<CityEntity>? cities;
 
-      // 3. Match Governorate
       if (state.governoratesState.data != null) {
         matchedGovId = _addressService.matchGovernorate(
           state.governoratesState.data!,
@@ -253,7 +306,6 @@ class AddressCubit extends Cubit<AddressStates> {
         );
 
         if (matchedGovId != null) {
-          // 4. Load Cities
           final citiesResult = await _getCitiesUseCase(matchedGovId);
           if (citiesResult is SuccessBaseResponse<List<CityEntity>>) {
             cities = citiesResult.data;
@@ -274,7 +326,10 @@ class AddressCubit extends Cubit<AddressStates> {
       emit(
         state.copyWith(
           citiesState: const BaseState(isLoading: false),
-          actionState: BaseState(isLoading: false, errorMessage: e.toString()),
+          addAddressState: BaseState(
+            isLoading: false,
+            errorMessage: e.toString(),
+          ),
         ),
       );
     }
@@ -283,7 +338,9 @@ class AddressCubit extends Cubit<AddressStates> {
   void resetActionState() {
     emit(
       state.copyWith(
-        actionState: const BaseState(),
+        addAddressState: const BaseState(),
+        updateAddressState: const BaseState(),
+        deleteAddressState: const BaseState(),
         autoAddressDetails: null,
         selectedLocation: null,
         selectedGovernorateId: null,

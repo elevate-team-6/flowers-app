@@ -2,12 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
-import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
-import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
@@ -27,19 +24,12 @@ class SavedAddressesScreen extends StatelessWidget {
       create: (context) =>
           getIt<AddressCubit>()..doEvent(const GetAddressesEvent()),
       child: Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
-          backgroundColor: AppColors.white,
-          elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: AppColors.black),
+            icon: const Icon(Icons.arrow_back_ios),
             onPressed: () => Navigator.pop(context),
           ),
-          title: Text(
-            AppStrings.savedAddress.tr(),
-            style: AppTextStyles.black18600,
-          ),
-          centerTitle: false,
+          title: Text(AppStrings.savedAddress.tr()),
         ),
         body: const _SavedAddressesListener(child: _SavedAddressesBody()),
         bottomNavigationBar: const _AddAddressButton(),
@@ -55,20 +45,17 @@ class _SavedAddressesListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AddressCubit, AddressStates>(
-      listenWhen: (prev, curr) => prev.actionState != curr.actionState,
+      listenWhen: (prev, curr) =>
+          prev.deleteAddressState != curr.deleteAddressState,
       listener: (context, state) {
-        if (state.actionState.isLoading) {
-          LoadingDialog.show(context: context);
-        } else {
-          LoadingDialog.hide(context: context);
-        }
-
-        if (state.actionState.data == true) {
+        if (state.deleteAddressState.data == true) {
           SnackBarServices.showSuccessMessage(
             AppStrings.addressDeletedSuccess.tr(),
           );
-        } else if (state.actionState.errorMessage != null) {
-          SnackBarServices.showErrorMessage(state.actionState.errorMessage!);
+        } else if (state.deleteAddressState.errorMessage != null) {
+          SnackBarServices.showErrorMessage(
+            state.deleteAddressState.errorMessage!,
+          );
         }
       },
       child: child,
@@ -112,12 +99,14 @@ class _SavedAddressesBody extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           itemCount: addresses.length,
           itemBuilder: (context, index) {
+            final address = addresses[index];
             return AddressItemCard(
-              address: addresses[index],
+              address: address,
+              isDeleting: state.deletingAddressId == address.id,
               onDelete: () => context.read<AddressCubit>().doEvent(
-                DeleteAddressEvent(addresses[index].id!),
+                DeleteAddressEvent(address.id!),
               ),
-              onEdit: () => _onEditAddress(context, addresses[index]),
+              onEdit: () => _onEditAddress(context, address),
             );
           },
         );
@@ -148,15 +137,6 @@ class _AddAddressButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(24.r),
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          foregroundColor: AppColors.white,
-          minimumSize: Size(double.infinity, 50.h),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.r),
-          ),
-          elevation: 0,
-        ),
         onPressed: () async {
           final result = await Navigator.pushNamed(
             context,
@@ -169,10 +149,7 @@ class _AddAddressButton extends StatelessWidget {
             context.read<AddressCubit>().doEvent(const GetAddressesEvent());
           }
         },
-        child: Text(
-          AppStrings.addNewAddress.tr(),
-          style: AppTextStyles.white16600,
-        ),
+        child: Text(AppStrings.addNewAddress.tr()),
       ),
     );
   }

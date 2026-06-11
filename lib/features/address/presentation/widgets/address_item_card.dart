@@ -10,12 +10,14 @@ class AddressItemCard extends StatelessWidget {
   final AddressEntity address;
   final VoidCallback onDelete;
   final VoidCallback onEdit;
+  final bool isDeleting;
 
   const AddressItemCard({
     super.key,
     required this.address,
     required this.onDelete,
     required this.onEdit,
+    this.isDeleting = false,
   });
 
   @override
@@ -60,17 +62,23 @@ class AddressItemCard extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              IconButton(
-                onPressed: onDelete,
-                constraints: const BoxConstraints(),
-                padding: EdgeInsets.zero,
-                icon: Image.asset(
-                  AppIcons.delete,
-                  color: AppColors.error,
-                  width: 22.r,
-                  height: 22.r,
-                ),
-              ),
+              isDeleting
+                  ? SizedBox(
+                      width: 22.r,
+                      height: 22.r,
+                      child: const CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : IconButton(
+                      onPressed: onDelete,
+                      constraints: const BoxConstraints(),
+                      padding: EdgeInsets.zero,
+                      icon: Image.asset(
+                        AppIcons.delete,
+                        color: AppColors.error,
+                        width: 22.r,
+                        height: 22.r,
+                      ),
+                    ),
               SizedBox(width: 8.w),
               IconButton(
                 onPressed: onEdit,

@@ -1,13 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/config/services/snack_bar_services.dart';
-import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/core/utils/app_text_styles.dart';
-import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
-import 'package:flowers_app/features/address/presentation/screens/map_picker_screen.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
@@ -68,20 +65,17 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         return cubit;
       },
       child: Scaffold(
-        backgroundColor: AppColors.white,
         appBar: AppBar(
-          backgroundColor: AppColors.white,
-          elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: AppColors.black),
+            icon: const Icon(Icons.arrow_back_ios),
             onPressed: () => Navigator.pop(context),
           ),
-          title: Text(AppStrings.address.tr(), style: AppTextStyles.black18600),
-          centerTitle: false,
+          title: Text(AppStrings.address.tr()),
         ),
         body: BlocConsumer<AddressCubit, AddressStates>(
           listenWhen: (prev, curr) =>
-              prev.actionState != curr.actionState ||
+              prev.addAddressState != curr.addAddressState ||
+              prev.updateAddressState != curr.updateAddressState ||
               prev.autoAddressDetails != curr.autoAddressDetails ||
               prev.selectedLocation != curr.selectedLocation,
           listener: _handleStateChanges,
@@ -123,61 +117,58 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       _mapController.move(state.selectedLocation!, AppConstants.defaultMapZoom);
     }
 
-    if (state.actionState.isLoading) {
-      LoadingDialog.show(context: context);
-    } else {
-      LoadingDialog.hide(context: context);
-    }
+    final currentActionState =
+        state.addAddressState.isLoading ||
+            state.addAddressState.data == true ||
+            state.addAddressState.errorMessage != null
+        ? state.addAddressState
+        : state.updateAddressState;
 
-    if (state.actionState.data == true) {
+    if (currentActionState.data == true) {
       Navigator.pop(context, true);
-    } else if (state.actionState.errorMessage != null) {
-      SnackBarServices.showErrorMessage(state.actionState.errorMessage!);
+    } else if (currentActionState.errorMessage != null) {
+      SnackBarServices.showErrorMessage(currentActionState.errorMessage!);
     }
   }
 
   Widget _buildSaveButton(BuildContext context, AddressStates state) {
+    final bool isLoading =
+        state.addAddressState.isLoading || state.updateAddressState.isLoading;
+
     return Padding(
       padding: EdgeInsets.all(24.r),
-      child: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            foregroundColor: AppColors.white,
-            padding: EdgeInsets.symmetric(vertical: 16.h),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25.r),
-            ),
-            elevation: 0,
-          ),
-          onPressed: () => _saveAddress(context, state),
-          child: Text(
-            widget.addressToEdit == null
-                ? AppStrings.saveAddress.tr()
-                : AppStrings.updateAddress.tr(),
-            style: AppTextStyles.white16600,
-          ),
-        ),
+      child: ElevatedButton(
+        onPressed: isLoading ? null : () => _saveAddress(context, state),
+        child: isLoading
+            ? const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            : Text(
+                widget.addressToEdit == null
+                    ? AppStrings.saveAddress.tr()
+                    : AppStrings.updateAddress.tr(),
+              ),
       ),
     );
   }
 
   Future<void> _openMapPicker(BuildContext context) async {
     final cubit = context.read<AddressCubit>();
-    final LatLng? result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => MapPickerScreen(
-          initialLocation:
-              cubit.state.selectedLocation ??
-              const LatLng(
-                AppConstants.defaultLatitude,
-                AppConstants.defaultLongitude,
-              ),
-        ),
-      ),
-    );
+    final LatLng? result =
+        await Navigator.pushNamed(
+              context,
+              AppRoutes.mapPicker,
+              arguments:
+                  cubit.state.selectedLocation ??
+                  const LatLng(
+                    AppConstants.defaultLatitude,
+                    AppConstants.defaultLongitude,
+                  ),
+            )
+            as LatLng?;
+
     if (result != null) {
       cubit.doEvent(MapLocationPickedEvent(result));
     }
@@ -199,36 +190,19 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         return;
       }
 
-      final gov = state.governoratesState.data!.firstWhere(
-        (e) => e.id == state.selectedGovernorateId,
-      );
-      final city = state.citiesState.data!.firstWhere(
-        (e) => e.id == state.selectedCityId,
-      );
-
-      final address = AddressEntity(
-        id: widget.addressToEdit?.id,
-        recipientName: _nameController.text.trim(),
-        phoneNumber: _phoneController.text.trim(),
-        street: _addressController.text.trim(),
-        city: gov.nameEn,
-        area: city.nameEn,
-        latitude:
-            (state.selectedLocation?.latitude ??
-                    double.tryParse(widget.addressToEdit?.latitude ?? '0.0') ??
-                    0.0)
-                .toString(),
-        longitude:
-            (state.selectedLocation?.longitude ??
-                    double.tryParse(widget.addressToEdit?.longitude ?? '0.0') ??
-                    0.0)
-                .toString(),
-      );
-
       context.read<AddressCubit>().doEvent(
         widget.addressToEdit == null
-            ? AddAddressEvent(address)
-            : UpdateAddressEvent(address),
+            ? AddAddressEvent(
+                recipientName: _nameController.text.trim(),
+                phoneNumber: _phoneController.text.trim(),
+                street: _addressController.text.trim(),
+              )
+            : UpdateAddressEvent(
+                id: widget.addressToEdit?.id,
+                recipientName: _nameController.text.trim(),
+                phoneNumber: _phoneController.text.trim(),
+                street: _addressController.text.trim(),
+              ),
       );
     }
   }
