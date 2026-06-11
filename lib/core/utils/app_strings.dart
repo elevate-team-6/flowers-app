@@ -251,6 +251,17 @@ abstract class AppStrings {
       'phoneMustStartWithCountryCode';
   static const String recipientNameRequired = 'recipientNameRequired';
 
+  // My orders
+  // static const String myOrders = 'my_orders';
+  static const String active = 'active';
+  static const String completed = 'completed';
+  static const String trackOrder = 'track_order';
+  static const String reorder = 'reorder';
+  static const String orderNumber = 'order_number';
+  static const String deliveredOn = 'delivered_on';
+  static const String noActiveOrders = 'no_active_orders';
+  static const String noCompletedOrders = 'no_completed_orders';
+
   // ===========================================================================
   // API Constants (Values sent directly to Backend - Do NOT Translate)
   // ===========================================================================
