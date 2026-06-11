@@ -9,6 +9,17 @@ abstract class AppTheme {
     return ThemeData(
       scaffoldBackgroundColor: AppColors.white,
       useMaterial3: true,
+      canvasColor: AppColors.white,
+
+      // card theme
+      cardTheme: CardThemeData(
+        color: AppColors.white10,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          side: const BorderSide(color: AppColors.black10, width: 1),
+        ),
+      ),
 
       // app bar  theme
       appBarTheme: AppBarTheme(
@@ -68,6 +79,17 @@ abstract class AppTheme {
           textStyle: AppTextStyles.black16400,
         ),
       ),
+
+      // Floating Action Button Theme
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.white,
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+      ),
+
       // Radio Theme
       radioTheme: RadioThemeData(
         fillColor: WidgetStateProperty.resolveWith((states) {
@@ -146,12 +168,24 @@ abstract class AppTheme {
         overlayColor: WidgetStatePropertyAll(Colors.transparent),
         tabAlignment: TabAlignment.start,
       ),
+
+      // Dropdown Menu Theme
+      dropdownMenuTheme: DropdownMenuThemeData(
+        textStyle: AppTextStyles.black14400,
+        menuStyle: MenuStyle(
+          backgroundColor: WidgetStatePropertyAll(AppColors.white),
+          elevation: const WidgetStatePropertyAll(4),
+          shape: WidgetStatePropertyAll(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+          ),
+        ),
+      ),
     );
   }
 }
 
 OutlineInputBorder _border(Color color, [double width = 1]) =>
     OutlineInputBorder(
-      borderRadius: BorderRadius.circular(4.r),
+      borderRadius: BorderRadius.circular(8.r),
       borderSide: BorderSide(color: color, width: width),
     );
