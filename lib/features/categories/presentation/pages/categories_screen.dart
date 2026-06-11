@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
@@ -17,7 +18,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../main_layout/presentation/cubit/main_layout_state.dart';
 import 'categories_tab_mixin.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
@@ -67,11 +67,6 @@ class _CategoriesScreenBodyState extends State<_CategoriesScreenBody>
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: SearchAndFilterBar(
                       onFilterTap: () => _showFilterBottomSheet(context),
-                      onSearchChanged: (value) {
-                        context.read<CategoriesCubit>().doEvent(
-                          SearchChangedEvent(value),
-                        );
-                      },
                     ),
                   ),
                   SizedBox(height: 8.h),

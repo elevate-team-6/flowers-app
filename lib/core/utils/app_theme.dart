@@ -9,6 +9,17 @@ abstract class AppTheme {
     return ThemeData(
       scaffoldBackgroundColor: AppColors.white,
       useMaterial3: true,
+      canvasColor: AppColors.white,
+
+      // card theme
+      cardTheme: CardThemeData(
+        color: AppColors.white10,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          side: const BorderSide(color: AppColors.black10, width: 1),
+        ),
+      ),
 
       // app bar  theme
       appBarTheme: AppBarTheme(
@@ -68,6 +79,17 @@ abstract class AppTheme {
           textStyle: AppTextStyles.black16400,
         ),
       ),
+
+      // Floating Action Button Theme
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.white,
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+      ),
+
       // Radio Theme
       radioTheme: RadioThemeData(
         fillColor: WidgetStateProperty.resolveWith((states) {
@@ -135,23 +157,49 @@ abstract class AppTheme {
 
       tabBarTheme: TabBarThemeData(
         labelColor: AppColors.primary,
-        unselectedLabelColor: AppColors.white70,
-        labelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
-        unselectedLabelStyle: TextStyle(
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w400,
+        unselectedLabelColor: AppColors.white90,
+        labelStyle: AppTextStyles.black14400.copyWith(
+          fontWeight: FontWeight.w600,
         ),
+        unselectedLabelStyle: AppTextStyles.black14400,
         indicatorColor: AppColors.primary,
-        dividerColor: Colors.transparent,
-        overlayColor: WidgetStatePropertyAll(Colors.transparent),
-        tabAlignment: TabAlignment.start,
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerColor: AppColors.black10,
+        dividerHeight: 2,
+        overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+        tabAlignment: TabAlignment.fill,
+      ),
+
+      // Dropdown Menu Theme
+      dropdownMenuTheme: DropdownMenuThemeData(
+        textStyle: AppTextStyles.black14400,
+        menuStyle: MenuStyle(
+          backgroundColor: WidgetStatePropertyAll(AppColors.white),
+          elevation: const WidgetStatePropertyAll(4),
+          shape: WidgetStatePropertyAll(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+          ),
+        ),
       ),
     );
   }
+
+  // زرار ثانوي (صغير) — يستخدم في الكروت والـ dialogs
+  static ButtonStyle get secondaryButtonStyle => ElevatedButton.styleFrom(
+    backgroundColor: AppColors.primary,
+    foregroundColor: AppColors.white,
+    minimumSize: Size(double.infinity, 32.h),
+    padding: EdgeInsets.zero,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+    textStyle: AppTextStyles.black14400.copyWith(
+      fontSize: 13.sp,
+      fontWeight: FontWeight.w500,
+    ),
+  );
 }
 
 OutlineInputBorder _border(Color color, [double width = 1]) =>
     OutlineInputBorder(
-      borderRadius: BorderRadius.circular(4.r),
+      borderRadius: BorderRadius.circular(8.r),
       borderSide: BorderSide(color: color, width: width),
     );

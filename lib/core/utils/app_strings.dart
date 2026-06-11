@@ -82,6 +82,7 @@ abstract class AppStrings {
   // Cart
   static const String items = 'items';
   static const String clearAll = 'clearAll';
+  static const String recentSearches = 'recentSearches';
   static const String cartEmpty = 'cartEmpty';
   static const String subTotal = 'subTotal';
   static const String deliveryFee = 'delivery Fee';
@@ -137,6 +138,7 @@ abstract class AppStrings {
   static const String sortBy = 'sortBy';
   static const String filter = 'filter';
   static const String search = 'search';
+  static const String searchForAnyProduct = 'searchForAnyProduct';
   static const String all = 'all';
   static const String noProductsFound = 'noProductsFound';
 
@@ -175,6 +177,31 @@ abstract class AppStrings {
   static const String maleValue = 'male';
   static const String photo = 'photo';
   static const String bestSeller = 'bestSeller';
+
+  // Address Feature
+  static const String userNotFound = 'userNotFound';
+  static const String addressIdRequired = 'addressIdRequired';
+  static const String addressAddedSuccess = 'addressAddedSuccess';
+  static const String address = 'address';
+  static const String addressUpdatedSuccess = 'addressUpdatedSuccess';
+  static const String addressDeletedSuccess = 'addressDeletedSuccess';
+  static const String noAddressesSaved = 'noAddressesSaved';
+  static const String startAddingAddresses = 'startAddingAddresses';
+  static const String addNewAddress = 'addNewAddress';
+  static const String saveAddress = 'saveAddress';
+  static const String updateAddress = 'updateAddress';
+  static const String selectLocation = 'selectLocation';
+  static const String selectLocationOnMap = 'selectLocationOnMap';
+  static const String enterAddress = 'enterAddress';
+  static const String enterRecipientName = 'enterRecipientName';
+  static const String recipientName = 'recipientName';
+  static const String city = 'city';
+  static const String selectCity = 'selectCity';
+  static const String area = 'area';
+  static const String selectArea = 'selectArea';
+  static const String pleaseSelectCityAndArea = 'pleaseSelectCityAndArea';
+  static const String pleaseSelectLocationOnMap = 'pleaseSelectLocationOnMap';
+  static const String locationFetchError = 'locationFetchError';
 
   // Error Messages
   static const String someThingWentWrong = 'someThingWentWrong';
@@ -222,6 +249,18 @@ abstract class AppStrings {
   static const String invalidPhone = 'invalidPhone';
   static const String phoneMustStartWithCountryCode =
       'phoneMustStartWithCountryCode';
+  static const String recipientNameRequired = 'recipientNameRequired';
+
+  // My orders
+  // static const String myOrders = 'my_orders';
+  static const String active = 'active';
+  static const String completed = 'completed';
+  static const String trackOrder = 'track_order';
+  static const String reorder = 'reorder';
+  static const String orderNumber = 'order_number';
+  static const String deliveredOn = 'delivered_on';
+  static const String noActiveOrders = 'no_active_orders';
+  static const String noCompletedOrders = 'no_completed_orders';
 
   //checkout
   static const String deliveryAddress = 'Delivery address';

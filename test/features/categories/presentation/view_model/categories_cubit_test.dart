@@ -168,11 +168,7 @@ void main() {
         setUp: () {
           when(
             mockGetProductsUseCase.call(
-              params: GetProductsParams(
-                category: null,
-                search: null,
-                sort: null,
-              ),
+              params: GetProductsParams(category: null, sort: null),
             ),
           ).thenAnswer(
             (_) async => SuccessBaseResponse<List<ProductEntity>>([]),
@@ -192,7 +188,7 @@ void main() {
 
         verify: (_) => verify(
           mockGetProductsUseCase.call(
-            params: GetProductsParams(category: null, search: null, sort: null),
+            params: GetProductsParams(category: null, sort: null),
           ),
         ).called(1),
       );
@@ -202,11 +198,7 @@ void main() {
         setUp: () {
           when(
             mockGetProductsUseCase.call(
-              params: GetProductsParams(
-                category: null,
-                search: null,
-                sort: null,
-              ),
+              params: GetProductsParams(category: null, sort: null),
             ),
           ).thenAnswer(
             (_) async =>
@@ -227,7 +219,7 @@ void main() {
 
         verify: (_) => verify(
           mockGetProductsUseCase.call(
-            params: GetProductsParams(category: null, search: null, sort: null),
+            params: GetProductsParams(category: null, sort: null),
           ),
         ).called(1),
       );
@@ -239,11 +231,7 @@ void main() {
         setUp: () {
           when(
             mockGetProductsUseCase.call(
-              params: GetProductsParams(
-                category: null,
-                search: null,
-                sort: null,
-              ),
+              params: GetProductsParams(category: null, sort: null),
             ),
           ).thenAnswer(
             (_) async => ErrorBaseResponse<List<ProductEntity>>(errorMassage),
@@ -266,7 +254,7 @@ void main() {
 
         verify: (_) => verify(
           mockGetProductsUseCase.call(
-            params: GetProductsParams(category: null, search: null, sort: null),
+            params: GetProductsParams(category: null, sort: null),
           ),
         ).called(1),
       );

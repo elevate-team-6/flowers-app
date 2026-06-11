@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
@@ -145,9 +146,20 @@ class _OccasionsScreenState extends State<OccasionsScreen>
 
                       if (productsList.isEmpty) {
                         return Center(
-                          child: Text(
-                            AppStrings.noProductsFound.tr(),
-                            style: AppTextStyles.black16400,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.local_florist_outlined,
+                                size: 80.sp,
+                                color: AppColors.black30,
+                              ),
+                              SizedBox(height: 16.h),
+                              Text(
+                                AppStrings.noProductsFound.tr(),
+                                style: AppTextStyles.black16400,
+                              ),
+                            ],
                           ),
                         );
                       }

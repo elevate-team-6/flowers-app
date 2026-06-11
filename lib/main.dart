@@ -10,10 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'config/cache/hive_helper.dart';
-import 'config/cache/secure_cache_helper.dart';
 import 'config/di/di.dart';
+import 'config/services/auth_service.dart';
+import 'config/services/firebase_service.dart';
 import 'core/utils/app_constants.dart';
-import 'core/utils/app_keys.dart';
 import 'features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';
 
 Future<void> main() async {
@@ -21,16 +21,16 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 await getIt<RemoteConfigService>().init();
+
+  await FirebaseService.init();
+
   configureDependencies();
 
   // Initialize Hive
   await getIt<HiveHelper>().init();
 
-  final secureCacheHelper = getIt<SecureCacheHelper>();
-  final token = await secureCacheHelper.readData(key: AppKeys.tokenKey);
-  final bool isRemembered =
-      await secureCacheHelper.readData(key: AppKeys.rememberMeKey) == 'true';
-  final isLoggedIn = token != null && token.isNotEmpty && isRemembered;
+  final isLoggedIn = await AuthService.isLoggedIn();
+
   runApp(
     EasyLocalization(
       supportedLocales: const [
@@ -46,6 +46,7 @@ await getIt<RemoteConfigService>().init();
 
 class MyApp extends StatelessWidget {
   final bool isLoggedIn;
+
   const MyApp({super.key, this.isLoggedIn = true});
 
   @override

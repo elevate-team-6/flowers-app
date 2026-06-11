@@ -32,38 +32,25 @@ migrate_working_dir/
 .pub/
 /build/
 /coverage/
+pubspec.lock
 
-# Symbolication related
+# Symbolication and Obfuscation related
 app.*.symbols
-
-# Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
+# Android Studio build artifacts
 /android/app/debug
 /android/app/profile
 /android/app/release
-
 
 # Generated files (Injectable, Retrofit, JsonSerializable, etc.)
 *.g.dart
 *.freezed.dart
 *.config.dart
 *.gr.dart
+*.mocks.dart
 lib/generated/
-lib/**/*.g.dart
 lib/config/di/di.config.dart
-
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
 
 # Platform Specific Generated Files
 android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
@@ -80,8 +67,26 @@ windows/flutter/generated_plugins.cmake
 macos/Flutter/GeneratedPluginRegistrant.swift
 devtools_options.yaml
 
-# Generated files
-*.g.dart
-*.mocks.dart
-pubspec.lock
+# Firebase (Sensitive files - Do not push)
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+lib/firebase_options.dart
+firebase.json
 
+# Fastlane
+android/fastlane/report.xml
+android/fastlane/Preview.html
+android/fastlane/test_output/
+ios/fastlane/report.xml
+ios/fastlane/Preview.html
+ios/fastlane/test_output/
+ios/fastlane/README.md
+
+# Environment Variables (Contains secrets!)
+.env
+.env.local
+*.env.local
+
+# Service Account Files (Contains credentials!)
+**/service-account*.json
+**/firebase-adminsdk*.json
