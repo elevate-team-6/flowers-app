@@ -39,10 +39,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onGetCart(GetCartEvent event, Emitter<CartState> emit) async {
-    if (state.status == CartStatus.success && state.cart != null) {
-      return;
-    }
-
     emit(state.copyWith(status: CartStatus.loading));
     final result = await _getCartUseCase();
     switch (result) {

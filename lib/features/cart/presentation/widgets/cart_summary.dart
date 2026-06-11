@@ -1,4 +1,8 @@
+import 'package:flowers_app/core/utils/app_routes.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
@@ -52,7 +56,19 @@ class CartSummary extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.r),
               ),
             ),
-            onPressed: () {},
+            onPressed: () async {
+              final shouldRefresh = await Navigator.pushNamed(
+                context,
+                AppRoutes.checkout,
+                arguments: cart,
+              );
+
+              if (!context.mounted) return;
+
+              if (shouldRefresh == true) {
+                context.read<CartBloc>().add(const GetCartEvent());
+              }
+            },
             child: Text(
               AppStrings.checkout.tr(),
               style: AppTextStyles.white16500.copyWith(fontSize: 18.sp),

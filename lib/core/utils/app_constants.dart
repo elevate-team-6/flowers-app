@@ -7,6 +7,10 @@ abstract class AppConstants {
   static const String newText = 'new';
   static const String oldText = 'old';
   static const String discountText = 'discount';
+  static const String checkoutUrlQuery  = 'url';
+  static const String checkoutRedirectUrl = 'http://localhost:3000';
+  static const String cash = 'cash';
+  static const String card = 'card';
 
   // Address Feature Constants
   static const String usersCollection = 'users';

@@ -25,6 +25,7 @@ abstract class AppIcons {
   static const String language = '${_iconsPath}language_icon.svg';
   static const String orders = '${_iconsPath}orders_icon.svg';
   static const String logout = '${_iconsPath}logout_icon.svg';
+  static const String time = '${_iconsPath}time.svg';
 }
 
 abstract class AppImages {

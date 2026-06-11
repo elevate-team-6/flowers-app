@@ -7,8 +7,13 @@ import 'package:flowers_app/features/auth/login/presentation/view_model/login_cu
 import 'package:flowers_app/features/auth/signup/presentation/screens/signup_screen.dart';
 import 'package:flowers_app/features/auth/signup/presentation/screens/terms_and_conditions_screen.dart';
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
+import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
+import 'package:flowers_app/features/checkout/presentation/screens/checkout_screen.dart';
+import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
+import 'package:flowers_app/features/checkout/presentation/view_model/checkout_events.dart';
+import 'package:flowers_app/features/checkout/presentation/widgets/payment_webview.dart';
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
 import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
@@ -62,6 +67,8 @@ abstract class AppRoutes {
   static const String notificationScreen = '/notificationScreen';
   static const String aboutUsScreen = '/aboutUsScreen';
   static const String editProfile = '/editProfile';
+  static const String checkout = '/checkout';
+  static const String paymentWebView = 'paymentWebView';
   static const String orders = '/orders';
   static const String search = '/search';
 
@@ -175,6 +182,19 @@ abstract class AppRoutes {
             create: (_) => getIt<EditProfileCubit>(),
             child: EditProfileScreen(profileUser: user),
           ),
+        );
+      case checkout:
+        final cart = settings.arguments as CartEntity;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<CheckoutCubit>()..doEvent(GetAddressesEvent()),
+            child: CheckoutScreen(cart: cart),
+          ),
+        );
+      case AppRoutes.paymentWebView:
+        final url = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => PaymentWebView(paymentUrl: url),
         );
       case savedAddressScreen:
         return MaterialPageRoute(builder: (_) => const SavedAddressesScreen());
