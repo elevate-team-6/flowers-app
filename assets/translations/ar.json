@@ -199,5 +199,6 @@
   "area": "المنطقة",
   "selectArea": "اختر المنطقة",
   "pleaseSelectCityAndArea": "يرجى اختيار المدينة والمنطقة",
-  "pleaseSelectLocationOnMap": "يرجى اختيار الموقع على الخريطة"
+  "pleaseSelectLocationOnMap": "يرجى اختيار الموقع على الخريطة",
+  "locationFetchError": "تعذر الحصول على الموقع الحالي"
 }

@@ -66,3 +66,8 @@ class InitEditAddressEvent extends AddressEvent {
   final AddressEntity address;
   const InitEditAddressEvent(this.address);
 }
+
+class GetCurrentLocationEvent extends AddressEvent {
+  final bool moveToLocation;
+  const GetCurrentLocationEvent({this.moveToLocation = true});
+}

@@ -9,6 +9,7 @@ class AddressStates extends Equatable {
   final BaseState<List<AddressEntity>> addressesState;
   final BaseState<List<GovernorateEntity>> governoratesState;
   final BaseState<List<CityEntity>> citiesState;
+  final BaseState<LatLng> currentLocationState;
 
   // Split action state to avoid ambiguity
   final BaseState<bool> addAddressState;
@@ -26,6 +27,7 @@ class AddressStates extends Equatable {
     this.addressesState = const BaseState(),
     this.governoratesState = const BaseState(),
     this.citiesState = const BaseState(),
+    this.currentLocationState = const BaseState(),
     this.addAddressState = const BaseState(),
     this.updateAddressState = const BaseState(),
     this.deleteAddressState = const BaseState(),
@@ -40,6 +42,7 @@ class AddressStates extends Equatable {
     BaseState<List<AddressEntity>>? addressesState,
     BaseState<List<GovernorateEntity>>? governoratesState,
     BaseState<List<CityEntity>>? citiesState,
+    BaseState<LatLng>? currentLocationState,
     BaseState<bool>? addAddressState,
     BaseState<bool>? updateAddressState,
     BaseState<bool>? deleteAddressState,
@@ -58,6 +61,7 @@ class AddressStates extends Equatable {
       addressesState: addressesState ?? this.addressesState,
       governoratesState: governoratesState ?? this.governoratesState,
       citiesState: citiesState ?? this.citiesState,
+      currentLocationState: currentLocationState ?? this.currentLocationState,
       addAddressState: addAddressState ?? this.addAddressState,
       updateAddressState: updateAddressState ?? this.updateAddressState,
       deleteAddressState: deleteAddressState ?? this.deleteAddressState,
@@ -84,6 +88,7 @@ class AddressStates extends Equatable {
     addressesState,
     governoratesState,
     citiesState,
+    currentLocationState,
     addAddressState,
     updateAddressState,
     deleteAddressState,

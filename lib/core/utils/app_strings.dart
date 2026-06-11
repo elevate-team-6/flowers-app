@@ -201,6 +201,7 @@ abstract class AppStrings {
   static const String selectArea = 'selectArea';
   static const String pleaseSelectCityAndArea = 'pleaseSelectCityAndArea';
   static const String pleaseSelectLocationOnMap = 'pleaseSelectLocationOnMap';
+  static const String locationFetchError = 'locationFetchError';
 
   // Error Messages
   static const String someThingWentWrong = 'someThingWentWrong';

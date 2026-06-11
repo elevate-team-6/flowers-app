@@ -1,5 +1,7 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/base_state/base_state.dart';
+import 'package:flowers_app/core/extensions/placemark_extension.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
 import 'package:flowers_app/features/address/domain/entities/city_entity.dart';
 import 'package:flowers_app/features/address/domain/entities/governorate_entity.dart';
@@ -8,15 +10,18 @@ import 'package:flowers_app/features/address/domain/use_cases/delete_address_use
 import 'package:flowers_app/features/address/domain/use_cases/get_addresses_use_case.dart';
 import 'package:flowers_app/features/address/domain/use_cases/get_cities_use_case.dart';
 import 'package:flowers_app/features/address/domain/use_cases/get_governorates_use_case.dart';
+import 'package:flowers_app/features/address/domain/use_cases/get_placemark_use_case.dart';
 import 'package:flowers_app/features/address/domain/use_cases/update_address_use_case.dart';
+import 'package:flowers_app/features/address/domain/utils/address_matcher.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
-import 'package:flowers_app/features/address/presentation/view_model/address_service.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:latlong2/latlong.dart';
 
-@injectable
+import '../../domain/use_cases/get_current_location_use_case.dart';
+
+@singleton
 class AddressCubit extends Cubit<AddressStates> {
   final GetAddressesUseCase _getAddressesUseCase;
   final AddAddressUseCase _addAddressUseCase;
@@ -24,7 +29,9 @@ class AddressCubit extends Cubit<AddressStates> {
   final DeleteAddressUseCase _deleteAddressUseCase;
   final GetGovernoratesUseCase _getGovernoratesUseCase;
   final GetCitiesUseCase _getCitiesUseCase;
-  final AddressService _addressService;
+  final GetPlacemarkUseCase _getPlacemarkUseCase;
+  final GetCurrentLocationUseCase _getCurrentLocationUseCase;
+  final AddressMatcher _addressMatcher;
 
   AddressCubit(
     this._getAddressesUseCase,
@@ -33,7 +40,9 @@ class AddressCubit extends Cubit<AddressStates> {
     this._deleteAddressUseCase,
     this._getGovernoratesUseCase,
     this._getCitiesUseCase,
-    this._addressService,
+    this._getPlacemarkUseCase,
+    this._getCurrentLocationUseCase,
+    this._addressMatcher,
   ) : super(const AddressStates());
 
   void doEvent(AddressEvent event) {
@@ -67,6 +76,8 @@ class AddressCubit extends Cubit<AddressStates> {
         emit(state.copyWith(selectedCityId: event.cityId));
       case InitEditAddressEvent():
         _onInitEditAddress(event.address);
+      case GetCurrentLocationEvent():
+        _onGetCurrentLocation();
     }
   }
 
@@ -82,13 +93,13 @@ class AddressCubit extends Cubit<AddressStates> {
     String? matchedCityId;
     List<CityEntity>? cities;
 
-    matchedGovId = _addressService.matchGovernorate(govs, address.city);
+    matchedGovId = _addressMatcher.matchGovernorate(govs, address.city);
 
     if (matchedGovId != null) {
       final citiesResult = await _getCitiesUseCase(matchedGovId);
       if (citiesResult is SuccessBaseResponse<List<CityEntity>>) {
         cities = citiesResult.data;
-        matchedCityId = _addressService.matchCityByName(cities, address.area);
+        matchedCityId = _addressMatcher.matchCityByName(cities, address.area);
       }
     }
 
@@ -290,17 +301,28 @@ class AddressCubit extends Cubit<AddressStates> {
     );
 
     try {
-      final place = await _addressService.getPlacemarkFromLocation(location);
-      if (place == null) throw Exception("Could not find address");
+      final place = await _getPlacemarkUseCase(location);
+      if (place == null) {
+        emit(
+          state.copyWith(
+            citiesState: const BaseState(isLoading: false),
+            addAddressState: const BaseState(
+              isLoading: false,
+              errorMessage: AppStrings.locationFetchError,
+            ),
+          ),
+        );
+        return;
+      }
 
-      final streetAddress = _addressService.formatPlacemark(place);
+      final streetAddress = place.formatAddress();
 
       String? matchedGovId;
       String? matchedCityId;
       List<CityEntity>? cities;
 
       if (state.governoratesState.data != null) {
-        matchedGovId = _addressService.matchGovernorate(
+        matchedGovId = _addressMatcher.matchGovernorate(
           state.governoratesState.data!,
           place.administrativeArea,
         );
@@ -309,7 +331,7 @@ class AddressCubit extends Cubit<AddressStates> {
           final citiesResult = await _getCitiesUseCase(matchedGovId);
           if (citiesResult is SuccessBaseResponse<List<CityEntity>>) {
             cities = citiesResult.data;
-            matchedCityId = _addressService.matchCity(cities, place);
+            matchedCityId = _addressMatcher.matchCity(cities, place);
           }
         }
       }
@@ -341,11 +363,36 @@ class AddressCubit extends Cubit<AddressStates> {
         addAddressState: const BaseState(),
         updateAddressState: const BaseState(),
         deleteAddressState: const BaseState(),
+        currentLocationState: const BaseState(),
         resetAutoDetails: true,
         resetLocation: true,
         resetGovernorate: true,
         resetCity: true,
       ),
     );
+  }
+
+  Future<void> _onGetCurrentLocation() async {
+    emit(
+      state.copyWith(currentLocationState: const BaseState(isLoading: true)),
+    );
+    final result = await _getCurrentLocationUseCase();
+    if (result != null) {
+      emit(
+        state.copyWith(
+          currentLocationState: BaseState(isLoading: false, data: result),
+          selectedLocation: result,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          currentLocationState: const BaseState(
+            isLoading: false,
+            errorMessage: AppStrings.locationFetchError,
+          ),
+        ),
+      );
+    }
   }
 }
