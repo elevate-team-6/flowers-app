@@ -45,8 +45,7 @@ platform :android do
 
   # دالة مساعدة — تزوّد الـ build number في pubspec.yaml
   private_lane :bump_build_number do
-    pubspec_path = "E:/Flutter pro/flowers-app/pubspec.yaml"
-    
+    pubspec_path = File.expand_path("../../pubspec.yaml", __dir__)    
     content = File.read(pubspec_path)
     
     new_content = content.sub(/version:\s+(\d+\.\d+\.\d+)\+(\d+)/) do |match|
@@ -70,7 +69,7 @@ platform :android do
     
     safe_branch_name = branch_name.gsub("/", "-")
     
-    apk_folder = "E:/Flutter pro/flowers-app/build/app/outputs/flutter-apk"
+    apk_folder = File.expand_path("../../build/app/outputs/flutter-apk", __dir__)
     original_apk = "#{apk_folder}/app-debug.apk"
     new_apk_name = "flowers-app-#{safe_branch_name}-#{commit_hash}-debug.apk"
     new_apk_path = "#{apk_folder}/#{new_apk_name}"
