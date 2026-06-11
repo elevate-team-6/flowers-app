@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/address/data/data_sources/address_local_data_source_contract.dart';
 import 'package:flowers_app/features/address/data/models/city_model.dart';
 import 'package:flowers_app/features/address/data/models/governorate_model.dart';
@@ -31,7 +33,7 @@ class AddressLocalDataSourceImpl implements AddressLocalDataSourceContract {
           .toList();
       return SuccessBaseResponse(governorates);
     } catch (e) {
-      return ErrorBaseResponse(e.toString());
+      return ErrorBaseResponse(AppStrings.unexpectedError.tr());
     }
   }
 
@@ -57,7 +59,7 @@ class AddressLocalDataSourceImpl implements AddressLocalDataSourceContract {
 
       return SuccessBaseResponse(cities);
     } catch (e) {
-      return ErrorBaseResponse(e.toString());
+      return ErrorBaseResponse(AppStrings.unexpectedError.tr());
     }
   }
 }
