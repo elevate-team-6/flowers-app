@@ -39,6 +39,7 @@ dependencies:
   retrofit: ^4.9.2
   shimmer: ^3.0.0
   stream_transform: ^2.1.1
+  webview_flutter: ^4.10.0
 dev_dependencies:
   bloc_test: ^10.0.0
   build_runner: ^2.12.2
