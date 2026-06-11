@@ -1,4 +1,5 @@
 import 'package:flowers_app/config/di/di.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
@@ -67,6 +68,7 @@ abstract class AppRoutes {
               BlocProvider.value(
                 value: getIt<CartBloc>()..add(const GetCartEvent()),
               ),
+              BlocProvider.value(value: getIt<AddressDetailsCubit>()),
             ],
             child: const MainLayoutScreen(),
           ),

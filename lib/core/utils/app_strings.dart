@@ -125,6 +125,16 @@ abstract class AppStrings {
   static const String version = 'version';
   static const String confirmLogout = 'confirmLogout';
 
+  // Address Details Screen
+  static const String enableLocationServices =
+      'Please enable location services to add a delivery address.';
+  static const String locationPermissionDenied =
+      'Location permission is permanently denied. Please enable it from app settings.';
+  static const String later = 'Later';
+  static const String enableLocation = 'Enable Location';
+  static const String openSettings = 'Open Settings';
+  static const String locationRequired = 'Location Required';
+  static const String userNotFound = 'userNotFound';
   // Main Layout
   static const String home = 'home';
   static const String categories = 'categories';
