@@ -4,9 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
-import 'package:flowers_app/config/cache/secure_cache_helper.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
-import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/features/address_details/api/address_details_api_client.dart';
 import 'package:flowers_app/features/address_details/data/models/address_model.dart';
 import 'package:flowers_app/features/address_details/data/models/address_response.dart';
@@ -14,7 +12,6 @@ import 'package:flowers_app/features/address_details/data/models/address_respons
 import 'address_details_remote_data_source_impl_test.mocks.dart';
 
 @GenerateMocks([
-  SecureCacheHelper,
   FirebaseFirestore,
   AddressDetailsApiClient,
   CollectionReference<Map<String, dynamic>>,
@@ -22,7 +19,6 @@ import 'address_details_remote_data_source_impl_test.mocks.dart';
   DocumentSnapshot<Map<String, dynamic>>,
 ])
 void main() {
-  late MockSecureCacheHelper cacheHelper;
   late MockFirebaseFirestore firestore;
   late MockAddressDetailsApiClient apiClient;
 
@@ -34,8 +30,9 @@ void main() {
 
   late AddressDetailsRemoteDataSourceImpl dataSource;
 
+  const userId = 'user-id';
+
   setUp(() {
-    cacheHelper = MockSecureCacheHelper();
     firestore = MockFirebaseFirestore();
     apiClient = MockAddressDetailsApiClient();
 
@@ -45,17 +42,13 @@ void main() {
     defaultAddressDoc = MockDocumentReference<Map<String, dynamic>>();
     documentSnapshot = MockDocumentSnapshot<Map<String, dynamic>>();
 
-    dataSource = AddressDetailsRemoteDataSourceImpl(
-      cacheHelper,
-      firestore,
-      apiClient,
-    );
+    dataSource = AddressDetailsRemoteDataSourceImpl(firestore, apiClient);
 
     when(
       firestore.collection(AppConstants.usersCollection),
     ).thenReturn(usersCollection);
 
-    when(usersCollection.doc(any)).thenReturn(userDoc);
+    when(usersCollection.doc(userId)).thenReturn(userDoc);
 
     when(
       userDoc.collection(AppConstants.defaultAddressCollection),
@@ -90,10 +83,6 @@ void main() {
 
   group('getDefaultAddress', () {
     test('should return address when document exists', () async {
-      when(
-        cacheHelper.readData(key: AppKeys.userIdKey),
-      ).thenAnswer((_) async => 'user-id');
-
       when(defaultAddressDoc.get()).thenAnswer((_) async => documentSnapshot);
 
       when(documentSnapshot.exists).thenReturn(true);
@@ -102,7 +91,7 @@ void main() {
         documentSnapshot.data(),
       ).thenReturn({'_id': '1', 'city': 'Cairo', 'area': 'Nasr City'});
 
-      final result = await dataSource.getDefaultAddress();
+      final result = await dataSource.getDefaultAddress(userId);
 
       expect(result, isA<SuccessBaseResponse<AddressModel?>>());
 
@@ -110,15 +99,11 @@ void main() {
     });
 
     test('should return null when document does not exist', () async {
-      when(
-        cacheHelper.readData(key: AppKeys.userIdKey),
-      ).thenAnswer((_) async => 'user-id');
-
       when(defaultAddressDoc.get()).thenAnswer((_) async => documentSnapshot);
 
       when(documentSnapshot.exists).thenReturn(false);
 
-      final result = await dataSource.getDefaultAddress();
+      final result = await dataSource.getDefaultAddress(userId);
 
       expect(result, isA<SuccessBaseResponse<AddressModel?>>());
     });
@@ -128,13 +113,9 @@ void main() {
     test('should save address to firestore', () async {
       final address = AddressModel(id: '1', city: 'Cairo');
 
-      when(
-        cacheHelper.readData(key: AppKeys.userIdKey),
-      ).thenAnswer((_) async => 'user-id');
-
       when(defaultAddressDoc.set(any)).thenAnswer((_) async {});
 
-      await dataSource.setDefaultAddress(address);
+      await dataSource.setDefaultAddress(userId, address);
 
       verify(
         defaultAddressDoc.set({
@@ -148,13 +129,13 @@ void main() {
     test('should save address with selectedByUser false', () async {
       final address = AddressModel(id: '1', city: 'Cairo');
 
-      when(
-        cacheHelper.readData(key: AppKeys.userIdKey),
-      ).thenAnswer((_) async => 'user-id');
-
       when(defaultAddressDoc.set(any)).thenAnswer((_) async {});
 
-      await dataSource.setDefaultAddress(address, selectedByUser: false);
+      await dataSource.setDefaultAddress(
+        userId,
+        address,
+        selectedByUser: false,
+      );
 
       verify(
         defaultAddressDoc.set({

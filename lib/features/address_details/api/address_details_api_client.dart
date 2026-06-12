@@ -7,7 +7,7 @@ part 'address_details_api_client.g.dart';
 
 @injectable
 @RestApi()
-abstract class AddressDetailsApiClient {
+abstract interface class AddressDetailsApiClient {
   @factoryMethod
   factory AddressDetailsApiClient(Dio dio) = _AddressDetailsApiClient;
     @GET(AppEndPoints.addresses)

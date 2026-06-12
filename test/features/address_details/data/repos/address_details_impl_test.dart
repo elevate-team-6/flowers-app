@@ -2,7 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/config/cache/secure_cache_helper.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
+import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/features/address_details/data/data_sources/address_details_remote_data_source_contract.dart';
 import 'package:flowers_app/features/address_details/data/models/address_model.dart';
 import 'package:flowers_app/features/address_details/domain/entities/address_entity.dart';
@@ -10,26 +12,36 @@ import 'package:flowers_app/features/address_details/data/repos/address_details_
 
 import 'address_details_impl_test.mocks.dart';
 
-@GenerateMocks([AddressDetailsRemoteDataSourceContract])
+@GenerateMocks([AddressDetailsRemoteDataSourceContract, SecureCacheHelper])
 void main() {
   provideDummy<BaseResponse<AddressModel?>>(
     SuccessBaseResponse<AddressModel?>(null),
   );
 
   provideDummy<BaseResponse<void>>(SuccessBaseResponse<void>(null));
+
   late MockAddressDetailsRemoteDataSourceContract mockRemoteDataSource;
+  late MockSecureCacheHelper mockCacheHelper;
   late AddressRepoDetailsImpl repository;
+
+  const userId = 'user-id';
 
   setUp(() {
     mockRemoteDataSource = MockAddressDetailsRemoteDataSourceContract();
-    repository = AddressRepoDetailsImpl(mockRemoteDataSource);
+    mockCacheHelper = MockSecureCacheHelper();
+
+    repository = AddressRepoDetailsImpl(mockRemoteDataSource, mockCacheHelper);
+
+    when(
+      mockCacheHelper.readData(key: AppKeys.userIdKey),
+    ).thenAnswer((_) async => userId);
   });
 
   group('getDefaultAddress', () {
     test(
       'should return mapped AddressEntity when datasource returns AddressModel',
       () async {
-        when(mockRemoteDataSource.getDefaultAddress()).thenAnswer(
+        when(mockRemoteDataSource.getDefaultAddress(userId)).thenAnswer(
           (_) async => SuccessBaseResponse(
             AddressModel(
               id: '1',
@@ -59,13 +71,13 @@ void main() {
         expect(entity.longitude, '31.0');
         expect(entity.isDefault, true);
 
-        verify(mockRemoteDataSource.getDefaultAddress()).called(1);
+        verify(mockRemoteDataSource.getDefaultAddress(userId)).called(1);
       },
     );
 
     test('should return null when datasource returns null address', () async {
       when(
-        mockRemoteDataSource.getDefaultAddress(),
+        mockRemoteDataSource.getDefaultAddress(userId),
       ).thenAnswer((_) async => SuccessBaseResponse<AddressModel?>(null));
 
       final result = await repository.getDefaultAddress();
@@ -74,12 +86,12 @@ void main() {
 
       expect((result as SuccessBaseResponse<AddressEntity?>).data, isNull);
 
-      verify(mockRemoteDataSource.getDefaultAddress()).called(1);
+      verify(mockRemoteDataSource.getDefaultAddress(userId)).called(1);
     });
 
     test('should return ErrorBaseResponse when datasource fails', () async {
       when(
-        mockRemoteDataSource.getDefaultAddress(),
+        mockRemoteDataSource.getDefaultAddress(userId),
       ).thenAnswer((_) async => ErrorBaseResponse('error'));
 
       final result = await repository.getDefaultAddress();
@@ -88,7 +100,7 @@ void main() {
 
       expect((result as ErrorBaseResponse).errorMessage, 'error');
 
-      verify(mockRemoteDataSource.getDefaultAddress()).called(1);
+      verify(mockRemoteDataSource.getDefaultAddress(userId)).called(1);
     });
   });
 
@@ -108,20 +120,24 @@ void main() {
       when(
         mockRemoteDataSource.setDefaultAddress(
           any,
+          any,
           selectedByUser: anyNamed('selectedByUser'),
         ),
       ).thenAnswer((_) async => SuccessBaseResponse(null));
 
-      await repository.setDefaultAddress(entity);
+      await repository.setDefaultAddress( entity);
 
       final captured = verify(
         mockRemoteDataSource.setDefaultAddress(
+          captureAny,
           captureAny,
           selectedByUser: captureAnyNamed('selectedByUser'),
         ),
       ).captured;
 
-      final model = captured.first as AddressModel;
+      expect(captured[0], userId);
+
+      final model = captured[1] as AddressModel;
 
       expect(model.id, entity.id);
       expect(model.username, entity.recipientName);
@@ -151,14 +167,19 @@ void main() {
       when(
         mockRemoteDataSource.setDefaultAddress(
           any,
+          any,
           selectedByUser: anyNamed('selectedByUser'),
         ),
       ).thenAnswer((_) async => SuccessBaseResponse(null));
 
-      await repository.setDefaultAddress(entity, selectedByUser: false);
+      await repository.setDefaultAddress( entity, selectedByUser: false);
 
       verify(
-        mockRemoteDataSource.setDefaultAddress(any, selectedByUser: false),
+        mockRemoteDataSource.setDefaultAddress(
+          userId,
+          any,
+          selectedByUser: false,
+        ),
       ).called(1);
     });
   });
