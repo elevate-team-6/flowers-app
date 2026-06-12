@@ -1,10 +1,14 @@
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
+import 'package:flowers_app/features/categories/presentation/view_model/categories_cubit.dart';
+import 'package:flowers_app/features/categories/presentation/view_model/categories_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../view_model/categories_state.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,8 +24,18 @@ class CategoriesProductsSection extends StatelessWidget {
       return const CustomProductsShimmer();
     }
 
-    final products = state.productsState.data;
+    if (state.productsState.errorMessage != null) {
+      return CustomErrorStateView(
+        message: state.productsState.errorMessage!,
+        onRetry: () {
+          context.read<CategoriesCubit>().doEvent(
+            const GetProductsRequestedEvent(),
+          );
+        },
+      );
+    }
 
+    final products = state.productsState.data;
     if (products != null && products.isNotEmpty) {
       return CustomProductsGrid(
         products: products,
