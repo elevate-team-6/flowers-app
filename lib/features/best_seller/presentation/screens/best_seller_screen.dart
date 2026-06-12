@@ -1,4 +1,5 @@
 import 'package:flowers_app/config/services/snack_bar_services.dart';
+import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
@@ -56,10 +57,10 @@ class BestSellerScreen extends StatelessWidget {
             if (state.bestSellerState.isLoading) {
               return const CustomProductsShimmer();
             }
+
             if (state.bestSellerState.errorMessage != null) {
               return CustomErrorState(
                 message: state.bestSellerState.errorMessage!,
-
                 onRetry: () {
                   context.read<BestSellerCubit>().doEvent(
                     GetBestSellerProductsEvent(),
@@ -67,18 +68,37 @@ class BestSellerScreen extends StatelessWidget {
                 },
               );
             }
+
             final products = state.bestSellerState.data ?? [];
             if (products.isEmpty) {
-              return Center(child: Text(AppStrings.noProductsFound.tr()));
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.local_florist_outlined,
+                      size: 80.sp,
+                      color: AppColors.black30,
+                    ),
+                    SizedBox(height: 16.h),
+                    Text(
+                      AppStrings.noProductsFound.tr(),
+                      style: AppTextStyles.black16400,
+                    ),
+                  ],
+                ),
+              );
             }
-            return CustomProductsGrid(products: products,
+            return CustomProductsGrid(
+              products: products,
               onTap: (product) {
                 Navigator.pushNamed(
                   context,
                   AppRoutes.productDetails,
                   arguments: product.id,
                 );
-              });
+              },
+            );
           },
         ),
       ),
