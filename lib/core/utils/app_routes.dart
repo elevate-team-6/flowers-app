@@ -23,12 +23,14 @@ import 'package:flowers_app/features/profile/reset_password/presentation/view_mo
 import 'package:flowers_app/features/search/presentation/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../features/address/domain/entities/address_entity.dart';
 import '../../features/address/presentation/screens/add_address_screen.dart';
 import '../../features/address/presentation/screens/map_picker_screen.dart';
 import '../../features/address/presentation/screens/saved_addresses_screen.dart';
-import 'package:latlong2/latlong.dart';
+import '../../features/address/presentation/view_model/address_cubit.dart';
+import '../../features/address/presentation/view_model/address_event.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_event.dart';
 import '../../features/best_seller/presentation/screens/best_seller_screen.dart';
@@ -173,17 +175,28 @@ abstract class AppRoutes {
           ),
         );
       case savedAddressScreen:
-        return MaterialPageRoute(builder: (_) => const SavedAddressesScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<AddressCubit>()..doEvent(const GetAddressesEvent()),
+            child: const SavedAddressesScreen(),
+          ),
+        );
       case addAddressScreen:
         final address = settings.arguments as AddressEntity?;
         return MaterialPageRoute(
-          builder: (_) => AddAddressScreen(addressToEdit: address),
+          builder: (_) => BlocProvider.value(
+            value: getIt<AddressCubit>(),
+            child: AddAddressScreen(addressToEdit: address),
+          ),
         );
 
       case mapPicker:
         final LatLng initialLocation = settings.arguments as LatLng;
         return MaterialPageRoute(
-          builder: (_) => MapPickerScreen(initialLocation: initialLocation),
+          builder: (_) => BlocProvider.value(
+            value: getIt<AddressCubit>(),
+            child: MapPickerScreen(initialLocation: initialLocation),
+          ),
         );
 
       case search:
