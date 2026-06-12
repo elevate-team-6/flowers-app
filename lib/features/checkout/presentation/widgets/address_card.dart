@@ -1,4 +1,5 @@
 import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/checkout/presentation/widgets/custom_radio_button.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,9 @@ class AddressCard extends StatelessWidget {
                 ],
               ),
             ),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+            IconButton(onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.addAddressScreen);
+            }, icon: const Icon(Icons.edit)),
           ],
         ),
       ),

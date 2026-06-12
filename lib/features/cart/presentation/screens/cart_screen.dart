@@ -28,28 +28,16 @@ class CartScreen extends StatefulWidget {
   State<CartScreen> createState() => _CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> with WidgetsBindingObserver {
+class _CartScreenState extends State<CartScreen>  {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
     context.read<CartBloc>().add(const GetCartEvent());
     context.read<AddressDetailsCubit>().doEvent(
       InitializeAddressDetailsEvent(),
     );
   }
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      context.read<AddressDetailsCubit>().doEvent(ValidateLocationEvent());
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return BlocListener<AddressDetailsCubit, AddressDetailsState>(
