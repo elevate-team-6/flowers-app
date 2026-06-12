@@ -39,6 +39,7 @@ abstract class AppEndPoints {
   static const String cart = '$baseUrl/cart';
   static const String cartProductPath = '$cart/{productId}';
   static const String productIdParam = 'productId';
+  static const String addresses = "$baseUrl/addresses";
 
   //checkout
   static const String addresses = "$baseUrl/addresses";

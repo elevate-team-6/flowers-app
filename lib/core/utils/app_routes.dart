@@ -1,4 +1,5 @@
 import 'package:flowers_app/config/di/di.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
@@ -72,6 +73,7 @@ abstract class AppRoutes {
   static const String paymentWebView = 'paymentWebView';
   static const String orders = '/orders';
   static const String search = '/search';
+  static const String addAddressScreen = '/addAddressScreen';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -86,6 +88,7 @@ abstract class AppRoutes {
               BlocProvider.value(
                 value: getIt<CartBloc>()..add(const GetCartEvent()),
               ),
+              BlocProvider.value(value: getIt<AddressDetailsCubit>()),
             ],
             child: const MainLayoutScreen(),
           ),
