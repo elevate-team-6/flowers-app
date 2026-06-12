@@ -54,9 +54,9 @@ class CheckoutPlaceOrderButton extends StatelessWidget {
               final request = CheckoutRequest(
                 street: address.street,
                 city: address.city,
-                phone: '',
-                lat: '',
-                long: '',
+                phone: address.phoneNumber,
+                lat: address.latitude,
+                long: address.longitude,
               );
 
               if (state.selectedPaymentMethod == AppConstants.cash) {
