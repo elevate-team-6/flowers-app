@@ -139,7 +139,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           width: 2,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.addAddressScreen,
+                        );
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

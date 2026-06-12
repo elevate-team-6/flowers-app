@@ -12,7 +12,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../../../config/di/di.dart';
 import '../../../../core/widgets/custom_flower_loading.dart';
 
 class MapPickerScreen extends StatefulWidget {

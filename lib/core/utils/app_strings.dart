@@ -190,7 +190,6 @@ abstract class AppStrings {
   static const String bestSeller = 'bestSeller';
 
   // Address Feature
-  static const String userNotFound = 'userNotFound';
   static const String addressIdRequired = 'addressIdRequired';
   static const String addressAddedSuccess = 'addressAddedSuccess';
   static const String address = 'address';
@@ -198,7 +197,6 @@ abstract class AppStrings {
   static const String addressDeletedSuccess = 'addressDeletedSuccess';
   static const String noAddressesSaved = 'noAddressesSaved';
   static const String startAddingAddresses = 'startAddingAddresses';
-  static const String addNewAddress = 'addNewAddress';
   static const String saveAddress = 'saveAddress';
   static const String updateAddress = 'updateAddress';
   static const String selectLocation = 'selectLocation';

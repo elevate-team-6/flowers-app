@@ -73,7 +73,6 @@ abstract class AppRoutes {
   static const String paymentWebView = 'paymentWebView';
   static const String orders = '/orders';
   static const String search = '/search';
-  static const String addAddressScreen = '/addAddressScreen';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {

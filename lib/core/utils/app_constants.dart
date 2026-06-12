@@ -19,7 +19,6 @@ abstract class AppConstants {
   static const String defaultAddressDocId = 'current';
   static const String firestoreIdField = '_id';
   static const String addressDelimiter = " | ";
-    static const String usersCollection = 'users';
   static const String governoratesJsonPath = 'assets/json/governorates.json';
   static const String citiesJsonPath = 'assets/json/cities.json';
   static const String jsonNameKey = 'name';

@@ -42,7 +42,6 @@ abstract class AppEndPoints {
   static const String addresses = "$baseUrl/addresses";
 
   //checkout
-  static const String addresses = "$baseUrl/addresses";
   static const String cashCheckout = "$baseUrl/orders";
   static const String cardCheckout = '$cashCheckout/checkout';
   // orders:
