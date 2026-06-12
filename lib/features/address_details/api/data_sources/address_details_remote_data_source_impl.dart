@@ -2,19 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/error_handler/error_handler.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
-import 'package:flowers_app/features/address_details/api/address_details_api_client.dart';
+import 'package:flowers_app/features/address/data/models/address_model.dart';
 import 'package:flowers_app/features/address_details/data/data_sources/address_details_remote_data_source_contract.dart';
-import 'package:flowers_app/features/address_details/data/models/address_model.dart';
-import 'package:flowers_app/features/address_details/data/models/address_response.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: AddressDetailsRemoteDataSourceContract)
 class AddressDetailsRemoteDataSourceImpl
     implements AddressDetailsRemoteDataSourceContract {
   final FirebaseFirestore _firestore;
-  final AddressDetailsApiClient _apiClient;
 
-  const AddressDetailsRemoteDataSourceImpl(this._firestore, this._apiClient);
+  const AddressDetailsRemoteDataSourceImpl(this._firestore);
 
   DocumentReference<Map<String, dynamic>> _getDefaultAddressDoc(String userId) {
     return _firestore
@@ -35,16 +32,6 @@ class AddressDetailsRemoteDataSourceImpl
 
       return null;
     });
-  }
-
-  @override
-  Future<BaseResponse<AddressResponse>> getAddresses() async {
-    try {
-      final response = await _apiClient.getAddresses();
-      return SuccessBaseResponse(response);
-    } catch (e) {
-      return ErrorBaseResponse(e.toString());
-    }
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
-import 'package:flowers_app/features/address_details/domain/entities/address_entity.dart';
-import 'package:flowers_app/features/address_details/domain/use_cases/get_addresses_use_case.dart';
+import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
+import 'package:flowers_app/features/address/domain/use_cases/get_addresses_use_case.dart';
 import 'package:flowers_app/features/address_details/domain/use_cases/get_default_address_use_case.dart';
 import 'package:flowers_app/features/address_details/domain/use_cases/set_default_address_use_case.dart';
 import 'package:injectable/injectable.dart';
@@ -43,9 +43,18 @@ class InitializeDefaultAddressUseCase {
 
         final address = addresses.first;
 
-        await _setDefaultAddressUseCase(address, selectedByUser: false);
+        final saveResponse = await _setDefaultAddressUseCase(
+          address,
+          selectedByUser: false,
+        );
 
-        return SuccessBaseResponse(address);
+        switch (saveResponse) {
+          case SuccessBaseResponse<void>():
+            return SuccessBaseResponse(address);
+
+          case ErrorBaseResponse<void>():
+            return ErrorBaseResponse(saveResponse.errorMessage);
+        }
 
       case ErrorBaseResponse<List<AddressEntity>>():
         return ErrorBaseResponse(addressesResponse.errorMessage);

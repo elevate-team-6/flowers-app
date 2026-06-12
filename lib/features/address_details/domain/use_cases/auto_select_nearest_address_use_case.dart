@@ -1,9 +1,10 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/services/location_service.dart';
-import 'package:flowers_app/features/address_details/domain/entities/address_entity.dart';
+import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
+import 'package:flowers_app/features/address/domain/use_cases/get_addresses_use_case.dart';
 import 'package:flowers_app/features/address_details/domain/use_cases/find_nearest_address_use_case.dart';
-import 'package:flowers_app/features/address_details/domain/use_cases/get_addresses_use_case.dart';
 import 'package:flowers_app/features/address_details/domain/use_cases/set_default_address_use_case.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -31,7 +32,13 @@ class AutoSelectNearestAddressUseCase {
           return SuccessBaseResponse(null);
         }
 
-        final position = await _locationService.getCurrentPosition();
+        Position position;
+
+        try {
+          position = await _locationService.getCurrentPosition();
+        } catch (e) {
+          return ErrorBaseResponse(e.toString());
+        }
 
         final nearestAddress = _findNearestAddressUseCase(
           currentPosition: position,

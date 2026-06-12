@@ -4,10 +4,9 @@ import 'package:flowers_app/config/cache/secure_cache_helper.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/features/address/data/models/address_model.dart';
+import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
 import 'package:flowers_app/features/address_details/data/data_sources/address_details_remote_data_source_contract.dart';
-import 'package:flowers_app/features/address_details/data/models/address_model.dart';
-import 'package:flowers_app/features/address_details/data/models/address_response.dart';
-import 'package:flowers_app/features/address_details/domain/entities/address_entity.dart';
 import 'package:flowers_app/features/address_details/domain/repos/address_details_repo_contrect.dart';
 import 'package:injectable/injectable.dart';
 
@@ -17,17 +16,6 @@ class AddressRepoDetailsImpl implements AddressDetailsRepoContrect {
   final SecureCacheHelper _cacheHelper;
 
   const AddressRepoDetailsImpl(this._remoteDataSource, this._cacheHelper);
-
-  @override
-  Future<BaseResponse<List<AddressEntity>>> getAddresses() async {
-    final response = await _remoteDataSource.getAddresses();
-
-    if (response is SuccessBaseResponse<AddressResponse>) {
-      return SuccessBaseResponse([]);
-    }
-
-    return ErrorBaseResponse((response as ErrorBaseResponse).errorMessage);
-  }
 
   @override
   Future<BaseResponse<AddressEntity?>> getDefaultAddress() async {

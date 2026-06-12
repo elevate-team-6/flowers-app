@@ -1,4 +1,4 @@
-import 'package:flowers_app/features/address_details/domain/entities/address_entity.dart';
+import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 

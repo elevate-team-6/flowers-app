@@ -13,7 +13,9 @@ class AddressDetailsListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AddressDetailsCubit, AddressDetailsState>(
-      listenWhen: (previous, current) => previous.status != current.status,
+      listenWhen: (previous, current) =>
+          previous.defaultAddressState.errorMessage !=
+          current.defaultAddressState.errorMessage,
       listener: (context, state) {
         if (state.status == AddressDetailsStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
