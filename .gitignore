@@ -72,3 +72,21 @@ android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
 firebase.json
+
+# Fastlane
+android/fastlane/report.xml
+android/fastlane/Preview.html
+android/fastlane/test_output/
+ios/fastlane/report.xml
+ios/fastlane/Preview.html
+ios/fastlane/test_output/
+ios/fastlane/README.md
+
+# Environment Variables (Contains secrets!)
+.env
+.env.local
+*.env.local
+
+# Service Account Files (Contains credentials!)
+**/service-account*.json
+**/firebase-adminsdk*.json

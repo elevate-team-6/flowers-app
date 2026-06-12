@@ -85,7 +85,7 @@ abstract class AppStrings {
   static const String recentSearches = 'recentSearches';
   static const String cartEmpty = 'cartEmpty';
   static const String subTotal = 'subTotal';
-  static const String deliveryFee = 'deliveryFee';
+  static const String deliveryFee = 'delivery Fee';
   static const String total = 'total';
   static const String checkout = 'checkout';
   static const String somethingWentWrong = 'somethingWentWrong';
@@ -189,6 +189,31 @@ abstract class AppStrings {
   static const String photo = 'photo';
   static const String bestSeller = 'bestSeller';
 
+  // Address Feature
+  static const String userNotFound = 'userNotFound';
+  static const String addressIdRequired = 'addressIdRequired';
+  static const String addressAddedSuccess = 'addressAddedSuccess';
+  static const String address = 'address';
+  static const String addressUpdatedSuccess = 'addressUpdatedSuccess';
+  static const String addressDeletedSuccess = 'addressDeletedSuccess';
+  static const String noAddressesSaved = 'noAddressesSaved';
+  static const String startAddingAddresses = 'startAddingAddresses';
+  static const String addNewAddress = 'addNewAddress';
+  static const String saveAddress = 'saveAddress';
+  static const String updateAddress = 'updateAddress';
+  static const String selectLocation = 'selectLocation';
+  static const String selectLocationOnMap = 'selectLocationOnMap';
+  static const String enterAddress = 'enterAddress';
+  static const String enterRecipientName = 'enterRecipientName';
+  static const String recipientName = 'recipientName';
+  static const String city = 'city';
+  static const String selectCity = 'selectCity';
+  static const String area = 'area';
+  static const String selectArea = 'selectArea';
+  static const String pleaseSelectCityAndArea = 'pleaseSelectCityAndArea';
+  static const String pleaseSelectLocationOnMap = 'pleaseSelectLocationOnMap';
+  static const String locationFetchError = 'locationFetchError';
+
   // Error Messages
   static const String someThingWentWrong = 'someThingWentWrong';
   static const String connectionTimeout = 'connectionTimeout';
@@ -235,6 +260,40 @@ abstract class AppStrings {
   static const String invalidPhone = 'invalidPhone';
   static const String phoneMustStartWithCountryCode =
       'phoneMustStartWithCountryCode';
+  static const String recipientNameRequired = 'recipientNameRequired';
+
+  // My orders
+  // static const String myOrders = 'my_orders';
+  static const String active = 'active';
+  static const String completed = 'completed';
+  static const String trackOrder = 'track_order';
+  static const String reorder = 'reorder';
+  static const String orderNumber = 'order_number';
+  static const String deliveredOn = 'delivered_on';
+  static const String noActiveOrders = 'no_active_orders';
+  static const String noCompletedOrders = 'no_completed_orders';
+
+  //checkout
+  static const String deliveryAddress = 'Delivery address';
+  static const String deliveryTime = 'Delivery time';
+  static const String instant = 'Instant, ';
+  static const String cashOnDelivery = 'Cash on delivery';
+  static const String creditCard = 'Credit Card';
+  static const String itIsGift = 'It is a gift';
+  static const String name = 'Name';
+  static const String payment = 'Payment';
+  static const String selectPaymentMethod = 'Select Payment Method';
+  static const String selectAddressFirst = 'Select Address First';
+  static const String dollarSign = '\$';
+  static const String enterName = 'Enter the name';
+  static const String placeOrder = 'Place Order';
+  static const String addNew = 'Add new';
+  static const String paymentMethod = 'Payment method';
+  static const String paymentWasCancelled = 'Payment was cancelled';
+  static const String paymentWasNotCompleted= 'Payment was not completed';
+  static const String paymentCompletedSuccessfully = 'Payment completed successfully';
+  static const String enterThePhoneNumber = 'Enter The Phone Number';
+  static const String deliveryDays = 'delivery_days';
 
   // ===========================================================================
   // API Constants (Values sent directly to Backend - Do NOT Translate)

@@ -6,7 +6,6 @@ class ForgotPasswordEntity {
 
   // verify reset code response fields
   final String? status;
-
   // reset password response fields
   final String? token;
 

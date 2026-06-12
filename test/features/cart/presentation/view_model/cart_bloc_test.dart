@@ -118,14 +118,30 @@ void main() {
     );
 
     blocTest<CartBloc, CartState>(
-      'does not fetch again when cart is already loaded',
+      'fetches cart again even when cart is already loaded',
+      setUp: () {
+        when(
+          getCartUseCase(),
+        ).thenAnswer((_) async => SuccessBaseResponse(cart));
+      },
       build: buildBloc,
-      seed: () => const CartState(status: CartStatus.success, cart: cart),
+      seed: () => const CartState(
+        status: CartStatus.success,
+        cart: cart,
+      ),
       act: (bloc) => bloc.add(const GetCartEvent()),
-      expect: () => [],
-      verify: (_) => verifyNever(getCartUseCase()),
+      expect: () => [
+        const CartState(
+          status: CartStatus.loading,
+          cart: cart,
+        ),
+        const CartState(
+          status: CartStatus.success,
+          cart: cart,
+        ),
+      ],
+      verify: (_) => verify(getCartUseCase()).called(1),
     );
-  });
 
   group('AddToCartEvent', () {
     blocTest<CartBloc, CartState>(
@@ -245,4 +261,4 @@ void main() {
       verify: (_) => verify(removeItemUseCase('p1')).called(1),
     );
   });
-}
+});}

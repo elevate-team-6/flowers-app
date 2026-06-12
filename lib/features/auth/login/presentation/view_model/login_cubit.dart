@@ -36,6 +36,7 @@ class LoginCubit extends Bloc<LoginEvent, LoginState> {
         final user = result.data;
 
         await _cacheHelper.writeData(key: AppKeys.tokenKey, value: user.token);
+        await _cacheHelper.writeData(key: AppKeys.userIdKey, value: user.id);
 
         await _cacheHelper.writeData(
           key: AppKeys.rememberMeKey,

@@ -21,7 +21,16 @@ class CartEntity extends Equatable {
   Map<String, CartItemEntity> get itemsMap => {
     for (final item in items) item.id: item,
   };
+  int get subtotal {
+    return items.fold(
+      0,
+      (sum, item) => sum + (item.product.priceAfterDiscount * item.quantity),
+    );
+  }
 
+  int get deliveryFee => 10;
+
+  int get total => subtotal + deliveryFee;
   CartEntity copyWith({
     List<CartItemEntity>? items,
     int? totalPrice,

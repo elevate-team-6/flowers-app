@@ -16,6 +16,12 @@ abstract class AppEndPoints {
   static const String editProfile = "$baseUrl/auth/editProfile";
   static const String uploadPhoto = "$baseUrl/auth/upload-photo";
 
+  // Web Views:
+  static const String termsAndConditionsUrl =
+      "https://elevate-flutter-team.github.io/flower_app_web_views/terms.html";
+  static const String aboutUsUrl =
+      "https://elevate-flutter-team.github.io/flower_app_web_views/about.html";
+
   //ocasions:
   static const String occasions = "$baseUrl/occasions";
 
@@ -34,6 +40,16 @@ abstract class AppEndPoints {
   static const String cartProductPath = '$cart/{productId}';
   static const String productIdParam = 'productId';
   static const String addresses = "$baseUrl/addresses";
+
+  //checkout
+  static const String addresses = "$baseUrl/addresses";
+  static const String cashCheckout = "$baseUrl/orders";
+  static const String cardCheckout = '$cashCheckout/checkout';
+  // orders:
+  static const String orders = '$baseUrl/orders';
+  // Addresses:
+  static const String addressIdParam = "id";
+  static const String addressPath = "$addresses/{$addressIdParam}";
   // ---------------------------------------------------------------------------
   // TO ADD NEW ENDPOINTS:
   // 1. Group them by feature (e.g., // Products, // Cart).
