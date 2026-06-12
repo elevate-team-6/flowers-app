@@ -1,7 +1,7 @@
 import 'package:flowers_app/config/di/di.dart';
-import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/forgot_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/reset_password_screen.dart';
 import 'package:flowers_app/features/auth/forgot-password/presentation/screens/verify_reset_code_screen.dart';
@@ -22,14 +22,14 @@ import 'package:flowers_app/features/occasions/presentation/screens/occasions_sc
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
 import 'package:flowers_app/features/orders/presentation/screens/orders_screen.dart';
 import 'package:flowers_app/features/orders/presentation/view_model/orders_cubit.dart';
-import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
-import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/screens/edit_profile_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:flowers_app/features/profile/presentation/pages/about_us_screen.dart';
+import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
+import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flowers_app/features/search/presentation/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,8 +39,6 @@ import '../../features/address/domain/entities/address_entity.dart';
 import '../../features/address/presentation/screens/add_address_screen.dart';
 import '../../features/address/presentation/screens/map_picker_screen.dart';
 import '../../features/address/presentation/screens/saved_addresses_screen.dart';
-import '../../features/address/presentation/view_model/address_cubit.dart';
-import '../../features/address/presentation/view_model/address_event.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_cubit.dart';
 import '../../features/best_seller/presentation/cubit/best_seller_event.dart';
 import '../../features/best_seller/presentation/screens/best_seller_screen.dart';
@@ -89,6 +87,7 @@ abstract class AppRoutes {
               BlocProvider.value(
                 value: getIt<CartBloc>()..add(const GetCartEvent()),
               ),
+              BlocProvider.value(value: getIt<AddressCubit>()),
               BlocProvider.value(value: getIt<AddressDetailsCubit>()),
             ],
             child: const MainLayoutScreen(),
