@@ -1,4 +1,6 @@
 import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
 import 'package:flowers_app/features/address_details/presentation/screens/address_details_listener.dart';
 import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
 import 'package:flowers_app/features/address_details/presentation/view_model/address_details_event.dart';
@@ -25,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    context.read<AddressCubit>().doEvent(GetAddressesEvent());
     context.read<AddressDetailsCubit>().doEvent(
       InitializeAddressDetailsEvent(),
     );

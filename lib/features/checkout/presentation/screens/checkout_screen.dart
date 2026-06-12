@@ -61,6 +61,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           return;
         }
         if (state.cashCheckoutState.data != null) {
+          SnackBarServices.showSuccessMessage(
+            AppStrings.paymentCompletedSuccessfully.tr(),
+          );
+
+          if (!context.mounted) return;
           Navigator.pushNamedAndRemoveUntil(
             context,
             AppRoutes.mainLayout,
