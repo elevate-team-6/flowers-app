@@ -2,12 +2,12 @@
 name: Trigger Codemagic iOS Build
 
 on:
-  pull_request:
+  push:
     branches:
       - release
 
 jobs:
-  
+
   trigger-codemagic:
     runs-on: ubuntu-latest
     steps:
