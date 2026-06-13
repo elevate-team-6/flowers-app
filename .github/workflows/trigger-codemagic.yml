@@ -1,0 +1,19 @@
+
+name: Trigger Codemagic iOS Build
+
+on:
+  pull_request:
+    branches:
+      - release
+
+jobs:
+  trigger-codemagic:
+    runs-on: ubuntu-latest     
+    steps:
+      - name: Trigger Codemagic workflow
+        uses: codemagic-ci-cd/trigger-codemagic-workflow-action@v3.0.0
+        with:
+          app-id: ${{ secrets.CODEMAGIC_APP_ID }}
+          workflow-id: ${{ secrets.CODEMAGIC_WORKFLOW_ID }}
+          token: ${{ secrets.CODEMAGIC_API_TOKEN }}
+          branch: release
