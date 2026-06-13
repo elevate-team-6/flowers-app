@@ -23,7 +23,7 @@ class AddressCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 100,
+        height: 110,
         padding: EdgeInsets.all(16.r),
         decoration: BoxDecoration(
           color: AppColors.white,
