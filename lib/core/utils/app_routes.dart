@@ -12,7 +12,6 @@ import 'package:flowers_app/features/auth/signup/presentation/screens/terms_and_
 import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_cubit.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
-import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/checkout/presentation/screens/checkout_screen.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/widgets/payment_webview.dart';
@@ -84,9 +83,7 @@ abstract class AppRoutes {
                 create: (_) =>
                     getIt<HomeViewModel>()..doEvent(GetAllHomeData()),
               ),
-              BlocProvider.value(
-                value: getIt<CartBloc>()..add(const GetCartEvent()),
-              ),
+              BlocProvider.value(value: getIt<CartBloc>()),
               BlocProvider.value(value: getIt<AddressCubit>()),
               BlocProvider.value(value: getIt<AddressDetailsCubit>()),
             ],
@@ -193,6 +190,7 @@ abstract class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
+              BlocProvider.value(value: getIt<CartBloc>()),
               BlocProvider(create: (_) => getIt<CheckoutCubit>()),
               BlocProvider(
                 create: (_) =>

@@ -40,4 +40,9 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSourceContract {
   @override
   Future<BaseResponse<CartResponse>> removeItem(String productId) =>
       ErrorHandler.handleApiCall(() => _apiClient.removeItem(productId));
+
+  @override
+  Future<BaseResponse<String>> clearCart() {
+    return ErrorHandler.handleApiCall(() => _apiClient.clearCart());
+  }
 }

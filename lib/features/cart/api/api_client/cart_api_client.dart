@@ -30,4 +30,6 @@ abstract class CartApiClient {
   Future<CartResponse> removeItem(
     @Path(AppEndPoints.productIdParam) String productId,
   );
+  @DELETE(AppEndPoints.cart)
+  Future<String> clearCart();
 }

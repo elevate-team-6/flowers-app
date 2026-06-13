@@ -6,6 +6,8 @@ import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
+import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_events.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_states.dart';
@@ -61,6 +63,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           return;
         }
         if (state.cashCheckoutState.data != null) {
+          context.read<CartBloc>().add(const ClearCartEvent());
+
           SnackBarServices.showSuccessMessage(
             AppStrings.paymentCompletedSuccessfully.tr(),
           );
@@ -73,6 +77,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           );
         }
         if (state.cardCheckoutState.data != null) {
+          context.read<CartBloc>().add(const ClearCartEvent());
           final result =
               await Navigator.pushNamed(
                     context,

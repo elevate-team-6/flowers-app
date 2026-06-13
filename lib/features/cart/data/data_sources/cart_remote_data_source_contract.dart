@@ -3,6 +3,7 @@ import 'package:flowers_app/features/cart/data/models/response/cart_response.dar
 
 abstract interface class CartRemoteDataSourceContract {
   Future<BaseResponse<CartResponse>> getCart();
+  Future<BaseResponse<String>> clearCart();
   Future<BaseResponse<CartResponse>> addToCart(String productId, int quantity);
   Future<BaseResponse<CartResponse>> updateQuantity(
     String productId,

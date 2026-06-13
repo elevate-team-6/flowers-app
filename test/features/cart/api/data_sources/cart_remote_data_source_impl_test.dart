@@ -45,7 +45,30 @@ void main() {
       },
     );
   });
+  group('clearCart', () {
+    test('returns SuccessBaseResponse when API call succeeds', () async {
+      when(apiClient.clearCart()).thenAnswer((_) async => 'success');
 
+      final result = await dataSource.clearCart();
+
+      expect(result, isA<SuccessBaseResponse<String>>());
+      expect((result as SuccessBaseResponse<String>).data, 'success');
+
+      verify(apiClient.clearCart()).called(1);
+    });
+
+    test(
+      'returns ErrorBaseResponse with message when API call throws',
+      () async {
+        when(apiClient.clearCart()).thenThrow(Exception('error'));
+
+        final result = await dataSource.clearCart();
+
+        expect(result, isA<ErrorBaseResponse<String>>());
+        expect((result as ErrorBaseResponse<String>).errorMessage, isNotEmpty);
+      },
+    );
+  });
   group('addToCart', () {
     test('returns SuccessBaseResponse when API call succeeds', () async {
       when(apiClient.addToCart(any)).thenAnswer((_) async => cartResponse);

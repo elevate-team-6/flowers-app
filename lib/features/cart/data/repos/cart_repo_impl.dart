@@ -58,4 +58,17 @@ class CartRepoImpl implements CartRepoContract {
         return ErrorBaseResponse(result.errorMessage);
     }
   }
+
+  @override
+  Future<BaseResponse<String>> clearCart() async {
+    final result = await _dataSource.clearCart();
+
+    switch (result) {
+      case SuccessBaseResponse():
+        return SuccessBaseResponse(result.data);
+
+      case ErrorBaseResponse():
+        return ErrorBaseResponse(result.errorMessage);
+    }
+  }
 }

@@ -17,6 +17,7 @@ void main() {
     provideDummy<BaseResponse<CartResponse>>(
       ErrorBaseResponse<CartResponse>('dummy'),
     );
+    provideDummy<BaseResponse<String>>(ErrorBaseResponse<String>('dummy'));
   });
 
   setUp(() {
@@ -37,7 +38,31 @@ void main() {
       expect(result, isA<SuccessBaseResponse>());
       verify(dataSource.getCart()).called(1);
     });
+    group('clearCart', () {
+      test('returns SuccessBaseResponse when success', () async {
+        when(
+          dataSource.clearCart(),
+        ).thenAnswer((_) async => SuccessBaseResponse('Success'));
 
+        final result = await repo.clearCart();
+
+        expect(result, isA<SuccessBaseResponse<String>>());
+        expect((result as SuccessBaseResponse<String>).data, 'Success');
+
+        verify(dataSource.clearCart()).called(1);
+      });
+
+      test('returns ErrorBaseResponse when failure', () async {
+        when(
+          dataSource.clearCart(),
+        ).thenAnswer((_) async => ErrorBaseResponse<String>('Error'));
+
+        final result = await repo.clearCart();
+
+        expect(result, isA<ErrorBaseResponse<String>>());
+        expect((result as ErrorBaseResponse<String>).errorMessage, 'Error');
+      });
+    });
     test('returns ErrorBaseResponse with message when failure', () async {
       when(
         dataSource.getCart(),
