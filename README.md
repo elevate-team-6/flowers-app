@@ -184,3 +184,17 @@ flutter build ios --release
 ## 📄 License
 
 This project is for educational and demonstration purposes. Add your preferred license here.
+
+---
+
+## 👨‍💻 Team
+
+| Name | GitHub |
+|---|---|
+| Ahmed Emam | [@ahmedemam55](https://github.com/ahmedemam55) |
+| Abanoub | [@abanoub6](https://github.com/abanoub6) |
+| Abdekmalek Mokhtar | [@AbdekmalekMokhtar](https://github.com/abdalmlk5) |
+| Yousef Abdelghdar | [@YousefAbdelghdar](https://github.com/yousefsinger) |
+
+
+
