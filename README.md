@@ -184,7 +184,7 @@ flutter build ios --release
 | Ahmed Emam | [@ahmedemam55](https://github.com/ahmedemam55) |
 | Abanoub | [@abanoub6](https://github.com/abanoub6) |
 | Abdekmalek Mokhtar | [@abdalmlk5](https://github.com/abdalmlk5) |
-| Yousef Abdelghdar | [@yousefsinger](https://github.com/yousefsinger) |
+| Yousef Abdelghfar | [@yousefsinger](https://github.com/yousefsinger) |
 
 
 
