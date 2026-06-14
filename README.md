@@ -124,10 +124,6 @@ flutter run
 
 ## 🔧 Configuration
 
-- **API Base URL** is defined in [`lib/core/utils/app_end_points.dart`](lib/core/utils/app_end_points.dart):
-  ```dart
-  static const String baseUrl = "https://flower.elevateegy.com/api/v1";
-  ```
 - **Firebase** must be configured per platform before running. Add your platform config files and ensure `FirebaseService.init()` succeeds at startup.
 - **Google Maps** requires a valid API key in the Android `AndroidManifest.xml` and iOS `AppDelegate`/`Info.plist`.
 - **Localization** assets live under `assets/translations/` (`en` and `ar`).
@@ -193,8 +189,8 @@ This project is for educational and demonstration purposes. Add your preferred l
 |---|---|
 | Ahmed Emam | [@ahmedemam55](https://github.com/ahmedemam55) |
 | Abanoub | [@abanoub6](https://github.com/abanoub6) |
-| Abdekmalek Mokhtar | [@AbdekmalekMokhtar](https://github.com/abdalmlk5) |
-| Yousef Abdelghdar | [@YousefAbdelghdar](https://github.com/yousefsinger) |
+| Abdekmalek Mokhtar | [@abdalmlk5](https://github.com/abdalmlk5) |
+| Yousef Abdelghdar | [@yousefsinger](https://github.com/yousefsinger) |
 
 
 
