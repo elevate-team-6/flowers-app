@@ -177,12 +177,6 @@ flutter build ios --release
 
 ---
 
-## 📄 License
-
-This project is for educational and demonstration purposes. Add your preferred license here.
-
----
-
 ## 👨‍💻 Team
 
 | Name | GitHub |
