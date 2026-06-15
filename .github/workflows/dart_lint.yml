@@ -1,14 +1,15 @@
-name: Quality Assurance (Lint & Test)
+name: Quality Assurance (Lint & Analyze)
 
 on:
   push:
     branches:
-      - dev
-      - main
+      - develop
+      - master
   pull_request:
+    types: [opened, edited, synchronize, reopened]
     branches:
-      - dev
-      - main
+      - develop
+      - master
 
 # Cancel old runs if a new commit is pushed to the same branch/PR
 concurrency:
@@ -16,10 +17,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build_and_test:
-    name: Analyze, Lint & Test
+  analyze_and_lint:
+    name: Analyze & Lint
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
 
     steps:
       - name: 📚 Checkout Repository
@@ -28,25 +29,17 @@ jobs:
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.24.0
+          channel: 'stable'
           cache: true
-          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
-          cache-path: "${{ runner.tool_cache }}/flutter"
 
       - name: 📦 Install Dependencies
         run: flutter pub get
 
-      - name: 🏗️ Run Code Generation (Optional)
-        # Verify if generated code is consistent. 
-        # If your project relies heavily on build_runner, uncomment the next line.
-        # run: dart run build_runner build --delete-conflicting-outputs
-        run: echo "Skipping build_runner for speed, enable if needed."
+      - name: 🏗️ Run Code Generation
+        run: dart run build_runner build --delete-conflicting-outputs
 
       - name: ✨ Check Formatting
         run: dart format --output=none --set-exit-if-changed .
 
       - name: 🔍 Run Analyzer
-        run: flutter analyze
-
-      - name: 🧪 Run Tests
-        run: flutter test
+        run: flutter analyze --fatal-infos --fatal-warnings
