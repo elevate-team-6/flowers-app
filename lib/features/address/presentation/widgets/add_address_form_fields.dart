@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/custom_text_field.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
 import 'package:flowers_app/features/address/presentation/widgets/address_map_preview.dart';
 import 'package:flowers_app/features/address/presentation/widgets/address_selection_dropdowns.dart';
-import 'package:flowers_app/features/auth/signup/presentation/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
