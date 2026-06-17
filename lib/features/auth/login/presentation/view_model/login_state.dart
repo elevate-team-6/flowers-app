@@ -28,17 +28,16 @@ class LoginState extends Equatable {
       isRememberMe: isRememberMe ?? this.isRememberMe,
       errorMessage: errorMessage,
       user: user ?? this.user,
-      isPasswordObscure:
-          isPasswordObscure ?? this.isPasswordObscure,
+      isPasswordObscure: isPasswordObscure ?? this.isPasswordObscure,
     );
   }
 
   @override
   List<Object?> get props => [
-        isLoading,
-        errorMessage,
-        user,
-        isPasswordObscure,
-        isRememberMe
-      ];
+    isLoading,
+    errorMessage,
+    user,
+    isPasswordObscure,
+    isRememberMe,
+  ];
 }

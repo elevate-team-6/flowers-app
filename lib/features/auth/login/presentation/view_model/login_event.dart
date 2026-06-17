@@ -7,13 +7,12 @@ sealed class LoginEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoginRequestedEvent  extends LoginEvent {
+class LoginRequestedEvent extends LoginEvent {
   final String email;
   final String password;
-    final bool isRememberMe;
+  final bool isRememberMe;
 
-
-  const LoginRequestedEvent ({
+  const LoginRequestedEvent({
     required this.email,
     required this.password,
     required this.isRememberMe,
@@ -22,11 +21,13 @@ class LoginRequestedEvent  extends LoginEvent {
   @override
   List<Object?> get props => [email, password, isRememberMe];
 }
-class ToggleRememberMeEvent  extends LoginEvent {
+
+class ToggleRememberMeEvent extends LoginEvent {
   final bool value;
 
-  const ToggleRememberMeEvent (this.value);
+  const ToggleRememberMeEvent(this.value);
 }
-class TogglePasswordVisibilityEvent  extends LoginEvent {
-  const TogglePasswordVisibilityEvent ();
+
+class TogglePasswordVisibilityEvent extends LoginEvent {
+  const TogglePasswordVisibilityEvent();
 }

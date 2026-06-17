@@ -4,7 +4,8 @@ import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/features/product_details/data/models/product_details_response/product_details_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
-part'product_details_api_client.g.dart';
+part 'product_details_api_client.g.dart';
+
 @injectable
 @RestApi()
 abstract class ProductDetailsApiClient {

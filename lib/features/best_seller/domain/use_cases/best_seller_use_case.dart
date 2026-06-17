@@ -11,4 +11,3 @@ class BestSellerUseCase {
     return _bestSellerRepo.bestSeller();
   }
 }
- 

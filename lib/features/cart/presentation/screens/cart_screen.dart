@@ -28,7 +28,7 @@ class CartScreen extends StatefulWidget {
   State<CartScreen> createState() => _CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen>  {
+class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     super.initState();
@@ -44,7 +44,6 @@ class _CartScreenState extends State<CartScreen>  {
       listenWhen: (previous, current) =>
           previous.locationStatus != current.locationStatus,
       listener: (context, state) {
-  
         if (state.locationStatus == DeliveryLocationStatus.locationDisabled ||
             state.locationStatus == DeliveryLocationStatus.permissionDenied ||
             state.locationStatus ==
@@ -73,7 +72,7 @@ class _CartScreenState extends State<CartScreen>  {
                 builder: (context, state) {
                   final count = state.cart?.numOfCartItems ?? 0;
                   final hasError = state.status == CartStatus.failure;
-      
+
                   return Row(
                     children: [
                       Text(
@@ -200,18 +199,19 @@ class _CartScreenState extends State<CartScreen>  {
             if (state.status == CartStatus.loading) {
               return const CartShimmer();
             }
-      
+
             if (state.status == CartStatus.failure) {
               return CustomErrorStateView(
-                message: state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
+                message:
+                    state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
                 onRetry: () {
                   context.read<CartBloc>().add(const GetCartEvent());
                 },
               );
             }
-      
+
             final items = state.cart?.items ?? [];
-      
+
             if (items.isEmpty) {
               return Center(
                 child: Column(
@@ -231,7 +231,7 @@ class _CartScreenState extends State<CartScreen>  {
                 ),
               );
             }
-      
+
             return ListView.separated(
               padding: EdgeInsets.all(16.w),
               itemCount: items.length + 1,
@@ -255,9 +255,9 @@ class _CartScreenState extends State<CartScreen>  {
                     },
                   );
                 }
-      
+
                 final itemIndex = index;
-      
+
                 return BlocSelector<
                   CartBloc,
                   CartState,

@@ -13,9 +13,7 @@ import 'package:mockito/mockito.dart';
 
 import 'edit_profile_repo_impl_test.mocks.dart';
 
-@GenerateMocks([
-  EditProfileRemoteDataSourceContract,
-])
+@GenerateMocks([EditProfileRemoteDataSourceContract])
 void main() {
   late MockEditProfileRemoteDataSourceContract remoteDataSource;
   late EditProfileRepoImpl repo;
@@ -62,14 +60,10 @@ void main() {
     }
 
     provideDummy<BaseResponse<EditProfileResponse>>(
-      SuccessBaseResponse<EditProfileResponse>(
-        editProfileResponse,
-      ),
+      SuccessBaseResponse<EditProfileResponse>(editProfileResponse),
     );
 
-    provideDummy<BaseResponse<String>>(
-       SuccessBaseResponse<String>('success'),
-    );
+    provideDummy<BaseResponse<String>>(SuccessBaseResponse<String>('success'));
   });
 
   setUp(() {
@@ -79,151 +73,89 @@ void main() {
 
   group('EditProfileRepoImpl', () {
     group('editProfile', () {
-      test(
-        'should return SuccessBaseResponse<UserEditProfileEntity> '
-        'when remote datasource succeeds',
-        () async {
-          // arrange
-          when(
-            remoteDataSource.editProfile(request),
-          ).thenAnswer(
-            (_) async => SuccessBaseResponse<EditProfileResponse>(
-              editProfileResponse,
-            ),
-          );
+      test('should return SuccessBaseResponse<UserEditProfileEntity> '
+          'when remote datasource succeeds', () async {
+        // arrange
+        when(remoteDataSource.editProfile(request)).thenAnswer(
+          (_) async =>
+              SuccessBaseResponse<EditProfileResponse>(editProfileResponse),
+        );
 
-          // act
-          final result = await repo.editProfile(request);
+        // act
+        final result = await repo.editProfile(request);
 
-          // assert
-          expect(
-            result,
-            isA<SuccessBaseResponse<UserEditProfileEntity>>(),
-          );
+        // assert
+        expect(result, isA<SuccessBaseResponse<UserEditProfileEntity>>());
 
-          final successResult =
-              result as SuccessBaseResponse<UserEditProfileEntity>;
+        final successResult =
+            result as SuccessBaseResponse<UserEditProfileEntity>;
 
-          expect(
-            successResult.data,
-            equals(userEntity),
-          );
+        expect(successResult.data, equals(userEntity));
 
-          verify(
-            remoteDataSource.editProfile(request),
-          ).called(1);
-        },
-      );
+        verify(remoteDataSource.editProfile(request)).called(1);
+      });
 
-      test(
-        'should return ErrorBaseResponse<UserEditProfileEntity> '
-        'when remote datasource fails',
-        () async {
-          // arrange
-          when(
-            remoteDataSource.editProfile(request),
-          ).thenAnswer(
-            (_) async => ErrorBaseResponse<EditProfileResponse>(
-              'error',
-            ),
-          );
+      test('should return ErrorBaseResponse<UserEditProfileEntity> '
+          'when remote datasource fails', () async {
+        // arrange
+        when(remoteDataSource.editProfile(request)).thenAnswer(
+          (_) async => ErrorBaseResponse<EditProfileResponse>('error'),
+        );
 
-          // act
-          final result = await repo.editProfile(request);
+        // act
+        final result = await repo.editProfile(request);
 
-          // assert
-          expect(
-            result,
-            isA<ErrorBaseResponse<UserEditProfileEntity>>(),
-          );
+        // assert
+        expect(result, isA<ErrorBaseResponse<UserEditProfileEntity>>());
 
-          final errorResult =
-              result as ErrorBaseResponse<UserEditProfileEntity>;
+        final errorResult = result as ErrorBaseResponse<UserEditProfileEntity>;
 
-          expect(
-            errorResult.errorMessage,
-            'error',
-          );
+        expect(errorResult.errorMessage, 'error');
 
-          verify(
-            remoteDataSource.editProfile(request),
-          ).called(1);
-        },
-      );
+        verify(remoteDataSource.editProfile(request)).called(1);
+      });
     });
 
     group('uploadPhoto', () {
-      test(
-        'should return SuccessBaseResponse<String> '
-        'when upload photo succeeds',
-        () async {
-          // arrange
-          when(
-            remoteDataSource.uploadPhoto(file),
-          ).thenAnswer(
-            (_) async =>  SuccessBaseResponse<String>(
-              'success',
-            ),
-          );
+      test('should return SuccessBaseResponse<String> '
+          'when upload photo succeeds', () async {
+        // arrange
+        when(
+          remoteDataSource.uploadPhoto(file),
+        ).thenAnswer((_) async => SuccessBaseResponse<String>('success'));
 
-          // act
-          final result = await repo.uploadPhoto(file);
+        // act
+        final result = await repo.uploadPhoto(file);
 
-          // assert
-          expect(
-            result,
-            isA<SuccessBaseResponse<String>>(),
-          );
+        // assert
+        expect(result, isA<SuccessBaseResponse<String>>());
 
-          final successResult =
-              result as SuccessBaseResponse<String>;
+        final successResult = result as SuccessBaseResponse<String>;
 
-          expect(
-            successResult.data,
-            'success',
-          );
+        expect(successResult.data, 'success');
 
-          verify(
-            remoteDataSource.uploadPhoto(file),
-          ).called(1);
-        },
-      );
+        verify(remoteDataSource.uploadPhoto(file)).called(1);
+      });
 
-      test(
-        'should return ErrorBaseResponse<String> '
-        'when upload photo fails',
-        () async {
-          // arrange
-          when(
-            remoteDataSource.uploadPhoto(file),
-          ).thenAnswer(
-            (_) async => ErrorBaseResponse<String>(
-              'error',
-            ),
-          );
+      test('should return ErrorBaseResponse<String> '
+          'when upload photo fails', () async {
+        // arrange
+        when(
+          remoteDataSource.uploadPhoto(file),
+        ).thenAnswer((_) async => ErrorBaseResponse<String>('error'));
 
-          // act
-          final result = await repo.uploadPhoto(file);
+        // act
+        final result = await repo.uploadPhoto(file);
 
-          // assert
-          expect(
-            result,
-            isA<ErrorBaseResponse<String>>(),
-          );
+        // assert
+        expect(result, isA<ErrorBaseResponse<String>>());
 
-          final errorResult =
-              result as ErrorBaseResponse<String>;
+        final errorResult = result as ErrorBaseResponse<String>;
 
-          expect(
-            errorResult.errorMessage,
-            'error',
-          );
+        expect(errorResult.errorMessage, 'error');
 
-          verify(
-            remoteDataSource.uploadPhoto(file),
-          ).called(1);
-        },
-      );
+        verify(remoteDataSource.uploadPhoto(file)).called(1);
+      });
     });
   });
 }

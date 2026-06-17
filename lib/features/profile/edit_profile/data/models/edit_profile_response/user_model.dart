@@ -31,10 +31,10 @@ class UserModel {
     );
   }
   UserEditProfileEntity toEntity() => UserEditProfileEntity(
-    lastName: lastName??'',
-    firstName: firstName??'',
-    gender: gender??'',
-    phone: phone??'',
-    photo: photo??'',
+    lastName: lastName ?? '',
+    firstName: firstName ?? '',
+    gender: gender ?? '',
+    phone: phone ?? '',
+    photo: photo ?? '',
   );
 }

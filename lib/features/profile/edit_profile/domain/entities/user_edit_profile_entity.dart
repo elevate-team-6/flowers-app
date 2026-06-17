@@ -16,11 +16,5 @@ class UserEditProfileEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        firstName,
-        lastName,
-        gender,
-        phone,
-        photo,
-      ];
+  List<Object?> get props => [firstName, lastName, gender, phone, photo];
 }

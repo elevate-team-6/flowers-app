@@ -11,7 +11,7 @@ class PaymentCard extends StatelessWidget {
   const PaymentCard({
     super.key,
     required this.isSelected,
-    required this.paymentMethodName, 
+    required this.paymentMethodName,
     required this.onTap,
   });
 

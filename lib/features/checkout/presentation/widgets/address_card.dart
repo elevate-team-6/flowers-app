@@ -69,9 +69,12 @@ class AddressCard extends StatelessWidget {
                 ],
               ),
             ),
-            IconButton(onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.addAddressScreen);
-            }, icon: const Icon(Icons.edit)),
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.addAddressScreen);
+              },
+              icon: const Icon(Icons.edit),
+            ),
           ],
         ),
       ),

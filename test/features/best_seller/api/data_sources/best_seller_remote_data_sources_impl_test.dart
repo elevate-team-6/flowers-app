@@ -9,91 +9,48 @@ import 'package:mockito/mockito.dart';
 
 import 'best_seller_remote_data_sources_impl_test.mocks.dart';
 
-@GenerateMocks([
-  BestSellerApiClient,
-])
+@GenerateMocks([BestSellerApiClient])
 void main() {
   late MockBestSellerApiClient mockBestSellerApiClient;
 
-  late BestSellerRemoteDataSourceImpl
-  bestSellerRemoteDataSource;
+  late BestSellerRemoteDataSourceImpl bestSellerRemoteDataSource;
 
   setUp(() {
-    mockBestSellerApiClient =
-        MockBestSellerApiClient();
+    mockBestSellerApiClient = MockBestSellerApiClient();
 
-    bestSellerRemoteDataSource =
-        BestSellerRemoteDataSourceImpl(
-          mockBestSellerApiClient,
-        );
+    bestSellerRemoteDataSource = BestSellerRemoteDataSourceImpl(
+      mockBestSellerApiClient,
+    );
   });
 
-  group(
-    'Best Seller Remote Data Source Tests',
-        () {
-      test(
-        'should return SuccessBaseResponse when api call succeeds',
-            () async {
-          final response =
-          BestSellerProductsResponse();
+  group('Best Seller Remote Data Source Tests', () {
+    test('should return SuccessBaseResponse when api call succeeds', () async {
+      final response = BestSellerProductsResponse();
 
-          when(
-            mockBestSellerApiClient.bestSeller(),
-          ).thenAnswer(
-                (_) async => response,
-          );
+      when(
+        mockBestSellerApiClient.bestSeller(),
+      ).thenAnswer((_) async => response);
 
-          final result =
-          await bestSellerRemoteDataSource
-              .bestSeller();
+      final result = await bestSellerRemoteDataSource.bestSeller();
 
-          expect(
-            result,
-            isA<
-                SuccessBaseResponse<
-                    BestSellerProductsResponse
-                >
-            >(),
-          );
+      expect(result, isA<SuccessBaseResponse<BestSellerProductsResponse>>());
 
-          verify(
-            mockBestSellerApiClient.bestSeller(),
-          ).called(1);
-        },
-      );
+      verify(mockBestSellerApiClient.bestSeller()).called(1);
+    });
 
-      test(
-        'should return ErrorBaseResponse when api throws DioException',
-            () async {
-          when(
-            mockBestSellerApiClient.bestSeller(),
-          ).thenThrow(
-            DioException(
-              requestOptions:
-              RequestOptions(
-                path: '',
-              ),
-            ),
-          );
+    test(
+      'should return ErrorBaseResponse when api throws DioException',
+      () async {
+        when(
+          mockBestSellerApiClient.bestSeller(),
+        ).thenThrow(DioException(requestOptions: RequestOptions(path: '')));
 
-          final result =
-          await bestSellerRemoteDataSource
-              .bestSeller();
+        final result = await bestSellerRemoteDataSource.bestSeller();
 
-          expect(
-            result,
-            isA<
-                ErrorBaseResponse<
-                    BestSellerProductsResponse
-                >
-            >(),
-          );
+        expect(result, isA<ErrorBaseResponse<BestSellerProductsResponse>>());
 
-          verify(
-            mockBestSellerApiClient.bestSeller(),
-          ).called(1);
-        },
-      );
-    },
-  );
+        verify(mockBestSellerApiClient.bestSeller()).called(1);
+      },
+    );
+  });
 }

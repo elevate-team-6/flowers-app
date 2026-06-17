@@ -20,13 +20,9 @@ class CheckoutOrderSummary extends StatelessWidget {
     return Column(
       children: [
         Row(
-          mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              AppStrings.subTotal.tr(),
-              style: AppTextStyles.gray16400,
-            ),
+            Text(AppStrings.subTotal.tr(), style: AppTextStyles.gray16400),
             Text(
               '$subtotal ${AppStrings.dollarSign.tr()}',
               style: AppTextStyles.gray16400,
@@ -34,13 +30,9 @@ class CheckoutOrderSummary extends StatelessWidget {
           ],
         ),
         Row(
-          mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              AppStrings.deliveryFee.tr(),
-              style: AppTextStyles.gray16400,
-            ),
+            Text(AppStrings.deliveryFee.tr(), style: AppTextStyles.gray16400),
             Text(
               '$deliveryFee ${AppStrings.dollarSign.tr()}',
               style: AppTextStyles.gray16400,
@@ -49,13 +41,9 @@ class CheckoutOrderSummary extends StatelessWidget {
         ),
         const Divider(),
         Row(
-          mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              AppStrings.total.tr(),
-              style: AppTextStyles.black18500,
-            ),
+            Text(AppStrings.total.tr(), style: AppTextStyles.black18500),
             Text(
               '$total ${AppStrings.dollarSign.tr()}',
               style: AppTextStyles.black18500,

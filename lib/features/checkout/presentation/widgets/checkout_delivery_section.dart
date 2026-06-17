@@ -8,19 +8,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CheckoutDeliverySection extends StatelessWidget {
-    final int deliveryDays;
+  final int deliveryDays;
 
-  const CheckoutDeliverySection({super.key,required this.deliveryDays});
+  const CheckoutDeliverySection({super.key, required this.deliveryDays});
 
   @override
   Widget build(BuildContext context) {
-    final deliveryDate = DateTime.now().add(
-      Duration(days: deliveryDays),
-    );
+    final deliveryDate = DateTime.now().add(Duration(days: deliveryDays));
 
     final formattedDate = deliveryDate.formatDeliveryDate(
-  context.locale.languageCode,
-);
+      context.locale.languageCode,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -208,27 +208,22 @@ void main() {
       );
     });
     blocTest<CartBloc, CartState>(
-  'clears cart successfully',
-  setUp: () {
-    when(
-      clearCartUseCase(),
-    ).thenAnswer(
-      (_) async => SuccessBaseResponse<String>('success'),
+      'clears cart successfully',
+      setUp: () {
+        when(
+          clearCartUseCase(),
+        ).thenAnswer((_) async => SuccessBaseResponse<String>('success'));
+      },
+      build: buildBloc,
+      seed: () => const CartState(status: CartStatus.success, cart: cart),
+      act: (bloc) => bloc.add(const ClearCartEvent()),
+      expect: () => [
+        isA<CartState>()
+            .having((s) => s.status, 'status', CartStatus.success)
+            .having((s) => s.cart?.items.length, 'empty items', 0)
+            .having((s) => s.cart?.numOfCartItems, 'count', 0),
+      ],
     );
-  },
-  build: buildBloc,
-  seed: () => const CartState(
-    status: CartStatus.success,
-    cart: cart,
-  ),
-  act: (bloc) => bloc.add(const ClearCartEvent()),
-  expect: () => [
-    isA<CartState>()
-        .having((s) => s.status, 'status', CartStatus.success)
-        .having((s) => s.cart?.items.length, 'empty items', 0)
-        .having((s) => s.cart?.numOfCartItems, 'count', 0),
-  ],
-);
 
     group('RemoveItemEvent', () {
       blocTest<CartBloc, CartState>(

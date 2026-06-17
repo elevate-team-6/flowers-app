@@ -68,7 +68,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebView> {
         Navigator.of(context).pop(PaymentResult.backPressed);
       },
       child: Scaffold(
-        appBar: AppBar(title:  Text(AppStrings.payment)),
+        appBar: AppBar(title: Text(AppStrings.payment)),
         body: Stack(children: [WebViewWidget(controller: _controller)]),
       ),
     );

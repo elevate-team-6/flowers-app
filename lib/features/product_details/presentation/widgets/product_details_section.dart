@@ -46,7 +46,10 @@ class ProductDetailsSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 4),
-          Text(AppStrings.allPricesIncludeTax.tr(), style: AppTextStyles.gray12400),
+          Text(
+            AppStrings.allPricesIncludeTax.tr(),
+            style: AppTextStyles.gray12400,
+          ),
           const SizedBox(height: 6),
 
           Text(title, style: AppTextStyles.black16500),

@@ -84,24 +84,26 @@ void main() {
   );
 
   group('getUserOrders', () {
-    test('returns SuccessBaseResponse with mapped entities when success', () async {
-      const ordersResponse = OrdersResponse(
-        message: 'success',
-        orders: [orderDto],
-      );
-      when(
-        dataSource.getUserOrders(),
-      ).thenAnswer((_) async => SuccessBaseResponse(ordersResponse));
+    test(
+      'returns SuccessBaseResponse with mapped entities when success',
+      () async {
+        const ordersResponse = OrdersResponse(
+          message: 'success',
+          orders: [orderDto],
+        );
+        when(
+          dataSource.getUserOrders(),
+        ).thenAnswer((_) async => SuccessBaseResponse(ordersResponse));
 
-      final result = await repo.getUserOrders();
+        final result = await repo.getUserOrders();
 
-      expect(result, isA<SuccessBaseResponse<List<OrderEntity>>>());
-      expect(
-        (result as SuccessBaseResponse<List<OrderEntity>>).data,
-        [expectedOrder],
-      );
-      verify(dataSource.getUserOrders()).called(1);
-    });
+        expect(result, isA<SuccessBaseResponse<List<OrderEntity>>>());
+        expect((result as SuccessBaseResponse<List<OrderEntity>>).data, [
+          expectedOrder,
+        ]);
+        verify(dataSource.getUserOrders()).called(1);
+      },
+    );
 
     test('returns empty list when orders list is empty', () async {
       const ordersResponse = OrdersResponse(message: 'success', orders: []);

@@ -13,7 +13,6 @@ import 'login_remote_data_source_impl_test.mocks.dart';
 
 @GenerateMocks([LoginApiClient])
 void main() {
-
   setUpAll(() {
     provideDummy<BaseResponse<LoginResponse>>(
       SuccessBaseResponse(
@@ -44,58 +43,54 @@ void main() {
   });
 
   group('LoginRemoteDataSourceImpl Tests', () {
-
-    test('should return SuccessBaseResponse when API call is successful', () async {
-
-      final request = LoginRequest(
-        email: 'test@test.com',
-        password: '123456',
-      );
-
-      final fakeResponse = LoginResponse(
-        token: '123',
-        user: UserDto(
-          id: '1',
-          firstName: 'youssef',
-          lastName: 'singer',
+    test(
+      'should return SuccessBaseResponse when API call is successful',
+      () async {
+        final request = LoginRequest(
           email: 'test@test.com',
-          gender: 'male',
-          phone: '01000000000',
-          photo: 'photo.png',
-          role: 'user',
-          createdAt: '2026',
-        ),
-      );
+          password: '123456',
+        );
 
-      when(mockApiClient.login(request))
-          .thenAnswer((_) async => fakeResponse);
+        final fakeResponse = LoginResponse(
+          token: '123',
+          user: UserDto(
+            id: '1',
+            firstName: 'youssef',
+            lastName: 'singer',
+            email: 'test@test.com',
+            gender: 'male',
+            phone: '01000000000',
+            photo: 'photo.png',
+            role: 'user',
+            createdAt: '2026',
+          ),
+        );
 
-      final result = await dataSource.login(request);
+        when(
+          mockApiClient.login(request),
+        ).thenAnswer((_) async => fakeResponse);
 
-      expect(result, isA<SuccessBaseResponse<LoginResponse>>());
+        final result = await dataSource.login(request);
 
-      final success = result as SuccessBaseResponse<LoginResponse>;
+        expect(result, isA<SuccessBaseResponse<LoginResponse>>());
 
-      expect(success.data.token, '123');
+        final success = result as SuccessBaseResponse<LoginResponse>;
 
-      verify(mockApiClient.login(request)).called(1);
-      verifyNoMoreInteractions(mockApiClient);
-    });
+        expect(success.data.token, '123');
+
+        verify(mockApiClient.login(request)).called(1);
+        verifyNoMoreInteractions(mockApiClient);
+      },
+    );
 
     test('should return ErrorBaseResponse when API throws exception', () async {
+      final request = LoginRequest(email: 'test@test.com', password: '123456');
 
-      final request = LoginRequest(
-        email: 'test@test.com',
-        password: '123456',
-      );
-
-      when(mockApiClient.login(request))
-          .thenThrow(Exception('error'));
+      when(mockApiClient.login(request)).thenThrow(Exception('error'));
 
       final result = await dataSource.login(request);
 
       expect(result, isA<ErrorBaseResponse<LoginResponse>>());
     });
-
   });
 }

@@ -8,9 +8,7 @@ import 'package:mockito/mockito.dart';
 
 import 'product_details_remote_data_source_impl_test.mocks.dart';
 
-@GenerateMocks([
-  ProductDetailsApiClient,
-])
+@GenerateMocks([ProductDetailsApiClient])
 void main() {
   late ProductDetailsRemoteDataSourceImpl remoteDataSourceImpl;
   late MockProductDetailsApiClient mockProductDetailsApiClient;
@@ -39,14 +37,9 @@ void main() {
           productId: '123',
         );
 
-        expect(
-          result,
-          isA<SuccessBaseResponse<ProductDetailsResponse>>(),
-        );
+        expect(result, isA<SuccessBaseResponse<ProductDetailsResponse>>());
 
-        verify(
-          mockProductDetailsApiClient.getProductDetails('123'),
-        ).called(1);
+        verify(mockProductDetailsApiClient.getProductDetails('123')).called(1);
       },
     );
 
@@ -61,14 +54,9 @@ void main() {
           productId: '123',
         );
 
-        expect(
-          result,
-          isA<ErrorBaseResponse<ProductDetailsResponse>>(),
-        );
+        expect(result, isA<ErrorBaseResponse<ProductDetailsResponse>>());
 
-        verify(
-          mockProductDetailsApiClient.getProductDetails('123'),
-        ).called(1);
+        verify(mockProductDetailsApiClient.getProductDetails('123')).called(1);
       },
     );
   });

@@ -31,16 +31,15 @@ void main() {
     description: 'Beautiful Rose',
   );
 
-  final tGetAllProductsResponse =
-      GetAllProductsResponse(products: [tProductModel]);
+  final tGetAllProductsResponse = GetAllProductsResponse(
+    products: [tProductModel],
+  );
 
   group('SearchRemoteDataSourceImpl - searchProducts', () {
     test('success: return products response', () async {
       // Arrange
       when(
-        mockApiClient.searchProducts(
-          queries: anyNamed('queries'),
-        ),
+        mockApiClient.searchProducts(queries: anyNamed('queries')),
       ).thenAnswer((_) async => tGetAllProductsResponse);
 
       // Act
@@ -56,9 +55,7 @@ void main() {
       expect(successResult.data.products?.length, 1);
       expect(successResult.data.products?[0].title, 'Rose');
       verify(
-        mockApiClient.searchProducts(
-          queries: anyNamed('queries'),
-        ),
+        mockApiClient.searchProducts(queries: anyNamed('queries')),
       ).called(1);
       verifyNoMoreInteractions(mockApiClient);
     });
@@ -67,9 +64,7 @@ void main() {
       // Arrange
       const tEmptyResponse = GetAllProductsResponse(products: []);
       when(
-        mockApiClient.searchProducts(
-          queries: anyNamed('queries'),
-        ),
+        mockApiClient.searchProducts(queries: anyNamed('queries')),
       ).thenAnswer((_) async => tEmptyResponse);
 
       // Act
@@ -83,18 +78,14 @@ void main() {
           result as SuccessBaseResponse<GetAllProductsResponse>;
       expect(successResult.data.products, isEmpty);
       verify(
-        mockApiClient.searchProducts(
-          queries: anyNamed('queries'),
-        ),
+        mockApiClient.searchProducts(queries: anyNamed('queries')),
       ).called(1);
     });
 
     test('error: handle DioException returns ErrorBaseResponse', () async {
       // Arrange
       when(
-        mockApiClient.searchProducts(
-          queries: anyNamed('queries'),
-        ),
+        mockApiClient.searchProducts(queries: anyNamed('queries')),
       ).thenThrow(
         DioException(
           requestOptions: RequestOptions(path: ''),
@@ -113,9 +104,7 @@ void main() {
       final errorResult = result as ErrorBaseResponse<GetAllProductsResponse>;
       expect(errorResult.errorMessage, isNotEmpty);
       verify(
-        mockApiClient.searchProducts(
-          queries: anyNamed('queries'),
-        ),
+        mockApiClient.searchProducts(queries: anyNamed('queries')),
       ).called(1);
       verifyNoMoreInteractions(mockApiClient);
     });
@@ -123,9 +112,7 @@ void main() {
     test('error: handle connection timeout exception', () async {
       // Arrange
       when(
-        mockApiClient.searchProducts(
-          queries: anyNamed('queries'),
-        ),
+        mockApiClient.searchProducts(queries: anyNamed('queries')),
       ).thenThrow(
         DioException(
           requestOptions: RequestOptions(path: ''),
@@ -145,9 +132,7 @@ void main() {
     test('error: handle server error (500)', () async {
       // Arrange
       when(
-        mockApiClient.searchProducts(
-          queries: anyNamed('queries'),
-        ),
+        mockApiClient.searchProducts(queries: anyNamed('queries')),
       ).thenThrow(
         DioException(
           requestOptions: RequestOptions(path: ''),
@@ -168,9 +153,7 @@ void main() {
       // Assert
       expect(result, isA<ErrorBaseResponse<GetAllProductsResponse>>());
       verify(
-        mockApiClient.searchProducts(
-          queries: anyNamed('queries'),
-        ),
+        mockApiClient.searchProducts(queries: anyNamed('queries')),
       ).called(1);
     });
 
@@ -178,9 +161,7 @@ void main() {
       // Arrange
       final tParams = GetProductsParams(search: 'rose', limit: 10);
       when(
-        mockApiClient.searchProducts(
-          queries: tParams.toJson(),
-        ),
+        mockApiClient.searchProducts(queries: tParams.toJson()),
       ).thenAnswer((_) async => tGetAllProductsResponse);
 
       // Act
@@ -188,11 +169,7 @@ void main() {
 
       // Assert
       expect(result, isA<SuccessBaseResponse<GetAllProductsResponse>>());
-      verify(
-        mockApiClient.searchProducts(
-          queries: tParams.toJson(),
-        ),
-      ).called(1);
+      verify(mockApiClient.searchProducts(queries: tParams.toJson())).called(1);
     });
   });
 }

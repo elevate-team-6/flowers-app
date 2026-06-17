@@ -71,7 +71,10 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
               color: AppColors.black,
             ),
           ),
-          title: Text(AppStrings.password.tr(), style: AppTextStyles.black20500),
+          title: Text(
+            AppStrings.password.tr(),
+            style: AppTextStyles.black20500,
+          ),
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),

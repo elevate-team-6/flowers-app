@@ -140,7 +140,7 @@ abstract class AppStrings {
   static const String categories = 'categories';
   static const String cart = 'cart';
   static const String profile = 'profile';
-  static const String addNewAddress= 'Add New Address';
+  static const String addNewAddress = 'Add New Address';
 
   // Products
   static const String addToCart = 'addToCart';
@@ -288,8 +288,9 @@ abstract class AppStrings {
   static const String addNew = 'Add new';
   static const String paymentMethod = 'Payment method';
   static const String paymentWasCancelled = 'Payment was cancelled';
-  static const String paymentWasNotCompleted= 'Payment was not completed';
-  static const String paymentCompletedSuccessfully = 'Payment completed successfully';
+  static const String paymentWasNotCompleted = 'Payment was not completed';
+  static const String paymentCompletedSuccessfully =
+      'Payment completed successfully';
   static const String enterThePhoneNumber = 'Enter The Phone Number';
   static const String deliveryDays = 'delivery_days';
 

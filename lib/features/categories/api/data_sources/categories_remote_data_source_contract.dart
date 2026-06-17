@@ -6,5 +6,6 @@ import 'package:flowers_app/features/categories/data/models/request/get_products
 abstract interface class CategoriesRemoteDataSourceContract {
   Future<BaseResponse<GetAllCategoriesResponse>> getCategories();
   Future<BaseResponse<GetAllProductsResponse>> getProducts(
-      GetProductsParams params);
+    GetProductsParams params,
+  );
 }

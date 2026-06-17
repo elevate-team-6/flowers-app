@@ -49,7 +49,7 @@ abstract class AppTextStyles {
     color: AppColors.black,
   );
 
-    static TextStyle get gray16400 => GoogleFonts.inter(
+  static TextStyle get gray16400 => GoogleFonts.inter(
     fontSize: _sp(16),
     fontWeight: FontWeight.w400,
     color: AppColors.white90,

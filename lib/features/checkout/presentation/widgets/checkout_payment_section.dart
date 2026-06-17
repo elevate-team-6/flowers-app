@@ -12,32 +12,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CheckoutPaymentSection extends StatelessWidget {
   final CheckoutStates state;
 
-  const CheckoutPaymentSection({
-    super.key,
-    required this.state,
-  });
+  const CheckoutPaymentSection({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          AppStrings.paymentMethod.tr(),
-          style: AppTextStyles.black18500,
-        ),
+        Text(AppStrings.paymentMethod.tr(), style: AppTextStyles.black18500),
         const SizedBox(height: 20),
 
         if (!state.isGift)
           PaymentCard(
-            isSelected:
-                state.selectedPaymentMethod == AppConstants.cash,
+            isSelected: state.selectedPaymentMethod == AppConstants.cash,
             paymentMethodName: AppStrings.cashOnDelivery.tr(),
             onTap: () {
               context.read<CheckoutCubit>().doEvent(
-                const SelectPaymentMethodEvent(
-                  AppConstants.cash,
-                ),
+                const SelectPaymentMethodEvent(AppConstants.cash),
               );
             },
           ),
@@ -45,14 +36,11 @@ class CheckoutPaymentSection extends StatelessWidget {
         const SizedBox(height: 10),
 
         PaymentCard(
-          isSelected:
-              state.selectedPaymentMethod == AppConstants.card,
+          isSelected: state.selectedPaymentMethod == AppConstants.card,
           paymentMethodName: AppStrings.creditCard.tr(),
           onTap: () {
             context.read<CheckoutCubit>().doEvent(
-              const SelectPaymentMethodEvent(
-                AppConstants.card,
-              ),
+              const SelectPaymentMethodEvent(AppConstants.card),
             );
           },
         ),

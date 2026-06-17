@@ -46,7 +46,9 @@ class FilterOptionItem extends StatelessWidget {
           children: [
             Text(
               title,
-              style: isSelected ? AppTextStyles.black16600 : AppTextStyles.black16400,
+              style: isSelected
+                  ? AppTextStyles.black16600
+                  : AppTextStyles.black16400,
             ),
             Container(
               height: 22.r,

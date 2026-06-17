@@ -16,7 +16,7 @@ import 'login_repo_impl_test.mocks.dart';
 void main() {
   late LoginRepoImpl repo;
   late MockLoginRemoteDataSourceContract mockDataSource;
- setUpAll(() {
+  setUpAll(() {
     provideDummy<BaseResponse<LoginResponse>>(
       SuccessBaseResponse(
         LoginResponse(
@@ -46,13 +46,8 @@ void main() {
   });
 
   group('LoginRepoImpl Tests', () {
-
     test('should return LoginEntity when API call is successful', () async {
-
-      final request = LoginRequest(
-        email: 'test@test.com',
-        password: '123456',
-      );
+      final request = LoginRequest(email: 'test@test.com', password: '123456');
 
       final fakeResponse = LoginResponse(
         token: '123',
@@ -69,8 +64,9 @@ void main() {
         ),
       );
 
-      when(mockDataSource.login(request))
-          .thenAnswer((_) async => SuccessBaseResponse(fakeResponse));
+      when(
+        mockDataSource.login(request),
+      ).thenAnswer((_) async => SuccessBaseResponse(fakeResponse));
 
       final result = await repo.login(request);
 
@@ -88,14 +84,11 @@ void main() {
     });
 
     test('should return ErrorBaseResponse when API fails', () async {
+      final request = LoginRequest(email: 'test@test.com', password: '123456');
 
-      final request = LoginRequest(
-        email: 'test@test.com',
-        password: '123456',
-      );
-
-      when(mockDataSource.login(request))
-          .thenAnswer((_) async => ErrorBaseResponse('Server error'));
+      when(
+        mockDataSource.login(request),
+      ).thenAnswer((_) async => ErrorBaseResponse('Server error'));
 
       final result = await repo.login(request);
 
@@ -108,6 +101,5 @@ void main() {
       verify(mockDataSource.login(request)).called(1);
       verifyNoMoreInteractions(mockDataSource);
     });
-
   });
 }

@@ -30,7 +30,10 @@ class CustomErrorState extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            ElevatedButton(onPressed: onRetry, child: Text(AppStrings.retry.tr())),
+            ElevatedButton(
+              onPressed: onRetry,
+              child: Text(AppStrings.retry.tr()),
+            ),
           ],
         ),
       ),

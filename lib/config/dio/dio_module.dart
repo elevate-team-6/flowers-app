@@ -14,10 +14,10 @@ abstract class DioModule {
 
   @lazySingleton
   Dio dio(
-      AuthInterceptor authInterceptor,
-      LoggingInterceptor loggingInterceptor,
-      CacheStore cacheStore,
-      ) {
+    AuthInterceptor authInterceptor,
+    LoggingInterceptor loggingInterceptor,
+    CacheStore cacheStore,
+  ) {
     final dio = Dio();
 
     dio.options.baseUrl = AppEndPoints.baseUrl;
@@ -47,11 +47,9 @@ abstract class DioModule {
             options.extra.addAll(
               cacheOptions
                   .copyWith(
-                policy: CachePolicy.forceCache,
-                maxStale: Nullable(
-                  Duration(hours: cacheHours),
-                ),
-              )
+                    policy: CachePolicy.forceCache,
+                    maxStale: Nullable(Duration(hours: cacheHours)),
+                  )
                   .toExtra(),
             );
           }

@@ -5,6 +5,7 @@ import 'package:flowers_app/features/auth/login/data/data_sources/login_remote_d
 import 'package:flowers_app/features/auth/login/data/models/login_request/login_request.dart';
 import 'package:flowers_app/features/auth/login/data/models/login_response/login_response.dart';
 import 'package:injectable/injectable.dart';
+
 @Injectable(as: LoginRemoteDataSourceContract)
 class LoginRemoteDataSourceImpl implements LoginRemoteDataSourceContract {
   final LoginApiClient _loginApiClient;

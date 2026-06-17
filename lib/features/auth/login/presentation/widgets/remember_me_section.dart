@@ -37,10 +37,7 @@ class RememberMeSection extends StatelessWidget {
               ),
             ),
             SizedBox(width: 12.w),
-            Text(
-              AppStrings.rememberMe.tr(),
-              style: AppTextStyles.black13400
-            ),
+            Text(AppStrings.rememberMe.tr(), style: AppTextStyles.black13400),
           ],
         ),
 
@@ -48,7 +45,9 @@ class RememberMeSection extends StatelessWidget {
           onTap: onForgotPasswordTap,
           child: Text(
             AppStrings.forgetPasswordText.tr(),
-            style: AppTextStyles.black13400.copyWith(decoration: TextDecoration.underline)
+            style: AppTextStyles.black13400.copyWith(
+              decoration: TextDecoration.underline,
+            ),
           ),
         ),
       ],

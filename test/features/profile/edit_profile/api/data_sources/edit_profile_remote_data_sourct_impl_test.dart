@@ -12,9 +12,7 @@ import 'package:mockito/mockito.dart';
 
 import 'edit_profile_remote_data_sourct_impl_test.mocks.dart';
 
-@GenerateMocks([
-  EditProfileApiClient,
-])
+@GenerateMocks([EditProfileApiClient])
 void main() {
   late MockEditProfileApiClient apiClient;
   late EditProfileRemoteDataSourctImpl remoteDataSource;
@@ -24,159 +22,108 @@ void main() {
   late UploadPhotoResponse uploadPhotoResponse;
   late File file;
 
-setUpAll(() async {
-  request = EditProfileRequest(
-    firstName: 'Youssef',
-    lastName: 'Singer',
-    email: 'youssef@gmail.com',
-    phone: '01000000000',
-  );
-
-  editProfileResponse = EditProfileResponse(
-    message: 'Profile Updated Successfully',
-    user: UserModel(
-      id: '1',
+  setUpAll(() async {
+    request = EditProfileRequest(
       firstName: 'Youssef',
       lastName: 'Singer',
       email: 'youssef@gmail.com',
       phone: '01000000000',
-      gender: 'male',
-      photo: '',
-    ),
-  );
+    );
 
-  uploadPhotoResponse = UploadPhotoResponse(
-    message: 'Photo Uploaded Successfully',
-  );
+    editProfileResponse = EditProfileResponse(
+      message: 'Profile Updated Successfully',
+      user: UserModel(
+        id: '1',
+        firstName: 'Youssef',
+        lastName: 'Singer',
+        email: 'youssef@gmail.com',
+        phone: '01000000000',
+        gender: 'male',
+        photo: '',
+      ),
+    );
 
-  file = File('test/image.png');
+    uploadPhotoResponse = UploadPhotoResponse(
+      message: 'Photo Uploaded Successfully',
+    );
 
-  if (!await file.exists()) {
-    await file.create(recursive: true);
-    await file.writeAsBytes([1, 2, 3]);
-  }
-});
+    file = File('test/image.png');
 
+    if (!await file.exists()) {
+      await file.create(recursive: true);
+      await file.writeAsBytes([1, 2, 3]);
+    }
+  });
 
   setUp(() {
     apiClient = MockEditProfileApiClient();
 
-    remoteDataSource = EditProfileRemoteDataSourctImpl(
-      apiClient,
-    );
+    remoteDataSource = EditProfileRemoteDataSourctImpl(apiClient);
   });
 
   group('EditProfileRemoteDataSourctImpl', () {
     group('editProfile', () {
-      test(
-        'should return SuccessBaseResponse<EditProfileResponse> '
-        'when api call succeeds',
-        () async {
-          // arrange
-          when(
-            apiClient.editProfile(request),
-          ).thenAnswer(
-            (_) async => editProfileResponse,
-          );
+      test('should return SuccessBaseResponse<EditProfileResponse> '
+          'when api call succeeds', () async {
+        // arrange
+        when(
+          apiClient.editProfile(request),
+        ).thenAnswer((_) async => editProfileResponse);
 
-          // act
-          final result = await remoteDataSource.editProfile(
-            request,
-          );
+        // act
+        final result = await remoteDataSource.editProfile(request);
 
-          // assert
-          expect(
-            result,
-            isA<SuccessBaseResponse<EditProfileResponse>>(),
-          );
+        // assert
+        expect(result, isA<SuccessBaseResponse<EditProfileResponse>>());
 
-          verify(
-            apiClient.editProfile(request),
-          ).called(1);
-        },
-      );
+        verify(apiClient.editProfile(request)).called(1);
+      });
 
-      test(
-        'should return ErrorBaseResponse<EditProfileResponse> '
-        'when api call throws exception',
-        () async {
-          // arrange
-          when(
-            apiClient.editProfile(request),
-          ).thenThrow(Exception());
+      test('should return ErrorBaseResponse<EditProfileResponse> '
+          'when api call throws exception', () async {
+        // arrange
+        when(apiClient.editProfile(request)).thenThrow(Exception());
 
-          // act
-          final result = await remoteDataSource.editProfile(
-            request,
-          );
+        // act
+        final result = await remoteDataSource.editProfile(request);
 
-          // assert
-          expect(
-            result,
-            isA<ErrorBaseResponse<EditProfileResponse>>(),
-          );
+        // assert
+        expect(result, isA<ErrorBaseResponse<EditProfileResponse>>());
 
-          verify(
-            apiClient.editProfile(request),
-          ).called(1);
-        },
-      );
+        verify(apiClient.editProfile(request)).called(1);
+      });
     });
 
     group('uploadPhoto', () {
-      test(
-        'should return SuccessBaseResponse<String> '
-        'when upload photo succeeds',
-        () async {
-          // arrange
-          when(
-            apiClient.uploadPhoto(any),
-          ).thenAnswer(
-            (_) async => uploadPhotoResponse,
-          );
+      test('should return SuccessBaseResponse<String> '
+          'when upload photo succeeds', () async {
+        // arrange
+        when(
+          apiClient.uploadPhoto(any),
+        ).thenAnswer((_) async => uploadPhotoResponse);
 
-          // act
-          final result = await remoteDataSource.uploadPhoto(
-            file,
-          );
+        // act
+        final result = await remoteDataSource.uploadPhoto(file);
 
-          // assert
-          expect(
-            result,
-            isA<SuccessBaseResponse<String>>(),
-          );
+        // assert
+        expect(result, isA<SuccessBaseResponse<String>>());
 
-          verify(
-            apiClient.uploadPhoto(any),
-          ).called(1);
-        },
-      );
+        verify(apiClient.uploadPhoto(any)).called(1);
+      });
 
-      test(
-        'should return ErrorBaseResponse<String> '
-        'when upload photo fails',
-        () async {
-          // arrange
-          when(
-            apiClient.uploadPhoto(any),
-          ).thenThrow(Exception());
+      test('should return ErrorBaseResponse<String> '
+          'when upload photo fails', () async {
+        // arrange
+        when(apiClient.uploadPhoto(any)).thenThrow(Exception());
 
-          // act
-          final result = await remoteDataSource.uploadPhoto(
-            file,
-          );
+        // act
+        final result = await remoteDataSource.uploadPhoto(file);
 
-          // assert
-          expect(
-            result,
-            isA<ErrorBaseResponse<String>>(),
-          );
+        // assert
+        expect(result, isA<ErrorBaseResponse<String>>());
 
-          verify(
-            apiClient.uploadPhoto(any),
-          ).called(1);
-        },
-      );
+        verify(apiClient.uploadPhoto(any)).called(1);
+      });
     });
   });
 }

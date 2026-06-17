@@ -46,24 +46,15 @@ class ProductDetailsShimmer extends StatelessWidget {
 
                     SizedBox(height: 10.h),
 
-                    _buildShimmerBox(
-                      height: 14.h,
-                      width: double.infinity,
-                    ),
+                    _buildShimmerBox(height: 14.h, width: double.infinity),
 
                     SizedBox(height: 8.h),
 
-                    _buildShimmerBox(
-                      height: 14.h,
-                      width: double.infinity,
-                    ),
+                    _buildShimmerBox(height: 14.h, width: double.infinity),
 
                     SizedBox(height: 8.h),
 
-                    _buildShimmerBox(
-                      height: 14.h,
-                      width: 250.w,
-                    ),
+                    _buildShimmerBox(height: 14.h, width: 250.w),
 
                     SizedBox(height: 20.h),
 

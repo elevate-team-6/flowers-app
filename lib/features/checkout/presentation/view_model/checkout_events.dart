@@ -29,9 +29,11 @@ class CardCheckoutEvent extends CheckoutEvent {
 
   const CardCheckoutEvent({required this.cartId, required this.request});
 }
+
 class ToggleGiftEvent extends CheckoutEvent {
   final bool isGift;
 
   const ToggleGiftEvent(this.isGift);
 }
+
 class LoadDeliveryDaysEvent extends CheckoutEvent {}

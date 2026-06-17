@@ -5,7 +5,7 @@ class CashCheckoutResponse {
   final String? message;
   final OrderModel? order;
 
-  const CashCheckoutResponse({ this.message,  this.order});
+  const CashCheckoutResponse({this.message, this.order});
 
   factory CashCheckoutResponse.fromJson(Map<String, dynamic> json) {
     return CashCheckoutResponse(

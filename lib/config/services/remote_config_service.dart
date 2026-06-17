@@ -4,10 +4,9 @@ import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class RemoteConfigService {
-   final FirebaseRemoteConfig _remoteConfig =
-      FirebaseRemoteConfig.instance;
+  final FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
 
-   Future<void> init() async {
+  Future<void> init() async {
     await _remoteConfig.setDefaults({AppStrings.deliveryDays: 2});
 
     await _remoteConfig.setConfigSettings(
@@ -20,5 +19,5 @@ class RemoteConfigService {
     await _remoteConfig.fetchAndActivate();
   }
 
-   int get deliveryDays => _remoteConfig.getInt('delivery_days');
+  int get deliveryDays => _remoteConfig.getInt('delivery_days');
 }

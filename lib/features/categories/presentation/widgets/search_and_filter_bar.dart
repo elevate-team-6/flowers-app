@@ -9,10 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class SearchAndFilterBar extends StatelessWidget {
   final VoidCallback onFilterTap;
 
-  const SearchAndFilterBar({
-    super.key,
-    required this.onFilterTap,
-  });
+  const SearchAndFilterBar({super.key, required this.onFilterTap});
 
   @override
   Widget build(BuildContext context) {

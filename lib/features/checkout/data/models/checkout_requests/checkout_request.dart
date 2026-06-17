@@ -14,12 +14,12 @@ class CheckoutRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        'shippingAddress': {
-          'street': street,
-          'phone': phone,
-          'city': city,
-          'lat': lat,
-          'long': long,
-        },
-      };
+    'shippingAddress': {
+      'street': street,
+      'phone': phone,
+      'city': city,
+      'lat': lat,
+      'long': long,
+    },
+  };
 }

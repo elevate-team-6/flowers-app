@@ -23,7 +23,8 @@ class CategoriesRemoteDataSourceImpl
 
   @override
   Future<BaseResponse<GetAllProductsResponse>> getProducts(
-      GetProductsParams params) {
+    GetProductsParams params,
+  ) {
     return ErrorHandler.handleApiCall(() {
       return _categoriesApiClient.getProducts(queries: params.toJson());
     });

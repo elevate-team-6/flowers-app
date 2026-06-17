@@ -33,24 +33,14 @@ class CustomCachedImage extends StatelessWidget {
       fit: fit,
 
       placeholder: (context, url) =>
-          placeholder ??
-          const Center(
-            child: CircularProgressIndicator(),
-          ),
+          placeholder ?? const Center(child: CircularProgressIndicator()),
 
       errorWidget: (context, url, error) =>
-          errorWidget ??
-          Image.asset(
-                    AppImages.defaultImage,
-                    fit: BoxFit.cover,
-                  ),
+          errorWidget ?? Image.asset(AppImages.defaultImage, fit: BoxFit.cover),
     );
 
     if (borderRadius != null) {
-      return ClipRRect(
-        borderRadius: borderRadius!,
-        child: image,
-      );
+      return ClipRRect(borderRadius: borderRadius!, child: image);
     }
 
     return image;
