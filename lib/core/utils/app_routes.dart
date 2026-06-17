@@ -26,7 +26,7 @@ import 'package:flowers_app/features/product_details/presentation/cubit/product_
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/screens/edit_profile_screen.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
-import 'package:flowers_app/features/profile/presentation/pages/about_us_screen.dart';
+import 'package:flowers_app/features/profile/main_profile/presentation/pages/about_us_screen.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flowers_app/features/search/presentation/pages/search_page.dart';
