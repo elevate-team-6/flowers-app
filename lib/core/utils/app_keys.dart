@@ -12,5 +12,6 @@ abstract class AppKeys {
   static const String categroyId = 'categoryId';
   static const String index = 'index';
   static const String authorizationKey = 'Authorization';
-  static const String bearerPrefix = 'Bearer';
+  static const String bearerPrefix = 'Bearer ';
+  static const String onboardingKey = 'onboarding_done';
 }

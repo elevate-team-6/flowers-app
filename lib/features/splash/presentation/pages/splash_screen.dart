@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../core/utils/app_routes.dart';
+
 import '../../../../../core/utils/app_colors.dart';
-import '../../../../../config/services/auth_service.dart';
+import '../../../../../core/utils/app_routes.dart';
+import '../../../../../core/utils/app_text_styles.dart';
+import '../../../../config/services/auth_service.dart';
 import '../widgets/petals_painter.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +18,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late AnimationController _petalsController;
   late AnimationController _logoController;
   late AnimationController _textController;
@@ -86,7 +90,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-    _textFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_textController);
+    _textFadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_textController);
     _textSlideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.5),
       end: Offset.zero,
@@ -98,7 +105,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       vsync: this,
       duration: const Duration(milliseconds: 600),
     );
-    _subtitleFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_subtitleController);
+    _subtitleFadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_subtitleController);
   }
 
   void _startAnimations() async {
@@ -114,16 +124,19 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
 
   void _navigateToNext() async {
+    final onboardingDone = await AuthService.isOnboardingCompleted();
     final isLoggedIn = await AuthService.isLoggedIn();
-    
-    Future.delayed(const Duration(milliseconds: 3200), () {
-      if (mounted) {
+    await Future.delayed(const Duration(milliseconds: 3200));
+    if (mounted) {
+      if (!onboardingDone) {
+        Navigator.pushReplacementNamed(context, AppRoutes.onboarding);
+      } else {
         Navigator.pushReplacementNamed(
           context,
           isLoggedIn ? AppRoutes.mainLayout : AppRoutes.login,
         );
       }
-    });
+    }
   }
 
   @override
@@ -159,7 +172,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
               ),
               size: Size.infinite,
             ),
-            
+
             // Layer 2 & 3: Logo and Text
             Center(
               child: Column(
@@ -167,10 +180,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                 children: [
                   ScaleTransition(
                     scale: _logoScaleAnimation,
-                    child: const Text(
-                      '🌸',
-                      style: TextStyle(fontSize: 90),
-                    ),
+                    child: const Text('🌸', style: TextStyle(fontSize: 90)),
                   ),
                   const SizedBox(height: 16),
                   FadeTransition(
@@ -179,11 +189,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                       position: _textSlideAnimation,
                       child: Text(
                         'Flowers',
-                        style: GoogleFonts.playfairDisplay(
-                          fontSize: 38,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primary,
-                        ),
+                        style: AppTextStyles.primary38700Playfair,
                       ),
                     ),
                   ),
@@ -192,11 +198,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                     opacity: _subtitleFadeAnimation,
                     child: Text(
                       'Fresh blooms, delivered',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        color: AppColors.gray,
-                        letterSpacing: 1.5,
-                      ),
+                      style: AppTextStyles.gray14400PoppinsSpacing,
                     ),
                   ),
                 ],

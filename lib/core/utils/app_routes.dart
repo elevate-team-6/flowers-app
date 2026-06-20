@@ -34,6 +34,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flowers_app/features/splash/presentation/pages/splash_screen.dart';
+import 'package:flowers_app/features/onboarding/presentation/pages/onboarding_screen.dart';
 
 import '../../features/address/domain/entities/address_entity.dart';
 import '../../features/address/presentation/screens/add_address_screen.dart';
@@ -51,6 +52,7 @@ abstract class AppRoutes {
       GlobalKey<NavigatorState>();
 
   static const String splash = '/';
+  static const String onboarding = '/onboarding';
   static const String login = 'login';
   static const String signup = '/signup';
   static const String termsAndConditions = '/termsAndConditions';
@@ -79,6 +81,9 @@ abstract class AppRoutes {
     switch (settings.name) {
       case splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
+
+      case onboarding:
+        return MaterialPageRoute(builder: (_) => const OnboardingScreen());
 
       case mainLayout:
         return MaterialPageRoute(

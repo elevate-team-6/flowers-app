@@ -188,4 +188,49 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.green,
   );
+
+  // Splash & Onboarding Styles
+  static TextStyle get primary38700Playfair => GoogleFonts.playfairDisplay(
+    fontSize: _sp(38),
+    fontWeight: FontWeight.w700,
+    color: AppColors.primary,
+  );
+
+  static TextStyle get gray14400PoppinsSpacing => GoogleFonts.poppins(
+    fontSize: _sp(14),
+    fontWeight: FontWeight.w400,
+    color: AppColors.gray,
+    letterSpacing: 1.5,
+  );
+
+  static TextStyle get black5028700Playfair => GoogleFonts.playfairDisplay(
+    fontSize: _sp(28),
+    fontWeight: FontWeight.w700,
+    color: AppColors.black50,
+  );
+
+  static TextStyle get gray14400Poppins05 => GoogleFonts.poppins(
+    fontSize: _sp(14),
+    fontWeight: FontWeight.w400,
+    color: AppColors.gray,
+    letterSpacing: 0.5,
+  );
+
+  static TextStyle get gray16500Poppins => GoogleFonts.poppins(
+    fontSize: _sp(16),
+    fontWeight: FontWeight.w500,
+    color: AppColors.gray,
+  );
+
+  static TextStyle get white16700Poppins => GoogleFonts.poppins(
+    fontSize: _sp(16),
+    fontWeight: FontWeight.w700,
+    color: AppColors.white,
+  );
+
+  static TextStyle get gray13400Poppins => GoogleFonts.poppins(
+    fontSize: _sp(13),
+    fontWeight: FontWeight.w400,
+    color: AppColors.gray,
+  );
 }
