@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class SnackBarServices {
+class CustomSnackBar {
   // ── Success ──────────────────────────────────────────────────────────────
   static void showSuccessMessage(String msg) {
     BotToast.showCustomNotification(

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_requests/checkout_request.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
@@ -32,14 +32,14 @@ class CheckoutPlaceOrderButton extends StatelessWidget {
           ? null
           : () {
               if (state.selectedAddress == null) {
-                SnackBarServices.showErrorMessage(
+                CustomSnackBar.showErrorMessage(
                   AppStrings.selectAddressFirst.tr(),
                 );
                 return;
               }
 
               if (state.selectedPaymentMethod == null) {
-                SnackBarServices.showErrorMessage(
+                CustomSnackBar.showErrorMessage(
                   AppStrings.selectPaymentMethod.tr(),
                 );
                 return;

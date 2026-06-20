@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
@@ -59,13 +59,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             state.cardCheckoutState.errorMessage ??
             state.cashCheckoutState.errorMessage;
         if (error != null) {
-          SnackBarServices.showErrorMessage(error);
+          CustomSnackBar.showErrorMessage(error);
           return;
         }
         if (state.cashCheckoutState.data != null) {
           context.read<CartBloc>().add(const ClearCartEvent());
 
-          SnackBarServices.showSuccessMessage(
+          CustomSnackBar.showSuccessMessage(
             AppStrings.paymentCompletedSuccessfully.tr(),
           );
 
@@ -87,7 +87,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   as PaymentResult?;
           switch (result) {
             case PaymentResult.success:
-              SnackBarServices.showSuccessMessage(
+              CustomSnackBar.showSuccessMessage(
                 AppStrings.paymentCompletedSuccessfully.tr(),
               );
               if (!context.mounted) return;
@@ -98,15 +98,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               );
               return;
             case PaymentResult.cancelled:
-              SnackBarServices.showErrorMessage(
+              CustomSnackBar.showErrorMessage(
                 AppStrings.paymentWasCancelled.tr(),
               );
             case PaymentResult.noInternet:
-              SnackBarServices.showErrorMessage(
+              CustomSnackBar.showErrorMessage(
                 AppStrings.noInternetConnection.tr(),
               );
             case PaymentResult.backPressed:
-              SnackBarServices.showErrorMessage(
+              CustomSnackBar.showErrorMessage(
                 AppStrings.paymentWasNotCompleted.tr(),
               );
             default:
