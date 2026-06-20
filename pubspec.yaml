@@ -61,6 +61,7 @@ dev_dependencies:
   mockito: ^5.6.4
   retrofit_generator: ^10.2.3
   test: ^1.29.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
@@ -74,5 +75,16 @@ flutter:
 
 flutter_native_splash:
   color: "#FAFAFA"
+  image: null
   android_12:
     color: "#FAFAFA"
+    icon_background_color: "#FAFAFA"
+    image: null
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/flowery_logo.png"
+  adaptive_icon_background: "#FAFAFA"
+  adaptive_icon_foreground: "assets/images/flowery_logo.png"
