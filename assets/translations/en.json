@@ -244,5 +244,7 @@
   "selectArea": "Select Area",
   "pleaseSelectCityAndArea": "Please select City and Area",
   "pleaseSelectLocationOnMap": "Please select location on map",
-  "locationFetchError": "Could not get current location"
+  "locationFetchError": "Could not get current location",
+  "success": "Success!",
+  "oops": "Oops!"
 }
