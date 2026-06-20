@@ -19,6 +19,8 @@ import 'package:flowers_app/features/home/presentation/view_model/cubit/home_vie
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
 import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
+import 'package:flowers_app/features/onboarding/presentation/pages/language_screen.dart';
+import 'package:flowers_app/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:flowers_app/features/orders/presentation/screens/orders_screen.dart';
 import 'package:flowers_app/features/orders/presentation/view_model/orders_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
@@ -30,11 +32,10 @@ import 'package:flowers_app/features/profile/main_profile/presentation/pages/abo
 import 'package:flowers_app/features/profile/reset_password/presentation/screens/change_password_screen.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flowers_app/features/search/presentation/pages/search_page.dart';
+import 'package:flowers_app/features/splash/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:flowers_app/features/splash/presentation/pages/splash_screen.dart';
-import 'package:flowers_app/features/onboarding/presentation/pages/onboarding_screen.dart';
 
 import '../../features/address/domain/entities/address_entity.dart';
 import '../../features/address/presentation/screens/add_address_screen.dart';
@@ -53,6 +54,7 @@ abstract class AppRoutes {
 
   static const String splash = '/';
   static const String onboarding = '/onboarding';
+  static const String language = '/language';
   static const String login = 'login';
   static const String signup = '/signup';
   static const String termsAndConditions = '/termsAndConditions';
@@ -84,6 +86,9 @@ abstract class AppRoutes {
 
       case onboarding:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
+
+      case language:
+        return MaterialPageRoute(builder: (_) => const LanguageScreen());
 
       case mainLayout:
         return MaterialPageRoute(

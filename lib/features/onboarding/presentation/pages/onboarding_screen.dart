@@ -1,13 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/services/auth_service.dart';
-import '../../../../core/utils/app_routes.dart';
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/app_routes.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/utils/app_text_styles.dart';
 import '../widgets/onboarding_dots.dart';
 import '../widgets/onboarding_page.dart';
-import '../widgets/page_one_animation.dart';
 import '../widgets/page_four_animation.dart';
+import '../widgets/page_one_animation.dart';
 import '../widgets/page_three_animation.dart';
 import '../widgets/page_two_animation.dart';
 
@@ -79,33 +81,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   animationWidget: PageOneAnimation(
                     isActive: _currentPage == 0,
                   ),
-                  title: "Discover Beautiful Flowers",
-                  description:
-                      "Browse hundreds of fresh arrangements curated just for you",
+                  title: AppStrings.onboardingTitle1.tr(),
+                  description: AppStrings.onboardingDesc1.tr(),
                 ),
                 OnboardingPage(
                   animationWidget: PageTwoAnimation(
                     isActive: _currentPage == 1,
                   ),
-                  title: "Order in a Tap",
-                  description:
-                      "Add to cart, choose your address, and checkout in seconds",
+                  title: AppStrings.onboardingTitle2.tr(),
+                  description: AppStrings.onboardingDesc2.tr(),
                 ),
                 OnboardingPage(
                   animationWidget: PageThreeAnimation(
                     isActive: _currentPage == 2,
                   ),
-                  title: "Crafted With Care",
-                  description:
-                      "Every arrangement is prepared fresh with love, just for you",
+                  title: AppStrings.onboardingTitle3.tr(),
+                  description: AppStrings.onboardingDesc3.tr(),
                 ),
                 OnboardingPage(
                   animationWidget: PageFourAnimation(
                     isActive: _currentPage == 3,
                   ),
-                  title: "Never Miss a Moment",
-                  description:
-                      "Get instant updates the moment your flowers are on their way",
+                  title: AppStrings.onboardingTitle4.tr(),
+                  description: AppStrings.onboardingDesc4.tr(),
                 ),
               ],
             ),
@@ -116,7 +114,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               right: 20,
               child: TextButton(
                 onPressed: _finishOnboarding,
-                child: Text("Skip", style: AppTextStyles.gray16500Poppins),
+                child: Text(
+                  AppStrings.skip.tr(),
+                  style: AppTextStyles.gray16500Poppins,
+                ),
               ),
             ),
 
@@ -141,7 +142,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       elevation: 0,
                     ),
                     child: Text(
-                      _currentPage == 3 ? "Get Started 🌸" : "Next",
+                      _currentPage == 3
+                          ? AppStrings.getStarted.tr()
+                          : AppStrings.next.tr(),
                       style: AppTextStyles.white16700Poppins,
                     ),
                   ),

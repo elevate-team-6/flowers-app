@@ -112,14 +112,40 @@ abstract class AppStrings {
   static const String bouqetInclude = 'bouqetInclude';
   static const String noProductDetailsFound = 'noProductDetailsFound';
 
+  // Language Screen
+  static const String welcomeTitle = 'welcome_title';
+  static const String chooseLanguage = 'choose_language';
+  static const String continueBtn = 'continue_btn';
+  static const String english = 'english';
+  static const String arabic = 'arabic';
+
+  // Onboarding Page 1
+  static const String onboardingTitle1 = 'onboarding_title_1';
+  static const String onboardingDesc1 = 'onboarding_desc_1';
+
+  // Onboarding Page 2
+  static const String onboardingTitle2 = 'onboarding_title_2';
+  static const String onboardingDesc2 = 'onboarding_desc_2';
+
+  // Onboarding Page 3
+  static const String onboardingTitle3 = 'onboarding_title_3';
+  static const String onboardingDesc3 = 'onboarding_desc_3';
+
+  // Onboarding Page 4
+  static const String onboardingTitle4 = 'onboarding_title_4';
+  static const String onboardingDesc4 = 'onboarding_desc_4';
+
+  // Onboarding Navigation
+  static const String next = 'next';
+  static const String skip = 'skip';
+  static const String getStarted = 'get_started';
+
   // Profile Screen
   static const String myOrders = 'myOrders';
   static const String savedAddress = 'savedAddress';
   static const String notification = 'notification';
   static const String language = 'language';
   static const String changeLanguage = 'changeLanguage';
-  static const String arabic = 'arabic';
-  static const String english = 'english';
   static const String aboutUs = 'aboutUs';
   static const String logout = 'logout';
   static const String version = 'version';

@@ -239,5 +239,25 @@
   "selectArea": "اختر المنطقة",
   "pleaseSelectCityAndArea": "يرجى اختيار المدينة والمنطقة",
   "pleaseSelectLocationOnMap": "يرجى اختيار الموقع على الخريطة",
-  "locationFetchError": "تعذر الحصول على الموقع الحالي"
+  "locationFetchError": "تعذر الحصول على الموقع الحالي",
+
+  "welcome_title": "أهلاً بك!",
+  "choose_language": "اختر لغتك",
+  "continue_btn": "متابعة",
+
+  "onboarding_title_1": "اكتشف أجمل الزهور",
+  "onboarding_desc_1": "تصفح مئات الباقات الطازجة المختارة خصيصاً لك",
+
+  "onboarding_title_2": "اطلب بلمسة واحدة",
+  "onboarding_desc_2": "أضف للسلة، اختر عنوانك، وأتمم طلبك في ثوانٍ",
+
+  "onboarding_title_3": "مُعَد بكل اهتمام",
+  "onboarding_desc_3": "كل باقة تُحضَّر طازجة بكل حب خصيصاً لك",
+
+  "onboarding_title_4": "لا تفوّت أي لحظة",
+  "onboarding_desc_4": "احصل على تحديثات فورية لحظة انطلاق طلبك إليك",
+
+  "next": "التالي",
+  "skip": "تخطي",
+  "get_started": "ابدأ الآن 🌸"
 }

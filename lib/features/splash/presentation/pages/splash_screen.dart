@@ -3,7 +3,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_routes.dart';
@@ -129,7 +128,7 @@ class _SplashScreenState extends State<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 3200));
     if (mounted) {
       if (!onboardingDone) {
-        Navigator.pushReplacementNamed(context, AppRoutes.onboarding);
+        Navigator.pushReplacementNamed(context, AppRoutes.language);
       } else {
         Navigator.pushReplacementNamed(
           context,

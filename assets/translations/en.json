@@ -244,5 +244,25 @@
   "selectArea": "Select Area",
   "pleaseSelectCityAndArea": "Please select City and Area",
   "pleaseSelectLocationOnMap": "Please select location on map",
-  "locationFetchError": "Could not get current location"
+  "locationFetchError": "Could not get current location",
+
+  "welcome_title": "Welcome!",
+  "choose_language": "Choose your language",
+  "continue_btn": "Continue",
+
+  "onboarding_title_1": "Discover Beautiful Flowers",
+  "onboarding_desc_1": "Browse hundreds of fresh arrangements curated just for you",
+
+  "onboarding_title_2": "Order in a Tap",
+  "onboarding_desc_2": "Add to cart, choose your address, and checkout in seconds",
+
+  "onboarding_title_3": "Crafted With Care",
+  "onboarding_desc_3": "Every arrangement is prepared fresh with love, just for you",
+
+  "onboarding_title_4": "Never Miss a Moment",
+  "onboarding_desc_4": "Get instant updates the moment your flowers are on their way",
+
+  "next": "Next",
+  "skip": "Skip",
+  "get_started": "Get Started 🌸"
 }
