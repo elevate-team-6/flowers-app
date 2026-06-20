@@ -73,6 +73,6 @@ flutter:
     - assets/json/
 
 flutter_native_splash:
-  color: "#FFF8F0"
+  color: "#FAFAFA"
   android_12:
-    color: "#FFF8F0"
+    color: "#FAFAFA"

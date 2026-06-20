@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../../core/utils/app_routes.dart';
+import '../../../../../core/utils/app_colors.dart';
 import '../../../../../config/services/auth_service.dart';
 import '../widgets/petals_painter.dart';
 
@@ -41,9 +42,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   void _setupPetals() {
     final random = math.Random();
     final List<Color> petalColors = [
-      const Color(0xFFFFB7C5), // soft pink
-      const Color(0xFFFF8FA3), // rose
-      const Color(0xFFFFF0F5), // white-ish pink
+      AppColors.pink20, // soft pink
+      AppColors.pink30, // rose
+      AppColors.pink10, // white-ish pink
     ];
 
     for (int i = 0; i < 18; i++) {
@@ -143,8 +144,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFFFFF8F0), // warm cream
-              Color(0xFFFFE4E1), // soft rose
+              AppColors.white50, // warm cream replacement
+              AppColors.lightPink, // soft rose replacement
             ],
           ),
         ),
@@ -181,7 +182,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                         style: GoogleFonts.playfairDisplay(
                           fontSize: 38,
                           fontWeight: FontWeight.bold,
-                          color: const Color(0xFFC2185B),
+                          color: AppColors.primary,
                         ),
                       ),
                     ),
@@ -193,7 +194,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                       'Fresh blooms, delivered',
                       style: GoogleFonts.poppins(
                         fontSize: 14,
-                        color: Colors.grey[600],
+                        color: AppColors.gray,
                         letterSpacing: 1.5,
                       ),
                     ),
