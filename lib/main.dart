@@ -5,6 +5,7 @@ import 'package:flowers_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'config/cache/hive_helper.dart';
 import 'config/di/di.dart';
@@ -14,7 +15,8 @@ import 'core/utils/app_constants.dart';
 import 'features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await EasyLocalization.ensureInitialized();
 
   await FirebaseService.init();
@@ -24,8 +26,6 @@ Future<void> main() async {
   // Initialize Hive
   await getIt<HiveHelper>().init();
 
-  final isLoggedIn = await AuthService.isLoggedIn();
-
   runApp(
     EasyLocalization(
       supportedLocales: const [
@@ -34,15 +34,13 @@ Future<void> main() async {
       ],
       path: AppConstants.translationsPath,
       fallbackLocale: const Locale('en'),
-      child: MyApp(isLoggedIn: isLoggedIn),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final bool isLoggedIn;
-
-  const MyApp({super.key, this.isLoggedIn = true});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +60,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.mainTheme,
             navigatorKey: AppRoutes.navigatorKey,
             onGenerateRoute: AppRoutes.onGenerateRoute,
-            initialRoute: isLoggedIn ? AppRoutes.mainLayout : AppRoutes.login,
+            initialRoute: AppRoutes.splash,
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
           ),
