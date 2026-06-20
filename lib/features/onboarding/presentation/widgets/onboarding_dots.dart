@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/utils/app_colors.dart';
 
 class OnboardingDots extends StatelessWidget {
@@ -8,7 +9,7 @@ class OnboardingDots extends StatelessWidget {
   const OnboardingDots({
     super.key,
     required this.currentIndex,
-    this.totalDots = 3,
+    this.totalDots = 4,
   });
 
   @override

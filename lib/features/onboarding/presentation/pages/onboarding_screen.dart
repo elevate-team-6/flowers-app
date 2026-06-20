@@ -7,6 +7,7 @@ import '../../../../core/utils/app_text_styles.dart';
 import '../widgets/onboarding_dots.dart';
 import '../widgets/onboarding_page.dart';
 import '../widgets/page_one_animation.dart';
+import '../widgets/page_four_animation.dart';
 import '../widgets/page_three_animation.dart';
 import '../widgets/page_two_animation.dart';
 
@@ -41,7 +42,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _nextPage() {
-    if (_currentPage < 2) {
+    if (_currentPage < 3) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
@@ -94,9 +95,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   animationWidget: PageThreeAnimation(
                     isActive: _currentPage == 2,
                   ),
-                  title: "Delivered Fresh to Your Door",
+                  title: "Crafted With Care",
                   description:
-                      "Track your order live and receive your blooms in perfect condition",
+                      "Every arrangement is prepared fresh with love, just for you",
+                ),
+                OnboardingPage(
+                  animationWidget: PageFourAnimation(
+                    isActive: _currentPage == 3,
+                  ),
+                  title: "Never Miss a Moment",
+                  description:
+                      "Get instant updates the moment your flowers are on their way",
                 ),
               ],
             ),
@@ -132,7 +141,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       elevation: 0,
                     ),
                     child: Text(
-                      _currentPage == 2 ? "Get Started 🌸" : "Next",
+                      _currentPage == 3 ? "Get Started 🌸" : "Next",
                       style: AppTextStyles.white16700Poppins,
                     ),
                   ),
