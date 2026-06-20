@@ -1,15 +1,15 @@
-import 'package:flowers_app/config/services/snack_bar_services.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_product_card.dart';
-import 'package:flowers_app/core/entities/product_entity.dart';
+import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class CustomProductsGrid extends StatelessWidget {
   final List<ProductEntity> products;
@@ -23,7 +23,7 @@ class CustomProductsGrid extends StatelessWidget {
       listenWhen: (prev, curr) =>
           curr.itemAddedSuccess && !prev.itemAddedSuccess,
       listener: (context, state) {
-        SnackBarServices.showSuccessMessage(AppStrings.addedToCart.tr());
+        CustomSnackBar.showSuccessMessage(AppStrings.addedToCart.tr());
       },
       child: BlocBuilder<CartBloc, CartState>(
         buildWhen: (prev, curr) => prev.status != curr.status,

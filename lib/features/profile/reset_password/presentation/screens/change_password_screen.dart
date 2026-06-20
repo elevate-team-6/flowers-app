@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
+import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_state.dart';
 import 'package:flowers_app/features/profile/reset_password/presentation/widgets/change_password_form.dart';
@@ -52,12 +52,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           }
 
           if (state.status == ChangePasswordStatus.success) {
-            SnackBarServices.showSuccessMessage(
+            CustomSnackBar.showSuccessMessage(
               AppStrings.passwordChangedSuccess.tr(),
             );
             Navigator.pop(context); // ← يرجع لشاشة الـ Edit Profile
           } else if (state.status == ChangePasswordStatus.failure) {
-            SnackBarServices.showErrorMessage(
+            CustomSnackBar.showErrorMessage(
               state.errorMessage ?? AppStrings.someThingWentWrong.tr(),
             );
           }

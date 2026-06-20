@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/di/di.dart';
-import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
+import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
@@ -49,11 +49,11 @@ class _SavedAddressesListener extends StatelessWidget {
           prev.deleteAddressState != curr.deleteAddressState,
       listener: (context, state) {
         if (state.deleteAddressState.data == true) {
-          SnackBarServices.showSuccessMessage(
+          CustomSnackBar.showSuccessMessage(
             AppStrings.addressDeletedSuccess.tr(),
           );
         } else if (state.deleteAddressState.errorMessage != null) {
-          SnackBarServices.showErrorMessage(
+          CustomSnackBar.showErrorMessage(
             state.deleteAddressState.errorMessage!,
           );
         }
@@ -121,9 +121,7 @@ class _SavedAddressesBody extends StatelessWidget {
       arguments: address,
     );
     if (result == true && context.mounted) {
-      SnackBarServices.showSuccessMessage(
-        AppStrings.addressUpdatedSuccess.tr(),
-      );
+      CustomSnackBar.showSuccessMessage(AppStrings.addressUpdatedSuccess.tr());
       context.read<AddressCubit>().doEvent(const GetAddressesEvent());
     }
   }
@@ -143,7 +141,7 @@ class _AddAddressButton extends StatelessWidget {
             AppRoutes.addAddressScreen,
           );
           if (result == true && context.mounted) {
-            SnackBarServices.showSuccessMessage(
+            CustomSnackBar.showSuccessMessage(
               AppStrings.addressAddedSuccess.tr(),
             );
             context.read<AddressCubit>().doEvent(const GetAddressesEvent());

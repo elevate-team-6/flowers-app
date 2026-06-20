@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/services/exit_app_dialog.dart';
-import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
+import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/core/widgets/rich_text_with_link.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_cubit.dart';
 import 'package:flowers_app/features/auth/login/presentation/view_model/login_event.dart';
@@ -15,7 +16,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -74,10 +74,10 @@ class _LoginScreenState extends State<LoginScreen> {
           }
           final errorMessage = state.errorMessage;
           if (errorMessage != null && errorMessage.isNotEmpty) {
-            SnackBarServices.showErrorMessage(state.errorMessage!);
+            CustomSnackBar.showErrorMessage(state.errorMessage!);
           }
           if (state.user != null) {
-            SnackBarServices.showSuccessMessage(AppStrings.loginSuccess.tr());
+            CustomSnackBar.showSuccessMessage(AppStrings.loginSuccess.tr());
 
             Navigator.pushNamedAndRemoveUntil(
               context,

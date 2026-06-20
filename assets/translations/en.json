@@ -264,5 +264,7 @@
 
   "next": "Next",
   "skip": "Skip",
-  "get_started": "Get Started 🌸"
+  "get_started": "Get Started 🌸",
+  "success": "Success!",
+  "oops": "Oops!"
 }

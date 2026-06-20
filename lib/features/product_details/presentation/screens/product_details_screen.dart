@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_state.dart';
@@ -26,7 +26,7 @@ class ProductDetailsScreen extends StatelessWidget {
       },
       listener: (context, state) {
         if (state.productDetailsState.errorMessage != null) {
-          SnackBarServices.showErrorMessage(
+          CustomSnackBar.showErrorMessage(
             state.productDetailsState.errorMessage!,
           );
         }

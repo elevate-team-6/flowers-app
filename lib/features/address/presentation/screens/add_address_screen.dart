@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/di/di.dart';
-import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/address/domain/entities/address_entity.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
@@ -127,7 +127,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     if (currentActionState.data == true) {
       Navigator.pop(context, true);
     } else if (currentActionState.errorMessage != null) {
-      SnackBarServices.showErrorMessage(currentActionState.errorMessage!);
+      CustomSnackBar.showErrorMessage(currentActionState.errorMessage!);
     }
   }
 
@@ -177,14 +177,14 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   void _saveAddress(BuildContext context, AddressStates state) {
     if (_formKey.currentState!.validate()) {
       if (state.selectedGovernorateId == null || state.selectedCityId == null) {
-        SnackBarServices.showErrorMessage(
+        CustomSnackBar.showErrorMessage(
           AppStrings.pleaseSelectCityAndArea.tr(),
         );
         return;
       }
 
       if (state.selectedLocation == null && widget.addressToEdit == null) {
-        SnackBarServices.showErrorMessage(
+        CustomSnackBar.showErrorMessage(
           AppStrings.pleaseSelectLocationOnMap.tr(),
         );
         return;

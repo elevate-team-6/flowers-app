@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../config/services/snack_bar_services.dart';
+import '../../../../../core/widgets/custom_snack_bar.dart';
 import '../view_model/profile_events.dart';
 
 class LogoutDialog extends StatelessWidget {
@@ -50,7 +50,7 @@ class LogoutDialog extends StatelessWidget {
                       previous.logoutState != current.logoutState,
                   listener: (BuildContext context, ProfileStates state) {
                     if (state.logoutState.errorMessage != null) {
-                      SnackBarServices.showErrorMessage(
+                      CustomSnackBar.showErrorMessage(
                         state.logoutState.errorMessage!,
                       );
                       Navigator.pop(context);

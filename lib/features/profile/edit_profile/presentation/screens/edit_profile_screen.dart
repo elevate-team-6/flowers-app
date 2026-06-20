@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/helpers/phone_extension.dart';
-import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/core/widgets/custom_gender_selector.dart';
+import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/profile/edit_profile/data/models/edit_profile_request/edit_profile_request.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:flowers_app/features/profile/edit_profile/presentation/view_model/edit_profile_event.dart';
@@ -89,15 +89,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         }
 
         if (state.uploadPhotoState.errorMessage != null) {
-          SnackBarServices.showErrorMessage(
-            state.uploadPhotoState.errorMessage!,
-          );
+          CustomSnackBar.showErrorMessage(state.uploadPhotoState.errorMessage!);
         }
 
         if (state.editProfileState.errorMessage != null) {
-          SnackBarServices.showErrorMessage(
-            state.editProfileState.errorMessage!,
-          );
+          CustomSnackBar.showErrorMessage(state.editProfileState.errorMessage!);
         }
 
         if (state.uploadPhotoState.data != null &&
@@ -116,7 +112,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         }
 
         if (state.editProfileState.data != null) {
-          SnackBarServices.showSuccessMessage(
+          CustomSnackBar.showSuccessMessage(
             AppStrings.editProfileSuccessfly.tr(),
           );
           cubit.clearEditProfileState();

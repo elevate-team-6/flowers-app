@@ -238,6 +238,10 @@ abstract class AppStrings {
   static const String pleaseSelectLocationOnMap = 'pleaseSelectLocationOnMap';
   static const String locationFetchError = 'locationFetchError';
 
+  // SnackBar
+  static const String success = 'success';
+  static const String oops = 'oops';
+
   // Error Messages
   static const String someThingWentWrong = 'someThingWentWrong';
   static const String connectionTimeout = 'connectionTimeout';

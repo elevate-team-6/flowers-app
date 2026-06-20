@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/helpers/phone_extension.dart';
-import 'package:flowers_app/config/services/snack_bar_services.dart';
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
@@ -8,6 +7,7 @@ import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_flower_loading.dart';
 import 'package:flowers_app/core/widgets/custom_gender_selector.dart';
+import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/core/widgets/custom_text_field.dart';
 import 'package:flowers_app/core/widgets/rich_text_with_link.dart';
 import 'package:flowers_app/features/auth/signup/data/models/requestes/signup_request.dart';
@@ -54,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
     final isGenderSelected = _selectedGender != null;
 
     if (!isGenderSelected) {
-      SnackBarServices.showErrorMessage(AppStrings.pleaseSelectGender.tr());
+      CustomSnackBar.showErrorMessage(AppStrings.pleaseSelectGender.tr());
     }
     if (!isFormValid || !isGenderSelected) {
       return;
@@ -93,12 +93,10 @@ class _SignupScreenState extends State<SignupScreen> {
             LoadingDialog.hide();
           }
           if (state.signupState.data != null) {
-            SnackBarServices.showSuccessMessage(
-              AppStrings.registerSuccess.tr(),
-            );
+            CustomSnackBar.showSuccessMessage(AppStrings.registerSuccess.tr());
             Navigator.pop(context);
           } else if (state.signupState.errorMessage != null) {
-            SnackBarServices.showErrorMessage(state.signupState.errorMessage!);
+            CustomSnackBar.showErrorMessage(state.signupState.errorMessage!);
           }
         },
         builder: (context, state) {
