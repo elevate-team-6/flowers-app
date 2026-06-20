@@ -4,12 +4,11 @@ import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'config/cache/hive_helper.dart';
 import 'config/di/di.dart';
-import 'config/services/auth_service.dart';
 import 'config/services/firebase_service.dart';
 import 'core/utils/app_constants.dart';
 import 'features/auth/forgot-password/presentation/view_model/cubit/forgot_password_view_model.dart';

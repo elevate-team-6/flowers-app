@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 class PetalData {
@@ -25,28 +26,32 @@ class PetalsPainter extends CustomPainter {
   final Animation<double> animation;
   final List<PetalData> petals;
 
-  PetalsPainter({required this.animation, required this.petals}) : super(repaint: animation);
+  PetalsPainter({required this.animation, required this.petals})
+    : super(repaint: animation);
 
   @override
   void paint(Canvas canvas, Size size) {
     for (var petal in petals) {
       // Use speed to make some petals fall faster
-      final double progress = (animation.value * petal.speed + petal.startDelay) % 1.0;
-      
+      final double progress =
+          (animation.value * petal.speed + petal.startDelay) % 1.0;
+
       // Calculate vertical position
       final double y = progress * (size.height + 60) - 30;
-      
+
       // Calculate horizontal position with drift
-      final double x = (petal.horizontalOffset * size.width) + (math.sin(progress * math.pi * 2) * petal.drift);
-      
+      final double x =
+          (petal.horizontalOffset * size.width) +
+          (math.sin(progress * math.pi * 2) * petal.drift);
+
       final Paint paint = Paint()
-        ..color = petal.color.withOpacity(0.8)
+        ..color = petal.color.withValues(alpha: 0.8)
         ..style = PaintingStyle.fill;
 
       canvas.save();
       canvas.translate(x, y);
       canvas.rotate(petal.rotation + (progress * math.pi));
-      
+
       // Draw petal (small oval)
       canvas.drawOval(
         Rect.fromCenter(
@@ -56,7 +61,7 @@ class PetalsPainter extends CustomPainter {
         ),
         paint,
       );
-      
+
       canvas.restore();
     }
   }

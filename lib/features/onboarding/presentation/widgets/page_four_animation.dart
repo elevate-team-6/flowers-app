@@ -201,7 +201,7 @@ class PhonePainter extends CustomPainter {
     );
     canvas.drawRRect(
       screenRect,
-      Paint()..color = AppColors.pink10.withOpacity(0.3),
+      Paint()..color = AppColors.pink10.withValues(alpha: 0.3),
     );
 
     // Home indicator
@@ -238,7 +238,7 @@ class PhonePainter extends CustomPainter {
       canvas.drawRRect(
         notifRect.shift(const Offset(0, 4)),
         Paint()
-          ..color = AppColors.pink10.withOpacity(0.5)
+          ..color = AppColors.pink10.withValues(alpha: 0.5)
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8),
       );
 

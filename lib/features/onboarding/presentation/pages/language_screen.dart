@@ -183,7 +183,7 @@ class _LanguageScreenState extends State<LanguageScreen>
                                 'locale',
                                 _selectedLanguage!,
                               );
-                              if (mounted) {
+                              if (context.mounted) {
                                 Navigator.pushReplacementNamed(
                                   context,
                                   AppRoutes.onboarding,
@@ -280,7 +280,7 @@ class _LanguageCardState extends State<_LanguageCard>
             ),
             boxShadow: [
               BoxShadow(
-                color: AppColors.pink10.withOpacity(0.5),
+                color: AppColors.pink10.withValues(alpha: 0.5),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),

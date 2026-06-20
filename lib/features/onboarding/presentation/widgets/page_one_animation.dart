@@ -121,7 +121,7 @@ class _PageOneAnimationState extends State<PageOneAnimation>
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: AppColors.pink20.withOpacity(0.5),
+                color: AppColors.pink20.withValues(alpha: 0.5),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
