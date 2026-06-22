@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/features/address/data/models/address_response.dart';
 import 'package:flowers_app/features/checkout/data/data_sources/checkout_remote_data_source_contract.dart';
 import 'package:flowers_app/features/checkout/data/models/checkout_requests/checkout_request.dart';
@@ -14,10 +16,19 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'checkout_repo_impl_test.mocks.dart';
 
-@GenerateMocks([CheckoutRemoteDataSourceContract])
+@GenerateMocks([
+  CheckoutRemoteDataSourceContract,
+  FirebaseFirestore,
+  CollectionReference,
+  DocumentReference,
+])
 void main() {
   late CheckoutRepoImpl repo;
   late MockCheckoutRemoteDataSourceContract remoteDataSource;
+  late MockFirebaseFirestore mockFirestore;
+  late MockCollectionReference<Map<String, dynamic>> mockCollectionReference;
+  late MockDocumentReference<Map<String, dynamic>> mockDocumentReference;
+
   setUpAll(() {
     provideDummy<BaseResponse<AddressResponse>>(
       SuccessBaseResponse(AddressResponse(message: '', addresses: [])),
@@ -27,7 +38,7 @@ void main() {
       SuccessBaseResponse(
         CashCheckoutResponse(
           message: '',
-          order: OrderModel(
+          order: const OrderModel(
             id: '',
             userId: '',
             totalPrice: 0,
@@ -45,18 +56,24 @@ void main() {
       SuccessBaseResponse(
         CardCheckoutResponse(
           message: '',
-          session: CardModel(id: '', paymentStatus: '', status: '', url: ''),
+          session:
+              const CardModel(id: '', paymentStatus: '', status: '', url: ''),
         ),
       ),
     );
   });
+
   setUp(() {
     remoteDataSource = MockCheckoutRemoteDataSourceContract();
-    repo = CheckoutRepoImpl(remoteDataSource);
+    mockFirestore = MockFirebaseFirestore();
+    mockCollectionReference = MockCollectionReference();
+    mockDocumentReference = MockDocumentReference();
+
+    repo = CheckoutRepoImpl(remoteDataSource, mockFirestore);
   });
 
   group('cashCheckout', () {
-    test('should return OrderEntity', () async {
+    test('should return OrderEntity and save to Firestore', () async {
       const order = OrderModel(
         id: '1',
         userId: 'user_1',
@@ -68,6 +85,11 @@ void main() {
         orderNumber: 'ORD-001',
       );
 
+      // Setup Firestore mocks
+      when(mockFirestore.collection(any)).thenReturn(mockCollectionReference);
+      when(mockCollectionReference.doc(any)).thenReturn(mockDocumentReference);
+      when(mockDocumentReference.set(any)).thenAnswer((_) async => {});
+
       when(remoteDataSource.cashCheckout(any)).thenAnswer(
         (_) async => SuccessBaseResponse(
           CashCheckoutResponse(message: 'success', order: order),
@@ -75,7 +97,7 @@ void main() {
       );
 
       final result = await repo.cashCheckout(
-        CheckoutRequest(
+        const CheckoutRequest(
           street: 'street',
           phone: '010',
           city: 'giza',
@@ -85,6 +107,21 @@ void main() {
       );
 
       expect(result, isA<SuccessBaseResponse<OrderEntity>>());
+
+      // Verify Firestore calls
+      verify(mockFirestore.collection(AppConstants.ordersCollection)).called(1);
+      verify(mockCollectionReference.doc(order.id)).called(1);
+      verify(
+        mockDocumentReference.set({
+          AppConstants.orderIdField: order.id,
+          AppConstants.orderNumberField: order.orderNumber,
+          AppConstants.userIdField: order.userId,
+          AppConstants.statusField: 'pending',
+          AppConstants.riderIdField: null,
+          AppConstants.riderNameField: null,
+          AppConstants.riderPhoneField: null,
+        }),
+      ).called(1);
 
       verify(remoteDataSource.cashCheckout(any)).called(1);
     });
@@ -107,7 +144,7 @@ void main() {
 
       final result = await repo.cardCheckout(
         'cartId',
-        CheckoutRequest(
+        const CheckoutRequest(
           street: 'street',
           phone: '010',
           city: 'giza',
