@@ -148,4 +148,22 @@ class FirebaseService {
       }
     }
   }
+
+  static Future<void> updateUserLanguage(String languageCode) async {
+    final userId = await getIt<SecureCacheHelper>().readData(
+      key: AppKeys.userIdKey,
+    );
+
+    if (userId != null) {
+      try {
+        await FirebaseFirestore.instance
+            .collection(AppConstants.usersCollection)
+            .doc(userId)
+            .update({AppConstants.languageField: languageCode});
+        debugPrint("Firestore: Language updated to $languageCode");
+      } catch (e) {
+        debugPrint("Error updating Firestore language: $e");
+      }
+    }
+  }
 }

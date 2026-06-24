@@ -38,6 +38,7 @@ class LoginRepoImpl implements LoginRepoContract {
               .set({
                 AppConstants.firestoreIdField: user.id,
                 AppConstants.fcmTokenField: fcmToken,
+                AppConstants.languageField: Intl.getCurrentLocale(),
               }, SetOptions(merge: true));
         } catch (e) {
           debugPrint("Error updating Firestore user: $e");

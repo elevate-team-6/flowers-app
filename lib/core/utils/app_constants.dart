@@ -28,6 +28,7 @@ abstract class AppConstants {
   static const String riderNameField = 'riderName';
   static const String riderPhoneField = 'riderPhone';
   static const String userIdField = 'userId';
+  static const String languageField = 'language';
   static const String notificationsField = 'notifications';
   static const String addressDelimiter = " | ";
   static const String governoratesJsonPath = 'assets/json/governorates.json';
