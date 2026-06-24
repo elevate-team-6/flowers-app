@@ -18,7 +18,7 @@ class AuthInterceptor extends Interceptor {
 
     if (token != null) {
       options.headers[AppKeys.authorizationKey] =
-          '${AppKeys.bearerPrefix} $token';
+          '${AppKeys.bearerPrefix}$token';
     }
 
     handler.next(options);
