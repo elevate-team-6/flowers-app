@@ -90,13 +90,10 @@ class FirebaseService {
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      _saveNotificationToHistory(message);
       _showForegroundNotification(message);
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      _saveNotificationToHistory(message);
-    });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
   }
 
   static void _showForegroundNotification(RemoteMessage message) {
@@ -119,33 +116,6 @@ class FirebaseService {
           ),
         ),
       );
-    }
-  }
-
-  static Future<void> _saveNotificationToHistory(RemoteMessage message) async {
-    String? userId = await getIt<SecureCacheHelper>().readData(
-      key: AppKeys.userIdKey,
-    );
-    userId ??= message.data[AppConstants.userIdField];
-
-    if (userId != null && message.notification != null) {
-      try {
-        await FirebaseFirestore.instance
-            .collection(AppConstants.usersCollection)
-            .doc(userId)
-            .update({
-              AppConstants.notificationsField: FieldValue.arrayUnion([
-                {
-                  'title': message.notification!.title,
-                  'body': message.notification!.body,
-                  'sentTime': DateTime.now().toIso8601String(),
-                  'data': message.data,
-                },
-              ]),
-            });
-      } catch (e) {
-        debugPrint("Error saving notification to history: $e");
-      }
     }
   }
 
