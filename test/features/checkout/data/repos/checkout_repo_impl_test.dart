@@ -56,8 +56,12 @@ void main() {
       SuccessBaseResponse(
         CardCheckoutResponse(
           message: '',
-          session:
-              const CardModel(id: '', paymentStatus: '', status: '', url: ''),
+          session: const CardModel(
+            id: '',
+            paymentStatus: '',
+            status: '',
+            url: '',
+          ),
         ),
       ),
     );
