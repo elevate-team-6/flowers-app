@@ -18,6 +18,11 @@ abstract class AppConstants {
   static const String defaultAddressCollection = 'default_address';
   static const String defaultAddressDocId = 'current';
   static const String firestoreIdField = '_id';
+  static const String notificationsField = 'notifications';
+  static const String notificationTitleField = 'title';
+  static const String notificationBodyField = 'body';
+  static const String notificationSentTimeField = 'sentTime';
+  static const String notificationDataField = 'data';
   static const String addressDelimiter = " | ";
   static const String governoratesJsonPath = 'assets/json/governorates.json';
   static const String citiesJsonPath = 'assets/json/cities.json';
