@@ -19,12 +19,6 @@ class NotificationsScreen extends StatefulWidget {
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
-  void initState() {
-    super.initState();
-    context.read<NotificationsCubit>().getNotifications();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -43,8 +37,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
           if (state.status == NotificationsStatus.failure) {
             return CustomErrorStateView(
-              message:
-                  state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
+              message: state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
               onRetry: () =>
                   context.read<NotificationsCubit>().getNotifications(),
             );

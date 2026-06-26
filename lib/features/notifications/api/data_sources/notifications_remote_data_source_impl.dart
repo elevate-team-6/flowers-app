@@ -14,9 +14,7 @@ class NotificationsRemoteDataSourceImpl
   const NotificationsRemoteDataSourceImpl(this._firestore);
 
   DocumentReference<Map<String, dynamic>> _getUserDoc(String userId) {
-    return _firestore
-        .collection(AppConstants.usersCollection)
-        .doc(userId);
+    return _firestore.collection(AppConstants.usersCollection).doc(userId);
   }
 
   @override

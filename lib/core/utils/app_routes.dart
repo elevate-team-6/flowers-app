@@ -253,7 +253,7 @@ abstract class AppRoutes {
       case notificationScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => getIt<NotificationsCubit>(),
+            create: (_) => getIt<NotificationsCubit>()..getNotifications(),
             child: const NotificationsScreen(),
           ),
         );
