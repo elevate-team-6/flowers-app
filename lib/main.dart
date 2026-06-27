@@ -18,9 +18,11 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await EasyLocalization.ensureInitialized();
 
-  await FirebaseService.init();
+  await FirebaseService.initFirebase();
 
   configureDependencies();
+
+  await getIt<FirebaseService>().init();
 
   // Initialize Hive
   await getIt<HiveHelper>().init();
