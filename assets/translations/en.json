@@ -97,6 +97,8 @@
   "myOrders": "My Orders",
   "savedAddress": "Saved Address",
   "notification": "Notifications",
+  "noNotifications": "No notifications yet",
+  "noNotificationsSubtitle": "We'll let you know when something arrives",
   "language": "Language",
   "changeLanguage": "Change Language",
   "arabic": "Arabic",

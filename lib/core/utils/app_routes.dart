@@ -17,6 +17,8 @@ import 'package:flowers_app/features/checkout/presentation/view_model/checkout_c
 import 'package:flowers_app/features/checkout/presentation/widgets/payment_webview.dart';
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
 import 'package:flowers_app/features/home/presentation/view_model/events/home_events.dart';
+import 'package:flowers_app/features/notifications/presentation/screens/notifications_screen.dart';
+import 'package:flowers_app/features/notifications/presentation/view_model/notifications_cubit.dart';
 import 'package:flowers_app/features/occasions/presentation/screens/occasions_screen.dart';
 import 'package:flowers_app/features/occasions/presentation/view_model/occasions_cubit.dart';
 import 'package:flowers_app/features/onboarding/presentation/pages/language_screen.dart';
@@ -247,6 +249,14 @@ abstract class AppRoutes {
 
       case aboutUsScreen:
         return MaterialPageRoute(builder: (_) => const AboutUsScreen());
+
+      case notificationScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<NotificationsCubit>()..getNotifications(),
+            child: const NotificationsScreen(),
+          ),
+        );
 
       case orders:
         return MaterialPageRoute(
