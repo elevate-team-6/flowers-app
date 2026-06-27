@@ -11,26 +11,30 @@ import 'package:mockito/mockito.dart';
 
 import 'firebase_service_test.mocks.dart';
 
-@GenerateMocks([
-  FirebaseFirestore,
-  CollectionReference,
-  DocumentReference,
-  SecureCacheHelper,
-  FirebaseMessaging,
-])
+@GenerateMocks(
+  [FirebaseFirestore, SecureCacheHelper, FirebaseMessaging],
+  customMocks: [
+    MockSpec<CollectionReference<Map<String, dynamic>>>(
+      as: #MockCollectionReference,
+    ),
+    MockSpec<DocumentReference<Map<String, dynamic>>>(
+      as: #MockDocumentReference,
+    ),
+  ],
+)
 void main() {
   late FirebaseService firebaseService;
   late MockFirebaseFirestore mockFirestore;
   late MockFirebaseMessaging mockMessaging;
-  late MockCollectionReference<Map<String, dynamic>> mockCollection;
-  late MockDocumentReference<Map<String, dynamic>> mockDocument;
+  late MockCollectionReference mockCollection;
+  late MockDocumentReference mockDocument;
   late MockSecureCacheHelper mockSecureCacheHelper;
 
   setUp(() {
     mockFirestore = MockFirebaseFirestore();
     mockMessaging = MockFirebaseMessaging();
-    mockCollection = MockCollectionReference<Map<String, dynamic>>();
-    mockDocument = MockDocumentReference<Map<String, dynamic>>();
+    mockCollection = MockCollectionReference();
+    mockDocument = MockDocumentReference();
     mockSecureCacheHelper = MockSecureCacheHelper();
 
     // Register SecureCacheHelper in GetIt
