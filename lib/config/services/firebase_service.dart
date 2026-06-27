@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,6 +7,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../core/utils/app_constants.dart';
 import '../../core/utils/app_keys.dart';
@@ -14,23 +16,30 @@ import '../../firebase_options.dart';
 import '../cache/secure_cache_helper.dart';
 import '../di/di.dart';
 
+@singleton
 class FirebaseService {
-  static final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
+  final FirebaseFirestore _firestore;
+
+  FirebaseService(this._firestore);
+
+  final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  static const AndroidNotificationChannel _channel = AndroidNotificationChannel(
+  final AndroidNotificationChannel _channel = const AndroidNotificationChannel(
     'high_importance_channel',
     'High Importance Notifications',
     description: 'This channel is used for important notifications.',
     importance: Importance.max,
   );
 
-  static Future<void> init() async {
+  static Future<void> initFirebase() async {
     await Firebase.initializeApp(
       // ignore: undefined_identifier
       options: DefaultFirebaseOptions.currentPlatform,
     );
+  }
 
+  Future<void> init() async {
     final originalOnError = FlutterError.onError;
     FlutterError.onError = (details) {
       FirebaseCrashlytics.instance.recordFlutterFatalError(details);
@@ -46,7 +55,7 @@ class FirebaseService {
     await _initNotificationListeners();
   }
 
-  static Future<void> _initLocalNotifications() async {
+  Future<void> _initLocalNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -64,7 +73,7 @@ class FirebaseService {
         ?.createNotificationChannel(_channel);
   }
 
-  static Future<void> _initNotificationListeners() async {
+  Future<void> _initNotificationListeners() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     await messaging.requestPermission(
@@ -82,7 +91,7 @@ class FirebaseService {
         key: AppKeys.userIdKey,
       );
       if (userId != null) {
-        await FirebaseFirestore.instance
+        await _firestore
             .collection(AppConstants.usersCollection)
             .doc(userId)
             .update({AppConstants.fcmTokenField: newToken});
@@ -93,10 +102,12 @@ class FirebaseService {
       _showForegroundNotification(message);
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      //todo: Navigate to the tracking screen with order id form message data
+    });
   }
 
-  static void _showForegroundNotification(RemoteMessage message) {
+  void _showForegroundNotification(RemoteMessage message) {
     RemoteNotification? notification = message.notification;
     AndroidNotification? android = message.notification?.android;
 
@@ -119,20 +130,20 @@ class FirebaseService {
     }
   }
 
-  static Future<void> updateUserLanguage(String languageCode) async {
+  Future<void> updateUserLanguage(String languageCode) async {
     final userId = await getIt<SecureCacheHelper>().readData(
       key: AppKeys.userIdKey,
     );
 
     if (userId != null) {
       try {
-        await FirebaseFirestore.instance
+        await _firestore
             .collection(AppConstants.usersCollection)
             .doc(userId)
             .update({AppConstants.languageField: languageCode});
-        debugPrint("Firestore: Language updated to $languageCode");
+        log("Firestore: Language updated to $languageCode");
       } catch (e) {
-        debugPrint("Error updating Firestore language: $e");
+        log("Error updating Firestore language: $e");
       }
     }
   }

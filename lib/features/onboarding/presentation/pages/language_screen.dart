@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/config/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -77,10 +78,10 @@ class _LanguageScreenState extends State<LanguageScreen>
 
     if (langCode == 'ar') {
       await context.setLocale(const Locale('ar'));
-      FirebaseService.updateUserLanguage('ar');
+      getIt<FirebaseService>().updateUserLanguage('ar');
     } else {
       await context.setLocale(const Locale('en'));
-      FirebaseService.updateUserLanguage('en');
+      getIt<FirebaseService>().updateUserLanguage('en');
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/config/services/firebase_service.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
@@ -45,7 +46,7 @@ class LanguageBottomSheet extends StatelessWidget {
             isSelected: currentLocale == 'ar',
             onSelect: () {
               context.setLocale(const Locale('ar'));
-              FirebaseService.updateUserLanguage('ar');
+              getIt<FirebaseService>().updateUserLanguage('ar');
               Navigator.pop(context);
             },
           ),
@@ -56,7 +57,7 @@ class LanguageBottomSheet extends StatelessWidget {
             isSelected: currentLocale == 'en',
             onSelect: () {
               context.setLocale(const Locale('en'));
-              FirebaseService.updateUserLanguage('en');
+              getIt<FirebaseService>().updateUserLanguage('en');
               Navigator.pop(context);
             },
           ),
