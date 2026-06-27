@@ -15,9 +15,20 @@ abstract class AppConstants {
   // Address Feature Constants
   static const String usersCollection = 'users';
   static const String addressesCollection = 'addresses';
+  static const String ordersCollection = 'orders';
   static const String defaultAddressCollection = 'default_address';
   static const String defaultAddressDocId = 'current';
-  static const String firestoreIdField = '_id';
+  static const String firestoreIdField = 'id';
+  static const String fcmTokenField = 'fcmToken';
+  static const String lastLoginField = 'lastLogin';
+  static const String orderIdField = 'orderId';
+  static const String orderNumberField = 'orderNumber';
+  static const String statusField = 'status';
+  static const String riderIdField = 'riderId';
+  static const String riderNameField = 'riderName';
+  static const String riderPhoneField = 'riderPhone';
+  static const String userIdField = 'userId';
+  static const String languageField = 'language';
   static const String notificationsField = 'notifications';
   static const String notificationTitleField = 'title';
   static const String notificationBodyField = 'body';
