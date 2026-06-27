@@ -19,8 +19,9 @@ import '../di/di.dart';
 @singleton
 class FirebaseService {
   final FirebaseFirestore _firestore;
+  final FirebaseMessaging _messaging;
 
-  FirebaseService(this._firestore);
+  FirebaseService(this._firestore, this._messaging);
 
   final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -74,9 +75,7 @@ class FirebaseService {
   }
 
   Future<void> _initNotificationListeners() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    await messaging.requestPermission(
+    await _messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -86,7 +85,7 @@ class FirebaseService {
       sound: true,
     );
 
-    messaging.onTokenRefresh.listen((newToken) async {
+    _messaging.onTokenRefresh.listen((newToken) async {
       final userId = await getIt<SecureCacheHelper>().readData(
         key: AppKeys.userIdKey,
       );
