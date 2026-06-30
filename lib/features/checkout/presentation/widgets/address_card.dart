@@ -1,8 +1,13 @@
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_event.dart';
 import 'package:flowers_app/features/checkout/presentation/widgets/custom_radio_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddressCard extends StatelessWidget {
@@ -53,7 +58,7 @@ class AddressCard extends StatelessWidget {
                           addressName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: AppTextStyles.black16500,
+                          style: AppTextStyles.black12400,
                         ),
                       ),
                     ],
@@ -70,8 +75,21 @@ class AddressCard extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.addAddressScreen);
+              onPressed: () async {
+                final result = await Navigator.pushNamed(
+                  context,
+                  AppRoutes.addAddressScreen,
+                );
+
+                if (!context.mounted) return;
+
+                if (result == true) {
+                  context.read<AddressCubit>().doEvent(GetAddressesEvent());
+
+                  context.read<AddressDetailsCubit>().doEvent(
+                    InitializeAddressDetailsEvent(),
+                  );
+                }
               },
               icon: const Icon(Icons.edit),
             ),

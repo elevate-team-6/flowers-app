@@ -200,21 +200,21 @@ abstract class AppRoutes {
           ),
         );
       case checkout:
-        final cart = settings.arguments as CartEntity;
+  final cart = settings.arguments as CartEntity;
 
-        return MaterialPageRoute(
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: getIt<CartBloc>()),
-              BlocProvider(create: (_) => getIt<CheckoutCubit>()),
-              BlocProvider(
-                create: (_) =>
-                    getIt<AddressCubit>()..doEvent(GetAddressesEvent()),
-              ),
-            ],
-            child: CheckoutScreen(cart: cart),
-          ),
-        );
+  return MaterialPageRoute(
+    builder: (_) => MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: getIt<CartBloc>()),
+        BlocProvider(create: (_) => getIt<CheckoutCubit>()),
+        BlocProvider.value(value: getIt<AddressCubit>()),
+        BlocProvider.value(
+          value: getIt<AddressDetailsCubit>(),
+        ),
+      ],
+      child: CheckoutScreen(cart: cart),
+    ),
+  );
       case AppRoutes.paymentWebView:
         final url = settings.arguments as String;
         return MaterialPageRoute(
