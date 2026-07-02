@@ -83,7 +83,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           if (!context.mounted) return;
           Navigator.pushNamedAndRemoveUntil(
             context,
-            AppRoutes.mainLayout,
+            AppRoutes.success,
             (route) => false,
           );
         }
@@ -104,7 +104,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               if (!context.mounted) return;
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                AppRoutes.mainLayout,
+                AppRoutes.success,
                 (route) => false,
               );
               return;
