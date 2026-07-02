@@ -294,7 +294,7 @@ abstract class AppStrings {
   // static const String myOrders = 'my_orders';
   static const String active = 'active';
   static const String completed = 'completed';
-  static const String trackOrder = 'track_order';
+  static const String trackOrder = 'track order';
   static const String reorder = 'reorder';
   static const String orderNumber = 'order_number';
   static const String deliveredOn = 'delivered_on';
@@ -323,6 +323,8 @@ abstract class AppStrings {
       'Payment completed successfully';
   static const String enterThePhoneNumber = 'Enter The Phone Number';
   static const String deliveryDays = 'delivery_days';
+ // Track order
+  static const String trackOrderSuccess = 'Your order placed\n !successfully ';
 
   // ===========================================================================
   // API Constants (Values sent directly to Backend - Do NOT Translate)

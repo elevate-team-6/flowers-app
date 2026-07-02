@@ -13,6 +13,7 @@ import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/checkout/presentation/screens/checkout_screen.dart';
+import 'package:flowers_app/features/checkout/presentation/screens/success_screen.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/widgets/payment_webview.dart';
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
@@ -75,6 +76,7 @@ abstract class AppRoutes {
   static const String aboutUsScreen = '/aboutUsScreen';
   static const String editProfile = '/editProfile';
   static const String checkout = '/checkout';
+  static const String success = '/succes';
   static const String paymentWebView = 'paymentWebView';
   static const String orders = '/orders';
   static const String search = '/search';
@@ -89,6 +91,8 @@ abstract class AppRoutes {
 
       case language:
         return MaterialPageRoute(builder: (_) => const LanguageScreen());
+      case success:
+        return MaterialPageRoute(builder: (_) => const SuccessScreen());
 
       case mainLayout:
         return MaterialPageRoute(
