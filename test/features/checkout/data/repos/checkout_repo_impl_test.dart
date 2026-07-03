@@ -115,17 +115,25 @@ void main() {
       // Verify Firestore calls
       verify(mockFirestore.collection(AppConstants.ordersCollection)).called(1);
       verify(mockCollectionReference.doc(order.id)).called(1);
-      verify(
-        mockDocumentReference.set({
-          AppConstants.orderIdField: order.id,
-          AppConstants.orderNumberField: order.orderNumber,
-          AppConstants.userIdField: order.userId,
-          AppConstants.statusField: 'pending',
-          AppConstants.riderIdField: null,
-          AppConstants.riderNameField: null,
-          AppConstants.riderPhoneField: null,
-        }),
-      ).called(1);
+      final captured =
+          verify(mockDocumentReference.set(captureAny)).captured.single
+              as Map<String, dynamic>;
+
+      expect(captured[AppConstants.orderIdField], order.id);
+      expect(captured[AppConstants.orderNumberField], order.orderNumber);
+      expect(captured[AppConstants.userIdField], order.userId);
+      expect(captured[AppConstants.statusField], 'pending');
+      expect(captured[AppConstants.riderIdField], null);
+      expect(captured[AppConstants.riderNameField], null);
+      expect(captured[AppConstants.riderPhoneField], null);
+      expect(captured[AppConstants.shippingAddressField], {
+        AppConstants.streetField: 'street',
+        AppConstants.phoneField: '010',
+        AppConstants.cityField: 'giza',
+        AppConstants.latField: '0',
+        AppConstants.longField: '0',
+      });
+      expect(captured.containsKey(AppConstants.createdAtField), isTrue);
 
       verify(remoteDataSource.cashCheckout(any)).called(1);
     });

@@ -28,6 +28,13 @@ abstract class AppConstants {
   static const String riderNameField = 'riderName';
   static const String riderPhoneField = 'riderPhone';
   static const String userIdField = 'userId';
+  static const String shippingAddressField = 'shippingAddress';
+  static const String streetField = 'street';
+  static const String phoneField = 'phone';
+  static const String cityField = 'city';
+  static const String latField = 'lat';
+  static const String longField = 'long';
+  static const String createdAtField = 'createdAt';
   static const String languageField = 'language';
   static const String notificationsField = 'notifications';
   static const String addressDelimiter = " | ";

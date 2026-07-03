@@ -57,6 +57,14 @@ class CheckoutRepoImpl implements CheckoutRepoContract {
                   AppConstants.riderIdField: null,
                   AppConstants.riderNameField: null,
                   AppConstants.riderPhoneField: null,
+                  AppConstants.shippingAddressField: {
+                    AppConstants.streetField: request.street,
+                    AppConstants.phoneField: request.phone,
+                    AppConstants.cityField: request.city,
+                    AppConstants.latField: request.lat,
+                    AppConstants.longField: request.long,
+                  },
+                  AppConstants.createdAtField: FieldValue.serverTimestamp(),
                 });
           } catch (e) {
             debugPrint("Error saving order to Firestore: $e");

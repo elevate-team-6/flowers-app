@@ -323,7 +323,7 @@ abstract class AppStrings {
       'Payment completed successfully';
   static const String enterThePhoneNumber = 'Enter The Phone Number';
   static const String deliveryDays = 'delivery_days';
- // Track order
+  // Track order
   static const String trackOrderSuccess = 'Your order placed\n !successfully ';
 
   // ===========================================================================
