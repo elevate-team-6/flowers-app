@@ -17,6 +17,7 @@ abstract class CustomSnackBar {
   static void _show(String msg, bool isSuccess) {
     BotToast.showCustomNotification(
       duration: const Duration(milliseconds: 4500),
+      align: Alignment.topCenter,
       toastBuilder: (cancelFunc) =>
           _PetalToast(msg: msg, isSuccess: isSuccess, cancelFunc: cancelFunc),
     );
@@ -160,41 +161,35 @@ class _PetalToastState extends State<_PetalToast>
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 50),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+    return Padding(
+      padding: const EdgeInsets.only(top: 50),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
             children: [
-              Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.center,
-                children: [
-                  Positioned.fill(
-                    child: OverflowBox(
-                      maxHeight: 400,
-                      maxWidth: 600,
-                      child: AnimatedBuilder(
+              Positioned.fill(
+                child: OverflowBox(
+                  maxHeight: 400,
+                  maxWidth: 600,
+                  child: AnimatedBuilder(
+                    animation: _confettiController,
+                    builder: (context, _) => CustomPaint(
+                      painter: PetalConfettiPainter(
                         animation: _confettiController,
-                        builder: (context, _) => CustomPaint(
-                          painter: PetalConfettiPainter(
-                            animation: _confettiController,
-                            petals: _petals,
-                            isError: !widget.isSuccess,
-                          ),
-                        ),
+                        petals: _petals,
+                        isError: !widget.isSuccess,
                       ),
                     ),
                   ),
-                  _buildShakeWrapper(child: _buildMorphCard()),
-                ],
+                ),
               ),
+              _buildShakeWrapper(child: _buildMorphCard()),
             ],
           ),
-        ),
+        ],
       ),
     );
   }
@@ -248,48 +243,51 @@ class _PetalToastState extends State<_PetalToast>
           offset: Offset(currentX, -dismiss * 80),
           child: Opacity(
             opacity: (entrance * 2 - dismiss * 3).clamp(0.0, 1.0),
-            child: Container(
-              width: cardWidth,
-              constraints: BoxConstraints(minHeight: cardHeight),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(radius),
-                border: Border.all(
-                  color:
-                      (widget.isSuccess ? AppColors.primary : AppColors.error)
-                          .withValues(alpha: 0.2),
-                  width: 1,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: 15,
-                    offset: const Offset(0, 8),
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                width: cardWidth,
+                constraints: BoxConstraints(minHeight: cardHeight),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(radius),
+                  border: Border.all(
+                    color:
+                        (widget.isSuccess ? AppColors.primary : AppColors.error)
+                            .withValues(alpha: 0.2),
+                    width: 1,
                   ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(radius),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: progress > 0.4 ? 10 : 0,
-                  ), // More vertical padding
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: widget.isSuccess
-                          ? [
-                              Colors.white,
-                              AppColors.pink10.withValues(alpha: 0.3),
-                            ]
-                          : [
-                              Colors.white,
-                              AppColors.error.withValues(alpha: 0.03),
-                            ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 15,
+                      offset: const Offset(0, 8),
                     ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(radius),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: progress > 0.4 ? 10 : 0,
+                    ), // More vertical padding
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: widget.isSuccess
+                            ? [
+                                Colors.white,
+                                AppColors.pink10.withValues(alpha: 0.3),
+                              ]
+                            : [
+                                Colors.white,
+                                AppColors.error.withValues(alpha: 0.03),
+                              ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    child: _buildCardContent(progress),
                   ),
-                  child: _buildCardContent(progress),
                 ),
               ),
             ),
