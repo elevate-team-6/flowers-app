@@ -1,8 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class ProductDetailsSection extends StatelessWidget {
   const ProductDetailsSection({
@@ -45,26 +45,26 @@ class ProductDetailsSection extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4.h),
           Text(
             AppStrings.allPricesIncludeTax.tr(),
             style: AppTextStyles.gray12400,
           ),
-          const SizedBox(height: 6),
+          SizedBox(height: 6.h),
 
           Text(title, style: AppTextStyles.black16500),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           Text(AppStrings.description.tr(), style: AppTextStyles.black16500),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           Text(
             descreption,
             style: AppTextStyles.black14400,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           Text(AppStrings.bouqetInclude.tr(), style: AppTextStyles.black16500),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           Text(AppStrings.roses.tr(), style: AppTextStyles.black14400),
         ],
       ),

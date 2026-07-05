@@ -151,7 +151,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
                             children: [
                               Icon(
                                 Icons.local_florist_outlined,
-                                size: 80.sp,
+                                size: 80.r,
                                 color: AppColors.black30,
                               ),
                               SizedBox(height: 16.h),

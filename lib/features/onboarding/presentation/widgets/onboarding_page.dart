@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_text_styles.dart';
 
@@ -27,18 +28,18 @@ class OnboardingPage extends StatelessWidget {
           height: size.height * 0.48, // Slightly reduced to lift everything
           child: animationWidget,
         ),
-        const SizedBox(height: 24),
+        SizedBox(height: 24.h),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Text(
             title,
             style: AppTextStyles.black5028700Playfair,
             textAlign: TextAlign.center,
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: EdgeInsets.symmetric(horizontal: 32.w),
           child: Text(
             description,
             style: AppTextStyles.gray14400Poppins05,

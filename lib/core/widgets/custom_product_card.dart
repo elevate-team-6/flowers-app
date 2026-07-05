@@ -38,7 +38,7 @@ class CustomProductCard extends StatelessWidget {
           border: Border.all(color: AppColors.white70, width: 1.w),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -68,7 +68,7 @@ class CustomProductCard extends StatelessWidget {
                   children: [
                     // Title
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -147,7 +147,7 @@ class CustomProductCard extends StatelessWidget {
                               width: 16.w,
                               height: 16.w,
                               child: CircularProgressIndicator(
-                                strokeWidth: 2,
+                                strokeWidth: 2.w,
                                 color: AppColors.white,
                               ),
                             )
@@ -160,7 +160,7 @@ class CustomProductCard extends StatelessWidget {
                             )
                           : Icon(
                               Icons.shopping_cart_outlined,
-                              size: 16.sp,
+                              size: 16.r,
                               color: AppColors.white,
                             ),
                       label: Text(

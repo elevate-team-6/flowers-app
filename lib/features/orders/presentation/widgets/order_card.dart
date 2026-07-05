@@ -70,7 +70,7 @@ class OrderCard extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

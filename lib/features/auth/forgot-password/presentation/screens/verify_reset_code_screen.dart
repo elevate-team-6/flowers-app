@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VerifyResetCodeScreen extends StatefulWidget {
   final String email;
@@ -77,25 +78,25 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             children: [
-              SizedBox(height: 24),
+              SizedBox(height: 24.h),
               Text(
                 AppStrings.emailVerification.tr(),
                 style: AppTextStyles.black18500,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 44),
+                padding: EdgeInsets.symmetric(horizontal: 44.w),
                 child: Text(
                   AppStrings.emailVerificationSubtitle.tr(),
                   style: AppTextStyles.black13400,
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 32),
+              SizedBox(height: 32.h),
               BlocBuilder<ForgotPasswordViewModel, ForgotPasswordStates>(
                 buildWhen: (previous, current) {
                   return previous.verifyResetCodeState !=
@@ -128,9 +129,9 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
                         textStyle: AppTextStyles.black20500,
                         pinTheme: PinTheme(
                           shape: PinCodeFieldShape.box,
-                          borderRadius: BorderRadius.circular(10),
-                          fieldHeight: 50,
-                          fieldWidth: 50,
+                          borderRadius: BorderRadius.circular(10.r),
+                          fieldHeight: 50.h,
+                          fieldWidth: 50.w,
                           activeFillColor: hasError
                               ? AppColors.white
                               : AppColors.white60,
@@ -149,7 +150,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
                           selectedColor: hasError
                               ? AppColors.error
                               : AppColors.blue,
-                          borderWidth: 1.5,
+                          borderWidth: 1.5.w,
                         ),
                         enableActiveFill: true,
                         cursorColor: AppColors.blue,
@@ -160,12 +161,12 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.error_outline,
                                 color: AppColors.error,
-                                size: 16,
+                                size: 16.r,
                               ),
-                              SizedBox(width: 4),
+                              SizedBox(width: 4.w),
                               Text(
                                 AppStrings.invalidCode.tr(),
                                 style: AppTextStyles.black13400.copyWith(
@@ -179,7 +180,7 @@ class _VerifyResetCodeScreenState extends State<VerifyResetCodeScreen> {
                   );
                 },
               ),
-              SizedBox(height: 24),
+              SizedBox(height: 24.h),
               RichTextWithLink(
                 normalText: AppStrings.didntReceiveCode.tr(),
                 linkText: AppStrings.resend.tr(),

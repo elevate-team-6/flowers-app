@@ -1,14 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flowers_app/core/utils/app_colors.dart';
-import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/core/utils/app_text_styles.dart';
-import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class CartSummary extends StatelessWidget {
   final CartEntity cart;
@@ -40,7 +40,7 @@ class CartSummary extends StatelessWidget {
             value: '$deliveryFee${AppStrings.dollar.tr()}',
           ),
           SizedBox(height: 12.h),
-          Divider(color: AppColors.white70, thickness: 0.5),
+          Divider(color: AppColors.white70, thickness: 0.5.h),
           SizedBox(height: 12.h),
           _SummaryRow(
             label: AppStrings.total.tr(),

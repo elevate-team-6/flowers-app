@@ -16,7 +16,7 @@ class CustomRadioButton extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.all(
           color: isSelected ? AppColors.primary : AppColors.gray,
-          width: 2,
+          width: 2.w,
         ),
       ),
       child: isSelected

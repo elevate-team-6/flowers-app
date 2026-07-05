@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PetalData {
   final double size;
@@ -37,7 +38,7 @@ class PetalsPainter extends CustomPainter {
           (animation.value * petal.speed + petal.startDelay) % 1.0;
 
       // Calculate vertical position
-      final double y = progress * (size.height + 60) - 30;
+      final double y = progress * (size.height + 60.h) - 30.h;
 
       // Calculate horizontal position with drift
       final double x =

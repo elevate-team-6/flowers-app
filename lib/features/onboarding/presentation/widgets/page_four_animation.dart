@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_colors.dart';
 
@@ -108,8 +109,8 @@ class _PageFourAnimationState extends State<PageFourAnimation>
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 300,
-        height: 350,
+        width: 300.w,
+        height: 350.h,
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -126,11 +127,11 @@ class _PageFourAnimationState extends State<PageFourAnimation>
                   curve: Curves.easeOutBack,
                 ).value;
                 return Transform.translate(
-                  offset: Offset(_shakeAnimation.value, 0),
+                  offset: Offset(_shakeAnimation.value.w, 0),
                   child: Transform.scale(
                     scale: phoneScale,
                     child: CustomPaint(
-                      size: const Size(110, 190),
+                      size: Size(110.w, 190.h),
                       painter: PhonePainter(notifValue: _notifController.value),
                     ),
                   ),
@@ -146,16 +147,16 @@ class _PageFourAnimationState extends State<PageFourAnimation>
                 final val = _heartController.value;
                 final opacity = (1.0 - val).clamp(0.0, 1.0);
                 final scale = 0.5 + (val * 0.9);
-                final slideY = val * -150.0;
+                final slideY = val * -150.0.h;
 
                 return Transform.translate(
-                  offset: Offset(0, 50 + slideY),
+                  offset: Offset(0, 50.h + slideY),
                   child: Transform.scale(
                     scale: scale,
                     child: Opacity(
                       opacity: opacity,
                       child: CustomPaint(
-                        size: const Size(30, 30),
+                        size: Size(30.r, 30.r),
                         painter: HeartPainter(),
                       ),
                     ),
@@ -182,22 +183,22 @@ class PhonePainter extends CustomPainter {
     // Phase 1: Phone Body
     canvas.save();
     final phoneRect = RRect.fromRectAndRadius(
-      Rect.fromCenter(center: center, width: 110, height: 190),
-      const Radius.circular(20),
+      Rect.fromCenter(center: center, width: 110.w, height: 190.h),
+      Radius.circular(20.r),
     );
     final phonePaint = Paint()..color = Colors.white;
     final borderPaint = Paint()
       ..color = AppColors.pink20
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 3;
+      ..strokeWidth = 3.w;
 
     canvas.drawRRect(phoneRect, phonePaint);
     canvas.drawRRect(phoneRect, borderPaint);
 
     // Inner screen
     final screenRect = RRect.fromRectAndRadius(
-      Rect.fromCenter(center: center, width: 102, height: 182),
-      const Radius.circular(17),
+      Rect.fromCenter(center: center, width: 102.w, height: 182.h),
+      Radius.circular(17.r),
     );
     canvas.drawRRect(
       screenRect,
@@ -207,16 +208,16 @@ class PhonePainter extends CustomPainter {
     // Home indicator
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(center.dx - 15, center.dy + 85, 30, 4),
-        const Radius.circular(2),
+        Rect.fromLTWH(center.dx - 15.w, center.dy + 85.h, 30.w, 4.h),
+        Radius.circular(2.r),
       ),
       Paint()..color = AppColors.pink20,
     );
 
     // Notch
     canvas.drawCircle(
-      Offset(center.dx, center.dy - 85),
-      3,
+      Offset(center.dx, center.dy - 85.h),
+      3.r,
       Paint()..color = AppColors.pink20,
     );
     canvas.restore();
@@ -226,20 +227,20 @@ class PhonePainter extends CustomPainter {
       canvas.save();
       final dropValue = Curves.bounceOut.transform(notifValue);
       // Offset(0, -3.0) to Offset(0, -2.2) roughly mapping to screen position
-      final yOffset = -40 + (dropValue * 30);
+      final yOffset = -40.h + (dropValue * 30.h);
       canvas.translate(center.dx, center.dy + yOffset);
 
       final notifRect = RRect.fromRectAndRadius(
-        Rect.fromCenter(center: Offset.zero, width: 90, height: 48),
-        const Radius.circular(10),
+        Rect.fromCenter(center: Offset.zero, width: 90.w, height: 48.h),
+        Radius.circular(10.r),
       );
 
       // Shadow
       canvas.drawRRect(
-        notifRect.shift(const Offset(0, 4)),
+        notifRect.shift(Offset(0, 4.h)),
         Paint()
           ..color = AppColors.pink10.withValues(alpha: 0.5)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8),
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, 8.r),
       );
 
       canvas.drawRRect(notifRect, Paint()..color = Colors.white);
@@ -248,7 +249,7 @@ class PhonePainter extends CustomPainter {
         Paint()
           ..color = AppColors.pink20
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 1,
+          ..strokeWidth = 1.w,
       );
 
       // Notification content
@@ -260,40 +261,40 @@ class PhonePainter extends CustomPainter {
 
   void _drawNotifText(Canvas canvas) {
     // Icon
-    const textStyle = TextStyle(fontSize: 14);
-    const textSpan = TextSpan(text: '🌸', style: textStyle);
+    final textStyle = TextStyle(fontSize: 14.sp);
+    final textSpan = TextSpan(text: '🌸', style: textStyle);
     final textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
     );
     textPainter.layout();
-    textPainter.paint(canvas, const Offset(-38, -18));
+    textPainter.paint(canvas, Offset(-38.w, -18.h));
 
     // Title
     final titlePainter = TextPainter(
-      text: const TextSpan(
+      text: TextSpan(
         text: 'Your flowers are',
         style: TextStyle(
           color: AppColors.black50,
-          fontSize: 8,
+          fontSize: 8.sp,
           fontWeight: FontWeight.bold,
         ),
       ),
       textDirection: TextDirection.ltr,
     );
     titlePainter.layout();
-    titlePainter.paint(canvas, const Offset(-20, -16));
+    titlePainter.paint(canvas, Offset(-20.w, -16.h));
 
     // Subtitle
     final subPainter = TextPainter(
-      text: const TextSpan(
+      text: TextSpan(
         text: 'on the way! 🌸',
-        style: TextStyle(color: AppColors.gray, fontSize: 7),
+        style: TextStyle(color: AppColors.gray, fontSize: 7.sp),
       ),
       textDirection: TextDirection.ltr,
     );
     subPainter.layout();
-    subPainter.paint(canvas, const Offset(-20, -4));
+    subPainter.paint(canvas, Offset(-20.w, -4.h));
   }
 
   @override

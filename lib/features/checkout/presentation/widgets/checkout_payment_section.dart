@@ -8,6 +8,7 @@ import 'package:flowers_app/features/checkout/presentation/view_model/checkout_s
 import 'package:flowers_app/features/checkout/presentation/widgets/payment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckoutPaymentSection extends StatelessWidget {
   final CheckoutStates state;
@@ -20,7 +21,7 @@ class CheckoutPaymentSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(AppStrings.paymentMethod.tr(), style: AppTextStyles.black18500),
-        const SizedBox(height: 20),
+        SizedBox(height: 20.h),
 
         if (!state.isGift)
           PaymentCard(
@@ -33,7 +34,7 @@ class CheckoutPaymentSection extends StatelessWidget {
             },
           ),
 
-        const SizedBox(height: 10),
+        SizedBox(height: 10.h),
 
         PaymentCard(
           isSelected: state.selectedPaymentMethod == AppConstants.card,

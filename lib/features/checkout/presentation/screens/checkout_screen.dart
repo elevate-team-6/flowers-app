@@ -139,15 +139,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 state.cardCheckoutState.isLoading;
             return SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.all(16.r),
                 child: Column(
                   children: [
                     CheckoutDeliverySection(deliveryDays: state.deliveryDays),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24.h),
                       child: Divider(
-                        height: 24,
-                        thickness: 24,
+                        height: 24.h,
+                        thickness: 24.h,
                         color: AppColors.gray10,
                       ),
                     ),
@@ -155,10 +155,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.white,
-                        side: const BorderSide(
-                          color: AppColors.primary,
-                          width: 2,
-                        ),
+                        side: BorderSide(color: AppColors.primary, width: 2.w),
                       ),
                       onPressed: () async {
                         final result = await Navigator.pushNamed(
@@ -182,7 +179,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(Icons.add, color: AppColors.primary),
-                          const SizedBox(width: 8),
+                          SizedBox(width: 8.w),
                           Text(
                             AppStrings.addNew.tr(),
                             style: AppTextStyles.primary14500,
@@ -190,20 +187,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24.h),
                       child: Divider(
-                        height: 24,
-                        thickness: 24,
+                        height: 24.h,
+                        thickness: 24.h,
                         color: AppColors.gray10,
                       ),
                     ),
                     CheckoutPaymentSection(state: state),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24.h),
                       child: Divider(
-                        height: 24,
-                        thickness: 24,
+                        height: 24.h,
+                        thickness: 24.h,
                         color: AppColors.gray10,
                       ),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/utils/app_colors.dart';
 
 class PageTwoAnimation extends StatefulWidget {
@@ -88,19 +89,19 @@ class _PageTwoAnimationState extends State<PageTwoAnimation>
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: 300,
-        width: 300,
+        height: 300.h,
+        width: 300.w,
         child: Stack(
           alignment: Alignment.center,
           children: [
             // Cart Icon
             Positioned(
-              bottom: 40,
+              bottom: 40.h,
               child: ScaleTransition(
                 scale: _cartScale,
-                child: const Icon(
+                child: Icon(
                   Icons.shopping_bag_outlined,
-                  size: 100,
+                  size: 100.r,
                   color: AppColors.primary,
                 ),
               ),
@@ -110,7 +111,7 @@ class _PageTwoAnimationState extends State<PageTwoAnimation>
               position: _flowerSlide,
               child: FadeTransition(
                 opacity: _flowerController,
-                child: const Text("🌸", style: TextStyle(fontSize: 48)),
+                child: Text("🌸", style: TextStyle(fontSize: 48.sp)),
               ),
             ),
           ],

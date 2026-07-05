@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../config/services/auth_service.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -110,8 +111,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             // Skip Button
             Positioned(
-              top: 50,
-              right: 20,
+              top: 50.h,
+              right: 20.w,
               child: TextButton(
                 onPressed: _finishOnboarding,
                 child: Text(
@@ -123,21 +124,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             // Bottom Controls
             Positioned(
-              bottom: 50,
+              bottom: 50.h,
               left: 0,
               right: 0,
               child: Column(
                 children: [
                   OnboardingDots(currentIndex: _currentPage),
-                  const SizedBox(height: 32),
+                  SizedBox(height: 32.h),
                   ElevatedButton(
                     onPressed: _nextPage,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
-                      minimumSize: const Size(200, 52),
+                      minimumSize: Size(200.w, 52.h),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30.r),
                       ),
                       elevation: 0,
                     ),

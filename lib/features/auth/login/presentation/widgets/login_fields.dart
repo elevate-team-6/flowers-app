@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginFields extends StatelessWidget {
   final TextEditingController emailController;
@@ -35,7 +36,7 @@ class LoginFields extends StatelessWidget {
           keyboardType: TextInputType.emailAddress,
           validator: AppValidations.validateEmail,
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 20.h),
         TextFormField(
           onTapOutside: (_) {
             FocusManager.instance.primaryFocus?.unfocus();

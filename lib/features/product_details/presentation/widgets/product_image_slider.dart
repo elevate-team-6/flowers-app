@@ -101,9 +101,9 @@ class _ProductImageSliderState extends State<ProductImageSlider> {
                 },
 
                 errorWidget: (_, _, _) {
-                  return const Icon(
+                  return Icon(
                     Icons.error_outline_outlined,
-                    size: 55,
+                    size: 55.r,
                     color: AppColors.error,
                   );
                 },
@@ -112,7 +112,7 @@ class _ProductImageSliderState extends State<ProductImageSlider> {
           ),
 
           Positioned(
-            top: 20,
+            top: 20.h,
             child: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -138,17 +138,17 @@ class _ProductImageSliderState extends State<ProductImageSlider> {
                     return AnimatedContainer(
                       duration: const Duration(milliseconds: 400),
 
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      margin: EdgeInsets.symmetric(horizontal: 4.w),
 
-                      height: 12,
-                      width: 12,
+                      height: 12.h,
+                      width: 12.w,
 
                       decoration: BoxDecoration(
                         color: isSelected
                             ? AppColors.white90
                             : AppColors.white70,
 
-                        borderRadius: BorderRadius.circular(100),
+                        borderRadius: BorderRadius.circular(100.r),
                       ),
                     );
                   }),

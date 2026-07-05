@@ -147,10 +147,10 @@ class _CartScreenState extends State<CartScreen> {
 
                   if (addressState.locationStatus ==
                       DeliveryLocationStatus.checking) {
-                    return const SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(),
+                    return SizedBox(
+                      height: 20.r,
+                      width: 20.r,
+                      child: const CircularProgressIndicator(),
                     );
                   }
 

@@ -140,10 +140,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       child: ElevatedButton(
         onPressed: isLoading ? null : () => _saveAddress(context, state),
         child: isLoading
-            ? const SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(strokeWidth: 2),
+            ? SizedBox(
+                height: 20.r,
+                width: 20.r,
+                child: CircularProgressIndicator(strokeWidth: 2.w),
               )
             : Text(
                 widget.addressToEdit == null

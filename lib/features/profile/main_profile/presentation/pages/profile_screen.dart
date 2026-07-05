@@ -11,6 +11,7 @@ import 'package:flowers_app/features/profile/main_profile/presentation/widgets/n
 import 'package:flowers_app/features/profile/main_profile/presentation/widgets/profile_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -23,10 +24,14 @@ class ProfileScreen extends StatelessWidget {
           getIt<ProfileCubit>()..doEvent(const GetProfileDataEvent()),
       child: Scaffold(
         appBar: AppBar(
-          actionsPadding: const EdgeInsets.symmetric(horizontal: 12),
+          actionsPadding: EdgeInsets.symmetric(horizontal: 12.w),
           title: Row(
             children: [
-              SvgPicture.asset(AppIcons.flowerAppIcon, width: 24, height: 24),
+              SvgPicture.asset(
+                AppIcons.flowerAppIcon,
+                width: 24.w,
+                height: 24.h,
+              ),
               Text(
                 AppStrings.flowery.tr(),
                 style: AppTextStyles.primary20400imFellEnglish,
