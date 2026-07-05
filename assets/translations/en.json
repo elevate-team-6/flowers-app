@@ -106,6 +106,13 @@
   "version": "Version",
   "confirmLogout": "Are you sure you want to logout?",
 
+  "enableLocationServices": "Please enable location services to add a delivery address.",
+  "locationPermissionDenied": "Location permission is permanently denied. Please enable it from app settings.",
+  "later": "Later",
+  "enableLocation": "Enable Location",
+  "openSettings": "Open Settings",
+  "locationRequired": "Location Required",
+
   "home": "Home",
   "categories": "Categories",
   "cart": "Cart",
@@ -213,6 +220,9 @@
   "paymentCompletedSuccessfully": "Payment completed successfully",
   "enterThePhoneNumber": "Enter the phone number",
   "photo": "Photo",
+  "payment": "Payment",
+  "delivery_days": "Delivery days",
+  "trackOrderSuccess": "Your order placed\n successfully!",
   "my_orders": "My orders",
   "active": "Active",
   "completed": "Completed",
