@@ -22,7 +22,7 @@ Future<void> main() async {
 
   configureDependencies();
 
-  // Initialize Hive
+  //   intialize hive database
   await getIt<HiveHelper>().init();
 
   runApp(
