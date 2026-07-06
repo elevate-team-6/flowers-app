@@ -56,4 +56,8 @@ abstract class AppConstants {
   static const String mapUrlTemplate =
       'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   static const String mapUserAgent = 'com.example.flowers_app';
+
+  // مدة التوصيل التقديرية الثابتة — بنزوّدها على createdAt عشان نحسب وقت الوصول
+  // المتوقع لحد ما الباك إند يوفّر وقت حقيقي.
+  static const int estimatedDeliveryMinutes = 45;
 }

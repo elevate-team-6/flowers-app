@@ -278,5 +278,11 @@
   "no_rider_yet": "في انتظار تعيين بطل توصيل",
   "store_label": "Flowery",
   "delivery_label": "التوصيل",
-  "apartment_label": "المنزل"
+  "apartment_label": "المنزل",
+  "order_tracking": "تتبع الطلب",
+  "rider_not_assigned": "لم يتم التعيين بعد",
+  "tracking_received": "استلمنا طلبك",
+  "tracking_preparing": "بنجهّز طلبك",
+  "tracking_out_for_delivery": "خرج للتوصيل",
+  "tracking_delivered": "تم التوصيل"
 }

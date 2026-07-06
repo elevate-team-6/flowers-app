@@ -341,6 +341,13 @@ abstract class AppStrings {
   static const String storeLabel = 'store_label';
   static const String deliveryLabel = 'delivery_label';
   static const String apartmentLabel = 'apartment_label';
+  // Tracking screen (friend's timeline)
+  static const String orderTracking = 'order_tracking';
+  static const String riderNotAssigned = 'rider_not_assigned';
+  static const String trackingReceived = 'tracking_received';
+  static const String trackingPreparing = 'tracking_preparing';
+  static const String trackingOutForDelivery = 'tracking_out_for_delivery';
+  static const String trackingDelivered = 'tracking_delivered';
 
   // ===========================================================================
   // API Constants (Values sent directly to Backend - Do NOT Translate)
