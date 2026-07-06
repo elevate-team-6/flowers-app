@@ -1,5 +1,5 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
-import 'package:flowers_app/features/notifications/domain/entities/notification_entity.dart';
+import 'package:flowers_app/features/notifications/domain/entities/notifications_result_entity.dart';
 import 'package:flowers_app/features/notifications/domain/repos/notifications_repo_contract.dart';
 import 'package:injectable/injectable.dart';
 
@@ -9,6 +9,6 @@ class GetNotificationsUseCase {
 
   const GetNotificationsUseCase(this._repo);
 
-  Future<BaseResponse<List<NotificationEntity>>> call() =>
+  Future<BaseResponse<NotificationsResultEntity>> call() =>
       _repo.getNotifications();
 }

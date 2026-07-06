@@ -34,6 +34,9 @@ abstract class AppConstants {
   static const String notificationBodyField = 'body';
   static const String notificationSentTimeField = 'sentTime';
   static const String notificationDataField = 'data';
+  static const String notificationsBox = 'notifications_box';
+  static const String lastOpenedNotificationsTimeKey =
+      'last_opened_notifications_time';
   static const String addressDelimiter = " | ";
   static const String governoratesJsonPath = 'assets/json/governorates.json';
   static const String citiesJsonPath = 'assets/json/cities.json';

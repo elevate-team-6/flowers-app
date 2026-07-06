@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
-import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/features/profile/main_profile/presentation/view_model/profile_cubit.dart';
 import 'package:flowers_app/features/profile/main_profile/presentation/view_model/profile_events.dart';
 import 'package:flowers_app/features/profile/main_profile/presentation/view_model/profile_states.dart';
-import 'package:flowers_app/features/profile/main_profile/presentation/widgets/notification_badge.dart';
+import 'package:flowers_app/features/profile/main_profile/presentation/widgets/notification_badge_listener.dart';
 import 'package:flowers_app/features/profile/main_profile/presentation/widgets/profile_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,14 +32,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ],
           ),
-          actions: [
-            NotificationBadge(
-              count: '3',
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.notificationScreen);
-              },
-            ),
-          ],
+          actions: [const NotificationBadgeListener()],
         ),
         body: BlocBuilder<ProfileCubit, ProfileStates>(
           builder: (context, state) {

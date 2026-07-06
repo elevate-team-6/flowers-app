@@ -19,6 +19,18 @@ class NotificationsScreen extends StatefulWidget {
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
+  void initState() {
+    super.initState();
+    _loadAndMarkOpened();
+  }
+
+  Future<void> _loadAndMarkOpened() async {
+    final cubit = context.read<NotificationsCubit>();
+    await cubit.getNotifications();
+    await cubit.markNotificationsAsOpened();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
