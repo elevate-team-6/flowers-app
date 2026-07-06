@@ -144,6 +144,8 @@ abstract class AppStrings {
   static const String myOrders = 'myOrders';
   static const String savedAddress = 'savedAddress';
   static const String notification = 'notification';
+  static const String noNotifications = 'noNotifications';
+  static const String noNotificationsSubtitle = 'noNotificationsSubtitle';
   static const String language = 'language';
   static const String changeLanguage = 'changeLanguage';
   static const String aboutUs = 'aboutUs';

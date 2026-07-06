@@ -68,6 +68,8 @@
   "myOrders": "طلباتي",
   "savedAddress": "العناوين المحفوظة",
   "notification": "الإشعارات",
+  "noNotifications": "لا توجد إشعارات بعد",
+  "noNotificationsSubtitle": "سنُعلمك عند وصول أي إشعار جديد",
   "language": "اللغة",
   "changeLanguage": "تغيير اللغة",
   "arabic": "العربية",
