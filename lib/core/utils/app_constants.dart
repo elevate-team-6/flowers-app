@@ -33,4 +33,10 @@ abstract class AppConstants {
   static const String mapUrlTemplate =
       'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   static const String mapUserAgent = 'com.example.flowers_app';
+  //
+  static const String ordersCollection = 'orders';
+  static const String riderIdField = 'riderId';
+  static const String riderNameField = 'riderName';
+  static const String riderPhoneField = 'riderPhone';
+  static const String statusField = 'status';
 }
