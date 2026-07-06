@@ -26,6 +26,9 @@ abstract class AppIcons {
   static const String orders = '${_iconsPath}orders_icon.svg';
   static const String logout = '${_iconsPath}logout_icon.svg';
   static const String time = '${_iconsPath}time.svg';
+  static const String deliveryBoy = '${_iconsPath}delivery_boy_icon.png';
+  static const String phoneCall = '${_iconsPath}phone_call_icon.png';
+  static const String whatsApp = '${_iconsPath}whatsapp_icon.png';
 }
 
 abstract class AppImages {
@@ -36,6 +39,7 @@ abstract class AppImages {
   static const String imageDefault = '${_imagesPath}Image_default.png';
   static const String appImage = '${_imagesPath}app_image.svg';
   static const String defaultImage = '${_imagesPath}Image_default.png';
+  static const String car = '${_imagesPath}car.png';
 }
 
 abstract class AppLottie {

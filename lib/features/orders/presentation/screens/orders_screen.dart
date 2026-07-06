@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
@@ -106,7 +107,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
         return OrderCard(
           order: order,
           onActionPressed: () {
-            // TODO: handle Track / Reorder action
+            if (order.isActive) {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.trackingScreen,
+                arguments: order.id,
+              );
+            }
           },
         );
       },

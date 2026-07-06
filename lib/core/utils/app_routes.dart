@@ -23,6 +23,8 @@ import 'package:flowers_app/features/onboarding/presentation/pages/language_scre
 import 'package:flowers_app/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:flowers_app/features/orders/presentation/screens/orders_screen.dart';
 import 'package:flowers_app/features/orders/presentation/view_model/orders_cubit.dart';
+import 'package:flowers_app/features/tracking/presentation/screens/tracking_screen.dart';
+import 'package:flowers_app/features/tracking/presentation/view_model/tracking_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
@@ -77,6 +79,7 @@ abstract class AppRoutes {
   static const String checkout = '/checkout';
   static const String paymentWebView = 'paymentWebView';
   static const String orders = '/orders';
+  static const String trackingScreen = '/trackingScreen';
   static const String search = '/search';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -253,6 +256,15 @@ abstract class AppRoutes {
           builder: (_) => BlocProvider(
             create: (_) => getIt<OrdersCubit>(),
             child: const OrdersScreen(),
+          ),
+        );
+
+      case trackingScreen:
+        final String orderId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<TrackingCubit>()..getTracking(orderId),
+            child: TrackingScreen(orderId: orderId),
           ),
         );
 

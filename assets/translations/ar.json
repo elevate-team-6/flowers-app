@@ -217,6 +217,14 @@
   "delivered_on": "تم التسليم في",
   "no_active_orders": "لا توجد طلبات نشطة",
   "no_completed_orders": "لا توجد طلبات مكتملة",
+  "order_tracking": "تتبع الطلب",
+  "rider_info": "معلومات السائق",
+  "rider_not_assigned": "لم يتم التعيين بعد",
+  "order_status": "حالة الطلب",
+  "tracking_received": "تم الاستلام",
+  "tracking_preparing": "قيد التحضير",
+  "tracking_out_for_delivery": "في الطريق للتوصيل",
+  "tracking_delivered": "تم التسليم",
   "userNotFound": "المستخدم غير موجود",
   "addressIdRequired": "معرف العنوان مطلوب",
   "address": "العنوان",
@@ -261,5 +269,8 @@
   "skip": "تخطي",
   "get_started": "ابدأ الآن 🌸",
   "success": "تم بنجاح!",
-  "oops": "عذراً!"
+  "oops": "عذراً!",
+  "estimatedArrival": "تاريخ التسليم المتوقع",
+  "deliveryHero": "هل هو خادم التسليم اليومي لك",
+  "showMap": "عرض الخريطة"
 }

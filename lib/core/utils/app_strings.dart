@@ -300,6 +300,14 @@ abstract class AppStrings {
   static const String deliveredOn = 'delivered_on';
   static const String noActiveOrders = 'no_active_orders';
   static const String noCompletedOrders = 'no_completed_orders';
+  static const String orderTracking = 'order_tracking';
+  static const String riderInfo = 'rider_info';
+  static const String riderNotAssigned = 'rider_not_assigned';
+  static const String orderStatus = 'order_status';
+  static const String trackingReceived = 'tracking_received';
+  static const String trackingPreparing = 'tracking_preparing';
+  static const String trackingOutForDelivery = 'tracking_out_for_delivery';
+  static const String trackingDelivered = 'tracking_delivered';
 
   //checkout
   static const String deliveryAddress = 'Delivery address';
@@ -323,6 +331,11 @@ abstract class AppStrings {
       'Payment completed successfully';
   static const String enterThePhoneNumber = 'Enter The Phone Number';
   static const String deliveryDays = 'delivery_days';
+  //tracking screen
+  static const String deliveryHero = 'Delivery Hero';
+  static const String estimatedArrival = ' Estimated Arrival';
+  static const String showMap = ' show map';
+  
 
   // ===========================================================================
   // API Constants (Values sent directly to Backend - Do NOT Translate)

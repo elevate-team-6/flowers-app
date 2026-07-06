@@ -222,6 +222,14 @@
   "delivered_on": "Delivered on",
   "no_active_orders": "No active orders",
   "no_completed_orders": "No completed orders",
+  "order_tracking": "Track Order",
+  "rider_info": "Rider Information",
+  "rider_not_assigned": "Not assigned yet",
+  "order_status": "Order Status",
+  "tracking_received": "Received",
+  "tracking_preparing": "Preparing",
+  "tracking_out_for_delivery": "Out For Delivery",
+  "tracking_delivered": "Delivered",
   "userNotFound": "User not found",
   "addressIdRequired": "Address ID is required",
   "address": "Address",
@@ -266,5 +274,8 @@
   "skip": "Skip",
   "get_started": "Get Started 🌸",
   "success": "Success!",
-  "oops": "Oops!"
+  "oops": "Oops!",
+  "estimatedArrival": "Estimated arrival",
+  "deliveryHero": "Is your delivery hero for today",
+  "showMap": "Show map"
 }
