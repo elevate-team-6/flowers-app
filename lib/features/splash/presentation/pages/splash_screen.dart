@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_routes.dart';
@@ -53,9 +54,9 @@ class _SplashScreenState extends State<SplashScreen>
     for (int i = 0; i < 18; i++) {
       _petals.add(
         PetalData(
-          size: 8.0 + random.nextDouble() * 10.0,
+          size: (8.0 + random.nextDouble() * 10.0).r,
           speed: 1.0 + random.nextDouble() * 1.5,
-          drift: 20.0 + random.nextDouble() * 40.0,
+          drift: (20.0 + random.nextDouble() * 40.0).w,
           rotation: random.nextDouble() * math.pi * 2,
           startDelay: random.nextDouble(),
           color: petalColors[random.nextInt(petalColors.length)],
@@ -179,9 +180,9 @@ class _SplashScreenState extends State<SplashScreen>
                 children: [
                   ScaleTransition(
                     scale: _logoScaleAnimation,
-                    child: const Text('🌸', style: TextStyle(fontSize: 90)),
+                    child: Text('🌸', style: TextStyle(fontSize: 90.sp)),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   FadeTransition(
                     opacity: _textFadeAnimation,
                     child: SlideTransition(
@@ -192,7 +193,7 @@ class _SplashScreenState extends State<SplashScreen>
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   FadeTransition(
                     opacity: _subtitleFadeAnimation,
                     child: Text(

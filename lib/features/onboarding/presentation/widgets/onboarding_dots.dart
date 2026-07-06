@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_colors.dart';
 
@@ -20,12 +21,12 @@ class OnboardingDots extends StatelessWidget {
         totalDots,
         (index) => AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          margin: const EdgeInsets.symmetric(horizontal: 4),
-          height: 8,
-          width: currentIndex == index ? 24 : 8,
+          margin: EdgeInsets.symmetric(horizontal: 4.w),
+          height: 8.h,
+          width: currentIndex == index ? 24.w : 8.w,
           decoration: BoxDecoration(
             color: currentIndex == index ? AppColors.primary : AppColors.pink20,
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(4.r),
           ),
         ),
       ),

@@ -60,7 +60,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         descreption: productDetails.description,
                         title: productDetails.title,
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: 30.h),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child:
@@ -125,11 +125,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                       ? SizedBox(
                                           width: 20.w,
                                           height: 20.w,
-                                          child:
-                                              const CircularProgressIndicator(
-                                                color: AppColors.white,
-                                                strokeWidth: 2,
-                                              ),
+                                          child: CircularProgressIndicator(
+                                            color: AppColors.white,
+                                            strokeWidth: 2.w,
+                                          ),
                                         )
                                       : Text(
                                           data.isInCart

@@ -62,9 +62,13 @@ class GiftSection extends StatelessWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             textInputAction: TextInputAction.next,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 24),
-            child: Divider(height: 24, thickness: 24, color: AppColors.gray10),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 24.h),
+            child: Divider(
+              height: 24.h,
+              thickness: 24.h,
+              color: AppColors.gray10,
+            ),
           ),
         ],
       ],

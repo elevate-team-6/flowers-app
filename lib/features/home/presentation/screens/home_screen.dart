@@ -10,6 +10,7 @@ import 'package:flowers_app/features/home/presentation/widgets/home_delivery_add
 import 'package:flowers_app/features/home/presentation/widgets/home_top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/best_sellers_home_section.dart';
 import '../widgets/categories_home_section.dart';
@@ -52,11 +53,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
               // Delivery Address
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
+                padding: EdgeInsets.fromLTRB(16.w, 16.h, 0, 0),
                 child: HomeDeliveryAddressSection(),
               ),
 
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
 
               // Main Content
               Expanded(
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16.h),
 
                       // categories
                       BlocBuilder<HomeViewModel, HomeStates>(
@@ -74,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                           return CategoriesHomeSection(state: state);
                         },
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24.h),
                       //best seller
                       BlocBuilder<HomeViewModel, HomeStates>(
                         buildWhen: (previous, current) =>
@@ -84,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         },
                       ),
 
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24.h),
 
                       //occasions
                       BlocBuilder<HomeViewModel, HomeStates>(
@@ -94,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                           return OccasionsHomeSection(state: state);
                         },
                       ),
-                      const SizedBox(height: 40),
+                      SizedBox(height: 40.h),
                     ],
                   ),
                 ),

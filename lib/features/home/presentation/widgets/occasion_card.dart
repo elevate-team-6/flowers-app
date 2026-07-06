@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OccasionCard extends StatelessWidget {
   final String imageUrl;
@@ -19,46 +20,46 @@ class OccasionCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: 140,
+        width: 140.w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
               child: CachedNetworkImage(
                 imageUrl: imageUrl,
-                width: 140,
-                height: 150,
+                width: 140.w,
+                height: 150.h,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
-                  width: 140,
-                  height: 150,
+                  width: 140.w,
+                  height: 150.h,
                   color: AppColors.white60,
-                  child: const Center(
+                  child: Center(
                     child: SizedBox(
-                      width: 22,
-                      height: 22,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      width: 22.r,
+                      height: 22.r,
+                      child: CircularProgressIndicator(strokeWidth: 2.w),
                     ),
                   ),
                 ),
                 errorWidget: (context, url, error) => Container(
-                  width: 140,
-                  height: 150,
+                  width: 140.w,
+                  height: 150.h,
                   color: AppColors.white60,
-                  child: const Icon(
+                  child: Icon(
                     Icons.celebration,
                     color: AppColors.primary,
-                    size: 32,
+                    size: 32.r,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 6),
+            SizedBox(height: 6.h),
             Text(
               label,
-              style: const TextStyle(
-                fontSize: 12,
+              style: TextStyle(
+                fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black,
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_text_styles.dart';
@@ -74,8 +75,8 @@ class _PageOneAnimationState extends State<PageOneAnimation>
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: 220,
-        width: 320,
+        height: 220.h,
+        width: 320.w,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -87,13 +88,13 @@ class _PageOneAnimationState extends State<PageOneAnimation>
             ),
             // Middle Card (Lower)
             Positioned(
-              left: 100,
-              top: 20,
+              left: 100.w,
+              top: 20.h,
               child: _buildCard("🌷", "Tulip", _slides[1], _fades[1]),
             ),
             // Right Card
             Positioned(
-              left: 200,
+              left: 200.w,
               top: 0,
               child: _buildCard("🌸", "Blossom", _slides[2], _fades[2]),
             ),
@@ -114,24 +115,24 @@ class _PageOneAnimationState extends State<PageOneAnimation>
       child: SlideTransition(
         position: slide,
         child: Container(
-          width: 120, // Reduced width to avoid overflow
-          height: 180,
+          width: 120.w, // Reduced width to avoid overflow
+          height: 180.h,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
               BoxShadow(
                 color: AppColors.pink20.withValues(alpha: 0.5),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
+                blurRadius: 12.r,
+                offset: Offset(0, 4.h),
               ),
             ],
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(emoji, style: const TextStyle(fontSize: 52)),
-              const SizedBox(height: 8),
+              Text(emoji, style: TextStyle(fontSize: 52.sp)),
+              SizedBox(height: 8.h),
               Text(name, style: AppTextStyles.gray13400Poppins),
             ],
           ),

@@ -28,7 +28,7 @@ class AddressItemCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColors.white60, width: 1),
+        border: Border.all(color: AppColors.white60, width: 1.w),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +66,7 @@ class AddressItemCard extends StatelessWidget {
                   ? SizedBox(
                       width: 22.r,
                       height: 22.r,
-                      child: const CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator(strokeWidth: 2.w),
                     )
                   : IconButton(
                       onPressed: onDelete,

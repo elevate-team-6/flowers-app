@@ -71,7 +71,7 @@ class MainLayoutScreen extends StatelessWidget {
                   border: Border(
                     top: BorderSide(
                       color: AppColors.black10.withValues(alpha: 0.5),
-                      width: 1,
+                      width: 1.w,
                     ),
                   ),
                 ),

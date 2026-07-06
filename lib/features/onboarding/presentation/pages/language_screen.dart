@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/config/services/firebase_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -107,38 +108,38 @@ class _LanguageScreenState extends State<LanguageScreen>
                   children: [
                     ScaleTransition(
                       scale: _logoScaleAnimation,
-                      child: const Text('🌸', style: TextStyle(fontSize: 64)),
+                      child: Text('🌸', style: TextStyle(fontSize: 64.sp)),
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12.h),
                     FadeTransition(
                       opacity: _fadeController,
                       child: Text(
                         "Flowers",
                         style: GoogleFonts.playfairDisplay(
-                          fontSize: 36,
+                          fontSize: 36.sp,
                           fontWeight: FontWeight.bold,
                           color: AppColors.primary,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     FadeTransition(
                       opacity: _welcomeFadeAnimation,
                       child: Text(
                         AppStrings.welcomeTitle.tr(),
                         style: GoogleFonts.poppins(
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           color: AppColors.black50,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h),
                     FadeTransition(
                       opacity: _chooseFadeAnimation,
                       child: Text(
                         AppStrings.chooseLanguage.tr(),
                         style: GoogleFonts.poppins(
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           color: AppColors.gray,
                         ),
                       ),
@@ -159,7 +160,7 @@ class _LanguageScreenState extends State<LanguageScreen>
                       isSelected: _selectedLanguage == 'en',
                       onTap: () => _selectLanguage('en'),
                     ),
-                    const SizedBox(width: 16),
+                    SizedBox(width: 16.w),
                     _LanguageCard(
                       label: AppStrings.arabic.tr(),
                       flag: '🇪🇬',
@@ -196,15 +197,15 @@ class _LanguageScreenState extends State<LanguageScreen>
                             },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
-                        minimumSize: const Size(200, 52),
+                        minimumSize: Size(200.w, 52.h),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(30.r),
                         ),
                       ),
                       child: Text(
                         AppStrings.continueBtn.tr(),
                         style: GoogleFonts.poppins(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -273,32 +274,32 @@ class _LanguageCardState extends State<_LanguageCard>
         scale: _scaleAnimation,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          width: 140,
-          height: 110,
+          width: 140.w,
+          height: 110.h,
           decoration: BoxDecoration(
             color: widget.isSelected ? AppColors.pink10 : Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
             border: Border.all(
               color: widget.isSelected ? AppColors.primary : AppColors.pink20,
-              width: widget.isSelected ? 2.5 : 1.5,
+              width: widget.isSelected ? 2.5.w : 1.5.w,
             ),
             boxShadow: [
               BoxShadow(
                 color: AppColors.pink10.withValues(alpha: 0.5),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
+                blurRadius: 12.r,
+                offset: Offset(0, 4.h),
               ),
             ],
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(widget.flag, style: const TextStyle(fontSize: 32)),
-              const SizedBox(height: 8),
+              Text(widget.flag, style: TextStyle(fontSize: 32.sp)),
+              SizedBox(height: 8.h),
               Text(
                 widget.label,
                 style: GoogleFonts.poppins(
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontWeight: widget.isSelected
                       ? FontWeight.bold
                       : FontWeight.normal,
@@ -306,14 +307,14 @@ class _LanguageCardState extends State<_LanguageCard>
                 ),
               ),
               if (widget.isSelected)
-                const AnimatedOpacity(
+                AnimatedOpacity(
                   opacity: 1,
-                  duration: Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 200),
                   child: Text(
                     '✓',
                     style: TextStyle(
                       color: AppColors.primary,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

@@ -27,7 +27,7 @@ class PaymentCard extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: AppColors.white90.withValues(alpha: 0.12),
-              blurRadius: 4,
+              blurRadius: 4.r,
               offset: Offset.zero,
             ),
           ],

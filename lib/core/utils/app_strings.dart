@@ -152,21 +152,19 @@ abstract class AppStrings {
   static const String confirmLogout = 'confirmLogout';
 
   // Address Details Screen
-  static const String enableLocationServices =
-      'Please enable location services to add a delivery address.';
-  static const String locationPermissionDenied =
-      'Location permission is permanently denied. Please enable it from app settings.';
-  static const String later = 'Later';
-  static const String enableLocation = 'Enable Location';
-  static const String openSettings = 'Open Settings';
-  static const String locationRequired = 'Location Required';
+  static const String enableLocationServices = 'enableLocationServices';
+  static const String locationPermissionDenied = 'locationPermissionDenied';
+  static const String later = 'later';
+  static const String enableLocation = 'enableLocation';
+  static const String openSettings = 'openSettings';
+  static const String locationRequired = 'locationRequired';
   static const String userNotFound = 'userNotFound';
   // Main Layout
   static const String home = 'home';
   static const String categories = 'categories';
   static const String cart = 'cart';
   static const String profile = 'profile';
-  static const String addNewAddress = 'Add New Address';
+  static const String addNewAddress = 'addNewAddress';
 
   // Products
   static const String addToCart = 'addToCart';
@@ -294,7 +292,7 @@ abstract class AppStrings {
   // static const String myOrders = 'my_orders';
   static const String active = 'active';
   static const String completed = 'completed';
-  static const String trackOrder = 'track order';
+  static const String trackOrder = 'track_order';
   static const String reorder = 'reorder';
   static const String orderNumber = 'order_number';
   static const String deliveredOn = 'delivered_on';
@@ -302,26 +300,26 @@ abstract class AppStrings {
   static const String noCompletedOrders = 'no_completed_orders';
 
   //checkout
-  static const String deliveryAddress = 'Delivery address';
-  static const String deliveryTime = 'Delivery time';
-  static const String instant = 'Instant, ';
-  static const String cashOnDelivery = 'Cash on delivery';
-  static const String creditCard = 'Credit Card';
-  static const String itIsGift = 'It is a gift';
-  static const String name = 'Name';
-  static const String payment = 'Payment';
-  static const String selectPaymentMethod = 'Select Payment Method';
-  static const String selectAddressFirst = 'Select Address First';
-  static const String dollarSign = '\$';
-  static const String enterName = 'Enter the name';
-  static const String placeOrder = 'Place Order';
-  static const String addNew = 'Add new';
-  static const String paymentMethod = 'Payment method';
-  static const String paymentWasCancelled = 'Payment was cancelled';
-  static const String paymentWasNotCompleted = 'Payment was not completed';
+  static const String deliveryAddress = 'deliveryAddress';
+  static const String deliveryTime = 'deliveryTime';
+  static const String instant = 'instant';
+  static const String cashOnDelivery = 'cashOnDelivery';
+  static const String creditCard = 'creditCard';
+  static const String itIsGift = 'itIsGift';
+  static const String name = 'name';
+  static const String payment = 'payment';
+  static const String selectPaymentMethod = 'selectPaymentMethod';
+  static const String selectAddressFirst = 'selectAddressFirst';
+  static const String dollarSign = 'dollarSign';
+  static const String enterName = 'enterName';
+  static const String placeOrder = 'placeOrder';
+  static const String addNew = 'addNew';
+  static const String paymentMethod = 'paymentMethod';
+  static const String paymentWasCancelled = 'paymentWasCancelled';
+  static const String paymentWasNotCompleted = 'paymentWasNotCompleted';
   static const String paymentCompletedSuccessfully =
-      'Payment completed successfully';
-  static const String enterThePhoneNumber = 'Enter The Phone Number';
+      'paymentCompletedSuccessfully';
+  static const String enterThePhoneNumber = 'enterThePhoneNumber';
   static const String deliveryDays = 'delivery_days';
   // Track order
   static const String trackOrderSuccess = 'Your order placed\n !successfully ';

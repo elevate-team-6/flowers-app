@@ -9,6 +9,7 @@ import 'package:flowers_app/features/profile/main_profile/presentation/view_mode
 import 'package:flowers_app/features/profile/main_profile/presentation/view_model/profile_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/widgets/custom_cached_image.dart';
@@ -23,20 +24,20 @@ class ProfileHeader extends StatelessWidget {
     return Column(
       children: [
         CircleAvatar(
-          radius: 50,
+          radius: 50.r,
           backgroundColor: AppColors.white60,
           child: user?.photo != null && user!.photo!.startsWith('http')
               ? ClipOval(
                   child: CustomCachedImage(
                     imageUrl: user!.photo!,
-                    width: 100,
-                    height: 100,
+                    width: 100.w,
+                    height: 100.h,
                     fit: BoxFit.cover,
                   ),
                 )
-              : SvgPicture.asset(AppIcons.profile, width: 50, height: 50),
+              : SvgPicture.asset(AppIcons.profile, width: 50.w, height: 50.h),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -44,7 +45,7 @@ class ProfileHeader extends StatelessWidget {
               "${user?.firstName} ${user?.lastName}",
               style: AppTextStyles.black18500,
             ),
-            const SizedBox(width: 5),
+            SizedBox(width: 5.w),
             GestureDetector(
               onTap: () async {
                 final result = await Navigator.push(
@@ -63,11 +64,11 @@ class ProfileHeader extends StatelessWidget {
                   context.read<ProfileCubit>().doEvent(GetProfileDataEvent());
                 }
               },
-              child: Icon(Icons.edit, size: 20, color: AppColors.primary),
+              child: Icon(Icons.edit, size: 20.r, color: AppColors.primary),
             ),
           ],
         ),
-        const SizedBox(height: 5),
+        SizedBox(height: 5.h),
         Text(user?.email ?? '', style: AppTextStyles.gray18500),
       ],
     );
