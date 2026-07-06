@@ -77,7 +77,7 @@ class CustomSearchField extends StatelessWidget {
             currentController.clear();
             if (onSuffixTap != null) onSuffixTap!();
           },
-          child: Icon(Icons.cancel, color: AppColors.gray, size: 20.w),
+          child: Icon(Icons.cancel, color: AppColors.gray, size: 20.r),
         );
       },
     );

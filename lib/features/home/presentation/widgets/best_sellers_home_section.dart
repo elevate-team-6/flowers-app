@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
@@ -5,7 +6,7 @@ import 'package:flowers_app/features/home/presentation/widgets/best_seller_card.
 import 'package:flowers_app/features/home/presentation/widgets/best_seller_home_shimmer.dart';
 import 'package:flowers_app/features/home/presentation/widgets/home_common_header_section.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BestSellersHomeSection extends StatelessWidget {
   final HomeStates state;
@@ -22,7 +23,7 @@ class BestSellersHomeSection extends StatelessWidget {
 
     if (bestSellerState.errorMessage != null) {
       return SizedBox(
-        height: 230,
+        height: 230.h,
         child: Center(child: Text(bestSellerState.errorMessage!)),
       );
     }
@@ -31,7 +32,7 @@ class BestSellersHomeSection extends StatelessWidget {
 
     if (bestSellers.isEmpty) {
       return SizedBox(
-        height: 230,
+        height: 230.h,
         child: Center(child: Text(AppStrings.noBestSellersAvailable.tr())),
       );
     }
@@ -45,15 +46,15 @@ class BestSellersHomeSection extends StatelessWidget {
             Navigator.pushNamed(context, AppRoutes.bestSeller);
           },
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         SizedBox(
-          height: 210,
+          height: 210.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             physics: const BouncingScrollPhysics(),
             itemCount: bestSellers.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 12),
+            separatorBuilder: (_, _) => SizedBox(width: 12.w),
             itemBuilder: (context, index) {
               final product = bestSellers[index];
               return BestSellerCard(

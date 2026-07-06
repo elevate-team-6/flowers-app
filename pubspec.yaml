@@ -85,7 +85,6 @@ flutter_native_splash:
     icon_background_color: "#FAFAFA"
     image: null
 
-
 flutter_launcher_icons:
   android: true
   ios: true

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_colors.dart';
 
@@ -147,8 +148,8 @@ class _PageThreeAnimationState extends State<PageThreeAnimation>
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 320,
-        height: 350,
+        width: 320.w,
+        height: 350.h,
         child: AnimatedBuilder(
           animation: Listenable.merge([
             _petalsController,
@@ -190,7 +191,7 @@ class MasterpieceBouquetPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2 - 20);
+    final center = Offset(size.width / 2, size.height / 2 - 20.h);
 
     // Phase 1: Converging Petals
     if (bouquetValue < 0.2) {
@@ -226,13 +227,13 @@ class MasterpieceBouquetPainter extends CustomPainter {
       if (petalOpacities[i].value > 0) {
         canvas.save();
         final offset = petalSlides[i].value;
-        final pos = center + Offset(offset.dx * 130, offset.dy * 130);
+        final pos = center + Offset(offset.dx * 130.w, offset.dy * 130.h);
         canvas.translate(pos.dx, pos.dy);
         canvas.rotate(offset.dx * math.pi + (bouquetValue * 2));
 
         final paint = Paint()
           ..color = colors[i].withValues(alpha: petalOpacities[i].value);
-        canvas.drawOval(const Rect.fromLTWH(-5, -8, 10, 16), paint);
+        canvas.drawOval(Rect.fromLTWH(-5.w, -8.h, 10.w, 16.h), paint);
         canvas.restore();
       }
     }
@@ -257,9 +258,9 @@ class MasterpieceBouquetPainter extends CustomPainter {
     final scale = Curves.easeOutBack.transform(tValue);
 
     canvas.save();
-    canvas.translate(center.dx, center.dy + 80);
+    canvas.translate(center.dx, center.dy + 80.h);
     canvas.scale(scale);
-    canvas.translate(-center.dx, -(center.dy + 80));
+    canvas.translate(-center.dx, -(center.dy + 80.h));
 
     // Tissue Layer (White/Pink)
     final tissuePaint = Paint()
@@ -267,15 +268,15 @@ class MasterpieceBouquetPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final tissuePath = Path();
-    tissuePath.moveTo(center.dx - 45, center.dy + 20);
+    tissuePath.moveTo(center.dx - 45.w, center.dy + 20.h);
     tissuePath.quadraticBezierTo(
       center.dx,
-      center.dy + 10,
-      center.dx + 45,
-      center.dy + 20,
+      center.dy + 10.h,
+      center.dx + 45.w,
+      center.dy + 20.h,
     );
-    tissuePath.lineTo(center.dx + 25, center.dy + 110);
-    tissuePath.lineTo(center.dx - 25, center.dy + 110);
+    tissuePath.lineTo(center.dx + 25.w, center.dy + 110.h);
+    tissuePath.lineTo(center.dx - 25.w, center.dy + 110.h);
     tissuePath.close();
     canvas.drawPath(tissuePath, tissuePaint);
 
@@ -285,23 +286,23 @@ class MasterpieceBouquetPainter extends CustomPainter {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [AppColors.pink20, AppColors.pink30.withValues(alpha: 0.9)],
-      ).createShader(Rect.fromLTWH(center.dx - 40, center.dy + 35, 80, 80));
+      ).createShader(Rect.fromLTWH(center.dx - 40.w, center.dy + 35.h, 80.w, 80.h));
 
     final wrapPath = Path();
-    wrapPath.moveTo(center.dx - 40, center.dy + 35);
-    wrapPath.lineTo(center.dx + 40, center.dy + 35);
+    wrapPath.moveTo(center.dx - 40.w, center.dy + 35.h);
+    wrapPath.lineTo(center.dx + 40.w, center.dy + 35.h);
     wrapPath.quadraticBezierTo(
-      center.dx + 35,
-      center.dy + 80,
-      center.dx + 20,
-      center.dy + 115,
+      center.dx + 35.w,
+      center.dy + 80.h,
+      center.dx + 20.w,
+      center.dy + 115.h,
     );
-    wrapPath.lineTo(center.dx - 20, center.dy + 115);
+    wrapPath.lineTo(center.dx - 20.w, center.dy + 115.h);
     wrapPath.quadraticBezierTo(
-      center.dx - 35,
-      center.dy + 80,
-      center.dx - 40,
-      center.dy + 35,
+      center.dx - 35.w,
+      center.dy + 80.h,
+      center.dx - 40.w,
+      center.dy + 35.h,
     );
     canvas.drawPath(wrapPath, wrapPaint);
 
@@ -309,10 +310,10 @@ class MasterpieceBouquetPainter extends CustomPainter {
     final shadowPaint = Paint()
       ..color = Colors.black.withValues(alpha: 0.1)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
+      ..strokeWidth = 2.w;
     canvas.drawLine(
-      Offset(center.dx, center.dy + 35),
-      Offset(center.dx, center.dy + 115),
+      Offset(center.dx, center.dy + 35.h),
+      Offset(center.dx, center.dy + 115.h),
       shadowPaint,
     );
 
@@ -323,18 +324,18 @@ class MasterpieceBouquetPainter extends CustomPainter {
     final tValue = (bouquetValue * 1.5).clamp(0.0, 1.0);
     final paint = Paint()
       ..color = const Color(0xFF2E7D32)
-      ..strokeWidth = 2.0
+      ..strokeWidth = 2.0.w
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
-    final base = center + const Offset(0, 110);
+    final base = center + Offset(0, 110.h);
 
     final stemPoints = [
-      Offset(center.dx, center.dy - 30),
-      Offset(center.dx - 40, center.dy - 10),
-      Offset(center.dx + 40, center.dy - 10),
-      Offset(center.dx - 25, center.dy - 50),
-      Offset(center.dx + 25, center.dy - 50),
+      Offset(center.dx, center.dy - 30.h),
+      Offset(center.dx - 40.w, center.dy - 10.h),
+      Offset(center.dx + 40.w, center.dy - 10.h),
+      Offset(center.dx - 25.w, center.dy - 50.h),
+      Offset(center.dx + 25.w, center.dy - 50.h),
     ];
 
     for (var i = 0; i < stemPoints.length; i++) {
@@ -348,7 +349,7 @@ class MasterpieceBouquetPainter extends CustomPainter {
         );
         path.quadraticBezierTo(
           center.dx + (stemPoints[i].dx - center.dx) * 0.5,
-          center.dy + 40,
+          center.dy + 40.h,
           endPoint.dx,
           endPoint.dy,
         );
@@ -363,11 +364,11 @@ class MasterpieceBouquetPainter extends CustomPainter {
     if (leafProgress <= 0) return;
 
     final positions = [
-      Offset(center.dx - 30, center.dy + 20),
-      Offset(center.dx + 30, center.dy + 20),
-      Offset(center.dx - 50, center.dy + 40),
-      Offset(center.dx + 50, center.dy + 40),
-      Offset(center.dx, center.dy + 50),
+      Offset(center.dx - 30.w, center.dy + 20.h),
+      Offset(center.dx + 30.w, center.dy + 20.h),
+      Offset(center.dx - 50.w, center.dy + 40.h),
+      Offset(center.dx + 50.w, center.dy + 40.h),
+      Offset(center.dx, center.dy + 50.h),
     ];
 
     for (int i = 0; i < positions.length; i++) {
@@ -382,15 +383,15 @@ class MasterpieceBouquetPainter extends CustomPainter {
 
         final leafPath = Path();
         leafPath.moveTo(0, 0);
-        leafPath.quadraticBezierTo(10, -10, 20, 0);
-        leafPath.quadraticBezierTo(10, 10, 0, 0);
+        leafPath.quadraticBezierTo(10.w, -10.h, 20.w, 0);
+        leafPath.quadraticBezierTo(10.w, 10.h, 0, 0);
         canvas.drawPath(leafPath, paint);
 
         // Leaf vein
         final veinPaint = Paint()
           ..color = Colors.black.withValues(alpha: 0.1)
-          ..strokeWidth = 1;
-        canvas.drawLine(const Offset(0, 0), const Offset(18, 0), veinPaint);
+          ..strokeWidth = 1.w;
+        canvas.drawLine(const Offset(0, 0), Offset(18.w, 0), veinPaint);
 
         canvas.restore();
       }
@@ -404,13 +405,13 @@ class MasterpieceBouquetPainter extends CustomPainter {
       );
       if (fillerScale > 0) {
         final angle = i * (math.pi * 2 / 8);
-        final r = 60.0;
+        final r = 60.0.r;
         canvas.drawCircle(
           Offset(
             center.dx + math.cos(angle) * r,
-            center.dy + math.sin(angle) * r - 20,
+            center.dy + math.sin(angle) * r - 20.h,
           ),
-          2 * fillerScale,
+          2.r * fillerScale,
           fillerPaint,
         );
       }
@@ -421,41 +422,41 @@ class MasterpieceBouquetPainter extends CustomPainter {
     // 1. Central Grand Rose (The Star)
     _drawBloomedRose(
       canvas,
-      center + const Offset(0, -35),
+      center + Offset(0, -35.h),
       AppColors.primary,
-      28,
+      28.r,
       bouquetValue,
     );
 
     // 2. Elegant Peonies
     _drawPeony(
       canvas,
-      center + const Offset(-45, -15),
+      center + Offset(-45.w, -15.h),
       AppColors.pink40,
-      20,
+      20.r,
       (bouquetValue - 0.2) * 1.2,
     );
     _drawPeony(
       canvas,
-      center + const Offset(45, -15),
+      center + Offset(45.w, -15.h),
       AppColors.pink40,
-      20,
+      20.r,
       (bouquetValue - 0.3) * 1.2,
     );
 
     // 3. Delicate Lillies
     _drawLily(
       canvas,
-      center + const Offset(-30, -65),
+      center + Offset(-30.w, -65.h),
       AppColors.pink20,
-      15,
+      15.r,
       (bouquetValue - 0.4) * 1.5,
     );
     _drawLily(
       canvas,
-      center + const Offset(30, -65),
+      center + Offset(30.w, -65.h),
       AppColors.pink20,
-      15,
+      15.r,
       (bouquetValue - 0.5) * 1.5,
     );
   }
@@ -571,7 +572,7 @@ class MasterpieceBouquetPainter extends CustomPainter {
 
   void _paintSatinRibbon(Canvas canvas, Offset center) {
     final t = Curves.bounceOut.transform(ribbonValue);
-    final pos = center + const Offset(0, 85);
+    final pos = center + Offset(0, 85.h);
 
     canvas.save();
     canvas.translate(pos.dx, pos.dy);
@@ -580,41 +581,41 @@ class MasterpieceBouquetPainter extends CustomPainter {
     final ribbonPaint = Paint()
       ..shader = const LinearGradient(
         colors: [AppColors.primary, Color(0xFFE91E63)],
-      ).createShader(const Rect.fromLTWH(-30, -10, 60, 20));
+      ).createShader(Rect.fromLTWH(-30.w, -10.h, 60.w, 20.h));
 
     // Bow Loops (Large & Fluid)
     final bowPath = Path();
     bowPath.moveTo(0, 0);
     // Left loop
-    bowPath.cubicTo(-40, -30, -40, 30, 0, 0);
+    bowPath.cubicTo(-40.w, -30.h, -40.w, 30.h, 0, 0);
     // Right loop
-    bowPath.cubicTo(40, -30, 40, 30, 0, 0);
+    bowPath.cubicTo(40.w, -30.h, 40.w, 30.h, 0, 0);
     canvas.drawPath(bowPath, ribbonPaint);
 
     // Ribbons Tails
     final tailPath = Path();
-    tailPath.moveTo(-5, 5);
-    tailPath.lineTo(-20, 35);
-    tailPath.moveTo(5, 5);
-    tailPath.lineTo(20, 35);
+    tailPath.moveTo(-5.w, 5.h);
+    tailPath.lineTo(-20.w, 35.h);
+    tailPath.moveTo(5.w, 5.h);
+    tailPath.lineTo(20.w, 35.h);
     canvas.drawPath(
       tailPath,
       Paint()
         ..color = AppColors.primary
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 8
+        ..strokeWidth = 8.w
         ..strokeCap = StrokeCap.round,
     );
 
     // Center Pearl
-    canvas.drawCircle(Offset.zero, 8, ribbonPaint);
+    canvas.drawCircle(Offset.zero, 8.r, ribbonPaint);
     canvas.drawCircle(
       Offset.zero,
-      8,
+      8.r,
       Paint()
         ..color = Colors.white.withValues(alpha: 0.2)
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 2,
+        ..strokeWidth = 2.w,
     );
 
     canvas.restore();
@@ -631,8 +632,8 @@ class MasterpieceBouquetPainter extends CustomPainter {
 
         canvas.save();
         canvas.translate(
-          center.dx + (random.nextDouble() - 0.5) * 220,
-          center.dy + (random.nextDouble() - 0.6) * 240,
+          center.dx + (random.nextDouble() - 0.5) * 220.w,
+          center.dy + (random.nextDouble() - 0.6) * 240.h,
         );
         canvas.scale(scale);
 
@@ -640,9 +641,9 @@ class MasterpieceBouquetPainter extends CustomPainter {
           ..color = (i % 2 == 0 ? AppColors.primary : Colors.white).withValues(
             alpha: opacity,
           )
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1);
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, 1.r);
 
-        _drawSpark(canvas, 10 + random.nextDouble() * 8, paint);
+        _drawSpark(canvas, (10 + random.nextDouble() * 8).r, paint);
         canvas.restore();
       }
     }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
@@ -10,7 +11,7 @@ import 'package:flowers_app/features/auth/forgot-password/presentation/view_mode
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   final String email;
@@ -79,37 +80,43 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           ),
           title: Text(
             AppStrings.password.tr(),
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
           ),
         ),
         body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Form(
             key: resetFormKey,
             child: Column(
               children: [
-                SizedBox(height: 24),
+                SizedBox(height: 24.h),
 
                 /// Title
                 Text(
                   AppStrings.resetPasswordTitle.tr(),
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                   textAlign: TextAlign.center,
                 ),
 
-                SizedBox(height: 8),
+                SizedBox(height: 8.h),
 
                 /// Subtitle
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Text(
                     AppStrings.resetPasswordSubtitle.tr(),
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
 
-                SizedBox(height: 32),
+                SizedBox(height: 32.h),
 
                 /// New Password
                 TextFormField(
@@ -120,13 +127,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     label: Text(
                       AppStrings.newPassword.tr(),
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     floatingLabelStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -137,7 +144,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   validator: (value) => AppValidations.validatePassword(value),
                 ),
 
-                SizedBox(height: 24),
+                SizedBox(height: 24.h),
 
                 /// Confirm Password
                 TextFormField(
@@ -148,13 +155,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     label: Text(
                       AppStrings.confirmPassword.tr(),
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     floatingLabelStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -168,7 +175,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ),
                 ),
 
-                SizedBox(height: 40),
+                SizedBox(height: 40.h),
 
                 BlocBuilder<ForgotPasswordViewModel, ForgotPasswordStates>(
                   buildWhen: (previous, current) {
@@ -179,7 +186,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     log("**********verfiey code builder********");
                     return SizedBox(
                       width: double.infinity,
-                      height: 56,
+                      height: 56.h,
                       child: ElevatedButton(
                         onPressed: () {
                           if (resetFormKey.currentState!.validate()) {

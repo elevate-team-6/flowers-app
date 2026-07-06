@@ -5,6 +5,7 @@ import 'package:flowers_app/features/profile/main_profile/presentation/widgets/p
 import 'package:flowers_app/features/profile/main_profile/presentation/widgets/profile_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../core/utils/app_assets.dart';
@@ -37,22 +38,22 @@ class ProfileBody extends StatelessWidget {
               height: constraints.maxHeight,
               child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(48.0),
+                  padding: EdgeInsets.all(48.r),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.error_outline,
-                        size: 60,
+                        size: 60.r,
                         color: AppColors.red,
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       Text(
                         state.profileDataState.errorMessage!,
                         textAlign: TextAlign.center,
                         style: AppTextStyles.black16400,
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
@@ -64,10 +65,10 @@ class ProfileBody extends StatelessWidget {
                         },
                         child: Text(
                           AppStrings.retry.tr(),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.red,
@@ -100,33 +101,41 @@ class ProfileBody extends StatelessWidget {
 
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
         children: [
           ProfileHeader(user: user),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           ProfileMenuItem(
             title: AppStrings.myOrders.tr(),
-            leading: SvgPicture.asset(AppIcons.orders, width: 24, height: 24),
+            leading: SvgPicture.asset(
+              AppIcons.orders,
+              width: 24.w,
+              height: 24.h,
+            ),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.orders);
             },
           ),
-          const SizedBox(height: 5),
+          SizedBox(height: 5.h),
           ProfileMenuItem(
             title: AppStrings.savedAddress.tr(),
-            leading: SvgPicture.asset(AppIcons.location, width: 24, height: 24),
+            leading: SvgPicture.asset(
+              AppIcons.location,
+              width: 24.w,
+              height: 24.h,
+            ),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.savedAddressScreen);
             },
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           const Divider(),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           ProfileMenuItem(
             title: AppStrings.notification.tr(),
             leading: SizedBox(
-              height: 20,
+              height: 20.h,
               child: Switch.adaptive(
                 value: state.isNotificationEnabled,
                 onChanged: (value) {
@@ -140,12 +149,16 @@ class ProfileBody extends StatelessWidget {
               Navigator.pushNamed(context, AppRoutes.notificationScreen);
             },
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           const Divider(),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           ProfileMenuItem(
             title: AppStrings.language.tr(),
-            leading: SvgPicture.asset(AppIcons.language, width: 24, height: 24),
+            leading: SvgPicture.asset(
+              AppIcons.language,
+              width: 24.w,
+              height: 24.h,
+            ),
             onTap: () {
               showModalBottomSheet(
                 context: context,
@@ -156,29 +169,29 @@ class ProfileBody extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(height: 5),
+          SizedBox(height: 5.h),
           ProfileMenuItem(
             title: AppStrings.aboutUs.tr(),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.aboutUsScreen);
             },
           ),
-          const SizedBox(height: 5),
+          SizedBox(height: 5.h),
           ProfileMenuItem(
             title: AppStrings.termsAndConditions.tr(),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.termsAndConditions);
             },
           ),
-          const SizedBox(height: 5),
+          SizedBox(height: 5.h),
           const Divider(),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           ProfileMenuItem(
             title: AppStrings.logout.tr(),
             trailing: SvgPicture.asset(
               AppIcons.logout,
-              width: 28,
-              height: 28,
+              width: 28.w,
+              height: 28.h,
               colorFilter: const ColorFilter.mode(
                 AppColors.red,
                 BlendMode.srcIn,
@@ -194,12 +207,12 @@ class ProfileBody extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           Text(
             AppStrings.version.tr(),
-            style: AppTextStyles.gray14400.copyWith(fontSize: 11),
+            style: AppTextStyles.gray14400.copyWith(fontSize: 11.sp),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
         ],
       ),
     );

@@ -55,10 +55,10 @@ class AddressMapPreview extends StatelessWidget {
                           point: selectedLocation!,
                           width: 40.r,
                           height: 40.r,
-                          child: const Icon(
+                          child: Icon(
                             Icons.location_on,
                             color: AppColors.error,
-                            size: 40,
+                            size: 40.r,
                           ),
                         ),
                       ],

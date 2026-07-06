@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/validations/app_validations.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
@@ -11,7 +12,7 @@ import 'package:flowers_app/features/auth/forgot-password/presentation/view_mode
 import 'package:flowers_app/features/auth/forgot-password/presentation/view_model/states/forgot_password_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -77,25 +78,25 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             children: [
-              SizedBox(height: 24),
+              SizedBox(height: 24.h),
               Text(
                 AppStrings.forgetPasswordTitle.tr(),
                 style: AppTextStyles.black18500,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 44),
+                padding: EdgeInsets.symmetric(horizontal: 44.w),
                 child: Text(
                   AppStrings.forgetPasswordSubtitle.tr(),
                   style: AppTextStyles.black14400,
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 32),
+              SizedBox(height: 32.h),
               Form(
                 key: emailFormKey,
                 child: Column(
@@ -119,7 +120,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           FocusManager.instance.primaryFocus?.unfocus(),
                       onChanged: (_) {},
                     ),
-                    SizedBox(height: 50),
+                    SizedBox(height: 50.h),
                     BlocBuilder<ForgotPasswordViewModel, ForgotPasswordStates>(
                       buildWhen: (previous, current) {
                         return previous.forgotPasswordState !=

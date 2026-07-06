@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
@@ -5,7 +6,7 @@ import 'package:flowers_app/features/home/presentation/widgets/home_common_heade
 import 'package:flowers_app/features/home/presentation/widgets/occasion_card.dart';
 import 'package:flowers_app/features/home/presentation/widgets/occasions_home_shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OccasionsHomeSection extends StatelessWidget {
   final HomeStates state;
@@ -23,7 +24,7 @@ class OccasionsHomeSection extends StatelessWidget {
 
     if (occasionsState.errorMessage != null) {
       return SizedBox(
-        height: 230,
+        height: 230.h,
         child: Center(child: Text(occasionsState.errorMessage!)),
       );
     }
@@ -32,7 +33,7 @@ class OccasionsHomeSection extends StatelessWidget {
 
     if (occasions.isEmpty) {
       return SizedBox(
-        height: 230,
+        height: 230.h,
         child: Center(child: Text(AppStrings.noOccasionsAvailable.tr())),
       );
     }
@@ -46,15 +47,15 @@ class OccasionsHomeSection extends StatelessWidget {
             Navigator.of(context).pushNamed(AppRoutes.occasions);
           },
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         SizedBox(
-          height: 210,
+          height: 210.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             physics: const BouncingScrollPhysics(),
             itemCount: occasions.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 12),
+            separatorBuilder: (_, _) => SizedBox(width: 12.w),
             itemBuilder: (context, index) {
               final occasion = occasions[index];
               return OccasionCard(

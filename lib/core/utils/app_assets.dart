@@ -26,6 +26,7 @@ abstract class AppIcons {
   static const String orders = '${_iconsPath}orders_icon.svg';
   static const String logout = '${_iconsPath}logout_icon.svg';
   static const String time = '${_iconsPath}time.svg';
+  static const String success = '${_iconsPath}success.svg';
   static const String deliveryBoy = '${_iconsPath}delivery_boy_icon.png';
   static const String phoneCall = '${_iconsPath}phone_call_icon.png';
   static const String whatsApp = '${_iconsPath}whatsapp_icon.png';

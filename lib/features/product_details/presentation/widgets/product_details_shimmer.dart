@@ -94,7 +94,7 @@ class ProductDetailsShimmer extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(radius),
+          borderRadius: BorderRadius.circular(radius.r),
         ),
       ),
     );

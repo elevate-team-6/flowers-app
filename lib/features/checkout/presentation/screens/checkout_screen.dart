@@ -5,6 +5,10 @@ import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
+import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
+import 'package:flowers_app/features/address_details/presentation/view_model/address_details_event.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_event.dart';
@@ -34,10 +38,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final phoneController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
+  @override
   void initState() {
     super.initState();
 
     context.read<CheckoutCubit>().doEvent(LoadDeliveryDaysEvent());
+
+    context.read<AddressCubit>().doEvent(GetAddressesEvent());
+
+    context.read<AddressDetailsCubit>().doEvent(
+      InitializeAddressDetailsEvent(),
+    );
   }
 
   @override
@@ -72,7 +83,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           if (!context.mounted) return;
           Navigator.pushNamedAndRemoveUntil(
             context,
-            AppRoutes.mainLayout,
+            AppRoutes.success,
             (route) => false,
           );
         }
@@ -93,7 +104,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               if (!context.mounted) return;
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                AppRoutes.mainLayout,
+                AppRoutes.success,
                 (route) => false,
               );
               return;
@@ -128,15 +139,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 state.cardCheckoutState.isLoading;
             return SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.all(16.r),
                 child: Column(
                   children: [
                     CheckoutDeliverySection(deliveryDays: state.deliveryDays),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24.h),
                       child: Divider(
-                        height: 24,
-                        thickness: 24,
+                        height: 24.h,
+                        thickness: 24.h,
                         color: AppColors.gray10,
                       ),
                     ),
@@ -144,22 +155,31 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.white,
-                        side: const BorderSide(
-                          color: AppColors.primary,
-                          width: 2,
-                        ),
+                        side: BorderSide(color: AppColors.primary, width: 2.w),
                       ),
-                      onPressed: () {
-                        Navigator.pushNamed(
+                      onPressed: () async {
+                        final result = await Navigator.pushNamed(
                           context,
                           AppRoutes.addAddressScreen,
                         );
+
+                        if (!context.mounted) return;
+
+                        if (result == true) {
+                          context.read<AddressCubit>().doEvent(
+                            GetAddressesEvent(),
+                          );
+
+                          context.read<AddressDetailsCubit>().doEvent(
+                            InitializeAddressDetailsEvent(),
+                          );
+                        }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(Icons.add, color: AppColors.primary),
-                          const SizedBox(width: 8),
+                          SizedBox(width: 8.w),
                           Text(
                             AppStrings.addNew.tr(),
                             style: AppTextStyles.primary14500,
@@ -167,20 +187,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24.h),
                       child: Divider(
-                        height: 24,
-                        thickness: 24,
+                        height: 24.h,
+                        thickness: 24.h,
                         color: AppColors.gray10,
                       ),
                     ),
                     CheckoutPaymentSection(state: state),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24.h),
                       child: Divider(
-                        height: 24,
-                        thickness: 24,
+                        height: 24.h,
+                        thickness: 24.h,
                         color: AppColors.gray10,
                       ),
                     ),

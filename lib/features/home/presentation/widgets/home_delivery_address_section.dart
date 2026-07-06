@@ -43,20 +43,22 @@ class HomeDeliveryAddressSection extends StatelessWidget {
                   child: selectedAddress == null
                       ? TextButton(
                           onPressed: () async {
-                            await Navigator.pushNamed(
+                            final result = await Navigator.pushNamed(
                               context,
                               AppRoutes.addAddressScreen,
                             );
 
                             if (!context.mounted) return;
 
-                            context.read<AddressCubit>().doEvent(
-                              GetAddressesEvent(),
-                            );
+                            if (result == true) {
+                              context.read<AddressCubit>().doEvent(
+                                GetAddressesEvent(),
+                              );
 
-                            context.read<AddressDetailsCubit>().doEvent(
-                              InitializeAddressDetailsEvent(),
-                            );
+                              context.read<AddressDetailsCubit>().doEvent(
+                                InitializeAddressDetailsEvent(),
+                              );
+                            }
                           },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/categories_shimmer.dart';
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
@@ -7,7 +8,7 @@ import 'package:flowers_app/features/main_layout/presentation/cubit/main_layout_
 import 'package:flowers_app/features/main_layout/presentation/cubit/main_layout_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoriesHomeSection extends StatelessWidget {
   final HomeStates state;
@@ -24,7 +25,7 @@ class CategoriesHomeSection extends StatelessWidget {
 
     if (categoriesState.errorMessage != null) {
       return SizedBox(
-        height: 90,
+        height: 90.h,
         child: Center(
           child: Text(
             categoriesState.errorMessage!,
@@ -38,7 +39,7 @@ class CategoriesHomeSection extends StatelessWidget {
 
     if (categories == null || categories.isEmpty) {
       return SizedBox(
-        height: 90,
+        height: 90.h,
         child: Center(child: Text(AppStrings.noCategoriesAvailable.tr())),
       );
     }
@@ -52,15 +53,15 @@ class CategoriesHomeSection extends StatelessWidget {
             context.read<MainLayoutCubit>().doEvent(ChangeIndexEvent(1));
           },
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         SizedBox(
-          height: 90,
+          height: 90.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             physics: const BouncingScrollPhysics(),
             itemCount: categories.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 16),
+            separatorBuilder: (_, _) => SizedBox(width: 16.w),
             itemBuilder: (context, index) {
               final category = categories[index];
               return CategoryCard(
