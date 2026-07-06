@@ -261,5 +261,22 @@
   "skip": "تخطي",
   "get_started": "ابدأ الآن 🌸",
   "success": "تم بنجاح!",
-  "oops": "عذراً!"
+  "oops": "عذراً!",
+
+  "estimated_arrival": "الوصول المتوقع",
+  "delivery_hero": "بطل التوصيل بتاعك النهارده",
+  "received_your_order": "استلمنا طلبك",
+  "preparing_your_order": "بنجهّز طلبك",
+  "out_for_delivery": "خرج للتوصيل",
+  "delivered_step": "تم التوصيل",
+  "show_map": "عرض الخريطة",
+  "order_delivered": "تم توصيل الطلب",
+  "order_details": "تفاصيل الطلب",
+  "order_canceled": "تم إلغاء طلبك",
+  "could_not_open_app": "تعذّر فتح التطبيق",
+  "loading_route": "جارٍ تحميل الطريق…",
+  "no_rider_yet": "في انتظار تعيين بطل توصيل",
+  "store_label": "Flowery",
+  "delivery_label": "التوصيل",
+  "apartment_label": "المنزل"
 }

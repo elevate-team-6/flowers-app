@@ -92,7 +92,7 @@ void main() {
       // Setup Firestore mocks
       when(mockFirestore.collection(any)).thenReturn(mockCollectionReference);
       when(mockCollectionReference.doc(any)).thenReturn(mockDocumentReference);
-      when(mockDocumentReference.set(any)).thenAnswer((_) async => {});
+      when(mockDocumentReference.set(any, any)).thenAnswer((_) async => {});
 
       when(remoteDataSource.cashCheckout(any)).thenAnswer(
         (_) async => SuccessBaseResponse(
@@ -115,17 +115,21 @@ void main() {
       // Verify Firestore calls
       verify(mockFirestore.collection(AppConstants.ordersCollection)).called(1);
       verify(mockCollectionReference.doc(order.id)).called(1);
-      final captured =
-          verify(mockDocumentReference.set(captureAny)).captured.single
-              as Map<String, dynamic>;
+      final capturedArgs =
+          verify(mockDocumentReference.set(captureAny, captureAny)).captured;
+      final captured = capturedArgs[0] as Map<String, dynamic>;
+      final options = capturedArgs[1] as SetOptions;
 
+      // العقد: كل الكتابات بـ SetOptions(merge:true) عشان ما تمسحش حقول الرايدر.
+      expect(options.merge, isTrue);
       expect(captured[AppConstants.orderIdField], order.id);
       expect(captured[AppConstants.orderNumberField], order.orderNumber);
       expect(captured[AppConstants.userIdField], order.userId);
-      expect(captured[AppConstants.statusField], 'pending');
-      expect(captured[AppConstants.riderIdField], null);
-      expect(captured[AppConstants.riderNameField], null);
-      expect(captured[AppConstants.riderPhoneField], null);
+      // status وبيانات الرايدر الرايدر هو اللي بيكتبها — العميل مبيكتبهاش.
+      expect(captured.containsKey(AppConstants.statusField), isFalse);
+      expect(captured.containsKey(AppConstants.riderIdField), isFalse);
+      expect(captured.containsKey(AppConstants.riderNameField), isFalse);
+      expect(captured.containsKey(AppConstants.riderPhoneField), isFalse);
       expect(captured[AppConstants.shippingAddressField], {
         AppConstants.streetField: 'street',
         AppConstants.phoneField: '010',

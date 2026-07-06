@@ -13,7 +13,10 @@ import 'package:flowers_app/features/auth/signup/presentation/view_model/signup_
 import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/checkout/presentation/screens/checkout_screen.dart';
-import 'package:flowers_app/features/checkout/presentation/screens/success_screen.dart';
+import 'package:flowers_app/features/track_order/presentation/screens/success_screen.dart';
+import 'package:flowers_app/features/track_order/presentation/screens/order_tracking_screen.dart';
+import 'package:flowers_app/features/track_order/presentation/screens/order_map_screen.dart';
+import 'package:flowers_app/features/track_order/presentation/view_model/track_order_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/widgets/payment_webview.dart';
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
@@ -77,6 +80,8 @@ abstract class AppRoutes {
   static const String editProfile = '/editProfile';
   static const String checkout = '/checkout';
   static const String success = '/succes';
+  static const String orderTracking = '/orderTracking';
+  static const String orderMap = '/orderMap';
   static const String paymentWebView = 'paymentWebView';
   static const String orders = '/orders';
   static const String search = '/search';
@@ -92,7 +97,28 @@ abstract class AppRoutes {
       case language:
         return MaterialPageRoute(builder: (_) => const LanguageScreen());
       case success:
-        return MaterialPageRoute(builder: (_) => const SuccessScreen());
+        final orderId = settings.arguments as String?;
+        return MaterialPageRoute(
+          builder: (_) => SuccessScreen(orderId: orderId),
+        );
+
+      case orderTracking:
+        final orderId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<TrackOrderCubit>()..watch(orderId),
+            child: OrderTrackingScreen(orderId: orderId),
+          ),
+        );
+
+      case orderMap:
+        final orderId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<TrackOrderCubit>()..watch(orderId),
+            child: const OrderMapScreen(),
+          ),
+        );
 
       case mainLayout:
         return MaterialPageRoute(

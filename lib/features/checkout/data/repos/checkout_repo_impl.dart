@@ -46,6 +46,9 @@ class CheckoutRepoImpl implements CheckoutRepoContract {
         if (orderModel != null) {
           try {
             // --- تخزين الأوردر في Firestore ---
+            // نكتب بس حقول العميل. حالة الأوردر (status) وبيانات الرايدر
+            // (riderId/riderName/riderPhone) الرايدر هو اللي بيكتبها، فـ merge:true
+            // بيحافظ عليها ومبيمسحهاش لو الرايدر سبقنا وكتبها.
             await _firestore
                 .collection(AppConstants.ordersCollection)
                 .doc(orderModel.id)
@@ -53,10 +56,6 @@ class CheckoutRepoImpl implements CheckoutRepoContract {
                   AppConstants.orderIdField: orderModel.id,
                   AppConstants.orderNumberField: orderModel.orderNumber,
                   AppConstants.userIdField: orderModel.userId,
-                  AppConstants.statusField: 'pending',
-                  AppConstants.riderIdField: null,
-                  AppConstants.riderNameField: null,
-                  AppConstants.riderPhoneField: null,
                   AppConstants.shippingAddressField: {
                     AppConstants.streetField: request.street,
                     AppConstants.phoneField: request.phone,
@@ -65,7 +64,7 @@ class CheckoutRepoImpl implements CheckoutRepoContract {
                     AppConstants.longField: request.long,
                   },
                   AppConstants.createdAtField: FieldValue.serverTimestamp(),
-                });
+                }, SetOptions(merge: true));
           } catch (e) {
             debugPrint("Error saving order to Firestore: $e");
           }

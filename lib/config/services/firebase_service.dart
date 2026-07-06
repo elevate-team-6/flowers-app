@@ -11,6 +11,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../core/utils/app_constants.dart';
 import '../../core/utils/app_keys.dart';
+import '../../core/utils/app_routes.dart';
 // ignore: uri_does_not_exist
 import '../../firebase_options.dart';
 import '../cache/secure_cache_helper.dart';
@@ -54,6 +55,13 @@ class FirebaseService {
 
     await _initLocalNotifications();
     await _initNotificationListeners();
+    await syncFcmToken();
+
+    // فتح بارد: التطبيق كان مقفول واتفتح من إشعار.
+    final initialMessage = await _messaging.getInitialMessage();
+    if (initialMessage != null) {
+      _handleMessageNavigation(initialMessage);
+    }
   }
 
   Future<void> _initLocalNotifications() async {
@@ -65,6 +73,12 @@ class FirebaseService {
 
     await _localNotificationsPlugin.initialize(
       settings: initializationSettings,
+      onDidReceiveNotificationResponse: (response) {
+        final orderId = response.payload;
+        if (orderId != null && orderId.isNotEmpty) {
+          _navigateToTracking(orderId);
+        }
+      },
     );
 
     await _localNotificationsPlugin
@@ -93,7 +107,9 @@ class FirebaseService {
         await _firestore
             .collection(AppConstants.usersCollection)
             .doc(userId)
-            .update({AppConstants.fcmTokenField: newToken});
+            .set({
+              AppConstants.fcmTokenField: newToken,
+            }, SetOptions(merge: true));
       }
     });
 
@@ -101,9 +117,45 @@ class FirebaseService {
       _showForegroundNotification(message);
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      //todo: Navigate to the tracking screen with order id form message data
-    });
+    // التطبيق في الخلفية واتفتح بالضغط على الإشعار.
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessageNavigation);
+  }
+
+  /// يكتب الـ fcmToken الحالي للجهاز في users/{userId} (merge) عشان الرايدر
+  /// يقدر يبعت إشعارات. تُستدعى عند الإقلاع وبعد تسجيل الدخول.
+  Future<void> syncFcmToken() async {
+    try {
+      final userId = await getIt<SecureCacheHelper>().readData(
+        key: AppKeys.userIdKey,
+      );
+      if (userId == null || userId.isEmpty) return;
+
+      final token = await _messaging.getToken();
+      if (token == null) return;
+
+      await _firestore
+          .collection(AppConstants.usersCollection)
+          .doc(userId)
+          .set({AppConstants.fcmTokenField: token}, SetOptions(merge: true));
+      log("Firestore: fcmToken synced for user $userId");
+    } catch (e) {
+      log("Error syncing fcmToken: $e");
+    }
+  }
+
+  /// يقرأ orderId من data payload وينقل لشاشة تتبع الأوردر.
+  void _handleMessageNavigation(RemoteMessage message) {
+    final orderId = message.data[AppConstants.orderIdField];
+    if (orderId is String && orderId.isNotEmpty) {
+      _navigateToTracking(orderId);
+    }
+  }
+
+  void _navigateToTracking(String orderId) {
+    AppRoutes.navigatorKey.currentState?.pushNamed(
+      AppRoutes.orderTracking,
+      arguments: orderId,
+    );
   }
 
   void _showForegroundNotification(RemoteMessage message) {
@@ -115,6 +167,7 @@ class FirebaseService {
         id: notification.hashCode,
         title: notification.title,
         body: notification.body,
+        payload: message.data[AppConstants.orderIdField]?.toString(),
         notificationDetails: NotificationDetails(
           android: AndroidNotificationDetails(
             _channel.id,
@@ -139,7 +192,9 @@ class FirebaseService {
         await _firestore
             .collection(AppConstants.usersCollection)
             .doc(userId)
-            .update({AppConstants.languageField: languageCode});
+            .set({
+              AppConstants.languageField: languageCode,
+            }, SetOptions(merge: true));
         log("Firestore: Language updated to $languageCode");
       } catch (e) {
         log("Error updating Firestore language: $e");
