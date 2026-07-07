@@ -5,6 +5,7 @@ import 'package:flowers_app/features/home/presentation/view_model/states/home_st
 import 'package:flowers_app/features/home/presentation/widgets/home_common_header_section.dart';
 import 'package:flowers_app/features/home/presentation/widgets/occasion_card.dart';
 import 'package:flowers_app/features/home/presentation/widgets/occasions_home_shimmer.dart';
+import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -34,7 +35,11 @@ class OccasionsHomeSection extends StatelessWidget {
     if (occasions.isEmpty) {
       return SizedBox(
         height: 230.h,
-        child: Center(child: Text(AppStrings.noOccasionsAvailable.tr())),
+        child: CustomEmptyStateView(
+          message: AppStrings.noOccasionsAvailable.tr(),
+          subtitle: AppStrings.noOccasionsAvailableSubtitle.tr(),
+          imageSize: 100.w,
+        ),
       );
     }
 
