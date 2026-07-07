@@ -16,8 +16,13 @@ import 'package:injectable/injectable.dart';
 class LoginRepoImpl implements LoginRepoContract {
   final LoginRemoteDataSourceContract _loginRemoteDataSource;
   final FirebaseFirestore _firestore;
+  final FirebaseMessaging _messaging;
 
-  const LoginRepoImpl(this._loginRemoteDataSource, this._firestore);
+  const LoginRepoImpl(
+    this._loginRemoteDataSource,
+    this._firestore,
+    this._messaging,
+  );
   @override
   Future<BaseResponse<UserEntity>> login(LoginRequest request) async {
     final response = await _loginRemoteDataSource.login(request);
@@ -31,7 +36,7 @@ class LoginRepoImpl implements LoginRepoContract {
 
         // --- تحديث بيانات اليوزر والـ FCM Token في Firestore ---
         try {
-          String? fcmToken = await FirebaseMessaging.instance.getToken();
+          String? fcmToken = await _messaging.getToken();
           await _firestore
               .collection(AppConstants.usersCollection)
               .doc(user.id)
