@@ -35,9 +35,7 @@ class TrackingRemoteDataSourceImpl implements TrackingRemoteDataSourceContract {
             handleData: (snapshot, sink) {
               if (!snapshot.exists || snapshot.data() == null) {
                 sink.add(
-                  ErrorBaseResponse<TrackingModel>(
-                    AppStrings.notFound.tr(),
-                  ),
+                  ErrorBaseResponse<TrackingModel>(AppStrings.notFound.tr()),
                 );
                 return;
               }
@@ -51,11 +49,7 @@ class TrackingRemoteDataSourceImpl implements TrackingRemoteDataSourceContract {
                   'riderLocation=${data[AppConstants.riderLocationField]} '
                   '(type: ${data[AppConstants.riderLocationField].runtimeType})',
                 );
-                sink.add(
-                  SuccessBaseResponse(
-                    TrackingModel.fromJson(data),
-                  ),
-                );
+                sink.add(SuccessBaseResponse(TrackingModel.fromJson(data)));
               } catch (_) {
                 sink.add(
                   ErrorBaseResponse<TrackingModel>(
@@ -66,9 +60,7 @@ class TrackingRemoteDataSourceImpl implements TrackingRemoteDataSourceContract {
             },
             handleError: (error, stackTrace, sink) {
               sink.add(
-                ErrorBaseResponse<TrackingModel>(
-                  AppStrings.unknownError.tr(),
-                ),
+                ErrorBaseResponse<TrackingModel>(AppStrings.unknownError.tr()),
               );
             },
           ),

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,7 +5,11 @@ class TrackingActionButton extends StatelessWidget {
   final String iconPath;
   final VoidCallback onTap;
 
-  const TrackingActionButton({super.key, required this.iconPath, required this.onTap});
+  const TrackingActionButton({
+    super.key,
+    required this.iconPath,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {

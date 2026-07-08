@@ -1,4 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart' as fs show GeoPoint, Timestamp;
+import 'package:cloud_firestore/cloud_firestore.dart'
+    as fs
+    show GeoPoint, Timestamp;
 import 'package:equatable/equatable.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/features/tracking/domain/entities/tracking_entity.dart';

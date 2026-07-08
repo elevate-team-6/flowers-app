@@ -115,8 +115,9 @@ void main() {
       // Verify Firestore calls
       verify(mockFirestore.collection(AppConstants.ordersCollection)).called(1);
       verify(mockCollectionReference.doc(order.id)).called(1);
-      final capturedArgs =
-          verify(mockDocumentReference.set(captureAny, captureAny)).captured;
+      final capturedArgs = verify(
+        mockDocumentReference.set(captureAny, captureAny),
+      ).captured;
       final captured = capturedArgs[0] as Map<String, dynamic>;
       final options = capturedArgs[1] as SetOptions;
 

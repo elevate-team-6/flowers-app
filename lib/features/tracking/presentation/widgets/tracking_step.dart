@@ -32,9 +32,7 @@ class TrackingStep extends StatelessWidget {
                   child: Container(
                     width: 2.w,
                     margin: EdgeInsets.symmetric(vertical: 4.h),
-                    color: isCompleted
-                        ? AppColors.primary
-                        : AppColors.white90,
+                    color: isCompleted ? AppColors.primary : AppColors.white90,
                   ),
                 ),
             ],
@@ -58,10 +56,7 @@ class TrackingStep extends StatelessWidget {
                         : AppTextStyles.gray14400,
                   ),
                   SizedBox(height: 4.h),
-                  Text(
-                    subtitle,
-                    style: AppTextStyles.gray12400,
-                  ),
+                  Text(subtitle, style: AppTextStyles.gray12400),
                 ],
               ),
             ),

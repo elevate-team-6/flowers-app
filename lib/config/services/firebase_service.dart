@@ -133,10 +133,10 @@ class FirebaseService {
       final token = await _messaging.getToken();
       if (token == null) return;
 
-      await _firestore
-          .collection(AppConstants.usersCollection)
-          .doc(userId)
-          .set({AppConstants.fcmTokenField: token}, SetOptions(merge: true));
+      await _firestore.collection(AppConstants.usersCollection).doc(userId).set(
+        {AppConstants.fcmTokenField: token},
+        SetOptions(merge: true),
+      );
       log("Firestore: fcmToken synced for user $userId");
     } catch (e) {
       log("Error syncing fcmToken: $e");

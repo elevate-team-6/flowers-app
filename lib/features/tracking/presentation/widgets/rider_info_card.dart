@@ -72,7 +72,6 @@ class RiderInfoCard extends StatelessWidget {
           TrackingActionButton(
             iconPath: AppIcons.phoneCall,
             onTap: () {
-              
               ExternalLauncherService.makePhoneCall(
                 context: context,
                 phone: riderPhone ?? '',
@@ -87,7 +86,6 @@ class RiderInfoCard extends StatelessWidget {
                 context: context,
                 phone: riderPhone ?? '',
               );
-
             },
           ),
         ],

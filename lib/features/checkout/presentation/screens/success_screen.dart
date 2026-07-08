@@ -44,10 +44,7 @@ class SuccessScreen extends StatelessWidget {
                     arguments: orderId,
                   );
                 } else {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    AppRoutes.mainLayout,
-                  );
+                  Navigator.pushReplacementNamed(context, AppRoutes.mainLayout);
                 }
               },
               child: Text(AppStrings.trackOrder.tr()),

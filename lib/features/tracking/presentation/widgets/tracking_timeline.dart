@@ -26,10 +26,7 @@ class TrackingTimeline extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-       
-      ),
+      decoration: BoxDecoration(color: AppColors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(steps.length, (index) {

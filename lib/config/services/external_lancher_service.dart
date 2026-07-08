@@ -18,12 +18,12 @@ class ExternalLauncherService {
       );
 
       if (!launched) {
-        if(context.mounted) {
+        if (context.mounted) {
           CustomSnackBar.showErrorMessage('Unable to open WhatsApp.');
         }
       }
     } catch (_) {
-      if(context.mounted) {
+      if (context.mounted) {
         CustomSnackBar.showErrorMessage('Unable to open WhatsApp.');
       }
     }
@@ -33,25 +33,20 @@ class ExternalLauncherService {
     required BuildContext context,
     required String phone,
   }) async {
-    final uri = Uri(
-      scheme: 'tel',
-      path: phone,
-    );
+    final uri = Uri(scheme: 'tel', path: phone);
 
     try {
       final launched = await launchUrl(uri);
 
       if (!launched) {
-        if(context.mounted) {
+        if (context.mounted) {
           CustomSnackBar.showErrorMessage('Unable to open the phone dialer.');
         }
       }
     } catch (_) {
-      if(context.mounted) {
+      if (context.mounted) {
         CustomSnackBar.showErrorMessage('Unable to open the phone dialer.');
       }
     }
   }
-
-  
 }

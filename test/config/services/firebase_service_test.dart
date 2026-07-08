@@ -76,8 +76,9 @@ void main() {
         verify(mockFirestore.collection(AppConstants.usersCollection));
         verify(mockCollection.doc(tUserId));
         // العقد بيطلب SetOptions(merge:true) عشان ما نمسحش حقول التطبيق التاني.
-        final captured =
-            verify(mockDocument.set(captureAny, captureAny)).captured;
+        final captured = verify(
+          mockDocument.set(captureAny, captureAny),
+        ).captured;
         expect(captured[0], {AppConstants.languageField: tLanguageCode});
         expect((captured[1] as SetOptions).merge, isTrue);
       },
