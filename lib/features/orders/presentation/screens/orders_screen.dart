@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/features/orders/domain/entities/order_entity.dart';
 import 'package:flowers_app/features/orders/presentation/view_model/orders_cubit.dart';
@@ -77,24 +76,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   Widget _buildOrdersList(List<OrderEntity> orders, {required bool isActive}) {
     if (orders.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.shopping_bag_outlined,
-              size: 80.sp,
-              color: AppColors.black30,
-            ),
-            SizedBox(height: 16.h),
-            Text(
-              isActive
-                  ? AppStrings.noActiveOrders.tr()
-                  : AppStrings.noCompletedOrders.tr(),
-              style: AppTextStyles.black16400,
-            ),
-          ],
-        ),
+      return CustomEmptyStateView(
+        message: isActive
+            ? AppStrings.noActiveOrders.tr()
+            : AppStrings.noCompletedOrders.tr(),
+        subtitle: isActive
+            ? AppStrings.noActiveOrdersSubtitle.tr()
+            : AppStrings.noCompletedOrdersSubtitle.tr(),
       );
     }
 

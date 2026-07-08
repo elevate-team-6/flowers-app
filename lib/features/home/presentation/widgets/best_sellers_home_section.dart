@@ -5,6 +5,7 @@ import 'package:flowers_app/features/home/presentation/view_model/states/home_st
 import 'package:flowers_app/features/home/presentation/widgets/best_seller_card.dart';
 import 'package:flowers_app/features/home/presentation/widgets/best_seller_home_shimmer.dart';
 import 'package:flowers_app/features/home/presentation/widgets/home_common_header_section.dart';
+import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -33,7 +34,11 @@ class BestSellersHomeSection extends StatelessWidget {
     if (bestSellers.isEmpty) {
       return SizedBox(
         height: 230.h,
-        child: Center(child: Text(AppStrings.noBestSellersAvailable.tr())),
+        child: CustomEmptyStateView(
+          message: AppStrings.noBestSellersAvailable.tr(),
+          subtitle: AppStrings.noBestSellersAvailableSubtitle.tr(),
+          imageSize: 100.w,
+        ),
       );
     }
 

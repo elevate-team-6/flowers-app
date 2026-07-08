@@ -68,6 +68,7 @@
   "clearAll": "Clear All",
   "recentSearches": "Recent Searches",
   "cartEmpty": "Your cart is empty",
+  "emptyCartSubtitle": "Your cart is lonely. Add some flowers to make it happy!",
   "subTotal": "Subtotal",
   "delivery Fee": "Delivery Fee",
   "total": "Total",
@@ -125,6 +126,7 @@
   "search": "Search",
   "all": "All",
   "noProductsFound": "No products found",
+  "noProductsFoundSubtitle": "We couldn't find what you're looking for. Try a different search!",
 
   "occasion": "Occasion",
   "occasionSubtitle": "Flowers for every occasion",
@@ -140,9 +142,12 @@
   "price": "Price",
 
   "noBestSellersAvailable": "No best sellers available",
+  "noBestSellersAvailableSubtitle": "Check back later for our most popular arrangements!",
   "bestSellers": "Best Sellers",
   "noCategoriesAvailable": "No categories available",
+  "noCategoriesAvailableSubtitle": "We are working on adding more categories soon!",
   "noOccasionsAvailable": "No occasions available",
+  "noOccasionsAvailableSubtitle": "Stay tuned for flowers for all your special moments!",
   "subTitleBestSeller": "Our most popular flowers",
 
   "resetPassword": "Reset Password",
@@ -231,7 +236,9 @@
   "order_number": "Order number#",
   "delivered_on": "Delivered on",
   "no_active_orders": "No active orders",
+  "noActiveOrdersSubtitle": "You don't have any active orders right now. Start shopping!",
   "no_completed_orders": "No completed orders",
+  "noCompletedOrdersSubtitle": "Your order history is empty. Time to send some flowers!",
   "userNotFound": "User not found",
   "addressIdRequired": "Address ID is required",
   "address": "Address",

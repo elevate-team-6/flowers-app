@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flowers_app/core/widgets/categories_shimmer.dart';
 import 'package:flowers_app/features/home/presentation/view_model/states/home_states.dart';
 import 'package:flowers_app/features/home/presentation/widgets/category_card.dart';
@@ -40,7 +41,11 @@ class CategoriesHomeSection extends StatelessWidget {
     if (categories == null || categories.isEmpty) {
       return SizedBox(
         height: 90.h,
-        child: Center(child: Text(AppStrings.noCategoriesAvailable.tr())),
+        child: CustomEmptyStateView(
+          message: AppStrings.noCategoriesAvailable.tr(),
+          subtitle: AppStrings.noCategoriesAvailableSubtitle.tr(),
+          imageSize: 60.h,
+        ),
       );
     }
 

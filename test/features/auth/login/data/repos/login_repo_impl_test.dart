@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/core/utils/app_constants.dart';
 import 'package:flowers_app/features/auth/login/data/data_sources/login_remote_data_source_contract.dart';
@@ -18,6 +19,7 @@ import 'login_repo_impl_test.mocks.dart';
   FirebaseFirestore,
   CollectionReference,
   DocumentReference,
+  FirebaseMessaging,
 ])
 void main() {
   late LoginRepoImpl repo;
@@ -25,6 +27,7 @@ void main() {
   late MockFirebaseFirestore mockFirestore;
   late MockCollectionReference<Map<String, dynamic>> mockCollectionReference;
   late MockDocumentReference<Map<String, dynamic>> mockDocumentReference;
+  late MockFirebaseMessaging mockMessaging;
 
   setUpAll(() {
     provideDummy<BaseResponse<LoginResponse>>(
@@ -52,12 +55,14 @@ void main() {
     mockFirestore = MockFirebaseFirestore();
     mockCollectionReference = MockCollectionReference();
     mockDocumentReference = MockDocumentReference();
-    repo = LoginRepoImpl(mockDataSource, mockFirestore);
+    mockMessaging = MockFirebaseMessaging();
+    repo = LoginRepoImpl(mockDataSource, mockFirestore, mockMessaging);
   });
 
   tearDown(() {
     reset(mockDataSource);
     reset(mockFirestore);
+    reset(mockMessaging);
   });
 
   group('LoginRepoImpl Tests', () {
@@ -90,6 +95,7 @@ void main() {
           mockCollectionReference.doc(any),
         ).thenReturn(mockDocumentReference);
         when(mockDocumentReference.set(any, any)).thenAnswer((_) async => {});
+        when(mockMessaging.getToken()).thenAnswer((_) async => 'fcm-token');
 
         when(
           mockDataSource.login(request),

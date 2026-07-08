@@ -4,6 +4,7 @@ import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
 import 'package:flowers_app/features/address_details/presentation/view_model/address_details_event.dart';
@@ -213,22 +214,9 @@ class _CartScreenState extends State<CartScreen> {
             final items = state.cart?.items ?? [];
 
             if (items.isEmpty) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.shopping_cart_outlined,
-                      size: 80.sp,
-                      color: AppColors.black30,
-                    ),
-                    SizedBox(height: 16.h),
-                    Text(
-                      AppStrings.cartEmpty.tr(),
-                      style: AppTextStyles.black16400,
-                    ),
-                  ],
-                ),
+              return CustomEmptyStateView(
+                message: AppStrings.cartEmpty.tr(),
+                subtitle: AppStrings.emptyCartSubtitle.tr(),
               );
             }
 

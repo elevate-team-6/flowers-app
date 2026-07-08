@@ -4,10 +4,10 @@ import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
+import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_bloc.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_event.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_state.dart';
-import 'package:flowers_app/features/search/presentation/widgets/search_empty_state.dart';
 import 'package:flowers_app/features/search/presentation/widgets/search_history_section.dart';
 import 'package:flowers_app/features/search/presentation/widgets/search_top_bar.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +118,10 @@ class _SearchPageState extends State<SearchPage> {
                     );
                   }
 
-                  return const SearchEmptyState();
+                  return CustomEmptyStateView(
+                    message: AppStrings.noProductsFound.tr(),
+                    subtitle: AppStrings.noProductsFoundSubtitle.tr(),
+                  );
                 },
               ),
             ),
