@@ -35,6 +35,7 @@ abstract class AppConstants {
   static const String latField = 'lat';
   static const String longField = 'long';
   static const String createdAtField = 'createdAt';
+  static const String isUserConfirmedDeliverdField = 'isUserConfirmedDeliverd';
   static const String languageField = 'language';
   static const String notificationsField = 'notifications';
   static const String addressDelimiter = " | ";

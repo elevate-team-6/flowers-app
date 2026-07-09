@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/features/tracking/presentation/view_model/tracking_cubit.dart';
 import 'package:flowers_app/features/tracking/presentation/view_model/tracking_state.dart';
 import 'package:flowers_app/features/tracking/presentation/widgets/rider_info_card.dart';
@@ -103,30 +104,99 @@ class TrackingScreen extends StatelessWidget {
                   ),
                 ),
 
-                // ── Show Map Button ────────────────────────────────
+                // ── Show Map / Delivered Button ───────────────────────
                 Padding(
                   padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 24.h),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 52.h,
-                    child: ElevatedButton(
-                      // TODO: implement map navigation
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.pinkAccent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.r),
-                        ),
-                      ),
-                      child: Text(
-                        AppStrings.showMap.tr(),
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                  child: BlocSelector<TrackingCubit, TrackingState, bool>(
+                    selector: (state) => state.isTrackingLastStep,
+                    builder: (context, isTrackingLastStep) {
+                      if (!isTrackingLastStep) {
+                        return SizedBox(
+                          width: double.infinity,
+                          height: 52.h,
+                          child: ElevatedButton(
+                            // TODO: implement map navigation
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.pinkAccent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.r),
+                              ),
+                            ),
+                            child: Text(
+                              AppStrings.showMap.tr(),
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 52.h,
+                              child: ElevatedButton(
+                                // TODO: implement map navigation
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.pinkAccent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.r),
+                                  ),
+                                ),
+                                child: Text(
+                                  AppStrings.showMap.tr(),
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            child: SizedBox(
+                              height: 52.h,
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  final confirmed = await context
+                                      .read<TrackingCubit>()
+                                      .confirmDelivered(orderId);
+                                  if (confirmed && context.mounted) {
+                                    Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      AppRoutes.mainLayout,
+                                      (route) => false,
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.r),
+                                  ),
+                                ),
+                                child: Text(
+                                  AppStrings.trackingDelivered.tr(),
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ],

@@ -60,4 +60,19 @@ class TrackingRemoteDataSourceImpl implements TrackingRemoteDataSourceContract {
           ),
         );
   }
+
+  @override
+  Future<BaseResponse<void>> confirmDelivered(String orderId) async {
+    try {
+      await _firestore
+          .collection(AppConstants.ordersCollection)
+          .doc(orderId)
+          .update({
+            AppConstants.isUserConfirmedDeliverdField: true,
+          });
+      return const SuccessBaseResponse<void>(null);
+    } catch (_) {
+      return ErrorBaseResponse<void>(AppStrings.unknownError.tr());
+    }
+  }
 }

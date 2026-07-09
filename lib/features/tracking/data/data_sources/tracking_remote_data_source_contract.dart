@@ -3,4 +3,5 @@ import 'package:flowers_app/features/tracking/data/models/tracking_model.dart';
 
 abstract interface class TrackingRemoteDataSourceContract {
   Stream<BaseResponse<TrackingModel>> getTracking(String orderId);
+  Future<BaseResponse<void>> confirmDelivered(String orderId);
 }

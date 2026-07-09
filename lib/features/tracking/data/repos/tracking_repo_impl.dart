@@ -21,4 +21,9 @@ class TrackingRepoImpl implements TrackingRepoContract {
       };
     });
   }
+
+  @override
+  Future<BaseResponse<void>> confirmDelivered(String orderId) async {
+    return await _dataSource.confirmDelivered(orderId);
+  }
 }
