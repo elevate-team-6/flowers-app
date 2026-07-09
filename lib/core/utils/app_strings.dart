@@ -84,6 +84,7 @@ abstract class AppStrings {
   static const String clearAll = 'clearAll';
   static const String recentSearches = 'recentSearches';
   static const String cartEmpty = 'cartEmpty';
+  static const String emptyCartSubtitle = 'emptyCartSubtitle';
   static const String subTotal = 'subTotal';
   static const String deliveryFee = 'delivery Fee';
   static const String total = 'total';
@@ -144,6 +145,8 @@ abstract class AppStrings {
   static const String myOrders = 'myOrders';
   static const String savedAddress = 'savedAddress';
   static const String notification = 'notification';
+  static const String noNotifications = 'noNotifications';
+  static const String noNotificationsSubtitle = 'noNotificationsSubtitle';
   static const String language = 'language';
   static const String changeLanguage = 'changeLanguage';
   static const String aboutUs = 'aboutUs';
@@ -176,6 +179,7 @@ abstract class AppStrings {
   static const String searchForAnyProduct = 'searchForAnyProduct';
   static const String all = 'all';
   static const String noProductsFound = 'noProductsFound';
+  static const String noProductsFoundSubtitle = 'noProductsFoundSubtitle';
 
   // Occasions
   static const String occasion = 'occasion';
@@ -193,9 +197,15 @@ abstract class AppStrings {
   static const String title = 'title';
   static const String price = 'price';
   static const String noBestSellersAvailable = 'noBestSellersAvailable';
+  static const String noBestSellersAvailableSubtitle =
+      'noBestSellersAvailableSubtitle';
   static const String bestSellers = 'bestSellers';
   static const String noCategoriesAvailable = 'noCategoriesAvailable';
+  static const String noCategoriesAvailableSubtitle =
+      'noCategoriesAvailableSubtitle';
   static const String noOccasionsAvailable = 'noOccasionsAvailable';
+  static const String noOccasionsAvailableSubtitle =
+      'noOccasionsAvailableSubtitle';
   //Best Seller
   static const String subTitleBestSeller = 'subTitleBestSeller';
   // reset password
@@ -297,7 +307,9 @@ abstract class AppStrings {
   static const String orderNumber = 'order_number';
   static const String deliveredOn = 'delivered_on';
   static const String noActiveOrders = 'no_active_orders';
+  static const String noActiveOrdersSubtitle = 'noActiveOrdersSubtitle';
   static const String noCompletedOrders = 'no_completed_orders';
+  static const String noCompletedOrdersSubtitle = 'noCompletedOrdersSubtitle';
   static const String orderTracking = 'order_tracking';
   static const String riderInfo = 'rider_info';
   static const String riderNotAssigned = 'rider_not_assigned';

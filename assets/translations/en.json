@@ -6,7 +6,6 @@
   "email": "Email",
   "continueText": "Continue",
   "confirmPassword": "Confirm Password",
-
   "enterYourEmail": "Enter your email",
   "enterYourPassword": "Enter your password",
   "rememberMe": "Remember Me",
@@ -14,7 +13,6 @@
   "dontHaveAccount": "Don't have an account?",
   "loginSuccess": "Login successful",
   "forgetPasswordText": "Forgot Password",
-
   "userName": "Username",
   "enterYourUserName": "Enter your username",
   "firstName": "First Name",
@@ -32,7 +30,6 @@
   "pleaseSelectGender": "Please select gender",
   "creatingAccountAgreement": "By creating an account, you agree to our",
   "iAgree": "I Agree",
-
   "termsAndConditions": "Terms & Conditions",
   "termsFooterNote": "Thank you for using our application.",
   "termsSection1Title": "Acceptance of Terms",
@@ -43,31 +40,27 @@
   "termsSection3Body": "Your data will be handled according to our privacy policy.",
   "termsSection4Title": "Limitation of Liability",
   "termsSection4Body": "We are not responsible for damages resulting from misuse of the application.",
-
   "forgetPasswordTitle": "Forgot Password",
   "forgetPasswordSubtitle": "Enter your email to receive a verification code",
   "verificationCodeSentToYourEmail": "Verification code sent to your email",
   "confirm": "Confirm",
-
   "emailVerification": "Email Verification",
   "emailVerificationSubtitle": "Enter the verification code sent to your email",
   "invalidCode": "Invalid code",
   "didntReceiveCode": "Didn't receive the code?",
   "resend": "Resend",
   "verificationCodeIsCorrect": "Verification code is correct",
-
   "resetPasswordTitle": "Reset Password",
   "resetPasswordSubtitle": "Create a new password",
   "newPassword": "New Password",
   "passwordResetSuccessfully": "Password reset successfully",
-
   "view_all": "View All",
   "retry": "Retry",
-
   "items": "Items",
   "clearAll": "Clear All",
   "recentSearches": "Recent Searches",
   "cartEmpty": "Your cart is empty",
+  "emptyCartSubtitle": "Your cart is lonely. Add some flowers to make it happy!",
   "subTotal": "Subtotal",
   "delivery Fee": "Delivery Fee",
   "total": "Total",
@@ -79,12 +72,10 @@
   "delivertoAddress": "Delivery Address",
   "remove": "Remove",
   "loading": "Loading",
-
   "exitAppTitle": "Exit App",
   "exitAppMessage": "Are you sure you want to exit?",
   "cancel": "Cancel",
   "exit": "Exit",
-
   "allPricesIncludeTax": "All prices include tax",
   "status": "Status",
   "description": "Description",
@@ -93,10 +84,11 @@
   "roses": "Roses",
   "bouqetInclude": "Bouquet Includes",
   "noProductDetailsFound": "No product details found",
-
   "myOrders": "My Orders",
   "savedAddress": "Saved Address",
   "notification": "Notifications",
+  "noNotifications": "No notifications yet",
+  "noNotificationsSubtitle": "We'll let you know when something arrives",
   "language": "Language",
   "changeLanguage": "Change Language",
   "arabic": "Arabic",
@@ -105,50 +97,44 @@
   "logout": "Logout",
   "version": "Version",
   "confirmLogout": "Are you sure you want to logout?",
-
   "enableLocationServices": "Please enable location services to add a delivery address.",
   "locationPermissionDenied": "Location permission is permanently denied. Please enable it from app settings.",
   "later": "Later",
   "enableLocation": "Enable Location",
   "openSettings": "Open Settings",
   "locationRequired": "Location Required",
-
   "home": "Home",
   "categories": "Categories",
   "cart": "Cart",
   "profile": "Profile",
-
   "addToCart": "Add to Cart",
-
   "sortBy": "Sort By",
   "filter": "Filter",
   "search": "Search",
   "all": "All",
   "noProductsFound": "No products found",
-
+  "noProductsFoundSubtitle": "We couldn't find what you're looking for. Try a different search!",
   "occasion": "Occasion",
   "occasionSubtitle": "Flowers for every occasion",
   "egp": "EGP",
-
   "flowery": "Flowery",
   "deliverToMockAddress": "Deliver to your address",
-
   "icon": "Icon",
   "label": "Label",
   "image": "Image",
   "title": "Title",
   "price": "Price",
-
   "noBestSellersAvailable": "No best sellers available",
+  "noBestSellersAvailableSubtitle": "Check back later for our most popular arrangements!",
   "bestSellers": "Best Sellers",
   "noCategoriesAvailable": "No categories available",
+  "noCategoriesAvailableSubtitle": "We are working on adding more categories soon!",
   "noOccasionsAvailable": "No occasions available",
+  "noOccasionsAvailableSubtitle": "Stay tuned for flowers for all your special moments!",
   "subTitleBestSeller": "Our most popular flowers",
-
   "resetPassword": "Reset Password",
   "currentPassword": "Current Password",
   "passwordChangedSuccess": "Password changed successfully",
-
   "editProfile": "Edit Profile",
   "editProfileSuccessfly": "Profile updated successfully",
   "change": "Change",
@@ -156,7 +142,6 @@
   "femaleValue": "Female",
   "maleValue": "Male",
   "bestSeller": "Best Seller",
-
   "someThingWentWrong": "Something went wrong",
   "connectionTimeout": "Connection timeout",
   "sendTimeout": "Send timeout",
@@ -177,7 +162,6 @@
   "userAlreadyExists": "User already exists",
   "invalidGender": "Invalid gender",
   "invalidPhoneFormat": "Invalid phone number format",
-
   "emailRequired": "Email is required",
   "invalidEmail": "Invalid email address",
   "invalidPassword": "Invalid password",
@@ -200,7 +184,6 @@
   "phoneRequiredEgyptian": "Egyptian phone number is required",
   "invalidPhone": "Invalid phone number",
   "phoneMustStartWithCountryCode": "Phone number must start with country code",
-
   "deliveryAddress": "Delivery Address",
   "deliveryTime": "Delivery Time",
   "instant": "Instant",
@@ -231,7 +214,9 @@
   "order_number": "Order number#",
   "delivered_on": "Delivered on",
   "no_active_orders": "No active orders",
+  "noActiveOrdersSubtitle": "You don't have any active orders right now. Start shopping!",
   "no_completed_orders": "No completed orders",
+  "noCompletedOrdersSubtitle": "Your order history is empty. Time to send some flowers!",
   "order_tracking": "Track Order",
   "rider_info": "Rider Information",
   "rider_not_assigned": "Not assigned yet",
@@ -263,23 +248,17 @@
   "pleaseSelectCityAndArea": "Please select City and Area",
   "pleaseSelectLocationOnMap": "Please select location on map",
   "locationFetchError": "Could not get current location",
-
   "welcome_title": "Welcome!",
   "choose_language": "Choose your language",
   "continue_btn": "Continue",
-
   "onboarding_title_1": "Discover Beautiful Flowers",
   "onboarding_desc_1": "Browse hundreds of fresh arrangements curated just for you",
-
   "onboarding_title_2": "Order in a Tap",
   "onboarding_desc_2": "Add to cart, choose your address, and checkout in seconds",
-
   "onboarding_title_3": "Crafted With Care",
   "onboarding_desc_3": "Every arrangement is prepared fresh with love, just for you",
-
   "onboarding_title_4": "Never Miss a Moment",
   "onboarding_desc_4": "Get instant updates the moment your flowers are on their way",
-
   "next": "Next",
   "skip": "Skip",
   "get_started": "Get Started 🌸",

@@ -282,11 +282,14 @@ class MasterpieceBouquetPainter extends CustomPainter {
 
     // Outer Luxury Wrap (Matte Pink)
     final wrapPaint = Paint()
-      ..shader = LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [AppColors.pink20, AppColors.pink30.withValues(alpha: 0.9)],
-      ).createShader(Rect.fromLTWH(center.dx - 40.w, center.dy + 35.h, 80.w, 80.h));
+      ..shader =
+          LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [AppColors.pink20, AppColors.pink30.withValues(alpha: 0.9)],
+          ).createShader(
+            Rect.fromLTWH(center.dx - 40.w, center.dy + 35.h, 80.w, 80.h),
+          );
 
     final wrapPath = Path();
     wrapPath.moveTo(center.dx - 40.w, center.dy + 35.h);

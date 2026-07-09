@@ -5,8 +5,8 @@ import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EmptyAddressesView extends StatelessWidget {
-  const EmptyAddressesView({super.key});
+class EmptyNotificationsView extends StatelessWidget {
+  const EmptyNotificationsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +21,19 @@ class EmptyAddressesView extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              Icons.location_off_outlined,
+              Icons.notifications_none_outlined,
               size: 64.r,
               color: AppColors.black30,
             ),
           ),
           SizedBox(height: 24.h),
           Text(
-            AppStrings.noAddressesSaved.tr(),
+            AppStrings.noNotifications.tr(),
             style: AppTextStyles.black16600.copyWith(color: AppColors.black40),
           ),
           SizedBox(height: 8.h),
           Text(
-            AppStrings.startAddingAddresses.tr(),
+            AppStrings.noNotificationsSubtitle.tr(),
             style: AppTextStyles.gray14400,
             textAlign: TextAlign.center,
           ),

@@ -3,13 +3,13 @@ import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_state.dart';
 import 'package:flowers_app/features/address/presentation/widgets/address_item_card.dart';
-import 'package:flowers_app/features/address/presentation/widgets/empty_addresses_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -92,7 +92,10 @@ class _SavedAddressesBody extends StatelessWidget {
         final addresses = state.addressesState.data ?? [];
 
         if (addresses.isEmpty) {
-          return const EmptyAddressesView();
+          return CustomEmptyStateView(
+            message: AppStrings.noAddressesSaved.tr(),
+            subtitle: AppStrings.startAddingAddresses.tr(),
+          );
         }
 
         return ListView.builder(
