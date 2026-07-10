@@ -42,6 +42,7 @@ abstract class AppImages {
 abstract class AppLottie {
   static const String _lottiePath = 'assets/lottie_files/';
   static const String empty = '${_lottiePath}empty.json';
+  static const String emptyMessages = '${_lottiePath}empty_messages.json';
 
   static const String flowerLoading = '${_lottiePath}flower_loading.json';
 }

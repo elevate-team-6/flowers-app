@@ -1,14 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
-import 'package:flowers_app/features/notifications/presentation/view_model/notifications_cubit.dart';
-import 'package:flowers_app/features/notifications/presentation/view_model/notifications_state.dart';
-import 'package:flowers_app/features/notifications/presentation/widgets/empty_notifications_view.dart';
-import 'package:flowers_app/features/notifications/presentation/widgets/notification_card.dart';
-import 'package:flowers_app/features/notifications/presentation/widgets/notifications_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:flowers_app/core/utils/app_assets.dart';
+import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
+import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
+import 'package:flowers_app/features/notifications/presentation/view_model/notifications_cubit.dart';
+import 'package:flowers_app/features/notifications/presentation/view_model/notifications_state.dart';
+import 'package:flowers_app/features/notifications/presentation/widgets/notification_card.dart';
+import 'package:flowers_app/features/notifications/presentation/widgets/notifications_shimmer.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -56,7 +58,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           }
 
           if (state.notifications.isEmpty) {
-            return const EmptyNotificationsView();
+            return CustomEmptyStateView(
+              message: AppStrings.noNotifications.tr(),
+              subtitle: AppStrings.noNotificationsSubtitle.tr(),
+              lottiePath: AppLottie.emptyMessages,
+            );
           }
 
           return ListView.separated(
