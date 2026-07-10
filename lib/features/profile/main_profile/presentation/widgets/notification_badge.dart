@@ -20,10 +20,10 @@ class NotificationBadge extends StatelessWidget {
       onTap: onTap,
       child: Badge(
         label: Text(
-          count,
+          count == '0' ? '' : count,
           style: AppTextStyles.white16500.copyWith(fontSize: 11),
         ),
-        backgroundColor: AppColors.red,
+        backgroundColor: count == '0' ? Colors.transparent : AppColors.red,
         largeSize: 18,
         padding: const EdgeInsets.symmetric(horizontal: 4),
         child: SvgPicture.asset(AppIcons.bell, width: 28, height: 28),
