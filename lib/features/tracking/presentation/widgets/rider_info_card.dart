@@ -4,7 +4,6 @@ import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
-import 'package:flowers_app/features/tracking/presentation/widgets/tracking_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,24 +25,16 @@ class RiderInfoCard extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(color: AppColors.white),
       child: Row(
         children: [
           // ── Avatar ──────────────────────────────────────────
-          CircleAvatar(
-            radius: 24.r,
-            backgroundColor: AppColors.white,
-            child: Padding(
-              padding: EdgeInsets.all(10.w),
-              child: Image.asset(
-                AppIcons.deliveryBoy,
-                width: 30.sp,
-                height: 30.sp,
-                fit: BoxFit.contain,
-                // color: AppColors.primary, /
-              ),
-            ),
+          Image.asset(
+            AppIcons.deliveryBoy,
+            width: 54.w,
+            height: 54.w,
+            fit: BoxFit.contain,
           ),
 
           SizedBox(width: 12.w),
@@ -53,42 +44,44 @@ class RiderInfoCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  displayName,
-                  style: AppTextStyles.black14400.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                Text(displayName, style: AppTextStyles.black14600),
                 SizedBox(height: 4.h),
                 Text(
                   AppStrings.deliveryHero.tr(),
-                  style: AppTextStyles.gray12400,
+                  style: AppTextStyles.black13400,
                 ),
               ],
             ),
           ),
 
           // ── Action Buttons ───────────────────────────────────
-          TrackingActionButton(
-            iconPath: AppIcons.phoneCall,
-            onTap: () {
-              
+          IconButton(
+            onPressed: () {
               ExternalLauncherService.makePhoneCall(
                 context: context,
                 phone: riderPhone ?? '',
               );
             },
+            icon: Image.asset(
+              AppIcons.phoneCall,
+              width: 24.w,
+              height: 24.w,
+              color: AppColors.primary,
+            ),
           ),
-          SizedBox(width: 8.w),
-          TrackingActionButton(
-            iconPath: AppIcons.whatsApp,
-            onTap: () {
+          IconButton(
+            onPressed: () {
               ExternalLauncherService.openWhatsApp(
                 context: context,
                 phone: riderPhone ?? '',
               );
-
             },
+            icon: Image.asset(
+              AppIcons.whatsApp,
+              width: 24.w,
+              height: 24.w,
+              color: AppColors.primary,
+            ),
           ),
         ],
       ),

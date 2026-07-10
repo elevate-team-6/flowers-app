@@ -29,18 +29,14 @@ class TrackingRemoteDataSourceImpl implements TrackingRemoteDataSourceContract {
             handleData: (snapshot, sink) {
               if (!snapshot.exists || snapshot.data() == null) {
                 sink.add(
-                  ErrorBaseResponse<TrackingModel>(
-                    AppStrings.notFound.tr(),
-                  ),
+                  ErrorBaseResponse<TrackingModel>(AppStrings.notFound.tr()),
                 );
                 return;
               }
 
               try {
                 sink.add(
-                  SuccessBaseResponse(
-                    TrackingModel.fromJson(snapshot.data()!),
-                  ),
+                  SuccessBaseResponse(TrackingModel.fromJson(snapshot.data()!)),
                 );
               } catch (_) {
                 sink.add(
@@ -52,9 +48,7 @@ class TrackingRemoteDataSourceImpl implements TrackingRemoteDataSourceContract {
             },
             handleError: (error, stackTrace, sink) {
               sink.add(
-                ErrorBaseResponse<TrackingModel>(
-                  AppStrings.unknownError.tr(),
-                ),
+                ErrorBaseResponse<TrackingModel>(AppStrings.unknownError.tr()),
               );
             },
           ),
@@ -67,10 +61,8 @@ class TrackingRemoteDataSourceImpl implements TrackingRemoteDataSourceContract {
       await _firestore
           .collection(AppConstants.ordersCollection)
           .doc(orderId)
-          .update({
-            AppConstants.isUserConfirmedDeliverdField: true,
-          });
-      return const SuccessBaseResponse<void>(null);
+          .update({AppConstants.isUserConfirmedDeliverdField: true});
+      return SuccessBaseResponse<void>(null);
     } catch (_) {
       return ErrorBaseResponse<void>(AppStrings.unknownError.tr());
     }

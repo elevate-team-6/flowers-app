@@ -323,6 +323,7 @@ abstract class AppStrings {
   static const String trackingPreparing = 'tracking_preparing';
   static const String trackingOutForDelivery = 'tracking_out_for_delivery';
   static const String trackingDelivered = 'tracking_delivered';
+  static const String orderDelivered = 'order_delivered';
 
   //checkout
   static const String deliveryAddress = 'deliveryAddress';

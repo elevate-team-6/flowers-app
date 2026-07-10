@@ -231,6 +231,7 @@
   "tracking_preparing": "قيد التحضير",
   "tracking_out_for_delivery": "في الطريق للتوصيل",
   "tracking_delivered": "تم التسليم",
+  "order_delivered": "تم التسليم",
   "userNotFound": "المستخدم غير موجود",
   "addressIdRequired": "معرف العنوان مطلوب",
   "address": "العنوان",

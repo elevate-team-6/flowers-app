@@ -26,8 +26,6 @@ import 'package:flowers_app/features/onboarding/presentation/pages/language_scre
 import 'package:flowers_app/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:flowers_app/features/orders/presentation/screens/orders_screen.dart';
 import 'package:flowers_app/features/orders/presentation/view_model/orders_cubit.dart';
-import 'package:flowers_app/features/tracking/presentation/screens/tracking_screen.dart';
-import 'package:flowers_app/features/tracking/presentation/view_model/tracking_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_cubit.dart';
 import 'package:flowers_app/features/product_details/presentation/cubit/product_details_event.dart';
 import 'package:flowers_app/features/product_details/presentation/screens/product_details_screen.dart';
@@ -38,6 +36,8 @@ import 'package:flowers_app/features/profile/reset_password/presentation/screens
 import 'package:flowers_app/features/profile/reset_password/presentation/view_model/change_password_cubit.dart';
 import 'package:flowers_app/features/search/presentation/pages/search_page.dart';
 import 'package:flowers_app/features/splash/presentation/pages/splash_screen.dart';
+import 'package:flowers_app/features/tracking/presentation/screens/tracking_screen.dart';
+import 'package:flowers_app/features/tracking/presentation/view_model/tracking_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlong2/latlong.dart';
@@ -76,6 +76,7 @@ abstract class AppRoutes {
   static const String savedAddressScreen = '/savedAddressScreen';
   static const String addAddressScreen = '/addAddressScreen';
   static const String mapPicker = '/mapPicker';
+  static const String mapScreen = '/mapScreen';
   static const String notificationScreen = '/notificationScreen';
   static const String aboutUsScreen = '/aboutUsScreen';
   static const String editProfile = '/editProfile';

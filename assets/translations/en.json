@@ -232,6 +232,7 @@
   "tracking_preparing": "Preparing",
   "tracking_out_for_delivery": "Out For Delivery",
   "tracking_delivered": "Delivered",
+  "order_delivered": "Order Delivered",
   "userNotFound": "User not found",
   "addressIdRequired": "Address ID is required",
   "address": "Address",

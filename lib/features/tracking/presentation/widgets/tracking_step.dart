@@ -32,9 +32,7 @@ class TrackingStep extends StatelessWidget {
                   child: Container(
                     width: 2.w,
                     margin: EdgeInsets.symmetric(vertical: 4.h),
-                    color: isCompleted
-                        ? AppColors.primary
-                        : AppColors.white90,
+                    color: isCompleted ? AppColors.primary : AppColors.gray,
                   ),
                 ),
             ],
@@ -58,10 +56,7 @@ class TrackingStep extends StatelessWidget {
                         : AppTextStyles.gray14400,
                   ),
                   SizedBox(height: 4.h),
-                  Text(
-                    subtitle,
-                    style: AppTextStyles.gray12400,
-                  ),
+                  Text(subtitle, style: AppTextStyles.gray12400),
                 ],
               ),
             ),
@@ -84,14 +79,23 @@ class _StepIndicator extends StatelessWidget {
       height: 24.w,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: isCompleted ? AppColors.primary : AppColors.white,
+        color: AppColors.white,
         border: Border.all(
-          color: isCompleted ? AppColors.primary : AppColors.white90,
+          color: isCompleted ? AppColors.primary : AppColors.gray,
           width: 2.w,
         ),
       ),
       child: isCompleted
-          ? Icon(Icons.circle, size: 10.sp, color: AppColors.white)
+          ? Center(
+              child: Container(
+                width: 10.w,
+                height: 10.w,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.primary,
+                ),
+              ),
+            )
           : null,
     );
   }
