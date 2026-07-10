@@ -1,5 +1,6 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/features/notifications/domain/entities/notifications_result_entity.dart';
+import 'package:flowers_app/features/notifications/domain/use_cases/clear_notifications_use_case.dart';
 import 'package:flowers_app/features/notifications/domain/use_cases/get_notifications_use_case.dart';
 import 'package:flowers_app/features/notifications/domain/use_cases/mark_notifications_as_opened_use_case.dart';
 import 'package:flowers_app/features/notifications/presentation/view_model/notifications_state.dart';
@@ -10,10 +11,12 @@ import 'package:injectable/injectable.dart';
 class NotificationsCubit extends Cubit<NotificationsState> {
   final GetNotificationsUseCase _getNotificationsUseCase;
   final MarkNotificationsAsOpenedUseCase _markNotificationsAsOpenedUseCase;
+  final ClearNotificationsUseCase _clearNotificationsUseCase;
 
   NotificationsCubit(
     this._getNotificationsUseCase,
     this._markNotificationsAsOpenedUseCase,
+    this._clearNotificationsUseCase,
   ) : super(const NotificationsState());
 
   Future<void> getNotifications() async {
@@ -48,5 +51,10 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   Future<void> markNotificationsAsOpened() async {
     await _markNotificationsAsOpenedUseCase();
     emit(state.copyWith(unreadCount: 0));
+  }
+
+  Future<void> clearNotifications() async {
+    await _clearNotificationsUseCase();
+    emit(state.copyWith(notifications: [], unreadCount: 0));
   }
 }

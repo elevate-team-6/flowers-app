@@ -65,13 +65,36 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             );
           }
 
-          return ListView.separated(
-            padding: EdgeInsets.all(16.w),
-            itemCount: state.notifications.length,
-            separatorBuilder: (_, _) => SizedBox(height: 12.h),
-            itemBuilder: (context, index) {
-              return NotificationCard(notification: state.notifications[index]);
-            },
+          return Column(
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: TextButton(
+                    onPressed: () => context
+                        .read<NotificationsCubit>()
+                        .clearNotifications(),
+                    child: Text(
+                      AppStrings.clearAll.tr(),
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.separated(
+                  padding: EdgeInsets.all(16.w),
+                  itemCount: state.notifications.length,
+                  separatorBuilder: (_, _) => SizedBox(height: 12.h),
+                  itemBuilder: (context, index) {
+                    return NotificationCard(
+                      notification: state.notifications[index],
+                    );
+                  },
+                ),
+              ),
+            ],
           );
         },
       ),

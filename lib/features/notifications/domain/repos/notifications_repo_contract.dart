@@ -3,5 +3,6 @@ import 'package:flowers_app/features/notifications/domain/entities/notifications
 
 abstract interface class NotificationsRepoContract {
   Future<BaseResponse<NotificationsResultEntity>> getNotifications();
+  Future<BaseResponse<void>> clearNotifications();
   Future<void> markNotificationsAsOpened();
 }

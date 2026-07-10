@@ -44,4 +44,13 @@ class NotificationsRemoteDataSourceImpl
           .toList();
     });
   }
+
+  @override
+  Future<BaseResponse<void>> clearNotifications(String userId) {
+    return ErrorHandler.handleApiCall(() async {
+      await _getUserDoc(
+        userId,
+      ).update({AppConstants.notificationsField: FieldValue.delete()});
+    });
+  }
 }
