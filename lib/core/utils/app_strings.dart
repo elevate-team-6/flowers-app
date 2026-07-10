@@ -183,6 +183,8 @@ abstract class AppStrings {
   static const String noProductsForOccasion = 'noProductsForOccasion';
   static const String noProductsForOccasionSubtitle =
       'noProductsForOccasionSubtitle';
+  static const String noSearchHistory = 'noSearchHistory';
+  static const String noSearchHistorySubtitle = 'noSearchHistorySubtitle';
 
   // Occasions
   static const String occasion = 'occasion';

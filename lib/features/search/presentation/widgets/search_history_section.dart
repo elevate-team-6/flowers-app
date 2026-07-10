@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
+import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_bloc.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_event.dart';
 import 'package:flutter/material.dart';
@@ -20,50 +22,65 @@ class SearchHistorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (history.isEmpty) {
-      return Center(
-        child: Text(
-          AppStrings.searchForAnyProduct.tr(),
-          style: AppTextStyles.gray14400,
-        ),
-      );
-    }
+    // if (history.isEmpty) {
+    //   return CustomEmptyStateView(
+    //     message: AppStrings.noSearchHistory.tr(),
+    //     subtitle: AppStrings.noSearchHistorySubtitle.tr(),
+    //     lottiePath: AppLottie.search,
+    //     imageSize: 200.w,
+    //   );
+    // }
 
     return Padding(
       padding: EdgeInsets.all(16.w),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                AppStrings.recentSearches.tr(),
-                style: AppTextStyles.black16600,
-              ),
-              TextButton(
-                onPressed: () => context.read<SearchBloc>().add(
-                  const ClearSearchHistoryEvent(),
+          if (history.isNotEmpty)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppStrings.recentSearches.tr(),
+                      style: AppTextStyles.black16600,
+                    ),
+                    TextButton(
+                      onPressed: () => context.read<SearchBloc>().add(
+                        const ClearSearchHistoryEvent(),
+                      ),
+                      child: Text(
+                        AppStrings.clearAll.tr(),
+                        style: AppTextStyles.primary12600,
+                      ),
+                    ),
+                  ],
                 ),
-                child: Text(
-                  AppStrings.clearAll.tr(),
-                  style: AppTextStyles.primary12600,
+                SizedBox(height: 8.h),
+                Wrap(
+                  spacing: 8.w,
+                  runSpacing: 8.h,
+                  children: history
+                      .map(
+                        (query) => _HistoryChip(
+                          query: query,
+                          onTap: () => onHistoryItemTap(query),
+                        ),
+                      )
+                      .toList(),
                 ),
+              ],
+            ),
+          Expanded(
+            child: Center(
+              child: CustomEmptyStateView(
+                message: AppStrings.noSearchHistory.tr(),
+                subtitle: AppStrings.noSearchHistorySubtitle.tr(),
+                lottiePath: AppLottie.search,
+                imageSize: 200.w,
               ),
-            ],
-          ),
-          SizedBox(height: 8.h),
-          Wrap(
-            spacing: 8.w,
-            runSpacing: 8.h,
-            children: history
-                .map(
-                  (query) => _HistoryChip(
-                    query: query,
-                    onTap: () => onHistoryItemTap(query),
-                  ),
-                )
-                .toList(),
+            ),
           ),
         ],
       ),
