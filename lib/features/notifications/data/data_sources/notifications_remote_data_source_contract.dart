@@ -3,4 +3,5 @@ import 'package:flowers_app/features/notifications/data/models/notification_mode
 
 abstract interface class NotificationsRemoteDataSourceContract {
   Future<BaseResponse<List<NotificationModel>>> getNotifications(String userId);
+  Future<BaseResponse<void>> clearNotifications(String userId);
 }

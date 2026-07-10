@@ -6,6 +6,7 @@
   "email": "Email",
   "continueText": "Continue",
   "confirmPassword": "Confirm Password",
+
   "enterYourEmail": "Enter your email",
   "enterYourPassword": "Enter your password",
   "rememberMe": "Remember Me",
@@ -13,6 +14,7 @@
   "dontHaveAccount": "Don't have an account?",
   "loginSuccess": "Login successful",
   "forgetPasswordText": "Forgot Password",
+
   "userName": "Username",
   "enterYourUserName": "Enter your username",
   "firstName": "First Name",
@@ -112,8 +114,13 @@
   "filter": "Filter",
   "search": "Search",
   "all": "All",
-  "noProductsFound": "No products found",
-  "noProductsFoundSubtitle": "We couldn't find what you're looking for. Try a different search!",
+  "noProductsFound": "No products available",
+  "noProductsFoundSubtitle": "We're adding new items to this occasion soon. Check back later!",
+  "noProductsForOccasion": "No products for this occasion yet",
+  "noProductsForOccasionSubtitle": "We are currently curating the perfect arrangements. Stay tuned!",
+  "noSearchHistory": "Search for your favorite flowers",
+  "noSearchHistorySubtitle": "Start exploring our collection and find the perfect bouquet.",
+
   "occasion": "Occasion",
   "occasionSubtitle": "Flowers for every occasion",
   "egp": "EGP",

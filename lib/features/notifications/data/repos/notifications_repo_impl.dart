@@ -44,6 +44,17 @@ class NotificationsRepoImpl implements NotificationsRepoContract {
   }
 
   @override
+  Future<BaseResponse<void>> clearNotifications() async {
+    final userId = await _cacheHelper.readData(key: AppKeys.userIdKey);
+
+    if (userId == null) {
+      return ErrorBaseResponse(AppStrings.userNotFound.tr());
+    }
+
+    return await _remoteDataSource.clearNotifications(userId);
+  }
+
+  @override
   Future<void> markNotificationsAsOpened() {
     return _localDataSource.saveLastOpenedTime(DateTime.now());
   }

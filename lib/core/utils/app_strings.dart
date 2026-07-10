@@ -180,6 +180,11 @@ abstract class AppStrings {
   static const String all = 'all';
   static const String noProductsFound = 'noProductsFound';
   static const String noProductsFoundSubtitle = 'noProductsFoundSubtitle';
+  static const String noProductsForOccasion = 'noProductsForOccasion';
+  static const String noProductsForOccasionSubtitle =
+      'noProductsForOccasionSubtitle';
+  static const String noSearchHistory = 'noSearchHistory';
+  static const String noSearchHistorySubtitle = 'noSearchHistorySubtitle';
 
   // Occasions
   static const String occasion = 'occasion';

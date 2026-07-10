@@ -215,6 +215,7 @@ class _CartScreenState extends State<CartScreen> {
 
             if (items.isEmpty) {
               return CustomEmptyStateView(
+                lottiePath: AppLottie.cart,
                 message: AppStrings.cartEmpty.tr(),
                 subtitle: AppStrings.emptyCartSubtitle.tr(),
               );

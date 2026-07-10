@@ -37,8 +37,8 @@ class CustomEmptyStateView extends StatelessWidget {
           children: [
             Lottie.asset(
               lottiePath,
-              width: imageSize ?? 200.w,
-              height: imageSize ?? 200.h,
+              width: imageSize ?? 250.w,
+              height: imageSize ?? 250.h,
               repeat: true,
             ),
             SizedBox(height: 16.h),
@@ -75,6 +75,7 @@ class CustomEmptyStateView extends StatelessWidget {
                 ),
               ),
             ],
+            SizedBox(height: 64.h),
           ],
         ),
       ),

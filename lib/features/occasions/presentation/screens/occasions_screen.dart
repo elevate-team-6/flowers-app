@@ -146,8 +146,9 @@ class _OccasionsScreenState extends State<OccasionsScreen>
 
                       if (productsList.isEmpty) {
                         return CustomEmptyStateView(
-                          message: AppStrings.noProductsFound.tr(),
-                          subtitle: AppStrings.noProductsFoundSubtitle.tr(),
+                          message: AppStrings.noProductsForOccasion.tr(),
+                          subtitle: AppStrings.noProductsForOccasionSubtitle
+                              .tr(),
                         );
                       }
 
