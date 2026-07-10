@@ -86,6 +86,8 @@
   "locationRequired": "الموقع مطلوب",
   "noProductsFound": "لم يتم العثور على منتجات",
   "noProductsFoundSubtitle": "لم نتمكن من العثور على ما تبحث عنه. جرب البحث عن شيء آخر!",
+  "noProductsForOccasion": "لا توجد منتجات لهذه المناسبة حالياً",
+  "noProductsForOccasionSubtitle": "نحن نعمل على تنسيق أفضل الباقات لهذه المناسبة. ترقبوا المزيد!",
   "addToCart": "أضف إلى السلة",
   "occasion": "مناسبة",
   "occasionSubtitle": "تألق مع أفضل منتجاتنا مبيعاً",
