@@ -3,7 +3,6 @@ import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
-import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/features/notifications/presentation/view_model/notifications_cubit.dart';
 import 'package:flowers_app/features/notifications/presentation/view_model/notifications_state.dart';
 import 'package:flowers_app/features/notifications/presentation/widgets/notification_card.dart';
@@ -11,6 +10,8 @@ import 'package:flowers_app/features/notifications/presentation/widgets/notifica
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/widgets/custom_error_state.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -66,7 +67,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           }
 
           if (state.status == NotificationsStatus.failure) {
-            return CustomErrorStateView(
+            return CustomErrorState(
               message: state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
               onRetry: () =>
                   context.read<NotificationsCubit>().getNotifications(),
