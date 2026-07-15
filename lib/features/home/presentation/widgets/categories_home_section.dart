@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/config/di/di.dart';
+import 'package:flowers_app/core/services/category_navigation_service.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flowers_app/core/widgets/categories_shimmer.dart';
@@ -55,13 +57,15 @@ class CategoriesHomeSection extends StatelessWidget {
         HomeCommonHeaderSection(
           title: AppStrings.categories.tr(),
           onViewAll: () {
-            context.read<MainLayoutCubit>().doEvent(ChangeIndexEvent(1));
+            getIt<CategoryNavigationService>().reset();
+            context.read<MainLayoutCubit>().doEvent(const ChangeIndexEvent(1));
           },
         ),
         SizedBox(height: 12.h),
         SizedBox(
           height: 90.h,
           child: ListView.separated(
+            key: ValueKey<int>(categories.length),
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             physics: const BouncingScrollPhysics(),
@@ -71,9 +75,8 @@ class CategoriesHomeSection extends StatelessWidget {
               final category = categories[index];
               return CategoryCard(
                 onTap: () {
-                  context.read<MainLayoutCubit>().doEvent(
-                    ChangeIndexEvent(1, categoryId: category.id),
-                  );
+                  getIt<CategoryNavigationService>().selectCategory(category.id);
+                  context.read<MainLayoutCubit>().doEvent(const ChangeIndexEvent(1));
                 },
                 imageUrl: category.image ?? "",
                 label: category.name ?? "",

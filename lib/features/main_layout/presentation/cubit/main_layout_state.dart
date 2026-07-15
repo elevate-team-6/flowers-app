@@ -2,17 +2,13 @@ import 'package:equatable/equatable.dart';
 
 class MainLayoutState extends Equatable {
   final int currentIndex;
-  final String? categoryId;
 
-  const MainLayoutState({this.currentIndex = 0, this.categoryId});
+  const MainLayoutState({this.currentIndex = 0});
 
-  MainLayoutState copyWith({int? currentIndex, String? categoryId}) {
-    return MainLayoutState(
-      currentIndex: currentIndex ?? this.currentIndex,
-      categoryId: categoryId ?? this.categoryId,
-    );
+  MainLayoutState copyWith({int? currentIndex}) {
+    return MainLayoutState(currentIndex: currentIndex ?? this.currentIndex);
   }
 
   @override
-  List<Object?> get props => [currentIndex, categoryId];
+  List<Object?> get props => [currentIndex];
 }
