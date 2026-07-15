@@ -20,16 +20,33 @@ class CustomProductsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CartBloc, CartState>(
-      listenWhen: (prev, curr) =>
-          curr.itemAddedSuccess && !prev.itemAddedSuccess,
-      listener: (context, state) {
-        CustomSnackBar.showSuccessMessage(AppStrings.addedToCart.tr());
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CartBloc, CartState>(
+          listenWhen: (prev, curr) =>
+              curr.itemAddedSuccess && !prev.itemAddedSuccess,
+          listener: (context, state) {
+            CustomSnackBar.showSuccessMessage(AppStrings.addedToCart.tr());
+          },
+        ),
+        BlocListener<CartBloc, CartState>(
+          listenWhen: (prev, curr) =>
+              curr.errorMessage != null &&
+              prev.errorMessage != curr.errorMessage,
+          listener: (context, state) {
+            CustomSnackBar.showErrorMessage(state.errorMessage!);
+          },
+        ),
+      ],
       child: BlocBuilder<CartBloc, CartState>(
         buildWhen: (prev, curr) => prev.status != curr.status,
         builder: (context, state) {
-          if (state.status == CartStatus.failure) {
+          // No longer returning CustomErrorState here if failure,
+          // because it replaces the whole grid.
+          // Instead, we just show the grid and let the snackbar handle the error notification.
+          // If the initial load fails, we might still want to show an error state.
+
+          if (state.status == CartStatus.failure && state.cart == null) {
             return CustomErrorState(
               message: state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
               onRetry: () {

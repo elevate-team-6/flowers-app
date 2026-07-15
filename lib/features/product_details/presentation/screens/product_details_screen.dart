@@ -19,18 +19,37 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProductDetailsCubit, ProductDetailsState>(
-      listenWhen: (previous, current) {
-        return previous.productDetailsState.errorMessage !=
-            current.productDetailsState.errorMessage;
-      },
-      listener: (context, state) {
-        if (state.productDetailsState.errorMessage != null) {
-          CustomSnackBar.showErrorMessage(
-            state.productDetailsState.errorMessage!,
-          );
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ProductDetailsCubit, ProductDetailsState>(
+          listenWhen: (previous, current) {
+            return previous.productDetailsState.errorMessage !=
+                current.productDetailsState.errorMessage;
+          },
+          listener: (context, state) {
+            if (state.productDetailsState.errorMessage != null) {
+              CustomSnackBar.showErrorMessage(
+                state.productDetailsState.errorMessage!,
+              );
+            }
+          },
+        ),
+        BlocListener<CartBloc, CartState>(
+          listenWhen: (prev, curr) =>
+              curr.errorMessage != null &&
+              prev.errorMessage != curr.errorMessage,
+          listener: (context, state) {
+            CustomSnackBar.showErrorMessage(state.errorMessage!);
+          },
+        ),
+        BlocListener<CartBloc, CartState>(
+          listenWhen: (prev, curr) =>
+              curr.itemAddedSuccess && !prev.itemAddedSuccess,
+          listener: (context, state) {
+            CustomSnackBar.showSuccessMessage(AppStrings.addedToCart.tr());
+          },
+        ),
+      ],
       child: Scaffold(
         body: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
           builder: (context, state) {

@@ -1,14 +1,16 @@
 import 'dart:async';
+
+import 'package:flowers_app/config/base_response/base_response.dart';
+import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:flowers_app/features/cart/domain/use_cases/add_to_cart_use_case.dart';
 import 'package:flowers_app/features/cart/domain/use_cases/clear_cart_use_case.dart';
 import 'package:flowers_app/features/cart/domain/use_cases/get_cart_use_case.dart';
+import 'package:flowers_app/features/cart/domain/use_cases/remove_item_use_case.dart';
+import 'package:flowers_app/features/cart/domain/use_cases/update_quantity_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:flowers_app/config/base_response/base_response.dart';
-import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
-import 'package:flowers_app/features/cart/domain/use_cases/update_quantity_use_case.dart';
-import 'package:flowers_app/features/cart/domain/use_cases/remove_item_use_case.dart';
+
 import 'cart_event.dart';
 import 'cart_state.dart';
 
@@ -58,6 +60,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             errorMessage: result.errorMessage,
           ),
         );
+        emit(state.copyWith(errorMessage: null));
     }
   }
 
@@ -87,6 +90,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             errorMessage: result.errorMessage,
           ),
         );
+        emit(state.copyWith(errorMessage: null));
     }
   }
 
@@ -164,6 +168,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             loadingItems: newLoadingItems,
           ),
         );
+        // Reset error message to allow future snackbars for the same error
+        emit(state.copyWith(errorMessage: null));
     }
   }
 
@@ -221,6 +227,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             errorMessage: result.errorMessage,
           ),
         );
+        emit(state.copyWith(errorMessage: null));
     }
     _pendingQuantities.remove(event.itemId);
   }
@@ -262,6 +269,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             errorMessage: result.errorMessage,
           ),
         );
+        emit(state.copyWith(errorMessage: null));
     }
   }
 
