@@ -3,7 +3,6 @@ import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
-import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
 import 'package:flowers_app/core/widgets/custom_tab_bar.dart';
@@ -14,6 +13,8 @@ import 'package:flowers_app/features/occasions/presentation/view_model/occasions
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/widgets/custom_error_state.dart';
 
 class OccasionsScreen extends StatefulWidget {
   final String? initialOccasionId;
@@ -130,7 +131,7 @@ class _OccasionsScreenState extends State<OccasionsScreen>
 
                       if (state.productsState.errorMessage != null &&
                           products == null) {
-                        return CustomErrorStateView(
+                        return CustomErrorState(
                           message: state.productsState.errorMessage!,
                           onRetry: () {
                             _cubit.doEvent(
@@ -146,8 +147,9 @@ class _OccasionsScreenState extends State<OccasionsScreen>
 
                       if (productsList.isEmpty) {
                         return CustomEmptyStateView(
-                          message: AppStrings.noProductsFound.tr(),
-                          subtitle: AppStrings.noProductsFoundSubtitle.tr(),
+                          message: AppStrings.noProductsForOccasion.tr(),
+                          subtitle: AppStrings.noProductsForOccasionSubtitle
+                              .tr(),
                         );
                       }
 

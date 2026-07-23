@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
+import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
-import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_bloc.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_event.dart';
 import 'package:flowers_app/features/search/presentation/view_model/search_state.dart';
@@ -119,6 +120,7 @@ class _SearchPageState extends State<SearchPage> {
                   }
 
                   return CustomEmptyStateView(
+                    lottiePath: AppLottie.noResultFound,
                     message: AppStrings.noProductsFound.tr(),
                     subtitle: AppStrings.noProductsFoundSubtitle.tr(),
                   );

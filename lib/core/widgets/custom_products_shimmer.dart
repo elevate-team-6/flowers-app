@@ -9,8 +9,8 @@ class CustomProductsShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: AppColors.white70,
-      highlightColor: AppColors.white20,
+      baseColor: AppColors.gray10,
+      highlightColor: AppColors.white,
       child: GridView.builder(
         padding: EdgeInsets.all(16.w),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -45,7 +45,7 @@ class _ShimmerCard extends StatelessWidget {
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: AppColors.black10,
+                color: AppColors.black10.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(8.r)),
               ),
             ),
@@ -65,7 +65,7 @@ class _ShimmerCard extends StatelessWidget {
                     width: double.infinity,
                     height: 12.h,
                     decoration: BoxDecoration(
-                      color: AppColors.black10,
+                      color: AppColors.black10.withValues(alpha: 0.5),
                       borderRadius: BorderRadius.circular(4.r),
                     ),
                   ),
@@ -77,7 +77,7 @@ class _ShimmerCard extends StatelessWidget {
                         width: 60.w,
                         height: 12.h,
                         decoration: BoxDecoration(
-                          color: AppColors.black10,
+                          color: AppColors.black10.withValues(alpha: 0.5),
                           borderRadius: BorderRadius.circular(4.r),
                         ),
                       ),
@@ -86,7 +86,7 @@ class _ShimmerCard extends StatelessWidget {
                         width: 30.w,
                         height: 12.h,
                         decoration: BoxDecoration(
-                          color: AppColors.black10,
+                          color: AppColors.black10.withValues(alpha: 0.5),
                           borderRadius: BorderRadius.circular(4.r),
                         ),
                       ),
@@ -98,7 +98,7 @@ class _ShimmerCard extends StatelessWidget {
                     width: double.infinity,
                     height: 36.h,
                     decoration: BoxDecoration(
-                      color: AppColors.black10,
+                      color: AppColors.black10.withValues(alpha: 0.5),
                       borderRadius: BorderRadius.circular(100.r),
                     ),
                   ),

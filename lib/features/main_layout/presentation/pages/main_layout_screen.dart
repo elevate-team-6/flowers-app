@@ -1,3 +1,4 @@
+import 'package:flowers_app/core/services/category_navigation_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/services/exit_app_dialog.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
@@ -39,9 +40,10 @@ class MainLayoutScreen extends StatelessWidget {
       create: (context) {
         final cubit = getIt<MainLayoutCubit>();
         if (initialIndex != null) {
-          cubit.doEvent(
-            ChangeIndexEvent(initialIndex!, categoryId: categoryId),
-          );
+          cubit.doEvent(ChangeIndexEvent(initialIndex!));
+          if (categoryId != null) {
+            getIt<CategoryNavigationService>().selectCategory(categoryId);
+          }
         }
         return cubit;
       },

@@ -145,6 +145,8 @@ abstract class AppStrings {
   static const String myOrders = 'myOrders';
   static const String savedAddress = 'savedAddress';
   static const String notification = 'notification';
+  static const String noNotifications = 'noNotifications';
+  static const String noNotificationsSubtitle = 'noNotificationsSubtitle';
   static const String language = 'language';
   static const String changeLanguage = 'changeLanguage';
   static const String aboutUs = 'aboutUs';
@@ -178,6 +180,11 @@ abstract class AppStrings {
   static const String all = 'all';
   static const String noProductsFound = 'noProductsFound';
   static const String noProductsFoundSubtitle = 'noProductsFoundSubtitle';
+  static const String noProductsForOccasion = 'noProductsForOccasion';
+  static const String noProductsForOccasionSubtitle =
+      'noProductsForOccasionSubtitle';
+  static const String noSearchHistory = 'noSearchHistory';
+  static const String noSearchHistorySubtitle = 'noSearchHistorySubtitle';
 
   // Occasions
   static const String occasion = 'occasion';

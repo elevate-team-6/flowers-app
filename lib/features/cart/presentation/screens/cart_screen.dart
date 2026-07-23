@@ -5,7 +5,7 @@ import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/utils/app_text_styles.dart';
 import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
-import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
+import 'package:flowers_app/core/widgets/custom_error_state.dart';
 import 'package:flowers_app/features/address_details/presentation/view_model/address_details_cubit.dart';
 import 'package:flowers_app/features/address_details/presentation/view_model/address_details_event.dart';
 import 'package:flowers_app/features/address_details/presentation/view_model/address_details_state.dart';
@@ -202,7 +202,7 @@ class _CartScreenState extends State<CartScreen> {
             }
 
             if (state.status == CartStatus.failure) {
-              return CustomErrorStateView(
+              return CustomErrorState(
                 message:
                     state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
                 onRetry: () {
@@ -215,6 +215,7 @@ class _CartScreenState extends State<CartScreen> {
 
             if (items.isEmpty) {
               return CustomEmptyStateView(
+                lottiePath: AppLottie.cart,
                 message: AppStrings.cartEmpty.tr(),
                 subtitle: AppStrings.emptyCartSubtitle.tr(),
               );
