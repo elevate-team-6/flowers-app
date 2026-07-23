@@ -75,8 +75,12 @@ class CategoriesHomeSection extends StatelessWidget {
               final category = categories[index];
               return CategoryCard(
                 onTap: () {
-                  getIt<CategoryNavigationService>().selectCategory(category.id);
-                  context.read<MainLayoutCubit>().doEvent(const ChangeIndexEvent(1));
+                  getIt<CategoryNavigationService>().selectCategory(
+                    category.id,
+                  );
+                  context.read<MainLayoutCubit>().doEvent(
+                    const ChangeIndexEvent(1),
+                  );
                 },
                 imageUrl: category.image ?? "",
                 label: category.name ?? "",
