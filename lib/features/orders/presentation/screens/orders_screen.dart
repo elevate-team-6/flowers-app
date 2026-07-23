@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
 import 'package:flowers_app/features/orders/domain/entities/order_entity.dart';
@@ -95,7 +96,15 @@ class _OrdersScreenState extends State<OrdersScreen> {
         return OrderCard(
           order: order,
           onActionPressed: () {
-            // TODO: handle Track / Reorder action
+            if (isActive) {
+              // تتبع الأوردر النشط على شاشة التتبع اللحظي.
+              Navigator.pushNamed(
+                context,
+                AppRoutes.orderTracking,
+                arguments: order.id,
+              );
+            }
+            // TODO: handle Reorder action for completed orders
           },
         );
       },

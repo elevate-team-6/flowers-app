@@ -51,7 +51,7 @@ void main() {
     const tLanguageCode = 'ar';
 
     test(
-      'should update language in Firestore when userId is not null',
+      'should merge language into Firestore when userId is not null',
       () async {
         // arrange
         when(
@@ -65,7 +65,7 @@ void main() {
         when(mockCollection.doc(tUserId)).thenReturn(mockDocument);
 
         when(
-          mockDocument.update({AppConstants.languageField: tLanguageCode}),
+          mockDocument.set(any, any),
         ).thenAnswer((_) async => Future.value());
 
         // act
@@ -75,9 +75,12 @@ void main() {
         verify(mockSecureCacheHelper.readData(key: AppKeys.userIdKey));
         verify(mockFirestore.collection(AppConstants.usersCollection));
         verify(mockCollection.doc(tUserId));
-        verify(
-          mockDocument.update({AppConstants.languageField: tLanguageCode}),
-        );
+        // العقد بيطلب SetOptions(merge:true) عشان ما نمسحش حقول التطبيق التاني.
+        final captured = verify(
+          mockDocument.set(captureAny, captureAny),
+        ).captured;
+        expect(captured[0], {AppConstants.languageField: tLanguageCode});
+        expect((captured[1] as SetOptions).merge, isTrue);
       },
     );
 
@@ -109,7 +112,9 @@ void main() {
 
         when(mockCollection.doc(tUserId)).thenReturn(mockDocument);
 
-        when(mockDocument.update(any)).thenThrow(Exception('Firestore Error'));
+        when(
+          mockDocument.set(any, any),
+        ).thenThrow(Exception('Firestore Error'));
 
         // act & assert
         await expectLater(
@@ -117,7 +122,7 @@ void main() {
           returnsNormally,
         );
 
-        verify(mockDocument.update(any));
+        verify(mockDocument.set(any, any));
       },
     );
   });

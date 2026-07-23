@@ -27,6 +27,7 @@ abstract class AppConstants {
   static const String riderIdField = 'riderId';
   static const String riderNameField = 'riderName';
   static const String riderPhoneField = 'riderPhone';
+  static const String riderLocationField = 'riderLocation';
   static const String userIdField = 'userId';
   static const String shippingAddressField = 'shippingAddress';
   static const String streetField = 'street';
@@ -55,8 +56,15 @@ abstract class AppConstants {
   // Map Constants
   static const double defaultLatitude = 30.0444;
   static const double defaultLongitude = 31.2357;
+  // موقع الستور (نقطة انطلاق المسار الثابت على الخريطة لحد ما يتضاف موقع الرايدر الحي)
+  static const double storeLatitude = 30.0626;
+  static const double storeLongitude = 31.2497;
   static const double defaultMapZoom = 14.0;
   static const String mapUrlTemplate =
       'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   static const String mapUserAgent = 'com.example.flowers_app';
+
+  // مدة التوصيل التقديرية الثابتة — بنزوّدها على createdAt عشان نحسب وقت الوصول
+  // المتوقع لحد ما الباك إند يوفّر وقت حقيقي.
+  static const int estimatedDeliveryMinutes = 45;
 }

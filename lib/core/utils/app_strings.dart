@@ -339,7 +339,30 @@ abstract class AppStrings {
   static const String enterThePhoneNumber = 'enterThePhoneNumber';
   static const String deliveryDays = 'delivery_days';
   // Track order
-  static const String trackOrderSuccess = 'trackOrderSuccess';
+  static const String trackOrderSuccess = 'Your order placed\n !successfully ';
+  static const String estimatedArrival = 'estimated_arrival';
+  static const String deliveryHero = 'delivery_hero';
+  static const String receivedYourOrder = 'received_your_order';
+  static const String preparingYourOrder = 'preparing_your_order';
+  static const String outForDelivery = 'out_for_delivery';
+  static const String deliveredStep = 'delivered_step';
+  static const String showMap = 'show_map';
+  static const String orderDelivered = 'order_delivered';
+  static const String orderDetails = 'order_details';
+  static const String orderCanceled = 'order_canceled';
+  static const String couldNotOpenApp = 'could_not_open_app';
+  static const String loadingRoute = 'loading_route';
+  static const String noRiderYet = 'no_rider_yet';
+  static const String storeLabel = 'store_label';
+  static const String deliveryLabel = 'delivery_label';
+  static const String apartmentLabel = 'apartment_label';
+  // Tracking screen (friend's timeline)
+  static const String orderTracking = 'order_tracking';
+  static const String riderNotAssigned = 'rider_not_assigned';
+  static const String trackingReceived = 'tracking_received';
+  static const String trackingPreparing = 'tracking_preparing';
+  static const String trackingOutForDelivery = 'tracking_out_for_delivery';
+  static const String trackingDelivered = 'tracking_delivered';
 
   // ===========================================================================
   // API Constants (Values sent directly to Backend - Do NOT Translate)

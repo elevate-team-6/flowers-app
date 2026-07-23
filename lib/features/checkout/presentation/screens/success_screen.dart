@@ -8,7 +8,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({super.key});
+  /// id الأوردر عشان زر "Track order" يفتح شاشة التتبع الصح.
+  /// بيبقى null في مسار الدفع بالكارت (مفيش order id جاهز من الـ session).
+  final String? orderId;
+
+  const SuccessScreen({super.key, this.orderId});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +37,17 @@ class SuccessScreen extends StatelessWidget {
             SizedBox(height: 40.h),
             ElevatedButton(
               onPressed: () {
-                // Navigator.pushNamed(context, AppRoutes.trackOrder,);
+                if (orderId != null && orderId!.isNotEmpty) {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.orderTracking,
+                    arguments: orderId,
+                  );
+                } else {
+                  Navigator.pushReplacementNamed(context, AppRoutes.mainLayout);
+                }
               },
-              child: Text(AppStrings.trackOrder),
+              child: Text(AppStrings.trackOrder.tr()),
             ),
           ],
         ),

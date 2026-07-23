@@ -1,5 +1,7 @@
 import 'package:flowers_app/config/base_response/base_response.dart';
 import 'package:flowers_app/config/cache/secure_cache_helper.dart';
+import 'package:flowers_app/config/di/di.dart';
+import 'package:flowers_app/config/services/firebase_service.dart';
 import 'package:flowers_app/core/utils/app_keys.dart';
 import 'package:flowers_app/features/auth/login/data/models/login_request/login_request.dart';
 import 'package:flowers_app/features/auth/login/domain/entities/user_entity.dart';
@@ -42,6 +44,11 @@ class LoginCubit extends Bloc<LoginEvent, LoginState> {
           key: AppKeys.rememberMeKey,
           value: event.isRememberMe ? 'true' : 'false',
         );
+
+        // اكتب الـ fcmToken في users/{userId} عشان يستقبل إشعارات الرايدر.
+        if (getIt.isRegistered<FirebaseService>()) {
+          await getIt<FirebaseService>().syncFcmToken();
+        }
 
         emit(state.copyWith(isLoading: false, user: user));
         break;
