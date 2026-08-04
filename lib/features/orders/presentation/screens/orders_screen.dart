@@ -96,15 +96,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
         return OrderCard(
           order: order,
           onActionPressed: () {
-            if (isActive) {
-              // تتبع الأوردر النشط على شاشة التتبع اللحظي.
+            if (order.isActive) {
               Navigator.pushNamed(
                 context,
-                AppRoutes.orderTracking,
+                AppRoutes.trackingScreen,
                 arguments: order.id,
               );
             }
-            // TODO: handle Reorder action for completed orders
           },
         );
       },

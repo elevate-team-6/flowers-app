@@ -4,8 +4,6 @@ import 'package:flowers_app/features/tracking/domain/entities/tracking_entity.da
 import 'package:flowers_app/features/tracking/domain/repos/tracking_repo_contract.dart';
 import 'package:injectable/injectable.dart';
 
-// getTracking بييجي من Firestore (ستريم لحظي)، وgetRoute بييجي من OSRM (REST).
-
 @Injectable(as: TrackingRepoContract)
 class TrackingRepoImpl implements TrackingRepoContract {
   final TrackingRemoteDataSourceContract _dataSource;
@@ -31,6 +29,7 @@ class TrackingRepoImpl implements TrackingRepoContract {
     required GeoPoint to,
   }) async {
     final result = await _dataSource.getRoute(from: from, to: to);
+
     return switch (result) {
       SuccessBaseResponse(:final data) => SuccessBaseResponse<RouteEntity>(
         data.toEntity(),
@@ -39,5 +38,10 @@ class TrackingRepoImpl implements TrackingRepoContract {
         errorMessage,
       ),
     };
+  }
+
+  @override
+  Future<BaseResponse<void>> confirmDelivered(String orderId) async {
+    return await _dataSource.confirmDelivered(orderId);
   }
 }

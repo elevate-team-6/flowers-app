@@ -76,6 +76,7 @@ abstract class AppRoutes {
   static const String savedAddressScreen = '/savedAddressScreen';
   static const String addAddressScreen = '/addAddressScreen';
   static const String mapPicker = '/mapPicker';
+  static const String mapScreen = '/mapScreen';
   static const String notificationScreen = '/notificationScreen';
   static const String aboutUsScreen = '/aboutUsScreen';
   static const String editProfile = '/editProfile';
@@ -84,6 +85,7 @@ abstract class AppRoutes {
   static const String orderTracking = '/orderTracking';
   static const String paymentWebView = 'paymentWebView';
   static const String orders = '/orders';
+  static const String trackingScreen = '/trackingScreen';
   static const String search = '/search';
 
   static MaterialPageRoute<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -280,6 +282,15 @@ abstract class AppRoutes {
           builder: (_) => BlocProvider(
             create: (_) => getIt<OrdersCubit>(),
             child: const OrdersScreen(),
+          ),
+        );
+
+      case trackingScreen:
+        final String orderId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<TrackingCubit>()..getTracking(orderId),
+            child: TrackingScreen(orderId: orderId),
           ),
         );
 

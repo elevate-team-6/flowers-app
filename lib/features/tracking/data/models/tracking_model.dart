@@ -53,7 +53,7 @@ class TrackingModel extends Equatable {
     return switch (status) {
       'accepted' => TrackingStatus.accepted,
       'preparing' => TrackingStatus.preparing,
-      'onWay' => TrackingStatus.outForDelivery,
+      'onWay' || 'outForDelivery' => TrackingStatus.outForDelivery,
       'delivered' => TrackingStatus.delivered,
       _ => TrackingStatus.pending,
     };

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-// نخفي GeoPoint بتاع Firestore عشان مايتعارضش مع GeoPoint بتاع الـ domain.
 import 'package:cloud_firestore/cloud_firestore.dart' hide GeoPoint;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/config/base_response/base_response.dart';
@@ -42,13 +41,6 @@ class TrackingRemoteDataSourceImpl implements TrackingRemoteDataSourceContract {
 
               try {
                 final data = snapshot.data()!;
-                // ⚠️ لوج مؤقت للديباج — نشيله بعد ما نتأكد من شكل الداتا.
-                // ignore: avoid_print
-                print(
-                  '🛵 TRACKING RAW → status=${data[AppConstants.statusField]} '
-                  'riderLocation=${data[AppConstants.riderLocationField]} '
-                  '(type: ${data[AppConstants.riderLocationField].runtimeType})',
-                );
                 sink.add(SuccessBaseResponse(TrackingModel.fromJson(data)));
               } catch (_) {
                 sink.add(
@@ -72,9 +64,22 @@ class TrackingRemoteDataSourceImpl implements TrackingRemoteDataSourceContract {
     required GeoPoint from,
     required GeoPoint to,
   }) {
-    // OSRM بياخد الإحداثيات في الـ path بترتيب lon,lat لكل نقطة، مفصولين بـ ';'.
     final coordinates = '${from.long},${from.lat};${to.long},${to.lat}';
 
     return ErrorHandler.handleApiCall(() => _apiClient.getRoute(coordinates));
+  }
+
+  @override
+  Future<BaseResponse<void>> confirmDelivered(String orderId) async {
+    try {
+      await _firestore
+          .collection(AppConstants.ordersCollection)
+          .doc(orderId)
+          .update({AppConstants.isUserConfirmedDeliverdField: true});
+
+      return SuccessBaseResponse<void>(null);
+    } catch (_) {
+      return ErrorBaseResponse<void>(AppStrings.unknownError.tr());
+    }
   }
 }

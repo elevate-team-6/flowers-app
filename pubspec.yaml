@@ -52,7 +52,7 @@ dependencies:
   webview_flutter: ^4.10.0
   firebase_messaging: ^16.4.1
   flutter_local_notifications: ^22.0.1
-  url_launcher: ^6.3.1
+  url_launcher: ^6.3.2
 dev_dependencies:
   bloc_test: ^10.0.0
   build_runner: ^2.12.2
@@ -84,7 +84,6 @@ flutter_native_splash:
     color: "#FAFAFA"
     icon_background_color: "#FAFAFA"
     image: null
-
 
 flutter_launcher_icons:
   android: true

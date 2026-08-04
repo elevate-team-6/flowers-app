@@ -8,4 +8,6 @@ abstract interface class TrackingRepoContract {
     required GeoPoint from,
     required GeoPoint to,
   });
+
+  Future<BaseResponse<void>> confirmDelivered(String orderId);
 }

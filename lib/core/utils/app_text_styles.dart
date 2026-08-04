@@ -108,6 +108,12 @@ abstract class AppTextStyles {
     color: AppColors.white,
   );
 
+  static TextStyle get white18500 => GoogleFonts.inter(
+    fontSize: _sp(18),
+    fontWeight: FontWeight.w500,
+    color: AppColors.white,
+  );
+
   // primary color styles
   static TextStyle get primary16400 => GoogleFonts.inter(
     fontSize: _sp(16),

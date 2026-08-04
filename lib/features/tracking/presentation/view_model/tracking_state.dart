@@ -3,7 +3,8 @@ import 'package:flowers_app/features/tracking/domain/entities/tracking_entity.da
 
 enum TrackingStatusUi { initial, loading, success, failure }
 
-/// حارس داخلي يفرّق بين "مش عايز أغيّر القيمة" و"عايز أخليها null" في [copyWith].
+/// Internal sentinel to distinguish between
+/// "keep current value" and "set value to null".
 const Object _unset = Object();
 
 class TrackingState extends Equatable {
@@ -11,11 +12,14 @@ class TrackingState extends Equatable {
   final TrackingEntity? tracking;
   final String? errorMessage;
 
-  /// مسار المتجر → العميل (على الشوارع). null = لسه بيتحمّل.
+  /// Store → Customer route.
   final List<GeoPoint>? routePoints;
 
-  /// مسار الرايدر (موقعه الحي) → العميل. null = مفيش (مش خارج للتوصيل).
+  /// Rider → Customer route.
   final List<GeoPoint>? riderRoutePoints;
+
+  final bool isTrackingLastStep;
+  final bool deliveryConfirmed;
 
   const TrackingState({
     this.status = TrackingStatusUi.initial,
@@ -23,6 +27,8 @@ class TrackingState extends Equatable {
     this.errorMessage,
     this.routePoints,
     this.riderRoutePoints,
+    this.isTrackingLastStep = false,
+    this.deliveryConfirmed = false,
   });
 
   TrackingState copyWith({
@@ -31,6 +37,8 @@ class TrackingState extends Equatable {
     Object? errorMessage = _unset,
     Object? routePoints = _unset,
     Object? riderRoutePoints = _unset,
+    bool? isTrackingLastStep,
+    bool? deliveryConfirmed,
   }) {
     return TrackingState(
       status: status ?? this.status,
@@ -44,6 +52,8 @@ class TrackingState extends Equatable {
       riderRoutePoints: identical(riderRoutePoints, _unset)
           ? this.riderRoutePoints
           : riderRoutePoints as List<GeoPoint>?,
+      isTrackingLastStep: isTrackingLastStep ?? this.isTrackingLastStep,
+      deliveryConfirmed: deliveryConfirmed ?? this.deliveryConfirmed,
     );
   }
 
@@ -54,5 +64,7 @@ class TrackingState extends Equatable {
     errorMessage,
     routePoints,
     riderRoutePoints,
+    isTrackingLastStep,
+    deliveryConfirmed,
   ];
 }

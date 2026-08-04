@@ -27,10 +27,9 @@ class RiderInfoCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(color: AppColors.white),
+      decoration: const BoxDecoration(color: AppColors.white),
       child: Row(
         children: [
-          // ── Avatar ──────────────────────────────────────────
           CircleAvatar(
             radius: 24.r,
             backgroundColor: AppColors.white,
@@ -41,14 +40,10 @@ class RiderInfoCard extends StatelessWidget {
                 width: 30.sp,
                 height: 30.sp,
                 fit: BoxFit.contain,
-                // color: AppColors.primary, /
               ),
             ),
           ),
-
           SizedBox(width: 12.w),
-
-          // ── Name & subtitle ──────────────────────────────────
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,8 +62,6 @@ class RiderInfoCard extends StatelessWidget {
               ],
             ),
           ),
-
-          // ── Action Buttons ───────────────────────────────────
           TrackingActionButton(
             iconPath: AppIcons.phoneCall,
             onTap: () {

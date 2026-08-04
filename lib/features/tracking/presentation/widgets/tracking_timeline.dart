@@ -20,23 +20,23 @@ class TrackingTimeline extends StatelessWidget {
       AppStrings.trackingDelivered.tr(),
     ];
 
-    // TODO: replace static date with real timestamp per step from API
     const staticDate = '03 Sep 2024 - 2:10';
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(color: AppColors.white),
+      decoration: const BoxDecoration(color: AppColors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(steps.length, (index) {
-          return TrackingStep(
+        children: List.generate(
+          steps.length,
+          (index) => TrackingStep(
             title: steps[index],
             subtitle: staticDate,
             isCompleted: status.isStepCompleted(index),
             isLast: index == steps.length - 1,
-          );
-        }),
+          ),
+        ),
       ),
     );
   }

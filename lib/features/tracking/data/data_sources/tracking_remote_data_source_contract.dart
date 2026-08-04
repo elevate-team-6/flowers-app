@@ -10,4 +10,6 @@ abstract interface class TrackingRemoteDataSourceContract {
     required GeoPoint from,
     required GeoPoint to,
   });
+
+  Future<BaseResponse<void>> confirmDelivered(String orderId);
 }
