@@ -3,5 +3,11 @@ import 'package:flowers_app/features/tracking/domain/entities/tracking_entity.da
 
 abstract interface class TrackingRepoContract {
   Stream<BaseResponse<TrackingEntity>> getTracking(String orderId);
+
+  Future<BaseResponse<RouteEntity>> getRoute({
+    required GeoPoint from,
+    required GeoPoint to,
+  });
+
   Future<BaseResponse<void>> confirmDelivered(String orderId);
 }

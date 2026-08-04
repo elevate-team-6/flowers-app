@@ -14,12 +14,30 @@ class TrackingRepoImpl implements TrackingRepoContract {
   Stream<BaseResponse<TrackingEntity>> getTracking(String orderId) {
     return _dataSource.getTracking(orderId).map((result) {
       return switch (result) {
-        SuccessBaseResponse(:final data) =>
-          SuccessBaseResponse<TrackingEntity>(data.toEntity()),
+        SuccessBaseResponse(:final data) => SuccessBaseResponse<TrackingEntity>(
+          data.toEntity(),
+        ),
         ErrorBaseResponse(:final errorMessage) =>
           ErrorBaseResponse<TrackingEntity>(errorMessage),
       };
     });
+  }
+
+  @override
+  Future<BaseResponse<RouteEntity>> getRoute({
+    required GeoPoint from,
+    required GeoPoint to,
+  }) async {
+    final result = await _dataSource.getRoute(from: from, to: to);
+
+    return switch (result) {
+      SuccessBaseResponse(:final data) => SuccessBaseResponse<RouteEntity>(
+        data.toEntity(),
+      ),
+      ErrorBaseResponse(:final errorMessage) => ErrorBaseResponse<RouteEntity>(
+        errorMessage,
+      ),
+    };
   }
 
   @override

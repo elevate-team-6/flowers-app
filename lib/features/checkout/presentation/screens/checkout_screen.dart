@@ -85,6 +85,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             context,
             AppRoutes.success,
             (route) => false,
+            arguments: state.cashCheckoutState.data!.id,
           );
         }
         if (state.cardCheckoutState.data != null) {

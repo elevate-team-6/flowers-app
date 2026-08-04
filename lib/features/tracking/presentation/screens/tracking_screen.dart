@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
+import 'package:flowers_app/core/widgets/custom_error_state.dart';
 import 'package:flowers_app/features/tracking/presentation/view_model/tracking_cubit.dart';
 import 'package:flowers_app/features/tracking/presentation/view_model/tracking_state.dart';
 import 'package:flowers_app/features/tracking/presentation/widgets/tracking_shimmer.dart';
@@ -31,15 +31,16 @@ class TrackingScreen extends StatelessWidget {
           }
 
           if (state.status == TrackingStatusUi.failure) {
-            return CustomErrorStateView(
+            return CustomErrorState(
               message: state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
               onRetry: () => context.read<TrackingCubit>().getTracking(orderId),
             );
           }
 
           final tracking = state.tracking;
+
           if (tracking == null) {
-            return CustomErrorStateView(
+            return CustomErrorState(
               message: AppStrings.somethingWentWrong.tr(),
               onRetry: () => context.read<TrackingCubit>().getTracking(orderId),
             );

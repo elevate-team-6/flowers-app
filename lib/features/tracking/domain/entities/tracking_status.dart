@@ -1,10 +1,4 @@
-enum TrackingStatus {
-  pending,
-  accepted,
-  preparing,
-  outForDelivery,
-  delivered,
-}
+enum TrackingStatus { pending, accepted, preparing, outForDelivery, delivered }
 
 extension TrackingStatusX on TrackingStatus {
   int get completedStepsCount {

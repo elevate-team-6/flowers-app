@@ -11,12 +11,10 @@ import 'package:flowers_app/features/categories/presentation/widgets/categories_
 import 'package:flowers_app/features/categories/presentation/widgets/filter_bottom_sheet.dart';
 import 'package:flowers_app/features/categories/presentation/widgets/filter_floating_button.dart';
 import 'package:flowers_app/features/categories/presentation/widgets/search_and_filter_bar.dart';
-import 'package:flowers_app/features/main_layout/presentation/cubit/main_layout_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../main_layout/presentation/cubit/main_layout_state.dart';
 import 'categories_tab_mixin.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -44,47 +42,38 @@ class _CategoriesScreenBodyState extends State<_CategoriesScreenBody>
     with TickerProviderStateMixin, CategoriesTabMixin {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MainLayoutCubit, MainLayoutState>(
-      listenWhen: (previous, current) =>
-          current.currentIndex == 1 &&
-          (previous.currentIndex != 1 ||
-              previous.categoryId != current.categoryId),
-      listener: (context, state) {
-        syncTabWithId(state.categoryId, lastCategories);
-      },
-      child: Scaffold(
-        backgroundColor: AppColors.white,
-        body: SafeArea(
-          child: BlocBuilder<CategoriesCubit, CategoriesStates>(
-            builder: (context, state) {
-              final categories = state.categoriesState.data ?? [];
-              lastCategories = categories;
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      body: SafeArea(
+        child: BlocBuilder<CategoriesCubit, CategoriesStates>(
+          builder: (context, state) {
+            final categories = state.categoriesState.data ?? [];
+            lastCategories = categories;
 
-              return Column(
-                children: [
-                  SizedBox(height: 16.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: SearchAndFilterBar(
-                      onFilterTap: () => _showFilterBottomSheet(context),
-                    ),
+            return Column(
+              children: [
+                SizedBox(height: 16.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: SearchAndFilterBar(
+                    onFilterTap: () => _showFilterBottomSheet(context),
                   ),
-                  SizedBox(height: 8.h),
-                  if (state.categoriesState.isLoading)
-                    const CustomCategoriesShimmer()
-                  else if (categories.isNotEmpty)
-                    _buildTabBar(categories),
-                  SizedBox(height: 12.h),
-                  Expanded(child: CategoriesProductsSection(state: state)),
-                ],
-              );
-            },
-          ),
+                ),
+                SizedBox(height: 8.h),
+                if (state.categoriesState.isLoading)
+                  const CustomCategoriesShimmer()
+                else if (categories.isNotEmpty)
+                  _buildTabBar(categories),
+                SizedBox(height: 12.h),
+                Expanded(child: CategoriesProductsSection(state: state)),
+              ],
+            );
+          },
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FilterFloatingButton(
-          onPressed: () => _showFilterBottomSheet(context),
-        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FilterFloatingButton(
+        onPressed: () => _showFilterBottomSheet(context),
       ),
     );
   }

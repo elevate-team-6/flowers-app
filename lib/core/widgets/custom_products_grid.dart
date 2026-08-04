@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/entities/product_entity.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_product_card.dart';
 import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
@@ -11,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'custom_error_state.dart';
+
 class CustomProductsGrid extends StatelessWidget {
   final List<ProductEntity> products;
   final Function(ProductEntity)? onTap;
@@ -19,17 +20,34 @@ class CustomProductsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CartBloc, CartState>(
-      listenWhen: (prev, curr) =>
-          curr.itemAddedSuccess && !prev.itemAddedSuccess,
-      listener: (context, state) {
-        CustomSnackBar.showSuccessMessage(AppStrings.addedToCart.tr());
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CartBloc, CartState>(
+          listenWhen: (prev, curr) =>
+              curr.itemAddedSuccess && !prev.itemAddedSuccess,
+          listener: (context, state) {
+            CustomSnackBar.showSuccessMessage(AppStrings.addedToCart.tr());
+          },
+        ),
+        BlocListener<CartBloc, CartState>(
+          listenWhen: (prev, curr) =>
+              curr.errorMessage != null &&
+              prev.errorMessage != curr.errorMessage,
+          listener: (context, state) {
+            CustomSnackBar.showErrorMessage(state.errorMessage!);
+          },
+        ),
+      ],
       child: BlocBuilder<CartBloc, CartState>(
         buildWhen: (prev, curr) => prev.status != curr.status,
         builder: (context, state) {
-          if (state.status == CartStatus.failure) {
-            return CustomErrorStateView(
+          // No longer returning CustomErrorState here if failure,
+          // because it replaces the whole grid.
+          // Instead, we just show the grid and let the snackbar handle the error notification.
+          // If the initial load fails, we might still want to show an error state.
+
+          if (state.status == CartStatus.failure && state.cart == null) {
+            return CustomErrorState(
               message: state.errorMessage ?? AppStrings.somethingWentWrong.tr(),
               onRetry: () {
                 context.read<CartBloc>().add(const GetCartEvent());

@@ -3,8 +3,6 @@ import 'package:flowers_app/config/di/di.dart';
 import 'package:flowers_app/core/utils/app_assets.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
-import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_snack_bar.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_cubit.dart';
 import 'package:flowers_app/features/address/presentation/view_model/address_event.dart';
@@ -14,6 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../../../core/widgets/custom_empty_state_view.dart';
+import '../../../../core/widgets/custom_error_state.dart';
 
 class SavedAddressesScreen extends StatelessWidget {
   const SavedAddressesScreen({super.key});
@@ -82,7 +83,7 @@ class _SavedAddressesBody extends StatelessWidget {
         }
 
         if (state.addressesState.errorMessage != null) {
-          return CustomErrorStateView(
+          return CustomErrorState(
             message: state.addressesState.errorMessage!,
             onRetry: () =>
                 context.read<AddressCubit>().doEvent(const GetAddressesEvent()),

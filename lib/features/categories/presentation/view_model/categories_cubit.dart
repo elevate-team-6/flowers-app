@@ -28,7 +28,9 @@ class CategoriesCubit extends Cubit<CategoriesStates> {
       case GetProductsRequestedEvent():
         _onGetProducts();
       case CategoryChangedEvent():
-        emit(state.copyWith(categoryId: event.categoryId ?? 'all'));
+        final newCategoryId = event.categoryId ?? 'all';
+        if (state.categoryId == newCategoryId) return;
+        emit(state.copyWith(categoryId: newCategoryId));
         _onGetProducts();
       case FilterChangedEvent():
         emit(state.copyWith(sort: event.sort));

@@ -46,6 +46,17 @@ abstract class AppEndPoints {
   static const String cardCheckout = '$cashCheckout/checkout';
   // orders:
   static const String orders = '$baseUrl/orders';
+
+  // OSRM (توجيه مجاني على شبكة OpenStreetMap لرسم المسار على الشوارع الفعلية):
+  // driving/{fromLon},{fromLat};{toLon},{toLat}
+  static const String osrmRouteBase =
+      'https://router.project-osrm.org/route/v1/driving';
+  static const String osrmCoordinatesParam = 'coordinates';
+  static const String osrmRoutePath = '$osrmRouteBase/{$osrmCoordinatesParam}';
+  static const String osrmOverviewParam = 'overview';
+  static const String osrmGeometriesParam = 'geometries';
+  static const String osrmOverviewFull = 'full';
+  static const String osrmGeometriesGeoJson = 'geojson';
   // Addresses:
   static const String addressIdParam = "id";
   static const String addressPath = "$addresses/{$addressIdParam}";

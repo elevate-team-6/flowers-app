@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_colors.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
-import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import 'custom_error_state.dart';
 import 'custom_flower_loading.dart';
 
 class CustomWebView extends StatefulWidget {
@@ -53,7 +53,7 @@ class _CustomWebViewState extends State<CustomWebView> {
   @override
   Widget build(BuildContext context) {
     if (_hasError) {
-      return CustomErrorStateView(
+      return CustomErrorState(
         message: AppStrings.noInternetConnection.tr(),
         onRetry: () {
           _controller.reload();

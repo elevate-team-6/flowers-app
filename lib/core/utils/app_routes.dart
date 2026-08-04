@@ -14,6 +14,8 @@ import 'package:flowers_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:flowers_app/features/cart/presentation/view_model/cart_bloc.dart';
 import 'package:flowers_app/features/checkout/presentation/screens/checkout_screen.dart';
 import 'package:flowers_app/features/checkout/presentation/screens/success_screen.dart';
+import 'package:flowers_app/features/tracking/presentation/screens/tracking_screen.dart';
+import 'package:flowers_app/features/tracking/presentation/view_model/tracking_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/view_model/checkout_cubit.dart';
 import 'package:flowers_app/features/checkout/presentation/widgets/payment_webview.dart';
 import 'package:flowers_app/features/home/presentation/view_model/cubit/home_view_model.dart';
@@ -82,6 +84,7 @@ abstract class AppRoutes {
   static const String editProfile = '/editProfile';
   static const String checkout = '/checkout';
   static const String success = '/succes';
+  static const String orderTracking = '/orderTracking';
   static const String paymentWebView = 'paymentWebView';
   static const String orders = '/orders';
   static const String trackingScreen = '/trackingScreen';
@@ -98,7 +101,19 @@ abstract class AppRoutes {
       case language:
         return MaterialPageRoute(builder: (_) => const LanguageScreen());
       case success:
-        return MaterialPageRoute(builder: (_) => const SuccessScreen());
+        final orderId = settings.arguments as String?;
+        return MaterialPageRoute(
+          builder: (_) => SuccessScreen(orderId: orderId),
+        );
+
+      case orderTracking:
+        final orderId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<TrackingCubit>()..getTracking(orderId),
+            child: TrackingScreen(orderId: orderId),
+          ),
+        );
 
       case mainLayout:
         return MaterialPageRoute(

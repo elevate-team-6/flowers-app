@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flowers_app/core/utils/app_routes.dart';
 import 'package:flowers_app/core/utils/app_strings.dart';
 import 'package:flowers_app/core/widgets/custom_empty_state_view.dart';
-import 'package:flowers_app/core/widgets/custom_error_state_view.dart';
 import 'package:flowers_app/core/widgets/custom_products_grid.dart';
 import 'package:flowers_app/core/widgets/custom_products_shimmer.dart';
 import 'package:flowers_app/features/categories/presentation/view_model/categories_cubit.dart';
@@ -10,6 +9,7 @@ import 'package:flowers_app/features/categories/presentation/view_model/categori
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/widgets/custom_error_state.dart';
 import '../view_model/categories_state.dart';
 
 class CategoriesProductsSection extends StatelessWidget {
@@ -24,7 +24,7 @@ class CategoriesProductsSection extends StatelessWidget {
     }
 
     if (state.productsState.errorMessage != null) {
-      return CustomErrorStateView(
+      return CustomErrorState(
         message: state.productsState.errorMessage!,
         onRetry: () {
           context.read<CategoriesCubit>().doEvent(

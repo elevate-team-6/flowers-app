@@ -67,4 +67,19 @@ abstract class DioModule {
 
     return dio;
   }
+
+  /// Dio مخصّص لخدمة OSRM (سيرفر طرف تالت): من غير baseUrl الـ API ولا الـ auth
+  /// interceptor، عشان ما نبعتش توكن المستخدم لسيرفر خارجي.
+  @Named('tracking')
+  @lazySingleton
+  Dio trackingDio(LoggingInterceptor loggingInterceptor) {
+    final dio = Dio();
+
+    dio.options.connectTimeout = const Duration(seconds: 30);
+    dio.options.receiveTimeout = const Duration(seconds: 30);
+
+    dio.interceptors.add(loggingInterceptor);
+
+    return dio;
+  }
 }
