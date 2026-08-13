@@ -56,10 +56,6 @@ class CheckoutRepoImpl implements CheckoutRepoContract {
                   AppConstants.orderIdField: orderModel.id,
                   AppConstants.orderNumberField: orderModel.orderNumber,
                   AppConstants.userIdField: orderModel.userId,
-                  AppConstants.statusField: 'pending',
-                  AppConstants.riderIdField: null,
-                  AppConstants.riderNameField: null,
-                  AppConstants.riderPhoneField: null,
                   AppConstants.isUserConfirmedDeliverdField: false,
                   AppConstants.shippingAddressField: {
                     AppConstants.streetField: request.street,
