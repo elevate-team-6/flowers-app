@@ -25,19 +25,46 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.41.7
+          cache: true
+
+      # الملفات دي متجاهلة في .gitignore، فلازم تتبني من الـ secrets قبل أي build.
+      - name: 🔑 Restore Firebase Config
+        env:
+          FIREBASE_OPTIONS_DART: ${{ secrets.FIREBASE_OPTIONS_DART }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -z "$FIREBASE_OPTIONS_DART" ] || [ -z "$GOOGLE_SERVICES_JSON" ]; then
+            echo "::error::Missing secrets FIREBASE_OPTIONS_DART and/or GOOGLE_SERVICES_JSON (both base64-encoded)."
+            exit 1
+          fi
+          echo "$FIREBASE_OPTIONS_DART" | base64 -d > lib/firebase_options.dart
+          echo "$GOOGLE_SERVICES_JSON" | base64 -d > android/app/google-services.json
 
       - name: Install Dependencies
         run: flutter pub get
 
+      # كل الملفات المولّدة متجاهلة في .gitignore، فمن غير الخطوة دي الكومبايل بيفشل.
+      - name: 🏗️ Run Code Generation
+        run: dart run build_runner build --delete-conflicting-outputs
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
 
+      # Gemfile.lock متولّد على ويندوز (PLATFORMS: x64-mingw-ucrt بس)، فـ bundle install
+      # بيفشل على Linux. fastlane بيحمّل أي gem اسمه fastlane-plugin-* متثبّت عالمي،
+      # فبنثبّت النسخ المقفولة مباشرة من غير bundler.
       - name: Install Fastlane
-        run: gem install fastlane
+        run: |
+          gem install fastlane -v 2.236.0
+          gem install fastlane-plugin-firebase_app_distribution -v 1.0.0
 
       - name: Create Firebase Credentials File
         run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > firebase.json
+          cat <<'EOF' > firebase.json
+          ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          EOF
 
       - name: Run Fastlane
         working-directory: android
