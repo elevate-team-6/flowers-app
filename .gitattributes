@@ -1,0 +1,11 @@
+# الريبو فيه مطوّرين على ويندوز (core.autocrlf=true)، والملفات دي لازم تفضل بسطور LF
+# لأنها بتتنفّذ على Linux في الـ CI — سطر CRLF في سكربت shell بيطلّع "bad interpreter".
+android/gradlew text eol=lf
+*.sh text eol=lf
+
+# ملفات باينري — منع أي تحويل سطور يفسدها.
+*.jar binary
+*.png binary
+*.jpg binary
+*.keystore binary
+*.jks binary

@@ -43,6 +43,14 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
+      # fastlane بينادي gradle مباشرة، و android/settings.gradle.kts بيطلب flutter.sdk
+      # من local.properties — والملف متجاهل في .gitignore فلازم نبنيه هنا.
+      - name: 🧩 Generate local.properties
+        run: |
+          FLUTTER_SDK="${FLUTTER_ROOT:-$(dirname "$(dirname "$(command -v flutter)")")}"
+          echo "flutter.sdk=$FLUTTER_SDK" > android/local.properties
+          cat android/local.properties
+
       # كل الملفات المولّدة متجاهلة في .gitignore، فمن غير الخطوة دي الكومبايل بيفشل.
       - name: 🏗️ Run Code Generation
         run: dart run build_runner build --delete-conflicting-outputs
@@ -50,7 +58,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2'
+          ruby-version: '3.3'
 
       # Gemfile.lock متولّد على ويندوز (PLATFORMS: x64-mingw-ucrt بس)، فـ bundle install
       # بيفشل على Linux. fastlane بيحمّل أي gem اسمه fastlane-plugin-* متثبّت عالمي،

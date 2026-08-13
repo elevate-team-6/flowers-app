@@ -1,8 +1,7 @@
-gradle-wrapper.jar
+# الـ Gradle wrapper (gradlew, gradlew.bat, gradle-wrapper.jar) لازم يفضل في الريبو
+# عشان الـ CI يقدر يبني — من غيره fastlane بيقع بـ "Couldn't find gradlew".
 /.gradle
 /captures/
-/gradlew
-/gradlew.bat
 /local.properties
 GeneratedPluginRegistrant.java
 .cxx/
