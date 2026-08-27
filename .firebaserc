@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "flowers-app-f2600"
-  }
+  },
+  "targets": {
+    "flowers-app-f2600": {
+      "hosting": {
+        "flowers-target": [
+          "flowers-app-web"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
