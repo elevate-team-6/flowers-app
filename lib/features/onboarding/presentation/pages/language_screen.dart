@@ -291,35 +291,47 @@ class _LanguageCardState extends State<_LanguageCard>
               ),
             ],
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(widget.flag, style: TextStyle(fontSize: 32.sp)),
-              SizedBox(height: 8.h),
-              Text(
-                widget.label,
-                style: GoogleFonts.poppins(
-                  fontSize: 15.sp,
-                  fontWeight: widget.isSelected
-                      ? FontWeight.bold
-                      : FontWeight.normal,
-                  color: AppColors.black50,
-                ),
-              ),
-              if (widget.isSelected)
-                AnimatedOpacity(
-                  opacity: 1,
-                  duration: const Duration(milliseconds: 200),
-                  child: Text(
-                    '✓',
-                    style: TextStyle(
-                      color: AppColors.primary,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
+          // FittedBox only shrinks the content if it doesn't fit the fixed
+          // card height — on mobile, where it already fits, this changes
+          // nothing visually. On web, where ScreenUtil's .h/.sp scaling
+          // leaves slightly less room, this prevents the overflow stripes
+          // automatically instead of hardcoding a taller card.
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(widget.flag, style: TextStyle(fontSize: 32.sp)),
+                  SizedBox(height: 8.h),
+                  Text(
+                    widget.label,
+                    style: GoogleFonts.poppins(
+                      fontSize: 15.sp,
+                      fontWeight: widget.isSelected
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: AppColors.black50,
                     ),
                   ),
-                ),
-            ],
+                  if (widget.isSelected)
+                    AnimatedOpacity(
+                      opacity: 1,
+                      duration: const Duration(milliseconds: 200),
+                      child: Text(
+                        '✓',
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

@@ -32,31 +32,39 @@ class _CategoryShimmerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 70.w,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Icon container (rounded square like image)
-          Container(
-            width: 55.w,
-            height: 55.w,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(14.r),
+      // FittedBox only shrinks the content if it doesn't fit the SizedBox's
+      // fixed 90.h height — on mobile, where it already fits, this changes
+      // nothing visually. On web, where ScreenUtil's .h/.w scaling leaves
+      // slightly less room, this prevents the overflow stripes automatically.
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Icon container (rounded square like image)
+            Container(
+              width: 55.w,
+              height: 55.w,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14.r),
+              ),
             ),
-          ),
 
-          SizedBox(height: 8.h),
+            SizedBox(height: 8.h),
 
-          // Text placeholder
-          Container(
-            width: 40.w,
-            height: 10.h,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(4.r),
+            // Text placeholder
+            Container(
+              width: 40.w,
+              height: 10.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4.r),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

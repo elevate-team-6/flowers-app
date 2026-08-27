@@ -24,6 +24,7 @@ class BestSellerCard extends StatelessWidget {
       child: SizedBox(
         width: 140.w,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
@@ -31,11 +32,14 @@ class BestSellerCard extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: imageUrl,
                 width: 140.w,
-                height: 150.h,
+                // Slightly shorter than the original 150.h — on web,
+                // ScreenUtil's .h scaling left the text below it with no
+                // room, causing the card to overflow its fixed grid slot.
+                height: 130.h,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
                   width: 140.w,
-                  height: 150.h,
+                  height: 130.h,
                   color: AppColors.white60,
                   child: Center(
                     child: SizedBox(
@@ -47,7 +51,7 @@ class BestSellerCard extends StatelessWidget {
                 ),
                 errorWidget: (context, url, error) => Container(
                   width: 140.w,
-                  height: 150.h,
+                  height: 130.h,
                   color: AppColors.white60,
                   child: Icon(
                     Icons.local_florist,
@@ -57,7 +61,7 @@ class BestSellerCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 8.h),
+            SizedBox(height: 6.h),
             Text(
               title,
               style: TextStyle(
@@ -68,7 +72,6 @@ class BestSellerCard extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(height: 2.h),
             Text(
               price,
               style: TextStyle(
